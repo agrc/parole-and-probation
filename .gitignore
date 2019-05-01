@@ -2,4 +2,6 @@
 .DS_Store
 *.pyc
 forklift/temp
-forklift/secrets.py
+forklift/vault/ftp.py
+__pycache__
+forklift/vault/database.py
