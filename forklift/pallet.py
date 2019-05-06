@@ -50,14 +50,33 @@ class CorrectionPallet(Pallet):
 
     def process(self):
         data = []
-        with open(os.path.join(self.corrections, self.data), 'r', newline='') as dat:
-            dat_reader = csv.reader(dat, delimiter='|', quoting=csv.QUOTE_NONE)
-            for row in dat_reader:
-                data.append([caster.cast(field, schema.SCHEMA[index][1]) for index, field in enumerate(row) if index < len(schema.SCHEMA)])
-        #: truncate database
-        #: load new data
+        dat_file = os.path.join(self.corrections, self.data)
+        stats = os.stat(dat_file)
 
-        sqlwriter.insert_rows('offenders', data)
+        try:
+            self.log.info('reading dat file')
+            with open(dat_file, 'r', newline='') as dat:
+                dat_reader = csv.reader(dat, delimiter='|', quoting=csv.QUOTE_NONE)
+                for row in dat_reader:
+                    data.append([caster.cast(field, schema.SCHEMA[index][1]) for index, field in enumerate(row) if index < len(schema.SCHEMA)])
+
+            #: truncate database
+            self.log.info('truncating table')
+            sqlwriter.truncate('offenders', self.log)
+
+            #: load new data
+            self.log.info('writing rows')
+            sqlwriter.insert_rows('offenders', data, self.log)
+        except Exception as e:
+            self.log.fatal(e)
+            self.success = (False, 'unable to read and write data to sql')
+        finally:
+            with open(dat_file, 'w') as dat:
+                dat.truncate()
+                #: opening for writing truncates file
+                pass
+
+            os.utime(dat_file, (stats.st_atime, stats.st_mtime))
 
     def is_dat(self, file_path):
         return os.path.basename(file_path).lower() == self.data

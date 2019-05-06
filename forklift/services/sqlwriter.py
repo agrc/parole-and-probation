@@ -13,7 +13,7 @@ batch_size = 10000
 insert_statements = {'offenders': 'INSERT INTO offenders VALUES ({}'.format('?, ' * len(schema.SCHEMA))[:-2] + ')'}
 
 
-def insert_rows(table_name, rows):
+def insert_rows(table_name, rows, log):
     if table_name.lower() not in list(insert_statements.keys()):
         raise Exception(table_name, 'Do not know how to insert this type of record')
 
@@ -31,7 +31,7 @@ def insert_rows(table_name, rows):
             if i % batch_size == 0:
                 cursor.commit()
         except Exception as e:
-            print(row)
+            log.debug(row)
             cursor.close()
             connection.close()
 
@@ -39,6 +39,25 @@ def insert_rows(table_name, rows):
 
     try:
         cursor.commit()
-    except odbc.ProgrammingError:
+    except odbc.ProgrammingError as e:
+        log.fatal(e)
         #: connection is closed. error
         pass
+
+
+def truncate(table_name, log):
+    connection = odbc.connect(database.CONNECTION)
+    cursor = connection.cursor()
+
+    command = 'TRUNCATE TABLE {}'.format(table_name)
+    cursor.execute(command)
+
+    try:
+        cursor.commit()
+    except odbc.ProgrammingError as e:
+        log.debug(command)
+        log.fatal(e)
+        #: connection is closed. error
+        raise e
+
+    connection.close()
