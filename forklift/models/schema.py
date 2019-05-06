@@ -45,7 +45,7 @@ SCHEMA = [
     ('crime_degree', 'string'),
     ('offense', 'string'),
     ('ecc', 'date'),
-    ('active_warrant', 'string'),
+    ('active_warrant', 'bit'),
     ('employer', 'string'),
     ('stg_id', 'int'),
     ('stg_name', 'string'),
