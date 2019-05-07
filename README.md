@@ -28,3 +28,5 @@ AP&amp;P web application
 1. Update secrets in the following files
    - Remove `.template` from `vault\database.template.py`
    - Remove `.template` from `vault\ftp.tempate.py`
+1. Create `corrections` database 
+1. Run [schema.sql](/scripts/schema.sql) to create the `offenders` table
