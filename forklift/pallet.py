@@ -35,6 +35,8 @@ class CorrectionPallet(Pallet):
             os.makedirs(self.corrections, exist_ok=True)
             self.get_files()
 
+            self.data_stats = os.stat(data)
+
             self.dirty = True
 
             return True
