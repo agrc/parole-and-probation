@@ -97,15 +97,16 @@ class CorrectionPallet(Pallet):
             self.success = (False, 'unable to read csv and write data to sql')
             success = False
         finally:
-            with open(dat_file, 'w') as dat:
-                dat.truncate()
+            if os.path.exists(dat_file):
+                with open(dat_file, 'w') as dat:
+                    dat.truncate()
 
-            if success:
-                #: reset access stats from truncate
-                os.utime(dat_file, (stats.st_atime, stats.st_mtime))
-            else:
-                #: reset stats to original because errors
-                os.utime(dat_file, (self.data_stats.st_atime, stats.st_mtime))
+                if success:
+                    #: reset access stats from truncate
+                    os.utime(dat_file, (stats.st_atime, stats.st_mtime))
+                else:
+                    #: reset stats to original because errors
+                    os.utime(dat_file, (self.data_stats.st_atime, stats.st_mtime))
 
     def is_dat(self, file_path):
         return os.path.basename(file_path).lower() == self.data
