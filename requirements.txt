@@ -1,0 +1,4 @@
+pysftp
+pandas
+sqlalchemy
+pyodbc

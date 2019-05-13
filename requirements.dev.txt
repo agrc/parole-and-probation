@@ -1,0 +1,6 @@
+-r ./requirements.txt
+yapf
+pylint
+flake8
+isort
+pep8
