@@ -22,7 +22,7 @@ CREATE TABLE offenders
     unit nvarchar(15),
     city nvarchar(30),
     state nchar(2),
-    zip integer(5),
+    zip integer,
     address_type_code nchar(1),
     address_type nvarchar(20),
     x decimal(24,20),
