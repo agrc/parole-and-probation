@@ -26,6 +26,7 @@ secrets.json
 forklift/temp
 forklift/vault/ftp.py
 forklift/vault/database.py
+forklift/secrets.py
 
 # misc
 .DS_Store
