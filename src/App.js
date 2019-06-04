@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import MapLens from './components/MapLens';
-import FindAddress from './components/dart-board/FindAddress';
-import { Sherlock, WebApiProvider } from './components/Sherlock/Sherlock';
 import MapView from './components/esrijs/MapView';
-import Printer from './components/esrijs/Print';
 import { IdentifyInformation, IdentifyContainer } from './components/Identify';
-import { Collapse, Button, Card } from 'reactstrap';
+import { Button, Card } from 'reactstrap';
 import config from './config';
 import './App.css';
 
@@ -38,39 +35,6 @@ export default class App extends Component {
     const apiKey = process.env.REACT_APP_WEB_API;
     const version = process.env.REACT_APP_VERSION;
 
-    const findAddressOptions = {
-      apiKey: apiKey,
-      wkid: config.WEB_MERCATOR_WKID,
-      symbol: {
-        type: 'simple-marker',
-        style: 'diamond',
-        color: config.MARKER_FILL_COLOR,
-        size: '18px',
-        outline: {
-          color: config.MARKER_OUTLINE_COLOR,
-          width: 1
-        }
-      }
-    };
-
-    const gnisSherlock = {
-      provider: new WebApiProvider(apiKey, 'SGID10.LOCATION.PlaceNamesGNIS2010', 'NAME', {
-        contextField: 'COUNTY'
-      }),
-      label: 'Find Point of Interest',
-      placeHolder: 'place name ...',
-      maxResultsToDisplay: 10,
-      onSherlockMatch: this.onSherlockMatch
-    };
-
-    const citySherlock = {
-      provider: new WebApiProvider(apiKey, 'SGID10.BOUNDARIES.Municipalities', 'NAME'),
-      label: 'Find City',
-      placeHolder: 'city name ...',
-      maxResultsToDisplay: 10,
-      onSherlockMatch: this.onSherlockMatch
-    };
-
     const mapOptions = {
       discoverKey: quadWord,
       zoomToGraphic: this.state.zoomToGraphic,
@@ -88,32 +52,14 @@ export default class App extends Component {
         <Header title="AP&P Field Map" version={version} />
         {this.state.showIdentify ?
           <IdentifyContainer show={this.showIdentify}>
-            <IdentifyInformation apiKey={findAddressOptions.apiKey} location={this.state.mapClick} />
+            <IdentifyInformation apiKey={apiKey} location={this.state.mapClick} />
           </IdentifyContainer>
           : null}
         <Sidebar>
-          <h4>Find Address</h4>
-          <div id="geocodeNode">
-            <FindAddress
-              pointSymbol={findAddressOptions.symbol}
-              apiKey={findAddressOptions.apiKey}
-              onFindAddress={this.onFindAddress}
-              onFindAddressError={this.onFindAddressError} />
-          </div>
-
-          <Sherlock {...gnisSherlock}></Sherlock>
-
-          <Sherlock {...citySherlock}></Sherlock>
-
           <Card>
-            <Button block onClick={this.togglePrint}>Export Map</Button>
-            <Collapse isOpen={this.state.showPrint}>
-              {this.state.showPrint ?
-                <Printer view={this.state.mapView}></Printer>
-                : null}
-            </Collapse>
+            <Button block>Apply</Button>
+            <Button block>Reset</Button>
           </Card>
-
         </Sidebar>
         <MapLens {...sidebarOptions}>
           <MapView {...mapOptions} />
