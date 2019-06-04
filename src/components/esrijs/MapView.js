@@ -8,10 +8,6 @@ import cityExtents from './data/cityExtents.json';
 export default class ReactMapView extends Component {
   zoomLevel = 5;
   displayedZoomGraphic = null;
-  urls = {
-    landownership: 'https://gis.trustlands.utah.gov/server/' +
-      '/rest/services/Ownership/UT_SITLA_Ownership_LandOwnership_WM/FeatureServer/0'
-  };
 
   render() {
     return (
@@ -25,7 +21,7 @@ export default class ReactMapView extends Component {
   }
 
   async componentDidMount() {
-    loadCss('https://js.arcgis.com/4.9/esri/css/main.css');
+    loadCss('https://js.arcgis.com/4.11/esri/css/main.css');
     const mapRequires = [
       'esri/Map',
       'esri/views/MapView',
@@ -39,6 +35,7 @@ export default class ReactMapView extends Component {
       'esri/Basemap'
     ];
 
+    // FeatureLayer is required eventhough unused
     const [Map, MapView, FeatureLayer, Polygon, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires));
 
     this.map = new Map();
@@ -64,16 +61,7 @@ export default class ReactMapView extends Component {
     const layerSelectorOptions = {
       view: this.view,
       quadWord: this.props.discoverKey,
-      baseLayers: ['Hybrid', {
-        token: 'Lite',
-        selected: true
-      }, 'Terrain', 'Topo', 'Color IR'],
-      overlays: ['Address Points', {
-        Factory: FeatureLayer,
-        url: this.urls.landownership,
-        id: 'Land Ownership',
-        opacity: 0.3
-      }],
+      baseLayers: ['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR'],
       modules: [LOD, TileInfo, WebTileLayer, Basemap]
     }
 
