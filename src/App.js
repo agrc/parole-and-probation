@@ -3,8 +3,8 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import MapLens from './components/MapLens';
 import MapView from './components/esrijs/MapView';
+import Filters from './components/Filters';
 import { IdentifyInformation, IdentifyContainer } from './components/Identify';
-import { Button, Card } from 'reactstrap';
 import config from './config';
 import './App.css';
 
@@ -53,10 +53,7 @@ export default class App extends Component {
           </IdentifyContainer>
           : null}
         <Sidebar>
-          <Card>
-            <Button block>Apply</Button>
-            <Button block>Reset</Button>
-          </Card>
+          <Filters />
         </Sidebar>
         <MapLens {...sidebarOptions}>
           <MapView {...mapOptions} />
@@ -64,19 +61,6 @@ export default class App extends Component {
       </div>
     );
   }
-
-  onFindAddress(graphic) {
-    this.setState({
-      zoomToGraphic: {
-        graphic: graphic,
-        level: 18
-      }
-    });
-  };
-
-  onFindAddressError(e) {
-    console.error(e);
-  };
 
   onMapClick(event) {
     this.setState({
@@ -88,30 +72,6 @@ export default class App extends Component {
 
   showIdentify(value) {
     this.setState({ showIdentify: value });
-  }
-
-  onSherlockMatch(graphics) {
-    // summary:
-    //      Zooms to the passed in graphic(s).
-    // graphics: esri.Graphic[]
-    //      The esri.Graphic(s) that you want to zoom to.
-    // tags:
-    //      private
-    console.log('sherlock:zoom', arguments);
-
-    // check for point feature
-    this.setState({
-      zoomToGraphic: {
-        graphic: graphics,
-        preserve: false
-      }
-    });
-  }
-
-  togglePrint() {
-    this.setState({
-      showPrint: !this.state.showPrint
-    });
   }
 
   toggleSidebar() {

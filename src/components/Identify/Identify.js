@@ -193,7 +193,7 @@ class IdentifyInformation extends Component {
         </Col>
         <Col>
           <a href={this.state.googleMapsLink} className="text-info position-static" target="_blank" rel="noopener noreferrer">Google Street View</a>
-          <FontAwesomeIcon icon={faExternalLinkAlt} className="identify--muted" style={{ marginLeft: '.5em'}}></FontAwesomeIcon>
+          <FontAwesomeIcon icon={faExternalLinkAlt} className="identify--muted" style={{ marginLeft: '.5em' }}></FontAwesomeIcon>
         </Col>
       </Container>
     );

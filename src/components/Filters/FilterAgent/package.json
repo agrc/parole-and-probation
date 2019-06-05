@@ -1,0 +1,6 @@
+{
+  "name": "filter-agent",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./FilterAgent.js"
+}

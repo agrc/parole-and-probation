@@ -1,0 +1,6 @@
+{
+  "name": "filter-selector",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./FilterSelector.js"
+}
