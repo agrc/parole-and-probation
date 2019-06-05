@@ -36,6 +36,7 @@ export default class ReactMapView extends Component {
     ];
 
     // FeatureLayer is required eventhough unused
+    // eslint-disable-next-line
     const [Map, MapView, FeatureLayer, Polygon, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires));
 
     this.map = new Map();
