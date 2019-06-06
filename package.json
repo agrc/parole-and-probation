@@ -29,6 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "release": "standard-version",
     "stage": "./node_modules/.bin/env-cmd -f ./.env.stage react-scripts build && grunt deploy-stage",
     "changelog": "./node_modules/.bin/conventional-changelog -p angular -i ./CHANGELOG.md -s -r 0",
     "test": "react-scripts test",
@@ -44,13 +45,13 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "conventional-changelog-cli": "^2.0.21",
     "env-cmd": "^9.0.3",
     "eslint-plugin-react-hooks": "^1.6.0",
     "grunt": "^1.0.3",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-compress": "^1.4.3",
     "grunt-ssh": "^0.12.9",
-    "load-grunt-tasks": "^5.0.0"
+    "load-grunt-tasks": "^5.0.0",
+    "standard-version": "^6.0.1"
   }
 }
