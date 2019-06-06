@@ -2,7 +2,7 @@ module.exports = function configure(grunt) {
   require('load-grunt-tasks')(grunt);
 
   var deployFiles = ['**'];
-  var deployDir = 'atlas';
+  var deployDir = 'app';
   var secrets;
   try {
     secrets = grunt.file.readJSON('secrets.json');
@@ -91,6 +91,13 @@ module.exports = function configure(grunt) {
       }
     }
   });
+
+  grunt.registerTask('deploy-stage', [
+    'clean:main',
+    'compress:main',
+    'sftp:stage',
+    'sshexec:stage'
+  ]);
 
   grunt.registerTask('deploy-prod', [
     'clean:main',
