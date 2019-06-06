@@ -4,7 +4,14 @@ AP&amp;P web application
 
 ## Development
 
-### Python
+### website
+
+1. Using node lts get all of the project dependencies
+   - `npm install`
+1. Start a server
+   - `npm start`
+
+### forklift
 
 1. From python 3 create a virtual environment
    - `python -m venv .env`
@@ -18,6 +25,26 @@ AP&amp;P web application
 
 ## Deployment
 
+### website
+
+_This website uses standard version and conventional commits. The changelog and versions are managed by conventional commit messages and semantic versioning._
+
+#### releases
+
+1. Create a release
+   - `npm run release`
+1. Create a prerelease
+   - `npm run release -- --preprelease`
+1. Push the version bump, changelog, and tag to GitHub
+   - `git push --follow-tags origin masger`
+
+#### deploying
+
+Rename and update `secrets.sample.json` to `secrets.json`
+
+1. Publish to staging
+   - `npm run stage`
+
 ### forklift
 
 1. Install python requirements to forklift environment
@@ -28,5 +55,5 @@ AP&amp;P web application
 1. Update secrets in the following files
    - Remove `.template` from `vault\database.template.py`
    - Remove `.template` from `vault\ftp.tempate.py`
-1. Create `corrections` database 
+1. Create `corrections` database
 1. Run [schema.sql](/scripts/schema.sql) to create the `offenders` table
