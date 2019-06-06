@@ -44,6 +44,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0",
     "env-cmd": "^9.0.3",
     "eslint-plugin-react-hooks": "^1.6.0",
     "grunt": "^1.0.3",
@@ -52,5 +53,10 @@
     "grunt-ssh": "^0.12.9",
     "load-grunt-tasks": "^5.0.0",
     "standard-version": "^6.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
