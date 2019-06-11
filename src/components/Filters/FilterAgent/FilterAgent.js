@@ -31,7 +31,7 @@ export default function FilterAgent(props) {
     const addAgentsForSupervisor = (supervisorName) => {
         const updates = new Set();
 
-        if (vanityCheck) {
+        if (vanityCheck()) {
             updates.add(loggedInUser);
         }
 
@@ -40,7 +40,7 @@ export default function FilterAgent(props) {
         if (!supervisorName) {
             updates.clear();
 
-            if (vanityCheck) {
+            if (vanityCheck()) {
                 updates.add(loggedInUser);
             }
         }
@@ -60,8 +60,8 @@ export default function FilterAgent(props) {
                         <Button
                             size="sm"
                             block
-                            color={vanityCheck ? 'warning' : 'secondary'}
-                            onClick={() => updateAgents(loggedInUser, !vanityCheck)}>Me</Button>
+                            color={vanityCheck() ? 'warning' : 'secondary'}
+                            onClick={() => updateAgents(loggedInUser, !vanityCheck())}>Me</Button>
                     </FormGroup>
                     <FormGroup>
                         <Label>Agent</Label>
