@@ -24,6 +24,10 @@ export default function FilterLocation(props) {
                                 )}
                             </ButtonGroup>
                         </div>
+                        <FormGroup>
+                            <Label>Buffer radius (m)</Label>
+                            <Input type="number" name="buffer" id="buffer" placeholder="1600" />
+                        </FormGroup>
                     </FormGroup>
                 </Col>
                 <Col>
