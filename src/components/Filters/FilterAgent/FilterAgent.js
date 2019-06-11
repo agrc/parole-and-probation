@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { FormGroup, Container, Col, Button, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import useInputState from '../useInputState';
 import './FilterAgent.css';
@@ -50,7 +50,7 @@ export default function FilterAgent(props) {
         supervisor.reset();
     };
 
-    const vanityCheck = useMemo(() => agents.indexOf(loggedInUser) > -1, [agents]);
+    const vanityCheck = () => agents.indexOf(loggedInUser) > -1;
 
     return (
         props.active === 'Agent' ?
