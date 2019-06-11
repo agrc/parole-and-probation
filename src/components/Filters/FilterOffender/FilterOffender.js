@@ -16,8 +16,8 @@ export default function FilterOffender(props) {
                 </Col>
                 <Col>
                     <FormGroup>
-                        <Label>Location</Label>
-                        <Input type="text" name="location" id="location" />
+                        <Label>Offender Number</Label>
+                        <Input type="number" name="number" id="number" />
                     </FormGroup>
                 </Col>
                 <Col>
@@ -36,12 +36,6 @@ export default function FilterOffender(props) {
                                 )}
                             </ButtonGroup>
                         </div>
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup>
-                        <Label>Age</Label>
-                        <Input type="number" name="age" id="age" />
                     </FormGroup>
                 </Col>
                 <Col>
