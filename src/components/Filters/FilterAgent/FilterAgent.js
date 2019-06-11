@@ -5,7 +5,7 @@ import './FilterAgent.css';
 
 export default function FilterAgent(props) {
     const loggedInUser = 'logged in user';
-    const [agents, setAgent] = useState([]);
+    const [agents, setAgent] = useState([loggedInUser]);
     const agent = useInputState();
     const supervisor = useInputState();
 
