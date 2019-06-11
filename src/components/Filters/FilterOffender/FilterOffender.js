@@ -30,7 +30,13 @@ export default function FilterOffender(props) {
                                         key={index}
                                         size="sm"
                                         color={active === gender ? 'warning' : 'secondary'}
-                                        onClick={() => setActive(gender)}>
+                                        onClick={() => {
+                                            if (active === gender) {
+                                                gender = null;
+                                            }
+
+                                            setActive(gender);
+                                        }}>
                                         {gender}
                                     </Button>
                                 )}
