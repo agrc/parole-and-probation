@@ -44,12 +44,6 @@ export default function FilterLocation(props) {
                         <Input type="text" name="county" id="county" />
                     </FormGroup>
                 </Col>
-                <Col>
-                    <FormGroup>
-                        <Label>Address Type</Label>
-                        <Input type="text" name="address" id="address" />
-                    </FormGroup>
-                </Col>
             </Container>
             : null
     )
