@@ -18,8 +18,7 @@ export default class App extends Component {
     },
     mapClick: {},
     sideBarOpen: window.innerWidth >= config.MIN_DESKTOP_WIDTH,
-    showIdentify: false,
-    showPrint: false
+    showIdentify: false
   };
 
   onMapClick = this.onMapClick.bind(this);
