@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { FormGroup, Container, Col, Button, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import useInputState from '../useInputState';
 import './FilterAgent.css';
@@ -9,7 +9,7 @@ export default function FilterAgent(props) {
     const agent = useInputState();
     const supervisor = useInputState();
 
-    const updateAgents = useCallback((agentName, add) => {
+    const updateAgents = (agentName, add) => {
         if (!agentName) {
             return;
         }
@@ -26,9 +26,9 @@ export default function FilterAgent(props) {
 
         setAgent(Array.from(updates));
         agent.reset()
-    }, [agents]);
+    };
 
-    const addAgentsForSupervisor = useCallback((supervisorName) => {
+    const addAgentsForSupervisor = (supervisorName) => {
         const updates = new Set();
 
         if (vanityCheck) {
@@ -48,7 +48,7 @@ export default function FilterAgent(props) {
         setAgent(Array.from(updates));
 
         supervisor.reset();
-    }, [agents]);
+    };
 
     const vanityCheck = useMemo(() => agents.indexOf(loggedInUser) > -1, [agents]);
 
