@@ -54,8 +54,6 @@ export default class ReactMapView extends Component {
       }
     });
 
-    this.props.setView(this.view);
-
     const selectorNode = document.createElement('div');
     this.view.ui.add(selectorNode, 'top-right');
 
@@ -72,10 +70,11 @@ export default class ReactMapView extends Component {
       </LayerSelectorContainer>,
       selectorNode);
 
-    this.view.on('click', this.props.onClick);
+    this.view.on('click', event => this.props.mapDispatcher({ type: 'click', mapPoint: event.mapPoint }));
   }
 
   componentDidUpdate(prevProps) {
+    console.log('componentDidUpdate');
     const currentGraphic = (((this.props || false).zoomToGraphic || false).graphic || false);
     const previousGraphic = (((prevProps || false).zoomToGraphic || false).graphic || false);
 
