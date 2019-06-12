@@ -4,6 +4,7 @@ import './FilterLocation.css';
 
 export default function FilterLocation(props) {
     const [active, setActive] = useState();
+    const [regions, setRegions] = useState([]);
 
     return (
         props.active === 'Location' ?
@@ -46,6 +47,33 @@ export default function FilterLocation(props) {
                     <FormGroup>
                         <Label>County</Label>
                         <Input type="text" name="county" id="county" />
+                    </FormGroup>
+                </Col>
+                <Col>
+                    <FormGroup>
+                        <Label>Region</Label>
+                        <div className="text-center">
+                            <ButtonGroup>
+                                {[...Array(5).keys()].map(type =>
+                                    <Button
+                                        key={type + 1}
+                                        value={type + 1}
+                                        size="sm"
+                                        color={regions.indexOf((type + 1).toString()) > -1 ? 'warning' : 'secondary'}
+                                        onClick={(event) => {
+                                            if (regions.indexOf((type + 1).toString()) === -1) {
+                                                const temp = [...regions, event.target.value];
+                                                setRegions(temp);
+                                            } else {
+                                                const temp = regions.filter(item => item !== event.target.value)
+                                                setRegions(temp);
+                                            }
+                                        }}>
+                                        {type + 1}
+                                    </Button>
+                                )}
+                            </ButtonGroup>
+                        </div>
                     </FormGroup>
                 </Col>
             </Container>
