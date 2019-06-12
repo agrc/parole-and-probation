@@ -20,7 +20,13 @@ export default function FilterLocation(props) {
                                         key={index}
                                         size="sm"
                                         color={activeLocationType === type ? 'warning' : 'secondary'}
-                                        onClick={() => setActive(type)}>
+                                        onClick={() => {
+                                            if (activeLocationType === type) {
+                                                type = null;
+                                            }
+
+                                            setActive(type);
+                                        }}>
                                         {type}
                                     </Button>
                                 )}
