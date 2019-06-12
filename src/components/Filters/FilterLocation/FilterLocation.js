@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button, ButtonGroup, FormGroup, Label, Input, Container, Col } from 'reactstrap'
+import DartBoard from '../../DartBoard';
 import './FilterLocation.css';
 
-export default function FilterLocation() {
-    const [active, setActive] = useState();
+export default function FilterLocation(props) {
+    const [activeLocationType, setActive] = useState();
     const [regions, setRegions] = useState([]);
 
     return (
@@ -13,21 +14,45 @@ export default function FilterLocation() {
                     <Label>Location</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {['Current', 'Select', 'Input'].map((type, index) =>
+                            {['Current', 'Select', 'Address'].map((type, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
-                                    color={active === type ? 'warning' : 'secondary'}
-                                    onClick={() => setActive(type)}>
+                                    color={activeLocationType === type ? 'warning' : 'secondary'}
+                                    onClick={() => {
+                                        if (activeLocationType === type) {
+                                            type = null;
+                                        }
+
+                                        setActive(type);
+                                    }}>
                                     {type}
                                 </Button>
                             )}
                         </ButtonGroup>
                     </div>
-                    <FormGroup>
-                        <Label>Buffer radius (m)</Label>
-                        <Input type="number" name="buffer" id="buffer" placeholder="1600" />
-                    </FormGroup>
+                    {['Current', 'Select'].indexOf(activeLocationType) > -1 ? (
+                        <FormGroup>
+                            <Label>Buffer radius (m)</Label>
+                            <Input type="number" name="buffer" id="buffer" placeholder="1600" />
+                        </FormGroup>
+                    ) : null}
+                    {activeLocationType === 'Address' ? (
+                        <DartBoard
+                            apiKey={process.env.REACT_APP_WEB_API}
+                            onFindAddress={result => props.dispatcher({ type: 'zoom', graphic: result })}
+                            pointSymbol={{
+                                type: 'simple-marker',
+                                style: 'diamond',
+                                color: [130, 65, 47, 0.5],
+                                size: '18px',
+                                outline: {
+                                    color: [230, 126, 21, 0.7],
+                                    width: 1
+                                }
+                            }}
+                        />
+                    ) : null}
                 </FormGroup>
             </Col>
             <Col>

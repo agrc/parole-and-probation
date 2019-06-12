@@ -8,7 +8,7 @@ import FilterLocation from './FilterLocation';
 import FilterOther from './FilterOther';
 import './Filters.css';
 
-export default function Filters() {
+export default function Filters(props) {
     function reducer(_, action) {
         switch (action.type) {
             case 'selection':
@@ -29,7 +29,7 @@ export default function Filters() {
                 <FilterOffender />
             </AccordionPane>
             <AccordionPane title="Location">
-                <FilterLocation />
+                <FilterLocation dispatcher={props.mapDispatcher} />
             </AccordionPane>
             <AccordionPane title="Supervision Contact">
                 <FilterDate />
