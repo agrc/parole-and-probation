@@ -37,12 +37,24 @@ export default class DartBoard extends Component {
       <div className={'dart-board' + (this.inline ? ' form-inline' : '')}>
         <FormGroup>
           <Label for="address">Street Address</Label>
-          <Input type="text" value={this.state.street} onChange={(e) => this.handleChange('street', e)} onKeyPress={this.handleKeyPress} />
+          <Input
+            type="text"
+            value={this.state.street}
+            onChange={(e) => this.handleChange('street', e)}
+            onKeyPress={this.handleKeyPress}
+            autoComplete="nope"
+          />
           <FormText color="danger" className={this.state.streetIsValid ? 'dart-board__help-block' : ''}>Required!</FormText>
         </FormGroup>
         <FormGroup>
           <Label for="zone">Zip or City</Label>
-          <Input type="text" value={this.state.zone} onChange={(e) => this.handleChange('zone', e)} onKeyPress={this.handleKeyPress} />
+          <Input
+            type="text"
+            value={this.state.zone}
+            onChange={(e) => this.handleChange('zone', e)}
+            onKeyPress={this.handleKeyPress}
+            autoComplete="nope"
+          />
           <FormText color="danger" className={this.state.zoneIsValid ? 'dart-board__help-block' : ''}>Required!</FormText>
         </FormGroup>
         <FormGroup>
