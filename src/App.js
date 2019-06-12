@@ -9,7 +9,7 @@ import config from './config';
 import './App.css';
 
 export default function App() {
-  function reducer(_, action) {
+  const reducer = (_, action) => {
     console.log(action);
     switch (action.type) {
       case 'zoom':

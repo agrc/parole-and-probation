@@ -14,7 +14,7 @@ export default function FilterLocation(props) {
                     <Label>Location</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {['Current', 'Select', 'Input'].map((type, index) =>
+                            {['Current', 'Select', 'Address'].map((type, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
@@ -26,7 +26,6 @@ export default function FilterLocation(props) {
                         </ButtonGroup>
                     </div>
                     {['Current', 'Select'].indexOf(activeLocationType) > -1 ? (
-
                         <FormGroup>
                             <Label>Buffer radius (m)</Label>
                             <Input type="number" name="buffer" id="buffer" placeholder="1600" />
