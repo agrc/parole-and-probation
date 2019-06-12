@@ -4,7 +4,6 @@ import './FilterOther.css';
 
 export default function FilterOther(props) {
     const [warrant, setWarrant] = useState();
-    const [visit, setVisit] = useState();
 
     return (
         props.active === 'Other' ?
@@ -50,24 +49,6 @@ export default function FilterOther(props) {
                                         size="sm"
                                         color={warrant === binary ? 'warning' : 'secondary'}
                                         onClick={() => setWarrant(binary)}>
-                                        {binary}
-                                    </Button>
-                                )}
-                            </ButtonGroup>
-                        </div>
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup>
-                        <Label>No Field Visit</Label>
-                        <div className="text-center">
-                            <ButtonGroup>
-                                {['No Visits'].map((binary, index) =>
-                                    <Button
-                                        key={index}
-                                        size="sm"
-                                        color={visit ? 'warning' : 'secondary'}
-                                        onClick={() => { setVisit(!visit) }}>
                                         {binary}
                                     </Button>
                                 )}
