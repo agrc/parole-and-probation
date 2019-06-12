@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Col, Collapse, Label, FormGroup } from 'reactstrap'
+import { Button, ButtonGroup, Container, Col, Collapse, Label, FormGroup } from 'reactstrap'
 import Calendar from 'react-calendar'
 import './FilterDate.css';
 
@@ -10,10 +10,29 @@ export default function FilterDate(props) {
     const [attempted, toggleAttempted] = useState(false);
     const [successful, toggleSuccessful] = useState(false);
     const [office, toggleOffice] = useState(false);
+    const [visit, setVisit] = useState(false);
 
     return (
         props.active === 'Date' ?
             <Container fluid className="filter-date">
+                <Col>
+                    <FormGroup>
+                        <Label>No Field Visit</Label>
+                        <div className="text-center">
+                            <ButtonGroup>
+                                {['No Visits'].map((binary, index) =>
+                                    <Button
+                                        key={index}
+                                        size="sm"
+                                        color={visit ? 'warning' : 'secondary'}
+                                        onClick={() => { setVisit(!visit) }}>
+                                        {binary}
+                                    </Button>
+                                )}
+                            </ButtonGroup>
+                        </div>
+                    </FormGroup>
+                </Col>
                 <Col>
                     <FormGroup>
                         <Label onClick={() => toggleAttempted(!attempted)}>Last Attempted Field Contact</Label>
