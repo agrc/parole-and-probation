@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FormGroup, Container, Col, Button, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import Downshift from 'downshift'
-import useDownshiftState from '../useDownshiftState';
 import './FilterAgent.css';
 
 const testData = {
@@ -21,8 +20,6 @@ const testData = {
 export default function FilterAgent(props) {
     const loggedInUser = 'logged in user';
     const [agents, setAgent] = useState([loggedInUser]);
-    const agent = useDownshiftState();
-    const supervisor = useDownshiftState();
 
     const updateAgents = (agentName, add) => {
         if (!agentName) {
@@ -40,19 +37,15 @@ export default function FilterAgent(props) {
         }
 
         setAgent(Array.from(updates));
-        agent.reset()
     };
 
     const addAgentsForSupervisor = supervisorName => {
+
         const updates = new Set();
 
         if (vanityCheck()) {
             updates.add(loggedInUser);
         }
-
-        testData.agents
-            .filter(agent => agent.supervisor.toLowerCase() === supervisorName.toLowerCase())
-            .forEach(item => updates.add(item.value));
 
         if (!supervisorName) {
             updates.clear();
@@ -60,11 +53,13 @@ export default function FilterAgent(props) {
             if (vanityCheck()) {
                 updates.add(loggedInUser);
             }
+        } else {
+            testData.agents
+                .filter(agent => agent.supervisor.toLowerCase() === supervisorName.toLowerCase())
+                .forEach(item => updates.add(item.value));
         }
 
         setAgent(Array.from(updates));
-
-        supervisor.reset();
     };
 
     const vanityCheck = () => agents.indexOf(loggedInUser) > -1;
@@ -83,22 +78,15 @@ export default function FilterAgent(props) {
                     <FormGroup>
                         <Label>Agent</Label>
                         <Downshift
-                            onChange={agent.onChange}
-                            stateReducer={(_, changes) => {
+                            stateReducer={(state, changes) => {
+                                console.log(`reducing ${changes.type}`);
+
                                 switch (changes.type) {
                                     case Downshift.stateChangeTypes.blurInput: {
                                         return {
                                             ...changes,
                                             isOpen: false,
-                                            inputValue: agent.value
-                                        }
-                                    }
-                                    case Downshift.stateChangeTypes.clickItem: {
-                                        return {
-                                            ...changes,
-                                            isOpen: false,
-                                            inputValue: changes.inputValue,
-                                            selectedItem: changes.inputValue
+                                            inputValue: state.inputValue
                                         }
                                     }
                                     default: {
@@ -115,21 +103,53 @@ export default function FilterAgent(props) {
                                 clearSelection,
                                 inputValue,
                                 highlightedIndex,
-                            }) => (
+                                selectedItem,
+                                setState
+                            }) => {
+                                if (highlightedIndex === null) {
+                                    highlightedIndex = 0;
+                                }
+
+                                return (
                                     <div>
                                         <InputGroup>
                                             <Input {...getInputProps({
                                                 onKeyDown: event => {
                                                     switch (event.key) {
                                                         case 'Tab': {
-                                                            const { value } = testData.agents
+                                                            const value = testData.agents
                                                                 .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[0];
-                                                            agent.onChange(value);
+
+                                                            if (value) {
+                                                                setState({
+                                                                    selectedItem: value,
+                                                                    inputValue: value.value
+                                                                });
+                                                            }
+
                                                             break;
                                                         }
                                                         case 'Enter': {
-                                                            updateAgents(agent.value, true);
-                                                            clearSelection();
+                                                            if (selectedItem) {
+                                                                updateAgents(selectedItem.value, true);
+                                                                clearSelection();
+
+                                                                break;
+                                                            }
+
+                                                            const value = testData.agents
+                                                                .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[0];
+
+                                                            if (value) {
+                                                                setState({
+                                                                    selectedItem: value,
+                                                                    inputValue: value.value
+                                                                });
+
+                                                                updateAgents(value.value, true);
+                                                                clearSelection();
+                                                            }
+
                                                             break;
                                                         }
                                                         default:
@@ -139,15 +159,18 @@ export default function FilterAgent(props) {
                                             })} />
                                             <InputGroupAddon addonType="append">
                                                 <Button onClick={() => {
-                                                    updateAgents(agent.value, true);
-                                                    clearSelection();
+                                                    if (selectedItem) {
+                                                        updateAgents(selectedItem.value, true);
+                                                        clearSelection();
+                                                    }
                                                 }}>Add</Button>
                                             </InputGroupAddon>
                                         </InputGroup>
                                         <div className="downshift__match-dropdown" {...getMenuProps()}>
                                             <ul className="downshift__matches">
                                                 {isOpen
-                                                    ? testData.agents
+                                                    ?
+                                                    testData.agents
                                                         .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))
                                                         .map((item, index) => (
                                                             <li {...getItemProps({
@@ -163,28 +186,20 @@ export default function FilterAgent(props) {
                                             </ul>
                                         </div>
                                     </div>
-                                )}
+                                )
+                            }}
                         </Downshift>
                     </FormGroup>
                     <FormGroup>
                         <Label>Supervisor</Label>
                         <Downshift
-                            onChange={supervisor.onChange}
-                            stateReducer={(_, changes) => {
+                            stateReducer={(state, changes) => {
                                 switch (changes.type) {
                                     case Downshift.stateChangeTypes.blurInput: {
                                         return {
                                             ...changes,
                                             isOpen: false,
-                                            inputValue: supervisor.value
-                                        }
-                                    }
-                                    case Downshift.stateChangeTypes.clickItem: {
-                                        return {
-                                            ...changes,
-                                            isOpen: false,
-                                            inputValue: changes.inputValue,
-                                            selectedItem: changes.inputValue
+                                            inputValue: state.inputValue
                                         }
                                     }
                                     default: {
@@ -201,21 +216,55 @@ export default function FilterAgent(props) {
                                 clearSelection,
                                 inputValue,
                                 highlightedIndex,
-                            }) => (
+                                selectedItem,
+                                setState
+                            }) => {
+                                if (highlightedIndex === null) {
+                                    highlightedIndex = 0;
+                                }
+
+                                return (
                                     <div>
                                         <InputGroup>
                                             <Input {...getInputProps({
                                                 onKeyDown: event => {
                                                     switch (event.key) {
                                                         case 'Tab': {
-                                                            const { value } = testData.supervisors
+                                                            const value = testData.supervisors
                                                                 .filter(item => inputValue && item.value.toLowerCase().includes(inputValue.toLowerCase()))[0];
-                                                            supervisor.onChange(value);
+
+                                                            if (value) {
+                                                                setState({
+                                                                    selectedItem: value,
+                                                                    inputValue: value.value
+                                                                });
+                                                            }
+
                                                             break;
                                                         }
                                                         case 'Enter': {
-                                                            addAgentsForSupervisor(supervisor.value);
+                                                            if (selectedItem) {
+                                                                addAgentsForSupervisor(selectedItem.value);
+                                                                clearSelection();
+
+                                                                break;
+                                                            }
+
+                                                            let value = testData.supervisors
+                                                                .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[0];
+
+                                                            if (value) {
+                                                                setState({
+                                                                    selectedItem: value,
+                                                                    inputValue: value.value
+                                                                });
+
+                                                                value = value.value;
+                                                            }
+
+                                                            addAgentsForSupervisor(value);
                                                             clearSelection();
+
                                                             break;
                                                         }
                                                         default:
@@ -225,8 +274,12 @@ export default function FilterAgent(props) {
                                             })} />
                                             <InputGroupAddon addonType="append">
                                                 <Button onClick={() => {
-                                                    addAgentsForSupervisor(supervisor.value);
-                                                    clearSelection();
+                                                    if (selectedItem) {
+                                                        addAgentsForSupervisor(selectedItem.value);
+                                                        clearSelection();
+                                                    } else {
+                                                        addAgentsForSupervisor()
+                                                    }
                                                 }}>Set</Button>
                                             </InputGroupAddon>
                                         </InputGroup>
@@ -249,7 +302,8 @@ export default function FilterAgent(props) {
                                             </ul>
                                         </div>
                                     </div>
-                                )}
+                                )
+                            }}
                         </Downshift>
                     </FormGroup>
                 </Col>
