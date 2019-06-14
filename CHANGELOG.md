@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/agrc/parole-and-probation/compare/v1.1.0...v1.2.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* **filter-agent:** fix wrong selection on tab ([de848b3](https://github.com/agrc/parole-and-probation/commit/de848b3))
+* **filter-date:** add no field visit ([4a2d7ea](https://github.com/agrc/parole-and-probation/commit/4a2d7ea)), closes [#11](https://github.com/agrc/parole-and-probation/issues/11) [#12](https://github.com/agrc/parole-and-probation/issues/12)
+* **filter-other:** remove no field visit ([442903d](https://github.com/agrc/parole-and-probation/commit/442903d)), closes [#11](https://github.com/agrc/parole-and-probation/issues/11)
+
+
+### Features
+
+* **filter-agent:** type ahead behavior ([9adb0f8](https://github.com/agrc/parole-and-probation/commit/9adb0f8)), closes [#8](https://github.com/agrc/parole-and-probation/issues/8)
+* **filter-location:** add region checkboxes ([2952e45](https://github.com/agrc/parole-and-probation/commit/2952e45)), closes [#25](https://github.com/agrc/parole-and-probation/issues/25)
+* **header:** replace logo ([26564ec](https://github.com/agrc/parole-and-probation/commit/26564ec)), closes [#3](https://github.com/agrc/parole-and-probation/issues/3)
+
+
+
 ## [1.1.0](https://github.com/agrc/parole-and-probation/compare/v1.0.0...v1.1.0) (2019-06-11)
 
 
