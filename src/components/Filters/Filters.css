@@ -35,3 +35,10 @@
 .dropdown-menu form .downshift {
   position: relative;
 }
+.card-header {
+  cursor: pointer;
+}
+.card-body {
+  padding: 0;
+  padding-top: 1.25rem;
+}
