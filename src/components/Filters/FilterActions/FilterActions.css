@@ -1,7 +1,6 @@
 .filter-actions {
-    padding-top: 1rem;
+    padding-top: 1.25rem;
 }
-
 .filter-actions--space-between {
     display: flex;
     justify-content: space-between;

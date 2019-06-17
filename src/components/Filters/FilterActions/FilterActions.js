@@ -4,7 +4,7 @@ import './FilterActions.css';
 
 export default function FilterActions() {
     return (
-        <Col className="filter-actions--space-between">
+        <Col className="filter-actions filter-actions--space-between">
             <Button size="lg" color="primary">Apply</Button>
             <Button size="lg" color="secondary">Reset</Button>
         </Col>

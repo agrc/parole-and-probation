@@ -17,7 +17,7 @@ const testData = {
     ]
 };
 
-export default function FilterAgent(props) {
+export default function FilterAgent() {
     const loggedInUser = 'logged in user';
     const [agents, setAgent] = useState([loggedInUser]);
 
@@ -65,268 +65,266 @@ export default function FilterAgent(props) {
     const vanityCheck = () => agents.indexOf(loggedInUser) > -1;
 
     return (
-        props.active === 'Agent' ?
-            <Container fluid className="filter-agent">
-                <Col>
-                    <FormGroup>
-                        <Button
-                            size="sm"
-                            block
-                            color={vanityCheck() ? 'warning' : 'secondary'}
-                            onClick={() => updateAgents(loggedInUser, !vanityCheck())}>Me</Button>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Agent</Label>
-                        <Downshift
-                            stateReducer={(_, changes) => {
-                                console.log(`reducing ${changes.type}`);
+        <Container fluid className="filter-agent">
+            <Col>
+                <FormGroup>
+                    <Button
+                        size="sm"
+                        block
+                        color={vanityCheck() ? 'warning' : 'secondary'}
+                        onClick={() => updateAgents(loggedInUser, !vanityCheck())}>Me</Button>
+                </FormGroup>
+                <FormGroup>
+                    <Label>Agent</Label>
+                    <Downshift
+                        stateReducer={(_, changes) => {
+                            console.log(`reducing ${changes.type}`);
 
-                                switch (changes.type) {
-                                    case Downshift.stateChangeTypes.changeInput: {
-                                        return {
-                                            ...changes,
-                                            selectedItem: null
-                                        }
-                                    }
-                                    default: {
-                                        return changes
+                            switch (changes.type) {
+                                case Downshift.stateChangeTypes.changeInput: {
+                                    return {
+                                        ...changes,
+                                        selectedItem: null
                                     }
                                 }
-                            }}
-                            itemToString={item => (item ? item.value : '')}>
-                            {({
-                                getInputProps,
-                                getMenuProps,
-                                getItemProps,
-                                isOpen,
-                                clearSelection,
-                                inputValue,
-                                highlightedIndex,
-                                selectedItem,
-                                setState,
-                            }) => {
-                                if (highlightedIndex === null) {
-                                    highlightedIndex = 0;
+                                default: {
+                                    return changes
                                 }
+                            }
+                        }}
+                        itemToString={item => (item ? item.value : '')}>
+                        {({
+                            getInputProps,
+                            getMenuProps,
+                            getItemProps,
+                            isOpen,
+                            clearSelection,
+                            inputValue,
+                            highlightedIndex,
+                            selectedItem,
+                            setState,
+                        }) => {
+                            if (highlightedIndex === null) {
+                                highlightedIndex = 0;
+                            }
 
-                                return (
-                                    <div>
-                                        <InputGroup>
-                                            <Input {...getInputProps({
-                                                onKeyDown: event => {
-                                                    switch (event.key) {
-                                                        case 'Tab': {
-                                                            highlightedIndex = highlightedIndex || 0;
+                            return (
+                                <div>
+                                    <InputGroup>
+                                        <Input {...getInputProps({
+                                            onKeyDown: event => {
+                                                switch (event.key) {
+                                                    case 'Tab': {
+                                                        highlightedIndex = highlightedIndex || 0;
 
-                                                            const value = testData.agents
-                                                                .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                                                        const value = testData.agents
+                                                            .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
 
-                                                            if (value) {
-                                                                setState({
-                                                                    selectedItem: value,
-                                                                    inputValue: value.value,
-                                                                    isOpen: false
-                                                                });
-                                                            }
-
-                                                            break;
+                                                        if (value) {
+                                                            setState({
+                                                                selectedItem: value,
+                                                                inputValue: value.value,
+                                                                isOpen: false
+                                                            });
                                                         }
-                                                        case 'Enter': {
-                                                            if (selectedItem) {
-                                                                updateAgents(selectedItem.value, true);
-                                                                clearSelection();
 
-                                                                break;
-                                                            }
-
-                                                            highlightedIndex = highlightedIndex || 0;
-
-                                                            const value = testData.agents
-                                                                .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
-
-                                                            if (value) {
-                                                                setState({
-                                                                    selectedItem: value,
-                                                                    inputValue: value.value
-                                                                }, () => clearSelection());
-
-                                                                updateAgents(value.value, true);
-                                                            }
-
-                                                            break;
-                                                        }
-                                                        default:
-                                                            break;
+                                                        break;
                                                     }
+                                                    case 'Enter': {
+                                                        if (selectedItem) {
+                                                            updateAgents(selectedItem.value, true);
+                                                            clearSelection();
+
+                                                            break;
+                                                        }
+
+                                                        highlightedIndex = highlightedIndex || 0;
+
+                                                        const value = testData.agents
+                                                            .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+
+                                                        if (value) {
+                                                            setState({
+                                                                selectedItem: value,
+                                                                inputValue: value.value
+                                                            }, () => clearSelection());
+
+                                                            updateAgents(value.value, true);
+                                                        }
+
+                                                        break;
+                                                    }
+                                                    default:
+                                                        break;
                                                 }
-                                            })} />
-                                            <InputGroupAddon addonType="append">
-                                                <Button onClick={() => {
-                                                    if (selectedItem) {
-                                                        updateAgents(selectedItem.value, true);
-                                                        clearSelection();
-                                                    }
-                                                }}>Add</Button>
-                                            </InputGroupAddon>
-                                        </InputGroup>
-                                        <div className="downshift__match-dropdown" {...getMenuProps()}>
-                                            <ul className="downshift__matches">
-                                                {isOpen
-                                                    ?
-                                                    testData.agents
-                                                        .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))
-                                                        .map((item, index) => (
-                                                            <li {...getItemProps({
-                                                                key: item.value,
-                                                                index,
-                                                                item,
-                                                                className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                                                            })}>
-                                                                {item.value}
-                                                            </li>
-                                                        ))
-                                                    : null}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                )
-                            }}
-                        </Downshift>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Supervisor</Label>
-                        <Downshift
-                            stateReducer={(_, changes) => {
-                                console.log(`reducing ${changes.type}`);
-
-                                switch (changes.type) {
-                                    case Downshift.stateChangeTypes.changeInput: {
-                                        return {
-                                            ...changes,
-                                            selectedItem: null
-                                        }
-                                    }
-                                    default: {
-                                        return changes
-                                    }
-                                }
-                            }}
-                            itemToString={item => (item ? item.value : '')}>
-                            {({
-                                getInputProps,
-                                getMenuProps,
-                                getItemProps,
-                                isOpen,
-                                clearSelection,
-                                inputValue,
-                                highlightedIndex,
-                                selectedItem,
-                                setState
-                            }) => {
-                                if (highlightedIndex === null) {
-                                    highlightedIndex = 0;
-                                }
-
-                                return (
-                                    <div>
-                                        <InputGroup>
-                                            <Input {...getInputProps({
-                                                onKeyDown: event => {
-                                                    switch (event.key) {
-                                                        case 'Tab': {
-                                                            highlightedIndex = highlightedIndex || 0;
-
-                                                            const value = testData.supervisors
-                                                                .filter(item => inputValue && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
-
-                                                            if (value) {
-                                                                setState({
-                                                                    selectedItem: value,
-                                                                    inputValue: value.value,
-                                                                    isOpen: false
-                                                                });
-                                                            }
-
-                                                            break;
-                                                        }
-                                                        case 'Enter': {
-                                                            if (selectedItem) {
-                                                                addAgentsForSupervisor(selectedItem.value);
-                                                                clearSelection();
-
-                                                                break;
-                                                            }
-
-                                                            highlightedIndex = highlightedIndex || 0;
-
-                                                            let value = testData.supervisors
-                                                                .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
-
-                                                            if (value) {
-                                                                setState({
-                                                                    selectedItem: value,
-                                                                    inputValue: value.value
-                                                                }, () => clearSelection());
-
-                                                                value = value.value;
-                                                            }
-
-                                                            addAgentsForSupervisor(value);
-
-                                                            break;
-                                                        }
-                                                        default:
-                                                            break;
-                                                    }
+                                            }
+                                        })} />
+                                        <InputGroupAddon addonType="append">
+                                            <Button onClick={() => {
+                                                if (selectedItem) {
+                                                    updateAgents(selectedItem.value, true);
+                                                    clearSelection();
                                                 }
-                                            })} />
-                                            <InputGroupAddon addonType="append">
-                                                <Button onClick={() => {
-                                                    if (selectedItem) {
-                                                        addAgentsForSupervisor(selectedItem.value);
-                                                        clearSelection();
-                                                    } else {
-                                                        addAgentsForSupervisor()
-                                                    }
-                                                }}>Set</Button>
-                                            </InputGroupAddon>
-                                        </InputGroup>
-                                        <div className="downshift__match-dropdown" {...getMenuProps()}>
-                                            <ul className="downshift__matches">
-                                                {isOpen
-                                                    ? testData.supervisors
-                                                        .filter(item => !inputValue || item.value.toLowerCase().includes(inputValue.toLowerCase()))
-                                                        .map((item, index) => (
-                                                            <li {...getItemProps({
-                                                                key: item.value,
-                                                                index,
-                                                                item,
-                                                                className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                                                            })}>
-                                                                {item.value}
-                                                            </li>
-                                                        ))
-                                                    : null}
-                                            </ul>
-                                        </div>
+                                            }}>Add</Button>
+                                        </InputGroupAddon>
+                                    </InputGroup>
+                                    <div className="downshift__match-dropdown" {...getMenuProps()}>
+                                        <ul className="downshift__matches">
+                                            {isOpen
+                                                ?
+                                                testData.agents
+                                                    .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))
+                                                    .map((item, index) => (
+                                                        <li {...getItemProps({
+                                                            key: item.value,
+                                                            index,
+                                                            item,
+                                                            className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
+                                                        })}>
+                                                            {item.value}
+                                                        </li>
+                                                    ))
+                                                : null}
+                                        </ul>
                                     </div>
-                                )
-                            }}
-                        </Downshift>
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup>
-                        <Label>Agent List</Label>
-                        <Input type="select" multiple readOnly
-                            onDoubleClick={event => updateAgents(event.target.value, false)}>
-                            {agents.map((agent, key) => (
-                                <option key={key}>{agent}</option>
-                            ))}
-                        </Input>
-                    </FormGroup>
-                </Col>
-            </Container>
-            : null
+                                </div>
+                            )
+                        }}
+                    </Downshift>
+                </FormGroup>
+                <FormGroup>
+                    <Label>Supervisor</Label>
+                    <Downshift
+                        stateReducer={(_, changes) => {
+                            console.log(`reducing ${changes.type}`);
+
+                            switch (changes.type) {
+                                case Downshift.stateChangeTypes.changeInput: {
+                                    return {
+                                        ...changes,
+                                        selectedItem: null
+                                    }
+                                }
+                                default: {
+                                    return changes
+                                }
+                            }
+                        }}
+                        itemToString={item => (item ? item.value : '')}>
+                        {({
+                            getInputProps,
+                            getMenuProps,
+                            getItemProps,
+                            isOpen,
+                            clearSelection,
+                            inputValue,
+                            highlightedIndex,
+                            selectedItem,
+                            setState
+                        }) => {
+                            if (highlightedIndex === null) {
+                                highlightedIndex = 0;
+                            }
+
+                            return (
+                                <div>
+                                    <InputGroup>
+                                        <Input {...getInputProps({
+                                            onKeyDown: event => {
+                                                switch (event.key) {
+                                                    case 'Tab': {
+                                                        highlightedIndex = highlightedIndex || 0;
+
+                                                        const value = testData.supervisors
+                                                            .filter(item => inputValue && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+
+                                                        if (value) {
+                                                            setState({
+                                                                selectedItem: value,
+                                                                inputValue: value.value,
+                                                                isOpen: false
+                                                            });
+                                                        }
+
+                                                        break;
+                                                    }
+                                                    case 'Enter': {
+                                                        if (selectedItem) {
+                                                            addAgentsForSupervisor(selectedItem.value);
+                                                            clearSelection();
+
+                                                            break;
+                                                        }
+
+                                                        highlightedIndex = highlightedIndex || 0;
+
+                                                        let value = testData.supervisors
+                                                            .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+
+                                                        if (value) {
+                                                            setState({
+                                                                selectedItem: value,
+                                                                inputValue: value.value
+                                                            }, () => clearSelection());
+
+                                                            value = value.value;
+                                                        }
+
+                                                        addAgentsForSupervisor(value);
+
+                                                        break;
+                                                    }
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+                                        })} />
+                                        <InputGroupAddon addonType="append">
+                                            <Button onClick={() => {
+                                                if (selectedItem) {
+                                                    addAgentsForSupervisor(selectedItem.value);
+                                                    clearSelection();
+                                                } else {
+                                                    addAgentsForSupervisor()
+                                                }
+                                            }}>Set</Button>
+                                        </InputGroupAddon>
+                                    </InputGroup>
+                                    <div className="downshift__match-dropdown" {...getMenuProps()}>
+                                        <ul className="downshift__matches">
+                                            {isOpen
+                                                ? testData.supervisors
+                                                    .filter(item => !inputValue || item.value.toLowerCase().includes(inputValue.toLowerCase()))
+                                                    .map((item, index) => (
+                                                        <li {...getItemProps({
+                                                            key: item.value,
+                                                            index,
+                                                            item,
+                                                            className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
+                                                        })}>
+                                                            {item.value}
+                                                        </li>
+                                                    ))
+                                                : null}
+                                        </ul>
+                                    </div>
+                                </div>
+                            )
+                        }}
+                    </Downshift>
+                </FormGroup>
+            </Col>
+            <Col>
+                <FormGroup>
+                    <Label>Agent List</Label>
+                    <Input type="select" multiple readOnly
+                        onDoubleClick={event => updateAgents(event.target.value, false)}>
+                        {agents.map((agent, key) => (
+                            <option key={key}>{agent}</option>
+                        ))}
+                    </Input>
+                </FormGroup>
+            </Col>
+        </Container>
     )
 }

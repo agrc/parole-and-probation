@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import FilterSelector from './FilterSelector';
+import AccordionPane from '../AccordionPane';
 import FilterActions from './FilterActions';
 import FilterAgent from './FilterAgent';
 import FilterDate from './FilterDate';
@@ -22,12 +22,21 @@ export default function Filters() {
 
     return (
         <>
-            <FilterSelector dispatcher={dispatcher} />
-            <FilterAgent active={filters.active} />
-            <FilterDate active={filters.active} />
-            <FilterOffender active={filters.active} />
-            <FilterLocation active={filters.active} />
-            <FilterOther active={filters.active} />
+            <AccordionPane title="Agent">
+                <FilterAgent />
+            </AccordionPane>
+            <AccordionPane title="Offender">
+                <FilterOffender />
+            </AccordionPane>
+            <AccordionPane title="Location">
+                <FilterLocation />
+            </AccordionPane>
+            <AccordionPane title="Supervision Contact">
+                <FilterDate />
+            </AccordionPane>
+            <AccordionPane title="Other">
+                <FilterOther />
+            </AccordionPane>
             <FilterActions />
         </>
     )
