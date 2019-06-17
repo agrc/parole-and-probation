@@ -1,0 +1,6 @@
+{
+  "name": "accordion-pane",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AccordionPane.js"
+}
