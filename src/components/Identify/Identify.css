@@ -1,6 +1,4 @@
 .identify {
-  margin-top: 1em;
-  text-align: left;
   width: 100%;
   height: 100%;
 }
@@ -16,7 +14,7 @@
   border: 0;
   color: #333;
   cursor: pointer;
-  font-size: 21px;
+  font-size: 30px;
   font-weight: bold;
   line-height: 1;
   opacity: 0.7;
@@ -27,6 +25,41 @@
   top: 0;
 }
 
-.identify--muted {
-  color: #666
+.identify--center-item {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  display: flex;
+}
+
+.identify--center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.identify__image-addon {
+  width: 90px;
+  height: 200px;
+}
+
+.identify__addon-item {
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.identify__figure {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.identify__figure-caption {
+  max-width: 199px;
+  width: 199px;
+  position: absolute;
+  left: 1px;
+  bottom: 1px;
+  background: rgba(255, 255, 255, .75);
 }
