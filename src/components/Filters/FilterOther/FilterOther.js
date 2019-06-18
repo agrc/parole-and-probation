@@ -4,6 +4,7 @@ import './FilterOther.css';
 
 export default function FilterOther() {
     const [warrant, setWarrant] = useState();
+    const [sos, setSos] = useState([]);
 
     return (
         <Container fluid className="filter-other">
@@ -16,7 +17,27 @@ export default function FilterOther() {
             <Col>
                 <FormGroup>
                     <Label>Standard of Supervision</Label>
-                    <Input type="text" name="sos" id="sos" />
+                    <div className="text-center">
+                        <ButtonGroup>
+                            {['low', 'mod', 'high', 'int'].map((type, index) =>
+                                <Button
+                                    key={index}
+                                    size="sm"
+                                    color={sos.indexOf(type) > -1 ? 'warning' : 'secondary'}
+                                    onClick={() => {
+                                        if (sos.indexOf((type)) === -1) {
+                                            const temp = [...sos, type];
+                                            setSos(temp);
+                                        } else {
+                                            const temp = sos.filter(item => item !== type)
+                                            setSos(temp);
+                                        }
+                                    }}>
+                                    {type}
+                                </Button>
+                            )}
+                        </ButtonGroup>
+                    </div>
                 </FormGroup>
             </Col>
             <Col>
