@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/agrc/parole-and-probation/compare/v1.2.0...v1.3.0) (2019-06-18)
+
+
+### Bug Fixes
+
+* **dartboard:** do not autocomplete street or city ([f392a01](https://github.com/agrc/parole-and-probation/commit/f392a01))
+
+
+### Features
+
+* **filter:** use accordion instead of selector ([3d5f5c5](https://github.com/agrc/parole-and-probation/commit/3d5f5c5)), closes [#27](https://github.com/agrc/parole-and-probation/issues/27)
+* **filter-location:** add address geolocation zooming ([61070d6](https://github.com/agrc/parole-and-probation/commit/61070d6))
+
+
+
 ## [1.2.0](https://github.com/agrc/parole-and-probation/compare/v1.1.0...v1.2.0) (2019-06-14)
 
 
