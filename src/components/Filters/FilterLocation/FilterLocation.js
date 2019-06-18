@@ -78,7 +78,7 @@ export default function FilterLocation(props) {
                     <Label>Region</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {[...Array(5).keys()].map(type =>
+                            {[1, 3, 4, 5, 6].map(type =>
                                 <Button
                                     key={type + 1}
                                     value={type + 1}
