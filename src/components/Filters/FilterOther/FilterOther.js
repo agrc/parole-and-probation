@@ -87,7 +87,13 @@ export default function FilterOther() {
                                     key={index}
                                     size="sm"
                                     color={warrant === binary ? 'warning' : 'secondary'}
-                                    onClick={() => setWarrant(binary)}>
+                                    onClick={() => {
+                                        if (warrant === binary) {
+                                            binary = null;
+                                        }
+
+                                        setWarrant(binary);
+                                    }}>
                                     {binary}
                                 </Button>
                             )}
