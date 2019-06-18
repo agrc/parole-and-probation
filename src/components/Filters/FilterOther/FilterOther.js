@@ -5,13 +5,32 @@ import './FilterOther.css';
 export default function FilterOther() {
     const [warrant, setWarrant] = useState();
     const [sos, setSos] = useState([]);
+    const [status, setStatus] = useState();
 
     return (
         <Container fluid className="filter-other">
             <Col>
                 <FormGroup>
                     <Label>Legal Status</Label>
-                    <Input type="text" name="status" id="status" />
+                    <div className="text-center">
+                        <ButtonGroup>
+                            {['probation', 'parole'].map((type, index) =>
+                                <Button
+                                    key={index}
+                                    size="sm"
+                                    color={status === type ? 'warning' : 'secondary'}
+                                    onClick={() => {
+                                        if (status === type) {
+                                            type = null
+                                        }
+
+                                        setStatus(type);
+                                    }}>
+                                    {type}
+                                </Button>
+                            )}
+                        </ButtonGroup>
+                    </div>
                 </FormGroup>
             </Col>
             <Col>
@@ -76,6 +95,6 @@ export default function FilterOther() {
                     </div>
                 </FormGroup>
             </Col>
-        </Container>
+        </Container >
     )
 }
