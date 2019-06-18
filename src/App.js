@@ -58,7 +58,10 @@ export default function App() {
       <Header title="AP&P Field Map" version={process.env.REACT_APP_VERSION} />
       {showIdentify ?
         <IdentifyContainer show={state => setShowIdentify(state)}>
-          <IdentifyInformation apiKey={process.env.REACT_APP_WEB_API} location={mapActions.mapPoint} />
+          <IdentifyInformation
+            apiKey={process.env.REACT_APP_WEB_API}
+            location={mapActions.mapPoint}
+            show={state => setShowIdentify(state)} />
         </IdentifyContainer>
         : null}
       <Sidebar>
