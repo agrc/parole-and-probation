@@ -22,8 +22,8 @@ export default function Filters(props) {
 
     return (
         <>
-            <AccordionPane title="Agent">
                 <FilterAgent />
+            <AccordionPane title="Agent" open>
             </AccordionPane>
             <AccordionPane title="Offender">
                 <FilterOffender />
