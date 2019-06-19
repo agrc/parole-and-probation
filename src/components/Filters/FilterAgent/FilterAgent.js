@@ -1,68 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormGroup, Container, Col, Button, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import Downshift from 'downshift'
 import './FilterAgent.css';
 
-const testData = {
-    agents: [
-        { value: 'Andrew', supervisor: 'Sarah' },
-        { value: 'Steve', supervisor: 'Susan' },
-        { value: 'Karl', supervisor: 'Sarah' },
-        { value: 'Matt', supervisor: 'Susan' },
-        { value: 'Mitt', supervisor: 'Sarah' },
-    ],
-    supervisors: [
-        { value: 'Sarah' },
-        { value: 'Susan' },
-    ]
-};
 
-export default function FilterAgent() {
-    const loggedInUser = 'logged in user';
-    const [agents, setAgent] = useState([loggedInUser]);
-
+export default function FilterAgent(props) {
     const updateAgents = (agentName, add) => {
+        console.info('Filters/FilterAgent:updateAgents');
+
         if (!agentName) {
             return;
         }
 
-        const updates = new Set();
+        console.log(`${add ? 'adding' : 'removing'} agent list for ${agentName}`);
 
-        if (add) {
-            updates.add(agentName);
-            agents.forEach(item => updates.add(item));
-        } else {
-            agents.forEach(item => updates.add(item));
-            updates.delete(agentName);
-        }
-
-        setAgent(Array.from(updates));
+        props.update({
+            filter: 'agent',
+            type: 'agent',
+            agentName,
+            add
+        });
     };
 
     const addAgentsForSupervisor = supervisorName => {
-
-        const updates = new Set();
-
-        if (vanityCheck()) {
-            updates.add(loggedInUser);
-        }
-
-        if (!supervisorName) {
-            updates.clear();
-
-            if (vanityCheck()) {
-                updates.add(loggedInUser);
-            }
-        } else {
-            testData.agents
-                .filter(agent => agent.supervisor.toLowerCase() === supervisorName.toLowerCase())
-                .forEach(item => updates.add(item.value));
-        }
-
-        setAgent(Array.from(updates));
+        props.update({
+            filter: 'agent',
+            type: 'supervisor',
+            supervisorName,
+        });
     };
-
-    const vanityCheck = () => agents.indexOf(loggedInUser) > -1;
 
     return (
         <Container fluid className="filter-agent">
@@ -71,8 +37,8 @@ export default function FilterAgent() {
                     <Button
                         size="sm"
                         block
-                        color={vanityCheck() ? 'warning' : 'secondary'}
-                        onClick={() => updateAgents(loggedInUser, !vanityCheck())}>Me</Button>
+                        color={props.criteria.vanity ? 'warning' : 'secondary'}
+                        onClick={() => updateAgents(props.criteria.loggedInUser, !props.criteria.vanity)}>Me</Button>
                 </FormGroup>
                 <FormGroup>
                     <Label>Agent</Label>
@@ -117,8 +83,8 @@ export default function FilterAgent() {
                                                     case 'Tab': {
                                                         highlightedIndex = highlightedIndex || 0;
 
-                                                        const value = testData.agents
-                                                            .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                                                        const value = props.data.agents
+                                                            .filter(item => inputValue && props.criteria.agentList.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
 
                                                         if (value) {
                                                             setState({
@@ -140,8 +106,8 @@ export default function FilterAgent() {
 
                                                         highlightedIndex = highlightedIndex || 0;
 
-                                                        const value = testData.agents
-                                                            .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                                                        const value = props.data.agents
+                                                            .filter(item => inputValue && props.criteria.agentList.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
 
                                                         if (value) {
                                                             setState({
@@ -172,8 +138,8 @@ export default function FilterAgent() {
                                         <ul className="downshift__matches">
                                             {isOpen
                                                 ?
-                                                testData.agents
-                                                    .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))
+                                                props.data.agents
+                                                    .filter(item => inputValue && props.criteria.agentList.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))
                                                     .map((item, index) => (
                                                         <li {...getItemProps({
                                                             key: item.value,
@@ -235,7 +201,7 @@ export default function FilterAgent() {
                                                     case 'Tab': {
                                                         highlightedIndex = highlightedIndex || 0;
 
-                                                        const value = testData.supervisors
+                                                        const value = props.data.supervisors
                                                             .filter(item => inputValue && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
 
                                                         if (value) {
@@ -258,8 +224,8 @@ export default function FilterAgent() {
 
                                                         highlightedIndex = highlightedIndex || 0;
 
-                                                        let value = testData.supervisors
-                                                            .filter(item => inputValue && agents.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                                                        let value = props.data.supervisors
+                                                            .filter(item => inputValue && props.criteria.agentList.indexOf(item.value) === -1 && item.value.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
 
                                                         if (value) {
                                                             setState({
@@ -293,7 +259,7 @@ export default function FilterAgent() {
                                     <div className="downshift__match-dropdown" {...getMenuProps()}>
                                         <ul className="downshift__matches">
                                             {isOpen
-                                                ? testData.supervisors
+                                                ? props.data.supervisors
                                                     .filter(item => !inputValue || item.value.toLowerCase().includes(inputValue.toLowerCase()))
                                                     .map((item, index) => (
                                                         <li {...getItemProps({
@@ -319,7 +285,7 @@ export default function FilterAgent() {
                     <Label>Agent List</Label>
                     <Input type="select" multiple readOnly
                         onDoubleClick={event => updateAgents(event.target.value, false)}>
-                        {agents.map((agent, key) => (
+                        {props.criteria.agentList.map((agent, key) => (
                             <option key={key}>{agent}</option>
                         ))}
                     </Input>
