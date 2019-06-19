@@ -35,7 +35,7 @@ export default class ReactMapView extends Component {
       'esri/Basemap'
     ];
 
-    // FeatureLayer is required eventhough unused
+    // FeatureLayer is required even-though unused
     // eslint-disable-next-line
     const [Map, MapView, FeatureLayer, Polygon, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires));
 

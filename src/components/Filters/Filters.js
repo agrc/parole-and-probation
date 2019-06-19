@@ -7,6 +7,8 @@ import FilterOffender from './FilterOffender';
 import FilterLocation from './FilterLocation';
 import FilterOther from './FilterOther';
 import './Filters.css';
+import produce from "immer";
+
 
 const testData = {
     agents: [
@@ -33,11 +35,11 @@ const vanityCheck = (agentList) => {
 };
 
 const reducer = (state, action) => {
+    console.log(`reducing state for ${action.type}`);
+    console.dir(action);
+
     switch (action.type) {
         case 'UPDATE_AGENT_LIST': {
-            console.log(`reducing state for ${action.filter}`);
-            console.dir(action);
-
             const updates = new Set();
 
             if (action.meta === 'agent') {
@@ -67,12 +69,20 @@ const reducer = (state, action) => {
             }
 
             return {
+                ...state,
                 agent: {
                     ...state.agent,
                     agentList: Array.from(updates),
                     vanity: vanityCheck(updates)
                 }
             }
+        }
+        case 'UPDATE_OFFENDER': {
+            const nextState = produce(state, draft => {
+                draft.offender[action.meta] = action.payload;
+            });
+
+            return nextState;
         }
         default:
             throw new Error();
@@ -88,7 +98,13 @@ export default function Filters(props) {
         },
         date: {},
         location: {},
-        offender: {},
+        offender: {
+            gender: '',
+            name: '',
+            number: '',
+            tel: '',
+            employer: ''
+        },
         other: {}
     });
 
@@ -101,16 +117,18 @@ export default function Filters(props) {
                     update={dispatcher} />
             </AccordionPane>
             <AccordionPane title="Offender">
-                <FilterOffender filterData={dispatcher} />
+                <FilterOffender
+                    criteria={criteria.offender}
+                    update={dispatcher} />
             </AccordionPane>
             <AccordionPane title="Location">
                 <FilterLocation dispatcher={props.mapDispatcher} />
             </AccordionPane>
             <AccordionPane title="Supervision Contact">
-                <FilterDate filterData={dispatcher} />
+                <FilterDate update={dispatcher} />
             </AccordionPane>
             <AccordionPane title="Other">
-                <FilterOther filterData={dispatcher} />
+                <FilterOther update={dispatcher} />
             </AccordionPane>
             <FilterActions criteria={criteria} />
         </>
