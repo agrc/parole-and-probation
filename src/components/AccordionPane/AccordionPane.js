@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader, Collapse } from 'reactstrap';
 import './AccordionPane.css';
 
 export default function AccordionPane(props) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(props.open);
 
   return (<>
     <Card>
