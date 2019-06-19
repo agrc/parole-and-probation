@@ -15,18 +15,22 @@ export default function FilterAgent(props) {
         console.log(`${add ? 'adding' : 'removing'} agent list for ${agentName}`);
 
         props.update({
-            filter: 'agent',
-            type: 'agent',
-            agentName,
-            add
+            type: 'UPDATE_AGENT_LIST',
+            meta: 'agent',
+            payload: {
+                agentName,
+                add
+            }
         });
     };
 
     const addAgentsForSupervisor = supervisorName => {
         props.update({
-            filter: 'agent',
-            type: 'supervisor',
-            supervisorName,
+            type: 'UPDATE_AGENT_LIST',
+            meta: 'supervisor',
+            payload: {
+                supervisorName
+            }
         });
     };
 
