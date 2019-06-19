@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, ButtonGroup, FormGroup, Label, Input, Container, Col } from 'reactstrap'
 import './FilterOffender.css';
+import useFilterReducer from '../useFilterReducer';
 
-export default function FilterOffender() {
-    const [active, setActive] = useState();
+const type = 'UPDATE_OFFENDER';
+
+export default function FilterOffender(props) {
+    const [name, setName] = useFilterReducer(props, type, 'name');
+    const [number, setNumber] = useFilterReducer(props, type, 'number');
+    const [phone, setPhone] = useFilterReducer(props, type, 'tel');
+    const [employer, setEmployer] = useFilterReducer(props, type, 'employer');
 
     return (
         <Container fluid className="filter-offender">
             <Col>
                 <FormGroup>
                     <Label>Name</Label>
-                    <Input type="text" name="name" id="name" />
+                    <Input type="text" name="name" id="name" value={name} onChange={setName} autoComplete="none" />
                 </FormGroup>
             </Col>
             <Col>
                 <FormGroup>
                     <Label>Offender Number</Label>
-                    <Input type="number" name="number" id="number" />
+                    <Input type="number" name="number" id="number" value={number} onChange={setNumber} autoComplete="nope" />
                 </FormGroup>
             </Col>
             <Col>
@@ -28,13 +34,17 @@ export default function FilterOffender() {
                                 <Button
                                     key={index}
                                     size="sm"
-                                    color={active === gender ? 'warning' : 'secondary'}
+                                    color={props.criteria.gender === gender ? 'warning' : 'secondary'}
                                     onClick={() => {
-                                        if (active === gender) {
-                                            gender = null;
+                                        if (props.criteria.gender === gender) {
+                                            gender = '';
                                         }
 
-                                        setActive(gender);
+                                        props.update({
+                                            type,
+                                            payload: gender,
+                                            meta: 'gender'
+                                        });
                                     }}>
                                     {gender}
                                 </Button>
@@ -46,13 +56,13 @@ export default function FilterOffender() {
             <Col>
                 <FormGroup>
                     <Label>Phone</Label>
-                    <Input type="tel" name="phone" id="phone" />
+                    <Input type="tel" name="phone" id="phone" value={phone} onChange={setPhone} autoComplete="nope" />
                 </FormGroup>
             </Col>
             <Col>
                 <FormGroup>
                     <Label>Employer</Label>
-                    <Input type="text" name="employer" id="employer" />
+                    <Input type="text" name="employer" id="employer" value={employer} onChange={setEmployer} autoComplete="nope" />
                 </FormGroup>
             </Col>
         </Container>
