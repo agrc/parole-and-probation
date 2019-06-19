@@ -32,28 +32,28 @@ const vanityCheck = (agentList) => {
     return agentList.has(loggedInUser);
 };
 
-const reducer = (state, data) => {
-    switch (data.filter) {
-        case 'agent': {
-            console.log(`reducing state for ${data.filter}`);
-            console.dir(data);
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'UPDATE_AGENT_LIST': {
+            console.log(`reducing state for ${action.filter}`);
+            console.dir(action);
 
             const updates = new Set();
 
-            if (data.type === 'agent') {
-                if (data.add) {
-                    updates.add(data.agentName);
+            if (action.meta === 'agent') {
+                if (action.payload.add) {
+                    updates.add(action.payload.agentName);
                     state.agent.agentList.forEach(item => updates.add(item));
                 } else {
                     state.agent.agentList.forEach(item => updates.add(item));
-                    updates.delete(data.agentName);
+                    updates.delete(action.payload.agentName);
                 }
-            } else if (data.type === 'supervisor') {
+            } else if (action.meta === 'supervisor') {
                 if (vanityCheck(state.agent.agentList)) {
                     updates.add(loggedInUser);
                 }
 
-                if (!data.supervisorName) {
+                if (!action.payload.supervisorName) {
                     updates.clear();
 
                     if (vanityCheck(state.agent.agentList)) {
@@ -61,7 +61,7 @@ const reducer = (state, data) => {
                     }
                 } else {
                     testData.agents
-                        .filter(agent => agent.supervisor.toLowerCase() === data.supervisorName.toLowerCase())
+                        .filter(agent => agent.supervisor.toLowerCase() === action.payload.supervisorName.toLowerCase())
                         .forEach(item => updates.add(item.value));
                 }
             }

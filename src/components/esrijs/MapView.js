@@ -70,7 +70,7 @@ export default class ReactMapView extends Component {
       </LayerSelectorContainer>,
       selectorNode);
 
-    this.view.on('click', event => this.props.mapDispatcher({ type: 'click', mapPoint: event.mapPoint }));
+    this.view.on('click', event => this.props.mapDispatcher({ type: 'MAP_CLICK', payload: event.mapPoint }));
   }
 
   componentDidUpdate(prevProps) {

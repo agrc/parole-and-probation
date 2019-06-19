@@ -40,7 +40,7 @@ export default function FilterLocation(props) {
                     {activeLocationType === 'Address' ? (
                         <DartBoard
                             apiKey={process.env.REACT_APP_WEB_API}
-                            onFindAddress={result => props.dispatcher({ type: 'zoom', graphic: result })}
+                            onFindAddress={result => props.dispatcher({ type: 'ZOOM_TO_GRAPHIC', payload: result })}
                             pointSymbol={{
                                 type: 'simple-marker',
                                 style: 'diamond',
