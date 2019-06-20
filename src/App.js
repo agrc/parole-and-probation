@@ -78,7 +78,10 @@ export default function App() {
       <Header title="AP&P Field Map" version={process.env.REACT_APP_VERSION} />
       {app.showIdentify ?
         <IdentifyContainer show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })}>
-          <IdentifyInformation apiKey={process.env.REACT_APP_WEB_API} location={app.mapPoint} />
+          <IdentifyInformation
+            apiKey={process.env.REACT_APP_WEB_API}
+            location={app.mapPoint}
+            show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })} />
         </IdentifyContainer>
         : null}
       <Sidebar>
