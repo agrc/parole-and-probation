@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import { Button, ButtonGroup, FormGroup, Label, Input, Container, Col } from 'reactstrap'
+import React from 'react';
+import { Button, ButtonGroup, FormGroup, Label, Input, Container, Col } from 'reactstrap';
+import useFilterReducer from '../useFilterReducer';
+import produce from 'immer';
 import './FilterOther.css';
 
-export default function FilterOther() {
-    const [warrant, setWarrant] = useState();
-    const [sos, setSos] = useState([]);
-    const [status, setStatus] = useState();
+const type = 'UPDATE_OTHER';
+
+export default function FilterOther(props) {
+    const [supervision, setSupervision] = useFilterReducer(props, type, 'supervision');
+    const [gang, setGang] = useFilterReducer(props, type, 'gang');
+    const [offense, setOffense] = useFilterReducer(props, type, 'offense');
 
     return (
         <Container fluid className="filter-other">
@@ -14,19 +18,19 @@ export default function FilterOther() {
                     <Label>Legal Status</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {['probation', 'parole'].map((type, index) =>
+                            {['probation', 'parole'].map((payload, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
-                                    color={status === type ? 'warning' : 'secondary'}
+                                    color={props.criteria.status === payload ? 'warning' : 'secondary'}
                                     onClick={() => {
-                                        if (status === type) {
-                                            type = null
+                                        if (props.criteria.status === payload) {
+                                            payload = null
                                         }
 
-                                        setStatus(type);
+                                        props.update({ type, payload, meta: 'status' });
                                     }}>
-                                    {type}
+                                    {payload}
                                 </Button>
                             )}
                         </ButtonGroup>
@@ -38,21 +42,25 @@ export default function FilterOther() {
                     <Label>Standard of Supervision</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {['low', 'mod', 'high', 'int'].map((type, index) =>
+                            {['low', 'mod', 'high', 'int'].map((sos, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
-                                    color={sos.indexOf(type) > -1 ? 'warning' : 'secondary'}
+                                    color={props.criteria.sos.indexOf(sos) > -1 ? 'warning' : 'secondary'}
                                     onClick={() => {
-                                        if (sos.indexOf((type)) === -1) {
-                                            const temp = [...sos, type];
-                                            setSos(temp);
-                                        } else {
-                                            const temp = sos.filter(item => item !== type)
-                                            setSos(temp);
-                                        }
+                                        const payload = produce(props.criteria.sos, draft => {
+                                            const index = draft.indexOf(sos);
+
+                                            if (index === -1) {
+                                                draft.splice(0, 0, sos);
+                                            } else {
+                                                draft.splice(index, 1);
+                                            }
+                                        });
+
+                                        props.update({ type, payload, meta: 'sos' });
                                     }}>
-                                    {type}
+                                    {sos}
                                 </Button>
                             )}
                         </ButtonGroup>
@@ -62,19 +70,19 @@ export default function FilterOther() {
             <Col>
                 <FormGroup>
                     <Label>Special Supervision</Label>
-                    <Input type="text" name="supervision" id="supervision" />
+                    <Input type="text" name="supervision" id="supervision" value={supervision} onChange={setSupervision} />
                 </FormGroup>
             </Col>
             <Col>
                 <FormGroup>
-                    <Label>STG</Label>
-                    <Input type="text" name="stg" id="stg" />
+                    <Label>Gang Name</Label>
+                    <Input type="text" name="stg" id="stg" value={gang} onChange={setGang} />
                 </FormGroup>
             </Col>
             <Col>
                 <FormGroup>
                     <Label>Offense Type</Label>
-                    <Input type="text" name="offense" id="offense" />
+                    <Input type="text" name="offense" id="offense" value={offense} onChange={setOffense} />
                 </FormGroup>
             </Col>
             <Col>
@@ -82,25 +90,25 @@ export default function FilterOther() {
                     <Label>Active Warrant</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {['Yes', 'No'].map((binary, index) =>
+                            {['Yes', 'No'].map((payload, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
-                                    color={warrant === binary ? 'warning' : 'secondary'}
+                                    color={props.criteria.warrant === payload ? 'warning' : 'secondary'}
                                     onClick={() => {
-                                        if (warrant === binary) {
-                                            binary = null;
+                                        if (props.criteria.warrant === payload) {
+                                            payload = null;
                                         }
 
-                                        setWarrant(binary);
+                                        props.update({ type, payload, meta: 'warrant' });
                                     }}>
-                                    {binary}
+                                    {payload}
                                 </Button>
                             )}
                         </ButtonGroup>
                     </div>
                 </FormGroup>
             </Col>
-        </Container >
+        </Container>
     )
 }

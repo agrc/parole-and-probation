@@ -111,7 +111,15 @@ export default function Filters(props) {
             tel: '',
             employer: ''
         },
-        other: {}
+        other: {
+            warrant: '',
+            status: '',
+            sos: [],
+            supervision: '',
+            gang: '',
+            offense: '',
+
+        }
     });
 
     return (
@@ -134,7 +142,9 @@ export default function Filters(props) {
                 <FilterDate update={dispatcher} />
             </AccordionPane>
             <AccordionPane title="Other">
-                <FilterOther update={dispatcher} />
+                <FilterOther
+                    criteria={criteria.other}
+                    update={dispatcher} />
             </AccordionPane>
             <FilterActions criteria={criteria} />
         </>
