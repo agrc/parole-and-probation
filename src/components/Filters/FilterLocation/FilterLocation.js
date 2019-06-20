@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { Button, ButtonGroup, FormGroup, Label, Input, Container, Col } from 'reactstrap'
+import { Button, ButtonGroup, FormGroup, Label, Input, Container, Col } from 'reactstrap';
+import useFilterReducer from '../useFilterReducer';
 import DartBoard from '../../DartBoard';
+import produce from 'immer';
 import './FilterLocation.css';
+
+const type = 'UPDATE_LOCATION';
 
 export default function FilterLocation(props) {
     const [activeLocationType, setActive] = useState();
-    const [regions, setRegions] = useState([]);
+    const [buffer, setBuffer] = useFilterReducer(props, type, 'buffer');
+    const [zip, setZip] = useFilterReducer(props, type, 'zip');
+    const [city, setCity] = useFilterReducer(props, type, 'city');
+    const [county, setCounty] = useFilterReducer(props, type, 'county');
 
     return (
         <Container fluid className="filter-location">
@@ -34,7 +41,7 @@ export default function FilterLocation(props) {
                     {['Current', 'Select'].indexOf(activeLocationType) > -1 ? (
                         <FormGroup>
                             <Label>Buffer radius (m)</Label>
-                            <Input type="number" name="buffer" id="buffer" placeholder="1600" />
+                            <Input type="number" name="buffer" id="buffer" placeholder="meters" value={buffer} onChange={setBuffer} />
                         </FormGroup>
                     ) : null}
                     {activeLocationType === 'Address' ? (
@@ -58,19 +65,19 @@ export default function FilterLocation(props) {
             <Col>
                 <FormGroup>
                     <Label>City</Label>
-                    <Input type="text" name="city" id="city" />
+                    <Input type="text" name="city" id="city" value={city} onChange={setCity} />
                 </FormGroup>
             </Col>
             <Col>
                 <FormGroup>
                     <Label>Zip</Label>
-                    <Input type="number" name="zip" id="zip" />
+                    <Input type="number" name="zip" id="zip" value={zip} onChange={setZip} />
                 </FormGroup>
             </Col>
             <Col>
                 <FormGroup>
                     <Label>County</Label>
-                    <Input type="text" name="county" id="county" />
+                    <Input type="text" name="county" id="county" value={county} onChange={setCounty} />
                 </FormGroup>
             </Col>
             <Col>
@@ -78,22 +85,26 @@ export default function FilterLocation(props) {
                     <Label>Region</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {[1, 3, 4, 5, 6].map(type =>
+                            {[1, 3, 4, 5, 6].map(region =>
                                 <Button
-                                    key={type + 1}
-                                    value={type + 1}
+                                    key={region}
+                                    value={region}
                                     size="sm"
-                                    color={regions.indexOf((type + 1).toString()) > -1 ? 'warning' : 'secondary'}
-                                    onClick={(event) => {
-                                        if (regions.indexOf((type + 1).toString()) === -1) {
-                                            const temp = [...regions, event.target.value];
-                                            setRegions(temp);
-                                        } else {
-                                            const temp = regions.filter(item => item !== event.target.value)
-                                            setRegions(temp);
-                                        }
+                                    color={props.criteria.region.indexOf(region) > -1 ? 'warning' : 'secondary'}
+                                    onClick={() => {
+                                        const payload = produce(props.criteria.region, draft => {
+                                            const index = draft.indexOf(region);
+
+                                            if (index === -1) {
+                                                draft.splice(0, 0, region);
+                                            } else {
+                                                draft.splice(index, 1);
+                                            }
+                                        });
+
+                                        props.update({ type, payload, meta: 'region' });
                                     }}>
-                                    {type + 1}
+                                    {region}
                                 </Button>
                             )}
                         </ButtonGroup>
