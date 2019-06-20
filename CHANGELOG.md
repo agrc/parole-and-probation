@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/agrc/parole-and-probation/compare/v1.3.0...v1.4.0) (2019-06-20)
+
+
+### Bug Fixes
+
+* **app:** remove reducers from function and standarize reducer objects ([1094353](https://github.com/agrc/parole-and-probation/commit/1094353))
+* **filter-agent:** use immer as the reducer function ([a379f58](https://github.com/agrc/parole-and-probation/commit/a379f58))
+* **filter-location:** lift state to filters ([bf552a5](https://github.com/agrc/parole-and-probation/commit/bf552a5))
+* **filter-location:** use valid region numbers ([d19be1c](https://github.com/agrc/parole-and-probation/commit/d19be1c))
+* **filter-offender:** allow warrant to be deselected ([31b1246](https://github.com/agrc/parole-and-probation/commit/31b1246))
+* **filter-offender:** lift all state to parent ([fcede1f](https://github.com/agrc/parole-and-probation/commit/fcede1f))
+* **filter-other:** legal status => radio button ([ec43689](https://github.com/agrc/parole-and-probation/commit/ec43689)), closes [#33](https://github.com/agrc/parole-and-probation/issues/33)
+* **filter-other:** lift state to filters ([4f3a455](https://github.com/agrc/parole-and-probation/commit/4f3a455))
+* **filter-other:** standard of supervision to checkboxes ([971b523](https://github.com/agrc/parole-and-probation/commit/971b523)), closes [#32](https://github.com/agrc/parole-and-probation/issues/32)
+* **filters:** move reducer out of funcion ([41e2fff](https://github.com/agrc/parole-and-probation/commit/41e2fff))
+
+
+### Features
+
+* **identify:** create offender popup template ([227af07](https://github.com/agrc/parole-and-probation/commit/227af07)), closes [#5](https://github.com/agrc/parole-and-probation/issues/5)
+
+
+
 ## [1.3.0](https://github.com/agrc/parole-and-probation/compare/v1.2.0...v1.3.0) (2019-06-18)
 
 
