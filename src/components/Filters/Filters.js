@@ -90,6 +90,11 @@ const filterReducer = produce((draft, action) => {
 
             return draft;
         }
+        case 'UPDATE_LOCATION': {
+            draft.location[action.meta] = action.payload;
+
+            return draft;
+        }
         default:
             return draft;
     }
@@ -103,7 +108,15 @@ export default function Filters(props) {
             vanity: true
         },
         date: {},
-        location: {},
+        location: {
+            buffer: '1600',
+            region: [],
+            zip: '',
+            city: '',
+            county: '',
+            extent: {}, // TODO: implement
+            point: {} // TODO: implement
+        },
         offender: {
             gender: '',
             name: '',
@@ -117,8 +130,7 @@ export default function Filters(props) {
             sos: [],
             supervision: '',
             gang: '',
-            offense: '',
-
+            offense: ''
         }
     });
 
@@ -136,7 +148,10 @@ export default function Filters(props) {
                     update={dispatcher} />
             </AccordionPane>
             <AccordionPane title="Location">
-                <FilterLocation dispatcher={props.mapDispatcher} />
+                <FilterLocation
+                    criteria={criteria.location}
+                    update={dispatcher}
+                    dispatcher={props.mapDispatcher} />
             </AccordionPane>
             <AccordionPane title="Supervision Contact">
                 <FilterDate update={dispatcher} />
