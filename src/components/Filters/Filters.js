@@ -9,7 +9,6 @@ import FilterOther from './FilterOther';
 import './Filters.css';
 import produce from "immer";
 
-
 const testData = {
     agents: [
         { value: 'Andrew', supervisor: 'Sarah' },
@@ -34,63 +33,70 @@ const vanityCheck = (agentList) => {
     return agentList.has(loggedInUser);
 };
 
-const reducer = (state, action) => {
+const filterReducer = produce((draft, action) => {
     console.log(`reducing state for ${action.type}`);
     console.dir(action);
 
     switch (action.type) {
         case 'UPDATE_AGENT_LIST': {
-            const updates = new Set();
-
             if (action.meta === 'agent') {
                 if (action.payload.add) {
-                    updates.add(action.payload.agentName);
-                    state.agent.agentList.forEach(item => updates.add(item));
+                    if (draft.agent.agentList.indexOf(action.payload.agentName) > -1) {
+                        return draft;
+                    }
+
+                    draft.agent.agentList.splice(0, 0, action.payload.agentName);
                 } else {
-                    state.agent.agentList.forEach(item => updates.add(item));
-                    updates.delete(action.payload.agentName);
+                    const remove = draft.agent.agentList.indexOf(action.payload.agentName);
+                    draft.agent.agentList.splice(remove, 1);
                 }
             } else if (action.meta === 'supervisor') {
-                if (vanityCheck(state.agent.agentList)) {
-                    updates.add(loggedInUser);
+                if (draft.agent.vanity && !vanityCheck(draft.agent.agentList)) {
+                    draft.agent.agentList.splice(0, 0, loggedInUser);
                 }
 
                 if (!action.payload.supervisorName) {
-                    updates.clear();
+                    draft.agent.agentList = [];
 
-                    if (vanityCheck(state.agent.agentList)) {
-                        updates.add(loggedInUser);
+                    if (draft.agent.vanity) {
+                        draft.agent.agentList.splice(0, 0, loggedInUser);
                     }
                 } else {
-                    testData.agents
+                    draft.agent.agentList = [];
+
+                    if (draft.agent.vanity) {
+                        draft.agent.agentList.splice(0, 0, loggedInUser);
+                    }
+
+                    const agentsForSupervisor = testData.agents
                         .filter(agent => agent.supervisor.toLowerCase() === action.payload.supervisorName.toLowerCase())
-                        .forEach(item => updates.add(item.value));
+                        .map(item => item.value);
+
+                    draft.agent.agentList = draft.agent.agentList.concat(agentsForSupervisor);
                 }
             }
 
-            return {
-                ...state,
-                agent: {
-                    ...state.agent,
-                    agentList: Array.from(updates),
-                    vanity: vanityCheck(updates)
-                }
-            }
+            draft.agent.vanity = vanityCheck(draft.agent.agentList);
+
+            return draft;
         }
         case 'UPDATE_OFFENDER': {
-            const nextState = produce(state, draft => {
-                draft.offender[action.meta] = action.payload;
-            });
+            draft.offender[action.meta] = action.payload;
 
-            return nextState;
+            return draft;
+        }
+        case 'UPDATE_OTHER': {
+            draft.other[action.meta] = action.payload;
+
+            return draft;
         }
         default:
-            throw new Error();
+            return draft;
     }
-};
+});
 
 export default function Filters(props) {
-    const [criteria, dispatcher] = useReducer(reducer, {
+    const [criteria, dispatcher] = useReducer(filterReducer, {
         agent: {
             loggedInUser,
             agentList: [loggedInUser],
