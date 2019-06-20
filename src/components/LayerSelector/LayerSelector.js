@@ -168,7 +168,7 @@ class LayerSelector extends Component {
         id: PropTypes.string.isRequired,
         tileInfo: PropTypes.object,
         linked: PropTypes.arrayOf(PropTypes.string)
-    })]))
+      })]))
   };
 
   render() {
@@ -190,9 +190,9 @@ class LayerSelector extends Component {
   }
 
   /**
- * Creates the default TileInfo constructor object for applicance layers.
+ * Creates the default TileInfo constructor object for appliance layers.
  * @private
- * @returns {object} The least common denominator contructor object for appliance layers.
+ * @returns {object} The least common denominator constructor object for appliance layers.
  */
   createDefaultTileInfo(LOD) {
     const tilesize = 256;
@@ -232,7 +232,7 @@ class LayerSelector extends Component {
 
   /** Sets the TileInfo for each of Discover layers since they all use different levels.
  * @private
- * @param {applianceLayer} layers - The applicance layers object `{ 'id': { urlPattern: ''}}`
+ * @param {applianceLayer} layers - The appliance layers object `{ 'id': { urlPattern: ''}}`
  * @returns {applianceLayer} - returns Discover layers object with a new `tileInfo` property.
  */
   setTileInfosForApplianceLayers(layers, defaultTileInfo, TileInfo) {
