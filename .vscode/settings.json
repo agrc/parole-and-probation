@@ -13,5 +13,15 @@
   ],
   "editor.tabSize": 4,
   "editor.insertSpaces": true,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "cSpell.words": [
+    "esrijs",
+    "fortawesome",
+    "immer",
+    "maplens",
+    "onstatechange",
+    "onupdatefound",
+    "padder",
+    "precached"
+  ]
 }
