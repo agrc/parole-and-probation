@@ -95,44 +95,82 @@ const filterReducer = produce((draft, action) => {
 
             return draft;
         }
+        case 'RESET': {
+            return emptyState;
+        }
         default:
             return draft;
     }
 });
 
+const initialState = {
+    agent: {
+        loggedInUser,
+        agentList: [loggedInUser],
+        vanity: true
+    },
+    date: {},
+    location: {
+        buffer: '',
+        region: [],
+        zip: '',
+        city: '',
+        county: '',
+        extent: {}, // TODO: implement
+        point: {} // TODO: implement
+    },
+    offender: {
+        gender: '',
+        name: '',
+        number: '',
+        tel: '',
+        employer: ''
+    },
+    other: {
+        warrant: '',
+        status: '',
+        sos: [],
+        supervision: '',
+        gang: '',
+        offense: ''
+    }
+};
+
+const emptyState = {
+    agent: {
+        loggedInUser,
+        agentList: [loggedInUser],
+        vanity: true
+    },
+    date: {},
+    location: {
+        buffer: '',
+        region: [],
+        zip: '',
+        city: '',
+        county: '',
+        extent: {}, // TODO: implement
+        point: {} // TODO: implement
+    },
+    offender: {
+        gender: '',
+        name: '',
+        number: '',
+        tel: '',
+        employer: ''
+    },
+    other: {
+        warrant: '',
+        status: '',
+        sos: [],
+        supervision: '',
+        gang: '',
+        offense: ''
+    }
+};
+
 export default function Filters(props) {
-    const [criteria, dispatcher] = useReducer(filterReducer, {
-        agent: {
-            loggedInUser,
-            agentList: [loggedInUser],
-            vanity: true
-        },
-        date: {},
-        location: {
-            buffer: '1600',
-            region: [],
-            zip: '',
-            city: '',
-            county: '',
-            extent: {}, // TODO: implement
-            point: {} // TODO: implement
-        },
-        offender: {
-            gender: '',
-            name: '',
-            number: '',
-            tel: '',
-            employer: ''
-        },
-        other: {
-            warrant: '',
-            status: '',
-            sos: [],
-            supervision: '',
-            gang: '',
-            offense: ''
-        }
-    });
+    const [criteria, dispatcher] = useReducer(filterReducer, initialState);
 
     return (
         <>
@@ -161,7 +199,8 @@ export default function Filters(props) {
                     criteria={criteria.other}
                     update={dispatcher} />
             </AccordionPane>
-            <FilterActions criteria={criteria} />
+            <FilterActions
+                reset={() => dispatcher({ type: 'RESET' })} />
         </>
     )
 }
