@@ -98,6 +98,18 @@ const filterReducer = produce((draft, action) => {
         case 'RESET': {
             return emptyState;
         }
+        case 'APPLY': {
+            const ignoreKeys = ['vanity', 'loggedInUser']
+            alert(JSON.stringify(draft, (key, value) => {
+                if (value === '' || ignoreKeys.indexOf(key) > -1 || value.length === 0 || (!Array.isArray(value) && value instanceof Object && Object.keys(value).length === 0)) {
+                    return undefined;
+                }
+
+                return value;
+            }, 2));
+
+            return draft;
+        }
         default:
             return draft;
     }
@@ -200,6 +212,7 @@ export default function Filters(props) {
                     update={dispatcher} />
             </AccordionPane>
             <FilterActions
+                apply={() => dispatcher({ type: 'APPLY' })}
                 reset={() => dispatcher({ type: 'RESET' })} />
         </>
     )
