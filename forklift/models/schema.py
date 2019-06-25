@@ -6,6 +6,7 @@ A module that holds the schema for the dat file
 '''
 
 import pandas as pd
+from sqlalchemy.dialects.mssql import BIT, CHAR, DATE, DECIMAL, INTEGER, SMALLINT, VARCHAR
 
 
 def convert_to_date(value):
@@ -138,185 +139,50 @@ CONVERTERS = {
     'gang_type': convert_to_str,
 }
 
-SCHEMA = {
-    'ofndr_num': {
-        'type': 'int',
-        'map': 'offender_id'
-    },
-    'gender': {
-        'type': 'string',
-        'map': 'gender'
-    },
-    'region_id': {
-        'type': 'int',
-        'map': 'region'
-    },
-    'agcy_desc': {
-        'type': 'string',
-        'map': 'agency'
-    },
-    'supervisor_id': {
-        'type': 'string',
-        'map': 'supervisor_id'
-    },
-    'supervisor_name': {
-        'type': 'string',
-        'map': 'supervisor_name'
-    },
-    'agnt_id': {
-        'type': 'string',
-        'map': 'agent_id'
-    },
-    'agent_name': {
-        'type': 'string',
-        'map': 'agent_name'
-    },
-    'ofndr_full_name': {
-        'type': 'string',
-        'map': 'offender'
-    },
-    'dob': {
-        'type': 'date',
-        'map': 'date_of_birth'
-    },
-    'race': {
-        'type': 'string',
-        'map': 'race'
-    },
-    'legal_stat_type': {
-        'type': 'string',
-        'map': 'legal_status'
-    },
-    'legal_stat_cd': {
-        'type': 'string',
-        'map': 'legal_status_code'
-    },
-    'legal_status': {
-        'type': 'string',
-        'map': 'legal_status_description'
-    },
-    'supervision_start_date': {
-        'type': 'date',
-        'map': 'supervision_start_date'
-    },
-    'ofndr_location': {
-        'type': 'string',
-        'map': 'offender_location'
-    },
-    'address_start_date': {
-        'type': 'date',
-        'map': 'address_start_date'
-    },
-    'address': {
-        'type': 'string',
-        'map': 'address'
-    },
-    'unit': {
-        'type': 'string',
-        'map': 'unit'
-    },
-    'city': {
-        'type': 'string',
-        'map': 'city'
-    },
-    'st': {
-        'type': 'string',
-        'map': 'state'
-    },
-    'zip': {
-        'type': 'string',
-        'map': 'zip'
-    },
-    'addr_typ_cd': {
-        'type': 'string',
-        'map': 'address_type_code'
-    },
-    'addr_typ_desc': {
-        'type': 'string',
-        'map': 'address_type'
-    },
-    'x': {
-        'type': 'float',
-        'map': 'x'
-    },
-    'y': {
-        'type': 'float',
-        'map': 'y'
-    },
-    'score': {
-        'type': 'float',
-        'map': 'score'
-    },
-    'ofndr_phone': {
-        'type': 'string',
-        'map': 'offender_phone'
-    },
-    'std_of_sprvsn': {
-        'type': 'string',
-        'map': 'standard_of_supervision'
-    },
-    'spcl_sprvsn': {
-        'type': 'string',
-        'map': 'special_supervision'
-    },
-    'last_office_cntc_dt': {
-        'type': 'date',
-        'map': 'last_office_contact'
-    },
-    'last_successful_field_cntc_dt': {
-        'type': 'date',
-        'map': 'last_successful_field_contact'
-    },
-    'last_field_cntc_dt': {
-        'type': 'date',
-        'map': 'last_field_contact'
-    },
-    'field_cntc_rslt': {
-        'type': 'string',
-        'map': 'field_contact_result'
-    },
-    'ofnse_typ_cd': {
-        'type': 'string',
-        'map': 'offense_code'
-    },
-    'ofnse_typ_desc': {
-        'type': 'string',
-        'map': 'primary_offense'
-    },
-    'crime_degree_cd': {
-        'type': 'string',
-        'map': 'crime_degree'
-    },
-    'ofnse_desc': {
-        'type': 'string',
-        'map': 'offense_description'
-    },
-    'ecc': {
-        'type': 'date',
-        'map': 'earned_compliance_credit'
-    },
-    'active_warrant': {
-        'type': 'bit',
-        'map': 'active_warrant'
-    },
-    'employer': {
-        'type': 'string',
-        'map': 'employer'
-    },
-    'stg_id': {
-        'type': 'int',
-        'map': 'gang_id'
-    },
-    'stg_name': {
-        'type': 'string',
-        'map': 'gang_name'
-    },
-    'stg_typ_id': {
-        'type': 'int',
-        'map': 'gang_type_id'
-    },
-    'stg_typ': {
-        'type': 'string',
-        'map': 'gang_type'
-    }
+TYPES = {
+    'offender_id': INTEGER(),
+    'gender': CHAR(),
+    'region': SMALLINT(),
+    'agency': VARCHAR(30),
+    'supervisor_id': VARCHAR(8),
+    'supervisor_name': VARCHAR(35),
+    'agent_id': VARCHAR(8),
+    'agent_name': VARCHAR(35),
+    'offender': VARCHAR(60),
+    'date_of_birth': DATE(),
+    'race': VARCHAR(30),
+    'legal_status': VARCHAR(10),
+    'legal_status_code': CHAR(),
+    'legal_status_description': VARCHAR(30),
+    'supervision_start_date': DATE(),
+    'offender_location': VARCHAR(40),
+    'address_start_date': DATE(),
+    'address': VARCHAR(50),
+    'unit': VARCHAR(15),
+    'city': VARCHAR(30),
+    'state': CHAR(2),
+    'zip': SMALLINT(),
+    'address_type_code': CHAR(),
+    'address_type': VARCHAR(20),
+    'x': DECIMAL(15, 12),
+    'y': DECIMAL(15, 12),
+    'score': DECIMAL(5, 2),
+    'offender_phone': VARCHAR(25),
+    'standard_of_supervision': VARCHAR(5),
+    'special_supervision': VARCHAR(30),
+    'last_office_contact': DATE(),
+    'last_successful_field_contact': DATE(),
+    'last_field_contact': DATE(),
+    'field_contact_result': VARCHAR(20),
+    'offense_code': CHAR(),
+    'primary_offense': VARCHAR(30),
+    'crime_degree': CHAR(2),
+    'offense_description': VARCHAR(80),
+    'earned_compliance_credit': DATE(),
+    'active_warrant': BIT(),
+    'employer': VARCHAR(100),
+    'gang_id': INTEGER(),
+    'gang_name': VARCHAR(30),
+    'gang_type_id': INTEGER(),
+    'gang_type': VARCHAR(20)
 }

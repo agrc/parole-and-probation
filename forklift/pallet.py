@@ -88,6 +88,7 @@ class CorrectionPallet(Pallet):
                     if_exists='append',
                     index=False,
                     chunksize=5000,
+                    dtype=schema.TYPES,
                 )
 
                 self.log.debug('creating shape')
