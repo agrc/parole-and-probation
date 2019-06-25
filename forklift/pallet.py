@@ -68,24 +68,16 @@ class CorrectionPallet(Pallet):
 
             self.log.debug(frame.info())
 
-            truncate = sqlalchemy.text('TRUNCATE TABLE offenders')
-            add_shape = (
-                'UPDATE offenders SET '
-                '''shape = geography::STGeomFromText('POINT(' + CONVERT(varchar, offenders.x) + ' ' + CONVERT(varchar, offenders.y) + ')', 4326)'''
-            )
 
             #: load new data
             engine = sqlalchemy.create_engine(database.CONNECTION)
 
             with engine.connect() as connection:
-                self.log.debug('trucating table')
-                connection.execution_options(autocommit=True).execute(truncate)
-
-                self.log.info('inserting offender')
+                self.log.info('inserting offender data')
                 frame.to_sql(
                     'offenders',
                     engine,
-                    if_exists='append',
+                    if_exists='replace',
                     index=False,
                     chunksize=5000,
                     dtype=schema.TYPES,
