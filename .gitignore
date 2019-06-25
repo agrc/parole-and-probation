@@ -1,4 +1,5 @@
 # python stuff
+.env
 .pyenv
 *.pyc
 __pycache__
