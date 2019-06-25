@@ -4,6 +4,9 @@
 *.pyc
 __pycache__
 
+# arcgis stuff
+/maps/index/
+
 # dependencies
 /node_modules
 
