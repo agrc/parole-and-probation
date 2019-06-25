@@ -64,10 +64,21 @@ class CorrectionPallet(Pallet):
                 quoting=csv.QUOTE_NONE,
                 names=schema.FIELDS,
                 converters=schema.CONVERTERS,
+                # nrows=10, #: for testing
             ).iloc[:, :-1]
 
             self.log.debug(frame.info())
 
+            add_shape = '''IF NOT EXISTS (
+  SELECT *
+  FROM   sys.columns
+  WHERE  object_id = OBJECT_ID('[offenders]')
+         AND name = 'shape'
+)
+  ALTER TABLE [offenders] ADD [shape] geography
+'''
+            create_shapes = '''UPDATE [offenders]
+SET [offenders].[shape] = geography::STGeomFromText('POINT(' + CONVERT(varchar, [offenders].[x]) + ' ' + CONVERT(varchar, [offenders].[y]) + ')', 4326)'''
 
             #: load new data
             engine = sqlalchemy.create_engine(database.CONNECTION)
@@ -83,8 +94,10 @@ class CorrectionPallet(Pallet):
                     dtype=schema.TYPES,
                 )
 
-                self.log.debug('creating shape')
+                self.log.debug('creating shape field')
                 connection.execution_options(autocommit=True).execute(add_shape)
+                self.log.debug('populating shape field')
+                connection.execution_options(autocommit=True).execute(create_shapes)
         except Exception as e:
             self.log.fatal(e)
             self.success = (False, 'unable to read csv and write data to sql')
