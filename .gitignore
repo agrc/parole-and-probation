@@ -3,6 +3,7 @@
 .pyenv
 *.pyc
 __pycache__
+.pyhistory
 
 # arcgis stuff
 /maps/index/
