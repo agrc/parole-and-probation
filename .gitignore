@@ -27,6 +27,7 @@ secrets.json
 *.odc
 *.pyc
 *.sde
+!maps/DOCOffenders@(local).sde
 forklift/temp
 forklift/vault/ftp.py
 forklift/vault/database.py
@@ -38,3 +39,5 @@ forklift/secrets.py
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.ags
+scripts/tool/vault.py
