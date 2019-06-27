@@ -70,7 +70,38 @@ export default class ReactMapView extends Component {
       </LayerSelectorContainer>,
       selectorNode);
 
+    this.offenders = new FeatureLayer({
+      outFields: ['offender_id', 'agent_name', 'active_warrant', 'date_of_birth', 'gender', 'legal_status',
+        'standard_of_supervision', 'last_field_contact', 'field_contact_result', 'last_office_contact',
+        'offender_phone', 'address', 'city', 'state', 'zip', 'unit', 'address_type', 'address_start_date', 'employer',
+        'gang_name', 'supervision_start_date', 'earned_compliance_credit'],
+      definitionExpression: `agent_name='RICHARD CAMPBELL'`
+    });
+
+    this.map.add(this.offenders);
+
+    await this.offenders.when();
+    const extent = await this.offenders.queryExtent();
+    this.view.goTo(extent);
+
     this.view.on('click', event => this.props.mapDispatcher({ type: 'MAP_CLICK', payload: event.mapPoint }));
+  }
+
+  arraysEqual(a, b) {
+    if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) {
+      return false;
+    }
+
+    const arr1 = a.concat().sort();
+    const arr2 = b.concat().sort();
+
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   componentDidUpdate(prevProps) {
@@ -86,6 +117,10 @@ export default class ReactMapView extends Component {
         zoom: level,
         preserve: preserve
       });
+    }
+
+    if (!this.arraysEqual(this.props.filter, prevProps.filter)) {
+      this.applyFilter(this.props.filter);
     }
   }
 
@@ -126,6 +161,20 @@ export default class ReactMapView extends Component {
         this.view.graphics.removeAll();
       });
     }
+  }
+
+  async applyFilter(where) {
+    const layerView = await this.view.whenLayerView(this.offenders);
+    layerView.filter = {
+      where: where.join(' AND ')
+    };
+
+    const [watchUtils] = await loadModules(['esri/core/watchUtils']);
+
+    await watchUtils.whenFalseOnce(layerView, 'updating', async () => {
+      const extent = await layerView.queryExtent();
+      this.view.goTo(extent);
+    });
   }
 
   getView() {

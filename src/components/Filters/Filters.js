@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import produce from 'immer';
 import AccordionPane from '../AccordionPane';
 import FilterActions from './FilterActions';
 import FilterAgent from './FilterAgent';
@@ -7,7 +8,6 @@ import FilterOffender from './FilterOffender';
 import FilterLocation from './FilterLocation';
 import FilterOther from './FilterOther';
 import './Filters.css';
-import produce from "immer";
 
 const testData = {
     agents: [
@@ -31,6 +31,70 @@ const vanityCheck = (agentList) => {
     }
 
     return agentList.has(loggedInUser);
+};
+
+const filterMeta = {
+    agent: {
+        agentList: data => `agent_name in (${data.map(agent => `'${agent}'`).join()})`
+    },
+    date: {},
+    location: {
+        buffer: data => undefined,
+        region: data => `region in (${data.join()})`,
+        zip: data => `zip=${data}`,
+        city: data => `city='${data}'`,
+        county: data => `county='${data}'`,
+        extent: data => undefined,
+        point: data => undefined
+    },
+    offender: {
+        gender: data => `gender='${data.slice(0, 1)}'`,
+        name: data => `offender_name like '%${data}%'`,
+        number: data => `offender_id=${data}`,
+        tel: data => `offender_phone='${data}'`,
+        employer: data => `employer='${data}'`
+    },
+    other: {
+        warrant: data => `activate_warrant=${data}`,
+        status: data => `legal_status='${data}'`,
+        sos: data => `standard_of_supervision in (${data.map(item => `'${item}'`).join()})`,
+        supervision: data => `standard_of_supervision='${data}'`,
+        gang: data => `gang_name='${data}'`,
+        offense: data => `offense_code='${data}'`
+    }
+};
+
+const formatForEsriFilter = (data) => {
+    console.log(`Filters:formatForEsriFilter`, data);
+
+    let filterParts = [];
+    let definitionExpressionParts = [];
+
+    // agent/data/location/offender/other
+    Object.keys(data).forEach(key => {
+        const metaKeys = Object.keys(filterMeta[key]);
+
+        const criteria = Object.entries(data[key]);
+        const sql = criteria.map(([subKey, value]) => {
+            if (!metaKeys.includes(subKey) || Object.keys(value).length === 0 || !value) {
+                return undefined;
+            }
+
+            return filterMeta[key][subKey](value);
+        }).filter(x => !!x);
+
+        if (key === 'agent' && sql) {
+            sql.forEach(item => definitionExpressionParts.push(item));
+
+            return;
+        }
+
+        if (sql) {
+            sql.forEach(item => filterParts.push(item));
+        }
+    });
+
+    return { definitionExpression: definitionExpressionParts, filter: filterParts };
 };
 
 const filterReducer = produce((draft, action) => {
@@ -98,20 +162,8 @@ const filterReducer = produce((draft, action) => {
         case 'RESET': {
             return emptyState;
         }
-        case 'APPLY': {
-            const ignoreKeys = ['vanity', 'loggedInUser']
-            alert(JSON.stringify(draft, (key, value) => {
-                if (value === '' || ignoreKeys.indexOf(key) > -1 || value.length === 0 || (!Array.isArray(value) && value instanceof Object && Object.keys(value).length === 0)) {
-                    return undefined;
-                }
-
-                return value;
-            }, 2));
-
-            return draft;
-        }
         default:
-            return draft;
+            throw new Error();
     }
 });
 
@@ -128,8 +180,8 @@ const initialState = {
         zip: '',
         city: '',
         county: '',
-        extent: {}, // TODO: implement
-        point: {} // TODO: implement
+        extent: '', // TODO: implement
+        point: '' // TODO: implement
     },
     offender: {
         gender: '',
@@ -212,7 +264,7 @@ export default function Filters(props) {
                     update={dispatcher} />
             </AccordionPane>
             <FilterActions
-                apply={() => dispatcher({ type: 'APPLY' })}
+                apply={() => props.mapDispatcher({ type: 'SET_FILTERS', payload: formatForEsriFilter(criteria) })}
                 reset={() => dispatcher({ type: 'RESET' })} />
         </>
     )

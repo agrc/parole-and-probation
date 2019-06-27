@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import produce from 'immer';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import MapLens from './components/MapLens';
@@ -6,7 +7,6 @@ import MapView from './components/esrijs/MapView';
 import Filters from './components/Filters';
 import { IdentifyInformation, IdentifyContainer } from './components/Identify';
 import config from './config';
-import produce from 'immer';
 import './App.css';
 
 const reducer = produce((draft, action) => {
@@ -43,6 +43,12 @@ const reducer = produce((draft, action) => {
 
       return draft;
     }
+    case 'SET_FILTERS': {
+      draft.filter = action.payload.filter;
+      draft.definitionExpression = action.payload.definitionExpression;
+
+      return draft;
+    }
     default:
       throw new Error();
   }
@@ -56,13 +62,17 @@ export default function App() {
     },
     mapPoint: {},
     showIdentify: false,
-    showSidebar: window.innerWidth >= config.MIN_DESKTOP_WIDTH
+    showSidebar: window.innerWidth >= config.MIN_DESKTOP_WIDTH,
+    filter: '',
+    definitionExpression: `agent_name='RICHARD CAMPBELL'`
   });
 
   const mapOptions = {
     discoverKey: process.env.REACT_APP_DISCOVER,
     mapDispatcher: dispatcher,
-    zoomToGraphic: app.zoomToGraphic
+    zoomToGraphic: app.zoomToGraphic,
+    definitionExpression: app.definitionExpression,
+    filter: app.filter
   };
 
   const sidebarOptions = {
