@@ -6,50 +6,47 @@ import MapView from './components/esrijs/MapView';
 import Filters from './components/Filters';
 import { IdentifyInformation, IdentifyContainer } from './components/Identify';
 import config from './config';
+import produce from 'immer';
 import './App.css';
 
-const reducer = (state, action) => {
-  console.log(action);
+const reducer = produce((draft, action) => {
+  console.log(`reducing state for ${action.type}`);
+  console.dir(action);
+
   switch (action.type) {
     case 'ZOOM_TO_GRAPHIC':
       {
-        return {
-          ...state,
-          zoomToGraphic: {
-            graphic: action.payload,
-            level: 18
-          }
-        };
+        draft.zoomToGraphic.graphic = action.payload;
+        draft.zoomToGraphic.level = 18;
+
+        return draft;
       }
     case 'MAP_CLICK': {
-      return {
-        ...state,
-        showIdentify: true,
-        showSidebar: true,
-        mapPoint: action.payload
-      };
+      draft.showIdentify = true;
+      draft.showSidebar = true;
+      draft.mapPoint = action.payload;
+
+      return draft;
     }
     case 'TOGGLE_SIDEBAR': {
       if (action.payload === undefined) {
-        action.payload = state.showSidebar;
+        action.payload = draft.showSidebar;
       }
 
-      return {
-        ...state,
-        showSidebar: !action.payload
-      };
+      draft.showSidebar = !action.payload;
+
+      return draft;
     }
     case 'TOGGLE_IDENTIFY': {
-      return {
-        ...state,
-        showIdentify: action.payload,
-        showSidebar: action.payload ? true : state.showSidebar,
-      };
+      draft.showSidebar = action.payload ? true : draft.showSidebar;
+      draft.showIdentify = action.payload;
+
+      return draft;
     }
     default:
       throw new Error();
   }
-};
+});
 
 export default function App() {
   const [app, dispatcher] = useReducer(reducer, {
