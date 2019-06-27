@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { loadModules, loadCss } from 'esri-loader';
 import { LayerSelectorContainer, LayerSelector } from '../../components/LayerSelector/LayerSelector';
-import cityExtents from './data/cityExtents.json';
 
 
 export default class ReactMapView extends Component {
@@ -25,8 +24,7 @@ export default class ReactMapView extends Component {
     const mapRequires = [
       'esri/Map',
       'esri/views/MapView',
-      'esri/layers/FeatureLayer',
-      'esri/geometry/Polygon'
+      'esri/layers/FeatureLayer'
     ];
     const selectorRequires = [
       'esri/layers/support/LOD',
@@ -37,18 +35,20 @@ export default class ReactMapView extends Component {
 
     // FeatureLayer is required even-though unused
     // eslint-disable-next-line
-    const [Map, MapView, FeatureLayer, Polygon, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires));
+    const [Map, MapView, FeatureLayer, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires));
 
     this.map = new Map();
-
-    // get random city extent
-    const randomExtent = cityExtents[Math.round(Math.random() * (cityExtents.length - 1))];
-    const extent = new Polygon(randomExtent.geometry).extent;
 
     this.view = new MapView({
       container: this.mapViewDiv,
       map: this.map,
-      extent,
+      extent: {
+        xmax: -11762120.612131765,
+        xmin: -13074391.513731329,
+        ymax: 5225035.106177688,
+        ymin: 4373832.359194187,
+        spatialReference: 3857
+      },
       ui: {
         components: ['zoom']
       }
@@ -62,7 +62,7 @@ export default class ReactMapView extends Component {
       quadWord: this.props.discoverKey,
       baseLayers: ['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR'],
       modules: [LOD, TileInfo, WebTileLayer, Basemap]
-    }
+    };
 
     ReactDOM.render(
       <LayerSelectorContainer>
