@@ -20,7 +20,7 @@ export default class ReactMapView extends Component {
   }
 
   async componentDidMount() {
-    loadCss('https://js.arcgis.com/4.11/esri/css/main.css');
+    loadCss('https://js.arcgis.com/4.12/esri/css/main.css');
     const mapRequires = [
       'esri/Map',
       'esri/views/MapView',
@@ -71,6 +71,7 @@ export default class ReactMapView extends Component {
       selectorNode);
 
     this.offenders = new FeatureLayer({
+      url: '/mapserver',
       outFields: ['offender_id', 'agent_name', 'active_warrant', 'date_of_birth', 'gender', 'legal_status',
         'standard_of_supervision', 'last_field_contact', 'field_contact_result', 'last_office_contact',
         'offender_phone', 'address', 'city', 'state', 'zip', 'unit', 'address_type', 'address_start_date', 'employer',

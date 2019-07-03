@@ -9,7 +9,7 @@ __pycache__
 /maps/index/
 
 # dependencies
-/node_modules
+**/node_modules
 
 # testing
 /coverage
