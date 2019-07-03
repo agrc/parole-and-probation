@@ -22,6 +22,8 @@
     "onstatechange",
     "onupdatefound",
     "padder",
-    "precached"
+    "precached",
+    "requestip",
+    "serilog"
   ]
 }

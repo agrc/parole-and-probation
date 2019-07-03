@@ -14,6 +14,9 @@
             "cwd": "${workspaceFolder}/api",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "GOOGLE_APPLICATION_CREDENTIALS": "${workspaceFolder}/api/log-writer-sa.json"
+            },
             "launchBrowser": {
                 "enabled": true,
                 "args": "${auto-detect-url}",

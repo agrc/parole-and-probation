@@ -28,6 +28,10 @@ namespace api
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddSingleton<ILogger>(provider => new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .CreateLogger());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
