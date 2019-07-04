@@ -1,4 +1,4 @@
-namespace api.Models.Tokens {
+namespace app.Models.Tokens {
     public interface IArcGISCredential {
         string Username { get; set; }
         string Password { get; set; }

@@ -9,13 +9,13 @@
             "request": "launch",
             "name": "Debug",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/api/bin/Debug/netcoreapp2.2/api.dll",
+            "program": "${workspaceFolder}/src/bin/Debug/netcoreapp2.2/app.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/api",
+            "cwd": "${workspaceFolder}/src",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "env": {
-                "GOOGLE_APPLICATION_CREDENTIALS": "${workspaceFolder}/api/log-writer-sa.json"
+                "GOOGLE_APPLICATION_CREDENTIALS": "${workspaceFolder}/src/log-writer-sa.json"
             },
             "launchBrowser": {
                 "enabled": true,

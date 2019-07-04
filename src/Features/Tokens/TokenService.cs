@@ -6,11 +6,12 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Serilog;
-using api.Models.Tokens;
+using app.Models;
+using app.Models.Tokens;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http;
 
-namespace api.Features.Tokens {
+namespace app.Features.Tokens {
     public class TokenService {
         private readonly Uri TokenUri;
         private readonly string _tokenUrl = "/tokens/generateToken";

@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using api.Infrastructure;
-using api.Models.Tokens;
-using api.Features.Tokens;
+using app.Infrastructure;
+using app.Models.Tokens;
+using app.Features.Tokens;
 using Serilog;
 
-namespace api {
+namespace app {
     public class Startup {
         public Startup(IConfiguration configuration) {
             Configuration = configuration;

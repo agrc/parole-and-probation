@@ -4,11 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Extensions;
-using api.Features.Tokens;
+using app.Features.Tokens;
 using Serilog;
-using api.Models.Tokens;
+using app.Models.Tokens;
 
-namespace api.Infrastructure {
+namespace app.Infrastructure {
     public class ReverseProxyMiddleware {
         private static readonly HttpClient _httpClient = new HttpClient();
         private readonly RequestDelegate _nextMiddleware;

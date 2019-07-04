@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace api.Models {
+namespace app.Models {
     public class Errorable {
         public Error Error { get; set; }
     }
