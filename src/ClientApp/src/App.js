@@ -6,7 +6,7 @@ import MapLens from './components/MapLens';
 import MapView from './components/esrijs/MapView';
 import Filters from './components/Filters';
 import { IdentifyInformation, IdentifyContainer } from './components/Identify';
-import config from './config';
+import { mappingConfig } from './config';
 import './App.css';
 
 const reducer = produce((draft, action) => {
@@ -62,7 +62,7 @@ export default function App() {
     },
     mapPoint: {},
     showIdentify: false,
-    showSidebar: window.innerWidth >= config.MIN_DESKTOP_WIDTH,
+    showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
     filter: '',
     definitionExpression: `agent_name='RICHARD CAMPBELL'`
   });
