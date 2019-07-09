@@ -15,7 +15,8 @@
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "env": {
-                "GOOGLE_APPLICATION_CREDENTIALS": "${workspaceFolder}/src/log-writer-sa.json"
+                "GOOGLE_APPLICATION_CREDENTIALS": "${workspaceFolder}/src/log-writer-sa.json",
+                "REACT_APP_REDIRECT_URL": "https://localhost:5001/callback"
             },
             "launchBrowser": {
                 "enabled": true,
