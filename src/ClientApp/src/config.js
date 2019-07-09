@@ -8,7 +8,7 @@ module.exports = {
   oidcConfig: {
     authority: 'https://login.dts.utah.gov/sso/oauth2/',
     client_id: 'synange-feoffor-673742',
-    redirect_uri: process.env.REACT_APP_REDIRECT_URL,
+    redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/callback`,
     response_type: 'token id_token',
     scope: 'openid profile email',
     filterProtocolClaims: true,
