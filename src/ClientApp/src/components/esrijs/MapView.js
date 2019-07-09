@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { loadModules, loadCss } from 'esri-loader';
 import { LayerSelectorContainer, LayerSelector } from '../../components/LayerSelector/LayerSelector';
+import { UserData } from 'react-oidc';
 
 
 export default class ReactMapView extends Component {
   zoomLevel = 5;
   displayedZoomGraphic = null;
+  static contextType = UserData;
 
   render() {
     return (
@@ -22,6 +24,7 @@ export default class ReactMapView extends Component {
   async componentDidMount() {
     loadCss('https://js.arcgis.com/4.12/esri/css/main.css');
     const mapRequires = [
+      'esri/config',
       'esri/Map',
       'esri/views/MapView',
       'esri/layers/FeatureLayer'
@@ -35,7 +38,7 @@ export default class ReactMapView extends Component {
 
     // FeatureLayer is required even-though unused
     // eslint-disable-next-line
-    const [Map, MapView, FeatureLayer, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires));
+    const [esriConfig, Map, MapView, FeatureLayer, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires));
 
     this.map = new Map();
 
@@ -77,6 +80,13 @@ export default class ReactMapView extends Component {
         'offender_phone', 'address', 'city', 'state', 'zip', 'unit', 'address_type', 'address_start_date', 'employer',
         'gang_name', 'supervision_start_date', 'earned_compliance_credit'],
       definitionExpression: this.props.definitionExpression
+    });
+
+    esriConfig.request.interceptors.push({
+      urls: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/mapserver`,
+      headers: {
+        Authorization: `Bearer ${this.context.user.access_token}`
+      }
     });
 
     this.map.add(this.offenders);
