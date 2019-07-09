@@ -1,5 +1,6 @@
-import React, { useReducer } from 'react';
+import React, { useContext, useReducer } from 'react';
 import produce from 'immer';
+import { UserData } from 'react-oidc';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import MapLens from './components/MapLens';
@@ -55,6 +56,7 @@ const reducer = produce((draft, action) => {
 });
 
 export default function App() {
+  const oidc = useContext(UserData);
   const [app, dispatcher] = useReducer(reducer, {
     zoomToGraphic: {
       graphic: {},
@@ -64,7 +66,7 @@ export default function App() {
     showIdentify: false,
     showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
     filter: '',
-    definitionExpression: `agent_name='RICHARD CAMPBELL'`
+    definitionExpression: `agent_name='${oidc.user.profile.name}'`
   });
 
   const mapOptions = {
@@ -92,7 +94,7 @@ export default function App() {
         </IdentifyContainer>
         : null}
       <Sidebar>
-        <Filters mapDispatcher={dispatcher} />
+        <Filters mapDispatcher={dispatcher} loggedInUser={oidc.user.profile.name} />
       </Sidebar>
       <MapLens {...sidebarOptions}>
         <MapView {...mapOptions} />

@@ -76,7 +76,7 @@ export default class ReactMapView extends Component {
         'standard_of_supervision', 'last_field_contact', 'field_contact_result', 'last_office_contact',
         'offender_phone', 'address', 'city', 'state', 'zip', 'unit', 'address_type', 'address_start_date', 'employer',
         'gang_name', 'supervision_start_date', 'earned_compliance_credit'],
-      definitionExpression: `agent_name='RICHARD CAMPBELL'`
+      definitionExpression: this.props.definitionExpression
     });
 
     this.map.add(this.offenders);

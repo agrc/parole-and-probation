@@ -23,9 +23,7 @@ const testData = {
     ]
 };
 
-const loggedInUser = 'logged in user';
-
-const vanityCheck = (agentList) => {
+const vanityCheck = (agentList, loggedInUser) => {
     if (Array.isArray(agentList)) {
         return agentList.indexOf(loggedInUser) > -1;
     }
@@ -115,21 +113,21 @@ const filterReducer = produce((draft, action) => {
                     draft.agent.agentList.splice(remove, 1);
                 }
             } else if (action.meta === 'supervisor') {
-                if (draft.agent.vanity && !vanityCheck(draft.agent.agentList)) {
-                    draft.agent.agentList.splice(0, 0, loggedInUser);
+                if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
+                    draft.agent.agentList.splice(0, 0, draft.agent.loggedInUser);
                 }
 
                 if (!action.payload.supervisorName) {
                     draft.agent.agentList = [];
 
                     if (draft.agent.vanity) {
-                        draft.agent.agentList.splice(0, 0, loggedInUser);
+                        draft.agent.agentList.splice(0, 0, draft.agent.loggedInUser);
                     }
                 } else {
                     draft.agent.agentList = [];
 
                     if (draft.agent.vanity) {
-                        draft.agent.agentList.splice(0, 0, loggedInUser);
+                        draft.agent.agentList.splice(0, 0, draft.agent.loggedInUser);
                     }
 
                     const agentsForSupervisor = testData.agents
@@ -140,7 +138,7 @@ const filterReducer = produce((draft, action) => {
                 }
             }
 
-            draft.agent.vanity = vanityCheck(draft.agent.agentList);
+            draft.agent.vanity = vanityCheck(draft.agent.agentList, draft.agent.loggedInUser);
 
             return draft;
         }
@@ -169,8 +167,8 @@ const filterReducer = produce((draft, action) => {
 
 const initialState = {
     agent: {
-        loggedInUser,
-        agentList: [loggedInUser],
+        loggedInUser: null,
+        agentList: [],
         vanity: true
     },
     date: {},
@@ -202,8 +200,8 @@ const initialState = {
 
 const emptyState = {
     agent: {
-        loggedInUser,
-        agentList: [loggedInUser],
+        loggedInUser: null,
+        agentList: [],
         vanity: true
     },
     date: {},
@@ -234,6 +232,12 @@ const emptyState = {
 };
 
 export default function Filters(props) {
+    initialState.agent.loggedInUser = props.loggedInUser;
+    initialState.agent.agentList = [props.loggedInUser];
+
+    emptyState.agent.loggedInUser = props.loggedInUser;
+    emptyState.agent.agentList = [props.loggedInUser];
+
     const [criteria, dispatcher] = useReducer(filterReducer, initialState);
 
     return (
