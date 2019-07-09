@@ -9,6 +9,11 @@ using app.Infrastructure;
 using app.Models.Tokens;
 using app.Features.Tokens;
 using Serilog;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System.Threading;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Logging;
 
 namespace app {
     public class Startup {
@@ -36,6 +41,23 @@ namespace app {
             services.AddSingleton<ILogger>(provider => new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .CreateLogger());
+
+            services.AddSingleton<TokenValidationParameters>(provider => {
+                var authority = "https://login.dts.utah.gov:443/sso/oauth2";
+
+                var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
+                    $"{authority}/.well-known/openid-configuration",
+                    new OpenIdConnectConfigurationRetriever(),
+                    new HttpDocumentRetriever());
+
+                var discoveryDocument = configurationManager.GetConfigurationAsync(CancellationToken.None).Result;
+
+                return new TokenValidationParameters {
+                    ValidIssuer = authority,
+                    ValidAudience = "synange-feoffor-673742",
+                    IssuerSigningKeys = discoveryDocument.SigningKeys
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
