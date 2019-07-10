@@ -1,19 +1,17 @@
+using app.Features.Tokens;
+using app.Infrastructure;
+using app.Models.Tokens;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using app.Infrastructure;
-using app.Models.Tokens;
-using app.Features.Tokens;
-using Serilog;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using System.Threading;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.IdentityModel.Logging;
+using Serilog;
+using System.Threading;
 
 namespace app {
     public class Startup {
@@ -70,6 +68,10 @@ namespace app {
                 app.UseDeveloperExceptionPage();
             } else {
                 app.UseExceptionHandler("/Error");
+            }
+
+            if (env.IsStaging()) {
+                app.UsePathBase("/app");
             }
 
             app.UseMiddleware<ReverseProxyMiddleware>();

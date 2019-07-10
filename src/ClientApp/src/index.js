@@ -15,7 +15,7 @@ const AppWithAuth = makeAuthenticator({
 })(<App />);
 
 ReactDOM.render((
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
         <Switch>
             <Route
                 path="/callback"

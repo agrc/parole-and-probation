@@ -74,7 +74,7 @@ export default class ReactMapView extends Component {
       selectorNode);
 
     this.offenders = new FeatureLayer({
-      url: '/mapserver',
+      url: `${process.env.REACT_APP_BASENAME}/mapserver`,
       outFields: ['offender_id', 'agent_name', 'active_warrant', 'date_of_birth', 'gender', 'legal_status',
         'standard_of_supervision', 'last_field_contact', 'field_contact_result', 'last_office_contact',
         'offender_phone', 'address', 'city', 'state', 'zip', 'unit', 'address_type', 'address_start_date', 'employer',
@@ -83,7 +83,7 @@ export default class ReactMapView extends Component {
     });
 
     esriConfig.request.interceptors.push({
-      urls: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/mapserver`,
+      urls: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}${process.env.REACT_APP_BASENAME}/mapserver`,
       headers: {
         Authorization: `Bearer ${this.context.user.access_token}`
       }
