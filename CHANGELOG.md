@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/agrc/parole-and-probation/compare/v1.4.0...v1.5.0) (2019-07-10)
+
+
+### Bug Fixes
+
+* **api:** omnisharp intellisense ([7232261](https://github.com/agrc/parole-and-probation/commit/7232261))
+* **app:** correct homepage url ([a1ba0a6](https://github.com/agrc/parole-and-probation/commit/a1ba0a6))
+* **app:** correct names in manifest ([e33a3ae](https://github.com/agrc/parole-and-probation/commit/e33a3ae))
+* **app:** do not publish service account or alternate appsettings ([3395ef0](https://github.com/agrc/parole-and-probation/commit/3395ef0))
+* **app:** send access token to api ([8b13b1f](https://github.com/agrc/parole-and-probation/commit/8b13b1f))
+* **layer-selector:** remove ${syntax} as it no longer functions in 4.12 ([c2dd0a4](https://github.com/agrc/parole-and-probation/commit/c2dd0a4))
+* **map:** set initial extent to state of utah ([70005f9](https://github.com/agrc/parole-and-probation/commit/70005f9))
+* **pallet:** create and update shape field ([3fd85d9](https://github.com/agrc/parole-and-probation/commit/3fd85d9))
+* **pallet:** generate correct schema types ([86a7611](https://github.com/agrc/parole-and-probation/commit/86a7611))
+* configure api and app to use basename ([6ab2b09](https://github.com/agrc/parole-and-probation/commit/6ab2b09))
+* continue to write changelog in top level ([66fa6ab](https://github.com/agrc/parole-and-probation/commit/66fa6ab))
+
+
+### Features
+
+* **api:** add console logging ([d2c7b27](https://github.com/agrc/parole-and-probation/commit/d2c7b27))
+* **api:** add stackdriver logging ([aff4638](https://github.com/agrc/parole-and-probation/commit/aff4638))
+* **api:** add vs code recommended extensions ([339731e](https://github.com/agrc/parole-and-probation/commit/339731e))
+* **api:** create reverse proxy ([b9b74c3](https://github.com/agrc/parole-and-probation/commit/b9b74c3))
+* **api:** request token and proxy requests ([c3c5443](https://github.com/agrc/parole-and-probation/commit/c3c5443))
+* **api:** validate access token ([9a1327d](https://github.com/agrc/parole-and-probation/commit/9a1327d))
+* **app:** add react router and oidc client ([12e3290](https://github.com/agrc/parole-and-probation/commit/12e3290))
+* **app:** filter points ([6833611](https://github.com/agrc/parole-and-probation/commit/6833611))
+* **filters:** apply alerts the user of the current filter state ([8914f8e](https://github.com/agrc/parole-and-probation/commit/8914f8e))
+* **filters:** reset sets state to default ([70a061f](https://github.com/agrc/parole-and-probation/commit/70a061f))
+* **filters:** use jwt logged in user for filters and map layer ([2227d2e](https://github.com/agrc/parole-and-probation/commit/2227d2e))
+* **map:** create arcgis pro project with field map ([7387642](https://github.com/agrc/parole-and-probation/commit/7387642))
+* **map:** create publish and repoint scripts ([510dd9a](https://github.com/agrc/parole-and-probation/commit/510dd9a))
+
+
+
 ## [1.4.0](https://github.com/agrc/parole-and-probation/compare/v1.3.0...v1.4.0) (2019-06-20)
 
 
