@@ -43,4 +43,4 @@ yarn-error.log*
 *.ags
 scripts/tool/vault.py
 **/log-writer-sa.json
-**/appsettings.Development.json
+**/appsettings.*.json
