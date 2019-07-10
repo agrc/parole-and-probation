@@ -19,6 +19,7 @@
     "HSTS",
     "esrijs",
     "fortawesome",
+    "hostkey",
     "immer",
     "maplens",
     "mapserver",
@@ -28,6 +29,7 @@
     "openid",
     "padder",
     "precached",
+    "preprelease",
     "requestip",
     "serilog"
   ]

@@ -1,15 +1,15 @@
+using app.Features.Tokens;
+using app.Models.Tokens;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.Extensions.Primitives;
+using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http.Extensions;
-using app.Features.Tokens;
-using Serilog;
-using app.Models.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Primitives;
 
 namespace app.Infrastructure {
     public class ReverseProxyMiddleware {

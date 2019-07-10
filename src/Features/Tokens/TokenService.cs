@@ -1,15 +1,14 @@
+using app.Models;
+using app.Models.Tokens;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Serilog;
-using app.Models;
-using app.Models.Tokens;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Http;
 
 namespace app.Features.Tokens {
     public class TokenService {
