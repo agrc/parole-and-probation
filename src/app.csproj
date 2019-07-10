@@ -25,6 +25,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="log-writer-sa.json" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug'">
+    <Content Update="appsettings.Production.json" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)' == 'Release'">
+    <Content Update="appsettings.Development.json" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
