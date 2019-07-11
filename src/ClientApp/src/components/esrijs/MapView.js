@@ -176,6 +176,8 @@ export default class ReactMapView extends Component {
 
   async applyFilter(where) {
     const layerView = await this.view.whenLayerView(this.offenders);
+    console.log(`applying filter ${where.join(' AND ')}`);
+
     layerView.filter = {
       where: where.join(' AND ')
     };

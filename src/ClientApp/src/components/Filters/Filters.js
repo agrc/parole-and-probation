@@ -54,7 +54,7 @@ const filterMeta = {
     },
     other: {
         warrant: data => `activate_warrant=${data}`,
-        status: data => `legal_status='${data}'`,
+        status: data => `legal_status='${data.toUpperCase()}'`,
         sos: data => `standard_of_supervision in (${data.map(item => `'${item}'`).join()})`,
         supervision: data => `standard_of_supervision='${data}'`,
         gang: data => `gang_name='${data}'`,
