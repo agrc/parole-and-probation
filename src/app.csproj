@@ -28,7 +28,7 @@
     <Content Update="log-writer-sa.json" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(Configuration)' == 'Debug'">
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' Or '$(ASPNETCORE_ENVIRONMENT)' == 'Staging'">
     <Content Update="appsettings.Production.json" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
@@ -55,8 +55,10 @@
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+    <Exec Command="npm install" WorkingDirectory="$(SpaRoot)" />
+    <Exec Command="grunt clean:clientApp" WorkingDirectory="$(SpaRoot)" />
+    <Exec Command="npm run build" Condition=" '$(ASPNETCORE_ENVIRONMENT)' == '' " WorkingDirectory="$(SpaRoot)" />
+    <Exec Command="npm run build-react:stage" Condition=" '$(ASPNETCORE_ENVIRONMENT)' == 'Staging' " WorkingDirectory="$(SpaRoot)" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
