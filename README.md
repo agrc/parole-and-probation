@@ -54,6 +54,8 @@ _This website uses standard version and conventional commits. The changelog and 
 
 #### releases
 
+1. Change directories to the react App
+   - `cd src/ClientApp`
 1. Create a release
    - `npm run release`
 1. Create a prerelease
@@ -65,8 +67,12 @@ _This website uses standard version and conventional commits. The changelog and 
 
 Rename and update `secrets.sample.json` to `secrets.json`
 
+1. Add and set an `ASPNETCORE_ENVIRONMENT` environment variable on server to `Staging` or `Production`
+1. Place the stack driver logging service account credentials on the deployment server
+1. Add and set a `GOOGLE_APPLICATION_CREDENTIALS` environment variable with the path to the service account file
 1. Publish to staging
-   - `npm run stage`
+   - `npm run deploy:stage`
+   - `npm run deploy:prod`
 
 ### forklift
 
