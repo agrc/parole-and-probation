@@ -157,6 +157,11 @@ const filterReducer = produce((draft, action) => {
 
             return draft;
         }
+        case 'UPDATE_DATE': {
+            draft.date[action.meta] = action.payload;
+
+            return draft;
+        }
         case 'UPDATE_OTHER': {
             draft.other[action.meta] = action.payload;
 
@@ -181,7 +186,12 @@ const initialState = {
         agentList: [],
         vanity: true
     },
-    date: {},
+    date: {
+        outOfCompliance: false,
+        office: null,
+        attempt: null,
+        success: null
+    },
     location: {
         buffer: '',
         region: [],
@@ -214,7 +224,12 @@ const emptyState = {
         agentList: [],
         vanity: true
     },
-    date: {},
+    date: {
+        outOfCompliance: false,
+        office: null,
+        attempt: null,
+        success: null
+    },
     location: {
         buffer: '',
         region: [],
@@ -270,7 +285,10 @@ export default function Filters(props) {
                     dispatcher={props.mapDispatcher} />
             </AccordionPane>
             <AccordionPane title="Supervision Contact">
-                <FilterDate update={dispatcher} />
+                <FilterDate
+                    criteria={criteria.date}
+                    update={dispatcher}
+                    dispatcher={props.mapDispatcher} />
             </AccordionPane>
             <AccordionPane title="Other">
                 <FilterOther
