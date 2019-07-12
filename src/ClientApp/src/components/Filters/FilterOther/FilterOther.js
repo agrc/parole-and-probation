@@ -42,7 +42,7 @@ export default function FilterOther(props) {
                     <Label>Standard of Supervision</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {['low', 'mod', 'high', 'int'].map((sos, index) =>
+                            {['no std', 'low', 'mod', 'hi', 'int'].map((sos, index) =>
                                 <Button
                                     key={index}
                                     size="sm"

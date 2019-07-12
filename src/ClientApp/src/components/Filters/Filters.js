@@ -55,7 +55,17 @@ const filterMeta = {
     other: {
         warrant: data => `activate_warrant=${data}`,
         status: data => `legal_status='${data.toUpperCase()}'`,
-        sos: data => `standard_of_supervision in (${data.map(item => `'${item}'`).join()})`,
+        sos: data => {
+            const query = ['standard_of_supervision is null'];
+
+            data = data.filter(item => item !== 'no std');
+
+            if (data.length > 0) {
+                query.push(`standard_of_supervision in (${data.map(item => `'${item.toUpperCase()}'`).join()})`);
+            }
+
+            return query.join(' OR ');
+        },
         supervision: data => `standard_of_supervision='${data}'`,
         gang: data => `gang_name='${data}'`,
         offense: data => `offense_code='${data}'`
