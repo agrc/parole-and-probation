@@ -9,10 +9,9 @@ export default function FilterDate(props) {
         <Container fluid className="filter-date">
             <Col>
                 <FormGroup>
-                    <Label>No Field Visit</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {['No Visits'].map((payload, index) =>
+                            {['Out of Compliance'].map((payload, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
