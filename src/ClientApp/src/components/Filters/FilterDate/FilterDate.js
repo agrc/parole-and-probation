@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
-import { Button, ButtonGroup, Container, Col, Collapse, Label, FormGroup } from 'reactstrap'
-import Calendar from 'react-calendar'
+import React from 'react';
+import { Button, ButtonGroup, Container, Col, Label, FormGroup } from 'reactstrap'
 import './FilterDate.css';
 
-export default function FilterDate() {
-    const [dateAttempted, setDateAttempted] = useState();
-    const [dateSuccessful, setDateSuccessful] = useState();
-    const [dateOffice, setDateOffice] = useState();
-    const [attempted, toggleAttempted] = useState(false);
-    const [successful, toggleSuccessful] = useState(false);
-    const [office, toggleOffice] = useState(false);
-    const [visit, setVisit] = useState(false);
+const type = 'UPDATE_DATE';
 
+export default function FilterDate(props) {
     return (
         <Container fluid className="filter-date">
             <Col>
@@ -19,13 +12,13 @@ export default function FilterDate() {
                     <Label>No Field Visit</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {['No Visits'].map((binary, index) =>
+                            {['No Visits'].map((payload, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
-                                    color={visit ? 'warning' : 'secondary'}
-                                    onClick={() => { setVisit(!visit) }}>
-                                    {binary}
+                                    color={props.criteria.outOfCompliance ? 'warning' : 'secondary'}
+                                    onClick={() => { props.update({ type, payload: !props.criteria.outOfCompliance, meta: 'outOfCompliance' }); }}>
+                                    {payload}
                                 </Button>
                             )}
                         </ButtonGroup>
@@ -34,46 +27,76 @@ export default function FilterDate() {
             </Col>
             <Col>
                 <FormGroup>
-                    <Label onClick={() => toggleAttempted(!attempted)}>Last Attempted Field Contact</Label>
-                    <Collapse isOpen={attempted}>
-                        <Calendar
-                            selectRange
-                            maxDetail="month"
-                            minDetail="year"
-                            onChange={setDateAttempted}
-                            value={dateAttempted}
-                        />
-                    </Collapse>
+                    <Label>No attempted field visit within</Label>
+                    <div className="text-center">
+                        <ButtonGroup>
+                            {[30, 60, 90, 180].map((payload, index) =>
+                                <Button
+                                    key={index}
+                                    size="sm"
+                                    color={props.criteria.attempt === payload ? 'warning' : 'secondary'}
+                                    onClick={() => {
+                                        if (props.criteria.attempt === payload) {
+                                            payload = null;
+                                        }
+
+                                        props.update({ type, payload, meta: 'attempt' });
+                                    }}>
+                                    {payload}
+                                </Button>
+                            )}
+                        </ButtonGroup>
+                    </div>
                 </FormGroup>
             </Col>
             <Col>
                 <FormGroup>
-                    <Label onClick={() => toggleSuccessful(!successful)}>Last Successful Field Contact</Label>
-                    <Collapse isOpen={successful}>
-                        <Calendar
-                            selectRange
-                            maxDetail="month"
-                            minDetail="year"
-                            onChange={setDateSuccessful}
-                            value={dateSuccessful}
-                        />
-                    </Collapse>
+                    <Label>No successful field contact within</Label>
+                    <div className="text-center">
+                        <ButtonGroup>
+                            {[30, 60, 90, 180].map((payload, index) =>
+                                <Button
+                                    key={index}
+                                    size="sm"
+                                    color={props.criteria.success === payload ? 'warning' : 'secondary'}
+                                    onClick={() => {
+                                        if (props.criteria.success === payload) {
+                                            payload = null;
+                                        }
+
+                                        props.update({ type, payload, meta: 'success' });
+                                    }}>
+                                    {payload}
+                                </Button>
+                            )}
+                        </ButtonGroup>
+                    </div>
                 </FormGroup>
             </Col>
             <Col>
                 <FormGroup>
-                    <Label onClick={() => toggleOffice(!office)}>Last Office Contact</Label>
-                    <Collapse isOpen={office}>
-                        <Calendar
-                            selectRange
-                            maxDetail="month"
-                            minDetail="year"
-                            onChange={setDateOffice}
-                            value={dateOffice}
-                        />
-                    </Collapse>
+                    <Label>No office contact within</Label>
+                    <div className="text-center">
+                        <ButtonGroup>
+                            {[30, 60, 90, 180].map((payload, index) =>
+                                <Button
+                                    key={index}
+                                    size="sm"
+                                    color={props.criteria.office === payload ? 'warning' : 'secondary'}
+                                    onClick={() => {
+                                        if (props.criteria.office === payload) {
+                                            payload = null;
+                                        }
+
+                                        props.update({ type, payload, meta: 'office' });
+                                    }}>
+                                    {payload}
+                                </Button>
+                            )}
+                        </ButtonGroup>
+                    </div>
                 </FormGroup>
             </Col>
-        </Container>
+        </Container >
     )
 }
