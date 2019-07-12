@@ -53,7 +53,7 @@ const filterMeta = {
         employer: data => `employer='${data}'`
     },
     other: {
-        warrant: data => `activate_warrant=${data}`,
+        warrant: data => `active_warrant=${data === 'Yes' ? 1 : 0}`,
         status: data => `legal_status='${data.toUpperCase()}'`,
         sos: data => {
             const query = ['standard_of_supervision is null'];
