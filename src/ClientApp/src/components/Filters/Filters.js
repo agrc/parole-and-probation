@@ -47,7 +47,7 @@ const filterMeta = {
     },
     offender: {
         gender: data => `gender='${data.slice(0, 1)}'`,
-        name: data => `offender_name like '%${data}%'`,
+        name: data => `offender like '%${data.toUpperCase()}%'`,
         number: data => `offender_id=${data}`,
         tel: data => `offender_phone='${data}'`,
         employer: data => `employer='${data}'`

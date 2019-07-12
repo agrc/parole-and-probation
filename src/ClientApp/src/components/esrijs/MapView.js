@@ -75,7 +75,7 @@ export default class ReactMapView extends Component {
 
     this.offenders = new FeatureLayer({
       url: `${process.env.REACT_APP_BASENAME}/mapserver`,
-      outFields: ['offender_id', 'agent_name', 'active_warrant', 'date_of_birth', 'gender', 'legal_status',
+      outFields: ['offender_id', 'offender', 'agent_name', 'active_warrant', 'date_of_birth', 'gender', 'legal_status',
         'standard_of_supervision', 'last_field_contact', 'field_contact_result', 'last_office_contact',
         'offender_phone', 'address', 'city', 'state', 'zip', 'unit', 'address_type', 'address_start_date', 'employer',
         'gang_name', 'supervision_start_date', 'earned_compliance_credit'],
