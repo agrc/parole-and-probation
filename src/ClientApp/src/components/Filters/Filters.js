@@ -40,8 +40,8 @@ const filterMeta = {
         buffer: data => undefined,
         region: data => `region in (${data.join()})`,
         zip: data => `zip=${data}`,
-        city: data => `city='${data}'`,
-        county: data => `county='${data}'`,
+        city: data => `city='${data.toUpperCase()}'`,
+        county: data => `county='${data.toUpperCase()}'`,
         extent: data => undefined,
         point: data => undefined
     },
