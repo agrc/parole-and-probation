@@ -47,10 +47,16 @@ const IdentifyInformation = (props) => {
         <>
           <h5 className="mt-2">Cautions</h5>
           <Row>
-            <Alert className="rounded-0 mb-0" color="danger">{props.visit.cautions}</Alert>
+            <Alert className="rounded-0 mb-0 w-100" color="danger">{props.visit.cautions}</Alert>
           </Row>
-        </> : null
-      }
+        </> : null}
+      {props.visit.alerts ?
+        <>
+          <h5 className="mt-2">Alerts</h5>
+          <Row>
+            <Alert className="rounded-0 mb-0 w-100" color="danger">{props.visit.alerts}</Alert>
+          </Row>
+        </> : null}
       <h5 className="mt-2">Recent Contact</h5>
       <Row className="j-between border-bottom">
         <Col>
