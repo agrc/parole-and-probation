@@ -54,12 +54,3 @@
   display: inline-block;
   overflow: hidden;
 }
-
-.identify__figure-caption {
-  max-width: 199px;
-  width: 199px;
-  position: absolute;
-  left: 1px;
-  bottom: 1px;
-  background: rgba(255, 255, 255, .75);
-}
