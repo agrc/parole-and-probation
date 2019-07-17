@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Container, Col, Label, Row } from 'reactstrap';
+import { Alert, Button, Container, Col, Label, Row } from 'reactstrap';
 import './Identify.css';
 
 var dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
@@ -43,6 +43,14 @@ const IdentifyInformation = (props) => {
           <Label className={'pl-3 col-form-label'}>{props.offender.agent}</Label>
         </Col>
       </Row>
+      {props.visit.cautions ?
+        <>
+          <h5 className="mt-2">Cautions</h5>
+          <Row>
+            <Alert className="rounded-0 mb-0" color="danger">{props.visit.cautions}</Alert>
+          </Row>
+        </> : null
+      }
       <h5 className="mt-2">Recent Contact</h5>
       <Row className="j-between border-bottom">
         <Col>
