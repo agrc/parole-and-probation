@@ -64,13 +64,13 @@ export default function FilterAgent(props) {
                         }}
                         itemToString={item => (item ? item.value : '')}>
                         {({
-                            getInputProps,
-                            getMenuProps,
-                            getItemProps,
-                            isOpen,
                             clearSelection,
-                            inputValue,
+                            getInputProps,
+                            getItemProps,
+                            getMenuProps,
                             highlightedIndex,
+                            inputValue,
+                            isOpen,
                             selectedItem,
                             setState,
                         }) => {
