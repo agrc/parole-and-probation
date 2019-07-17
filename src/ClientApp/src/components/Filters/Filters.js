@@ -7,21 +7,8 @@ import FilterDate from './FilterDate';
 import FilterOffender from './FilterOffender';
 import FilterLocation from './FilterLocation';
 import FilterOther from './FilterOther';
+import { agents, supervisors } from './lookupData';
 import './Filters.css';
-
-const testData = {
-    agents: [
-        { value: 'Andrew', supervisor: 'Sarah' },
-        { value: 'Steve', supervisor: 'Susan' },
-        { value: 'Karl', supervisor: 'Sarah' },
-        { value: 'Matt', supervisor: 'Susan' },
-        { value: 'Mitt', supervisor: 'Sarah' },
-    ],
-    supervisors: [
-        { value: 'Sarah' },
-        { value: 'Susan' },
-    ]
-};
 
 const vanityCheck = (agentList, loggedInUser) => {
     if (Array.isArray(agentList)) {
@@ -140,7 +127,7 @@ const filterReducer = produce((draft, action) => {
                         draft.agent.agentList.splice(0, 0, draft.agent.loggedInUser);
                     }
 
-                    const agentsForSupervisor = testData.agents
+                    const agentsForSupervisor = agents
                         .filter(agent => agent.supervisor.toLowerCase() === action.payload.supervisorName.toLowerCase())
                         .map(item => item.value);
 
@@ -269,7 +256,7 @@ export default function Filters(props) {
         <>
             <AccordionPane title="Agent" open>
                 <FilterAgent
-                    data={testData}
+                    data={{ agents, supervisors }}
                     criteria={criteria.agent}
                     update={dispatcher} />
             </AccordionPane>
