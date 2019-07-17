@@ -8,6 +8,8 @@ import MapView from './components/esrijs/MapView';
 import Filters from './components/Filters';
 import { IdentifyInformation, IdentifyContainer } from './components/Identify';
 import { mappingConfig } from './config';
+import { identifyModel } from './components/Filters/lookupData';
+
 import './App.css';
 
 const reducer = produce((draft, action) => {
@@ -88,6 +90,7 @@ export default function App() {
       {app.showIdentify ?
         <IdentifyContainer show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })}>
           <IdentifyInformation
+            {...identifyModel}
             apiKey={process.env.REACT_APP_WEB_API}
             location={app.mapPoint}
             show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })} />
