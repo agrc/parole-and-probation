@@ -28,7 +28,7 @@ const IdentifyInformation = (props) => {
             <div className="d-flex pl-1 border-bottom border-info identify__addon-item">{props.status.sos}</div>
             <div className="d-flex pl-1 border-bottom border-info identify__addon-item"><abbr title={props.status.specialSupervision}>{props.status.specialSupervisionTitle}</abbr></div>
             <div className="d-flex pl-1 border-bottom border-info identify__addon-item">{props.status.legal}</div>
-            <div className="d-flex pl-1 identify__addon-item">{props.status.warrant}</div>
+            <div className={`d-flex pl-1 identify__addon-item${props.status.warrant.startsWith('Active') ? ' identify__addon-item--danger' : ''}`}>{props.status.warrant}</div>
           </div>
         </div>
       </figure>
