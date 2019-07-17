@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Alert, Button, Container, Col, Label, Row } from 'reactstrap';
+import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
 import './Identify.css';
 
 var dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
@@ -70,11 +71,15 @@ const IdentifyInformation = (props) => {
       <Row>
         <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Phone</Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className={'pl-3 pb-0 col-form-label'}>{props.contact.phone}</Label>
+          <Label className={'pl-3 pb-0 col-form-label'}>
+            <TelephoneLink phone={props.contact.phone}>{props.contact.phone}</TelephoneLink>
+          </Label>
         </Col>
       </Row>
       <Row>
-        <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Address</Label>
+        <GoogleDirectionsLink address={`${props.contact.street} ${props.contact.unit}, ${props.contact.city} ${props.contact.zip}`}>
+          <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Address</Label>
+        </GoogleDirectionsLink>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
           <Label className={'pl-3 pb-0 col-form-label'}>{props.contact.street} {props.contact.unit}</Label>
         </Col>
@@ -99,7 +104,11 @@ const IdentifyInformation = (props) => {
       <Row className="border-bottom">
         <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Employer</Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className={'pl-3 col-form-label'}>{props.contact.employer}</Label>
+          <Label className={'pl-3 col-form-label'}>
+            <GoogleDirectionsLink address={props.contact.employer}>
+              {props.contact.employer}
+            </GoogleDirectionsLink>
+          </Label>
         </Col>
       </Row>
       <h5 className="mt-2">Crime</h5>
