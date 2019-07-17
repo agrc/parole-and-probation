@@ -36,11 +36,11 @@ const IdentifyInformation = (props) => {
       <Row className="border-bottom">
         <Label className={`py-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Number</Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className={'pt-0 pb-0 pl-3 col-form-label'}>{props.offender.number}</Label>
+          <Label className="pt-0 pb-0 pl-3 col-form-label">{props.offender.number}</Label>
         </Col>
         <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Agent</Label>
         <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
-          <Label className={'pl-3 col-form-label'}>{props.offender.agent}</Label>
+          <Label className="pl-3 col-form-label">{props.offender.agent}</Label>
         </Col>
       </Row>
       {props.visit.cautions ?
@@ -55,22 +55,22 @@ const IdentifyInformation = (props) => {
       <Row className="j-between border-bottom">
         <Col>
           <Label className="font-weight-bolder">Field</Label>
-          <Label className={`d-block`}>{dateFormatter.format(props.visit.fieldDate)}</Label>
+          <Label className="d-block">{dateFormatter.format(props.visit.fieldDate)}</Label>
         </Col>
         <Col>
           <Label className="font-weight-bolder">Result</Label>
-          <Label className={'d-block'}>{props.visit.fieldResult}</Label>
+          <Label className="d-block">{props.visit.fieldResult}</Label>
         </Col>
         <Col>
           <Label className="font-weight-bolder">Office</Label>
-          <Label className={'d-block'}>{dateFormatter.format(props.visit.officeDate)}</Label>
+          <Label className="d-block">{dateFormatter.format(props.visit.officeDate)}</Label>
         </Col>
       </Row>
       <h5 className="mt-2">Contact Information</h5>
       <Row>
         <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Phone</Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className={'pl-3 pb-0 col-form-label'}>
+          <Label className="pl-3 pb-0 col-form-label">
             <TelephoneLink phone={props.contact.phone}>{props.contact.phone}</TelephoneLink>
           </Label>
         </Col>
@@ -80,30 +80,30 @@ const IdentifyInformation = (props) => {
           <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Address</Label>
         </GoogleDirectionsLink>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className={'pl-3 pb-0 col-form-label'}>{props.contact.street} {props.contact.unit}</Label>
+          <Label className="pl-3 pb-0 col-form-label">{props.contact.street} {props.contact.unit}</Label>
         </Col>
       </Row>
       <Row>
         <Col className={`offset-${labelSize} pl-0 col-sm-10`}>
-          <Label className={'pl-3 col-form-label'}>{props.contact.city} {props.contact.zip}</Label>
+          <Label className="pl-3 col-form-label">{props.contact.city} {props.contact.zip}</Label>
         </Col>
       </Row>
       <Row>
         <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Type</Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className={'pl-3 pb-0 col-form-label'}>{props.contact.addressType}</Label>
+          <Label className="pl-3 pb-0 col-form-label">{props.contact.addressType}</Label>
         </Col>
       </Row>
       <Row>
         <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Since</Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className={'pl-3 pb-0 col-form-label'}>{dateFormatter.format(props.contact.addressDuration)}</Label>
+          <Label className="pl-3 pb-0 col-form-label">{dateFormatter.format(props.contact.addressDuration)}</Label>
         </Col>
       </Row>
       <Row className="border-bottom">
         <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Employer</Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className={'pl-3 col-form-label'}>
+          <Label className="pl-3 col-form-label">
             <GoogleDirectionsLink address={props.contact.employer}>
               {props.contact.employer}
             </GoogleDirectionsLink>
@@ -120,10 +120,10 @@ const IdentifyInformation = (props) => {
       <Row className="border-bottom">
         <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Degree</Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className={'pl-3 col-form-label'}>{props.status.crimeDegree}</Label>
+          <Label className="pl-3 col-form-label">{props.status.crimeDegree}</Label>
         </Col>
         <Col className={`pl-0`}>
-          <p className={'pl-3 text-justify'}>{props.status.crime}</p>
+          <p className="pl-3 text-justify">{props.status.crime}</p>
         </Col>
       </Row>
       {
@@ -133,11 +133,11 @@ const IdentifyInformation = (props) => {
             <Row className="border-bottom">
               <Label className={`pb-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Group</Label>
               <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
-                <Label className={'pb-0 pl-3 col-form-label'}>{props.offender.gangGroup}</Label>
+                <Label className="pb-0 pl-3 col-form-label">{props.offender.gangGroup}</Label>
               </Col>
               <Label className={`pb-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Name</Label>
               <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
-                <Label className={'pl-3 col-form-label'}>{props.offender.gang}</Label>
+                <Label className="pl-3 col-form-label">{props.offender.gang}</Label>
               </Col>
             </Row>
           </> : null
@@ -145,11 +145,11 @@ const IdentifyInformation = (props) => {
       <Row className="mt-3 j-between">
         <Col>
           <Label className="font-weight-bolder">Supervision Start</Label>
-          <Label className={`d-block`}>{dateFormatter.format(props.status.supervisionStart)}</Label>
+          <Label className="d-block">{dateFormatter.format(props.status.supervisionStart)}</Label>
         </Col>
         <Col>
           <Label className="font-weight-bolder">Compliance Credit</Label>
-          <Label className={'d-block'}>{dateFormatter.format(props.status.complianceCredit)}</Label>
+          <Label className="d-block">{dateFormatter.format(props.status.complianceCredit)}</Label>
         </Col>
       </Row>
       <Row className="identify--center-content pt-5 pb-3">
