@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ButtonGroup, Container, Col, Label, FormGroup } from 'reactstrap'
+import { supervisionContactDays } from '../lookupData';
 import './FilterDate.css';
 
 const type = 'UPDATE_DATE';
@@ -29,7 +30,7 @@ export default function FilterDate(props) {
                     <Label>No attempted field visit within</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {[30, 60, 90, 180].map((payload, index) =>
+                            {supervisionContactDays.map((payload, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
@@ -53,7 +54,7 @@ export default function FilterDate(props) {
                     <Label>No successful field contact within</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {[30, 60, 90, 180].map((payload, index) =>
+                            {supervisionContactDays.map((payload, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
@@ -77,7 +78,7 @@ export default function FilterDate(props) {
                     <Label>No office contact within</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {[30, 60, 90, 180].map((payload, index) =>
+                            {supervisionContactDays.map((payload, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
@@ -96,6 +97,6 @@ export default function FilterDate(props) {
                     </div>
                 </FormGroup>
             </Col>
-        </Container >
+        </Container>
     )
 }
