@@ -212,7 +212,7 @@ const initialState = {
         warrant: '',
         status: '',
         sos: [],
-        supervision: '',
+        supervision: [],
         gang: '',
         offense: ''
     }
@@ -250,7 +250,7 @@ const emptyState = {
         warrant: '',
         status: '',
         sos: [],
-        supervision: '',
+        supervision: [],
         gang: '',
         offense: ''
     }
