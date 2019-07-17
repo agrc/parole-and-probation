@@ -26,7 +26,6 @@ const IdentifyInformation = (props) => {
             data-holder-rendered="true" />
           <div className="d-flex border border-left-0 identify__image-addon f-column text-center">
             <div className="d-flex pl-1 border-bottom border-info identify__addon-item">{props.offender.age} {props.offender.gender}</div>
-            <div className="d-flex pl-1 border-bottom border-info identify__addon-item"><abbr title={props.status.specialSupervision}>{props.status.specialSupervisionTitle}</abbr></div>
             <div className="d-flex pl-1 border-bottom border-info identify__addon-item">{props.status.sos ? props.status.sos : 'NO STD'}</div>
             <div className="d-flex pl-1 border-bottom border-info identify__addon-item">{props.status.legal}</div>
             <div className={`d-flex pl-1 identify__addon-item${props.status.warrant.startsWith('Active') ? ' identify__addon-item--danger' : ''}`}>{props.status.warrant}</div>
@@ -111,6 +110,12 @@ const IdentifyInformation = (props) => {
           </Label>
         </Col>
       </Row>
+      {props.status.specialSupervision.length > 0 ? <>
+        <h5 className="mt-2">Special Supervisions</h5>
+        <Row className="border-bottom identify__items-container px-3 pb-3">
+          {props.status.specialSupervision.map(item => <abbr title={item.name}>{item.id}</abbr>)}
+        </Row>
+      </> : null}
       <h5 className="mt-2">Crime</h5>
       <Row className="border-bottom">
         <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Degree</Label>
