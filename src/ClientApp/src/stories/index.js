@@ -9,7 +9,6 @@ storiesOf('Identify', module)
   .add('with basic template', () => (
     <IdentifyContainer>
       <IdentifyInformation {...{
-        show: true,
         offender: {
           name: 'Sarah Sanders',
           number: 1234556,
@@ -51,7 +50,6 @@ storiesOf('Identify', module)
   .add('without gang', () => (
     <IdentifyContainer>
       <IdentifyInformation {...{
-        show: true,
         offender: {
           name: 'Sarah Sanders',
           number: 1234556,
