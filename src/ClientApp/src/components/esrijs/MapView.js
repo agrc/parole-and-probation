@@ -60,6 +60,8 @@ export default class ReactMapView extends Component {
     const selectorNode = document.createElement('div');
     this.view.ui.add(selectorNode, 'top-right');
 
+    this.view.on('click', event => this.props.mapDispatcher({ type: 'MAP_CLICK', payload: event.mapPoint }));
+
     const layerSelectorOptions = {
       view: this.view,
       quadWord: this.props.discoverKey,
@@ -94,8 +96,6 @@ export default class ReactMapView extends Component {
     await this.offenders.when();
     const extent = await this.offenders.queryExtent();
     this.view.goTo(extent);
-
-    this.view.on('click', event => this.props.mapDispatcher({ type: 'MAP_CLICK', payload: event.mapPoint }));
   }
 
   arraysEqual(a, b) {
