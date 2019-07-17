@@ -213,7 +213,7 @@ const initialState = {
         status: '',
         sos: [],
         supervision: [],
-        gang: '',
+        gang: [],
         offense: ''
     }
 };
@@ -251,7 +251,7 @@ const emptyState = {
         status: '',
         sos: [],
         supervision: [],
-        gang: '',
+        gang: [],
         offense: ''
     }
 };
