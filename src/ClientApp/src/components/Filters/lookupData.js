@@ -166,61 +166,11 @@ const supervisors = [
 
 const supervisionContactDays = [30, 60, 90, 180];
 
-const identifyModel = {
-    show: true,
-    offender: {
-        name: 'Sarah Sanders',
-        number: 1234556,
-        age: 35,
-        gender: 'Female',
-        agent: 'Ace Ventura',
-        gangGroup: 'sureno',
-        gang: 'barrio mexicanos locos'
-    },
-    contact: {
-        phone: '(801) 888-4325',
-        street: '1 State office building',
-        unit: '#5130',
-        city: 'Salt Lake City',
-        zip: 84114,
-        addressType: '1st physical',
-        addressDuration: new Date('December 17, 1995'),
-        employer: '135 E 100 S, Salt Lake City, UT 84111'
-    },
-    visit: {
-        fieldDate: new Date('June 17, 2019'),
-        fieldResult: 'Successful',
-        officeDate: new Date('May 05, 2019'),
-        cautions: 'She lies a lot and has a concealed carry license.',
-        alerts: 'Watch out for the mean dog.'
-    },
-    status: {
-        legal: 'Probation',
-        warrant: 'Active Warrant',
-        sos: 'LOW',
-        specialSupervision: [{
-            name: 'CCC',
-            id: 'CCC'
-        }, {
-            name: 'PVP',
-            id: 'PVP'
-        }, {
-            name: 'COMP',
-            id: 'COMP'
-        }],
-        crimeDegree: 'F1',
-        crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        supervisionStart: new Date('January 1, 2018'),
-        complianceCredit: new Date('May 15, 2019')
-    }
-};
-
 export {
     supervisionItems,
     mainGangs,
     offenseTypes,
     agents,
     supervisors,
-    supervisionContactDays,
-    identifyModel
+    supervisionContactDays
 };
