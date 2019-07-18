@@ -1,322 +1,82 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { IdentifyInformation, IdentifyContainer } from '../components/Identify';
+import fetchMock from 'fetch-mock';
 import 'bootstrap/dist/css/bootstrap.css';
+import { IdentifyInformation, IdentifyContainer } from '../components/Identify';
 import '../App.css';
 import '../components/Sidebar/Sidebar.css';
+
+const features = [{
+  'geometry': null,
+  'symbol': null,
+  'attributes': {
+    'active_warrant': 0,
+    'address': '1405 Washington Blvd',
+    'agent_name': 'Steve Gourley',
+    'city': 'OGDEN',
+    'employer': 'MUSCLE MAN MOVERS, 3607 WASHINGTON BLVD SUITE #1, OGDEN, 385-424-1589',
+    'gang_name': null,
+    'gender': 'M',
+    'last_field_contact': 1521676800000,
+    'last_office_contact': 1538697600000,
+    'legal_status': 'PROBATION',
+    'offender': 'REEF, MIKE SMITH',
+    'offender_id': 62868,
+    'standard_of_supervision': 'MOD',
+    'supervision_start_date': 1496275200000,
+    'unit': null,
+    'zip': null
+  },
+  'popupTemplate': null
+},
+{
+  'geometry': null,
+  'symbol': null,
+  'attributes': {
+    'active_warrant': 0,
+    'address': '1400 Washington Blvd',
+    'agent_name': 'Steve Gourley',
+    'city': 'OGDEN',
+    'employer': 'ATLAS VAN LINES, 1701 W. RIVERDALE RD, RIVERDALE, 801-825-2236',
+    'field_contact_result': null,
+    'gang_name': null,
+    'gender': 'M',
+    'last_field_contact': null,
+    'last_office_contact': 1539216000000,
+    'legal_status': 'PROBATION',
+    'offender': 'HOG, TOM ALEXANDER',
+    'offender_id': 238119,
+    'standard_of_supervision': 'HI',
+    'supervision_start_date': 1529971200000,
+    'unit': '3',
+    'zip': null
+  },
+  'popupTemplate': null
+}
+];
+
+fetchMock.mock('path:/mapserver/0/query', 200, {
+  features:
+    [{
+      attributes: {
+        'date_of_birth': 648950400000,
+        'cautions': 'lies a lot and has a concealed carry license',
+        'alerts': 'mean dog',
+        'special_supervision': 'SO, SO-A, SO-B, SO-C',
+        'offense_description': 'POSSESSION OR USE OF A CONTROLLED SUBSTANCE',
+        'crime_degree': 'MA',
+        'address_type': '1st PHYSICAL',
+        'field_contact_result': 'Successful',
+        'offender_phone': '801-888-0101',
+        'address_start_date': 1535760000000,
+        'earned_compliance_credit': 1564531200000,
+      }
+    }]
+});
 
 storiesOf('Identify', module)
   .add('with basic template', () => (
     <IdentifyContainer>
-      <IdentifyInformation {...{
-        offender: {
-          name: 'Sarah Sanders',
-          number: 1234556,
-          age: 35,
-          gender: 'Female',
-          agent: 'Ace Ventura',
-          gangGroup: 'sureno',
-          gang: 'barrio mexicanos locos'
-        },
-        contact: {
-          phone: '(801) 888-4325',
-          street: '326 east south temple',
-          unit: '#7',
-          city: 'Salt Lake City',
-          zip: 84111,
-          addressType: '1st physical',
-          addressDuration: new Date('December 17, 1995'),
-          employer: 'McDonalds'
-        },
-        visit: {
-          fieldDate: new Date('June 17, 2019'),
-          fieldResult: 'Successful',
-          officeDate: new Date('May 05, 2019')
-        },
-        status: {
-          legal: 'Probation',
-          warrant: 'No Active Warrant',
-          sos: 'LOW',
-          specialSupervision: [{
-            name: 'Sex Offender',
-            id: 'SO'
-          }],
-          crimeDegree: 'F1',
-          crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-          supervisionStart: new Date('January 1, 2018'),
-          complianceCredit: new Date('May 15, 2019')
-        }
-      }}></IdentifyInformation>
-    </IdentifyContainer>
-  ))
-  .add('with partial address and no phone', () => (
-    <IdentifyContainer>
-      <IdentifyInformation {...{
-        offender: {
-          name: 'Sarah Sanders',
-          number: 1234556,
-          age: 35,
-          gender: 'Female',
-          agent: 'Ace Ventura',
-          gangGroup: 'sureno',
-          gang: 'barrio mexicanos locos'
-        },
-        contact: {
-          phone: '',
-          street: '326 east south temple',
-          unit: '',
-          city: 'Salt Lake City',
-          zip: 84111,
-          addressType: '1st physical',
-          addressDuration: new Date('December 17, 1995'),
-          employer: 'McDonalds'
-        },
-        visit: {
-          fieldDate: new Date('June 17, 2019'),
-          fieldResult: 'Successful',
-          officeDate: new Date('May 05, 2019')
-        },
-        status: {
-          legal: 'Probation',
-          warrant: 'No Active Warrant',
-          sos: 'LOW',
-          specialSupervision: [{
-            name: 'CCC',
-            id: 'CCC'
-          }, {
-            name: 'PVP',
-            id: 'PVP'
-          }, {
-            name: 'COMP',
-            id: 'COMP'
-          }, {
-            name: 'DEP',
-            id: 'DEP'
-          }, {
-            name: 'EM',
-            id: 'EM'
-          }, {
-            name: 'GPS',
-            id: 'GPS'
-          }, {
-            name: 'SO',
-            id: 'SO'
-          }, {
-            name: 'SO-A',
-            id: 'SO-A'
-          }, {
-            name: 'SO-B',
-            id: 'SO-B'
-          }, {
-            name: 'SO-C',
-            id: 'SO-C'
-          }, {
-            name: 'FUG',
-            id: 'FUG'
-          }, {
-            name: 'INCAR',
-            id: 'INCAR'
-          }, {
-            name: 'RESID',
-            id: 'RESID'
-          }, {
-            name: 'DRUG CT',
-            id: 'DRUG CT'
-          }, {
-            name: 'DORA',
-            id: 'DORA'
-          }, {
-            name: 'ECR',
-            id: 'ECR'
-          }, {
-            name: 'FOSI',
-            id: 'FOSI'
-          }, {
-            name: 'IG INT',
-            id: 'IG INT'
-          }, {
-            name: 'MIO',
-            id: 'MIO'
-          }],
-          crimeDegree: 'F1',
-          crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-          supervisionStart: new Date('January 1, 2018'),
-          complianceCredit: new Date('May 15, 2019')
-        }
-      }}></IdentifyInformation>
-    </IdentifyContainer>
-  ))
-  .add('with active warrant', () => (
-    <IdentifyContainer>
-      <IdentifyInformation {...{
-        offender: {
-          name: 'Sarah Sanders',
-          number: 1234556,
-          age: 35,
-          gender: 'Female',
-          agent: 'Ace Ventura',
-          gangGroup: 'sureno',
-          gang: 'barrio mexicanos locos'
-        },
-        contact: {
-          phone: '(801) 888-4325',
-          street: '326 east south temple',
-          unit: '#7',
-          city: 'Salt Lake City',
-          zip: 84111,
-          addressType: '1st physical',
-          addressDuration: new Date('December 17, 1995'),
-          employer: 'McDonalds'
-        },
-        visit: {
-          fieldDate: new Date('June 17, 2019'),
-          fieldResult: 'Successful',
-          officeDate: new Date('May 05, 2019')
-        },
-        status: {
-          legal: 'Probation',
-          warrant: 'Active Warrant',
-          sos: 'LOW',
-          specialSupervision: [{
-            name: 'Sex Offender',
-            id: 'SO'
-          }],
-          crimeDegree: 'F1',
-          crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-          supervisionStart: new Date('January 1, 2018'),
-          complianceCredit: new Date('May 15, 2019')
-        }
-      }}></IdentifyInformation>
-    </IdentifyContainer>
-  ))
-  .add('with caution', () => (
-    <IdentifyContainer>
-      <IdentifyInformation {...{
-        offender: {
-          name: 'Sarah Sanders',
-          number: 1234556,
-          age: 35,
-          gender: 'Female',
-          agent: 'Ace Ventura',
-          gangGroup: 'sureno',
-          gang: 'barrio mexicanos locos'
-        },
-        contact: {
-          phone: '(801) 888-4325',
-          street: '326 east south temple',
-          unit: '#7',
-          city: 'Salt Lake City',
-          zip: 84111,
-          addressType: '1st physical',
-          addressDuration: new Date('December 17, 1995'),
-          employer: 'McDonalds'
-        },
-        visit: {
-          fieldDate: new Date('June 17, 2019'),
-          fieldResult: 'Successful',
-          officeDate: new Date('May 05, 2019'),
-          cautions: 'She lies a lot and has a concealed carry license and a mean dog.'
-        },
-        status: {
-          legal: 'Probation',
-          warrant: 'No Active Warrant',
-          sos: 'LOW',
-          specialSupervision: [{
-            name: 'Sex Offender',
-            id: 'SO'
-          }],
-          crimeDegree: 'F1',
-          crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-          supervisionStart: new Date('January 1, 2018'),
-          complianceCredit: new Date('May 15, 2019')
-        }
-      }}></IdentifyInformation>
-    </IdentifyContainer>
-  ))
-  .add('with out sos', () => (
-    <IdentifyContainer>
-      <IdentifyInformation {...{
-        offender: {
-          name: 'Sarah Sanders',
-          number: 1234556,
-          age: 35,
-          gender: 'Female',
-          agent: 'Ace Ventura',
-          gangGroup: 'sureno',
-          gang: 'barrio mexicanos locos'
-        },
-        contact: {
-          phone: '(801) 888-4325',
-          street: '326 east south temple',
-          unit: '#7',
-          city: 'Salt Lake City',
-          zip: 84111,
-          addressType: '1st physical',
-          addressDuration: new Date('December 17, 1995'),
-          employer: 'McDonalds'
-        },
-        visit: {
-          fieldDate: new Date('June 17, 2019'),
-          fieldResult: 'Successful',
-          officeDate: new Date('May 05, 2019'),
-          cautions: 'She lies a lot and has a concealed carry license and a mean dog.'
-        },
-        status: {
-          legal: 'Probation',
-          warrant: 'No Active Warrant',
-          sos: '',
-          specialSupervision: [{
-            name: 'Sex Offender',
-            id: 'SO'
-          }],
-          crimeDegree: 'F1',
-          crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-          supervisionStart: new Date('January 1, 2018'),
-          complianceCredit: new Date('May 15, 2019')
-        }
-      }}></IdentifyInformation>
-    </IdentifyContainer>
-  ))
-  .add('without gang', () => (
-    <IdentifyContainer>
-      <IdentifyInformation {...{
-        offender: {
-          name: 'Sarah Sanders',
-          number: 1234556,
-          age: 35,
-          gender: 'Female',
-          agent: 'Ace Ventura',
-          gangGroup: '',
-          gang: ''
-        },
-        contact: {
-          phone: '(801) 888-4325',
-          street: '326 east south temple',
-          unit: '#7',
-          city: 'Salt Lake City',
-          zip: 84111,
-          addressType: '1st physical',
-          addressDuration: new Date('December 17, 1995'),
-          employer: 'McDonalds'
-        },
-        visit: {
-          fieldDate: new Date('June 17, 2019'),
-          fieldResult: 'Successful',
-          officeDate: new Date('May 05, 2019')
-        },
-        status: {
-          legal: 'Probation',
-          warrant: 'No Active Warrant',
-          sos: 'LOW',
-          specialSupervision: [{
-            name: 'Sex Offender',
-            id: 'SO'
-          }],
-          crimeDegree: 'F1',
-          crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-          supervisionStart: new Date('January 1, 2018'),
-          complianceCredit: new Date('May 15, 2019')
-        }
-      }}></IdentifyInformation>
+      <IdentifyInformation fetch={fetchMock} features={features}></IdentifyInformation>
     </IdentifyContainer>
   ));
