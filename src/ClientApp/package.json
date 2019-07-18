@@ -1,7 +1,7 @@
 {
   "name": "adult-parole-and-probation",
   "homepage": "https://test2.mapserv.utah.gov/app",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "bugs": "https://github.com/agrc/parole-and-probation/issues",
   "author": {
     "name": "Steve Gourley",
