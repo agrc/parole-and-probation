@@ -73,18 +73,24 @@ const IdentifyInformation = (props) => {
         </Col>
       </Row>
       <h5 className="mt-2">Contact Information</h5>
+      {
+        props.contact.phone ? (
+          <Row>
+            <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
+              <TelephoneLink phone={props.contact.phone}>Phone</TelephoneLink>
+            </Label>
+            <Col className={`pl-0 col-sm-${12 - labelSize}`}>
+              <Label className="pl-3 pb-0 col-form-label">{props.contact.phone}</Label>
+            </Col>
+          </Row>
+        ) : null
+      }
       <Row>
-        <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Phone</Label>
-        <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className="pl-3 pb-0 col-form-label">
-            <TelephoneLink phone={props.contact.phone}>{props.contact.phone}</TelephoneLink>
-          </Label>
-        </Col>
-      </Row>
-      <Row>
-        <GoogleDirectionsLink address={`${props.contact.street} ${props.contact.unit}, ${props.contact.city} ${props.contact.zip}`}>
-          <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Address</Label>
+        <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
+          <GoogleDirectionsLink address={`${props.contact.street} ${props.contact.unit}, ${props.contact.city} ${props.contact.zip}`}>
+            Address
         </GoogleDirectionsLink>
+        </Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
           <Label className="pl-3 pb-0 col-form-label">{props.contact.street} {props.contact.unit}</Label>
         </Col>
@@ -107,16 +113,14 @@ const IdentifyInformation = (props) => {
         </Col>
       </Row>
       <Row className="border-bottom">
-        <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Employer</Label>
+        <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
+          <GoogleDirectionsLink address={props.contact.employer}>Employer</GoogleDirectionsLink>
+        </Label>
         <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-          <Label className="pl-3 col-form-label">
-            <GoogleDirectionsLink address={props.contact.employer}>
-              {props.contact.employer}
-            </GoogleDirectionsLink>
-          </Label>
+          <Label className="pl-3 col-form-label">{props.contact.employer}</Label>
         </Col>
       </Row>
-      {props.status.specialSupervision.length > 0 ? <>
+      {Array.isArray(props.status.specialSupervision) && props.status.specialSupervision.length > 0 ? <>
         <h5 className="mt-2">Special Supervisions</h5>
         <Row className="border-bottom identify__items-container px-3 pb-3">
           {props.status.specialSupervision.map(item => <abbr title={item.name}>{item.id}</abbr>)}
