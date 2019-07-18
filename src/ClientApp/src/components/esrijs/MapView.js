@@ -60,7 +60,7 @@ export default class ReactMapView extends Component {
     const selectorNode = document.createElement('div');
     this.view.ui.add(selectorNode, 'top-right');
 
-    this.view.on('click', event => this.props.mapDispatcher({ type: 'MAP_CLICK', payload: event.mapPoint }));
+    this.view.on('click', event => this.identify(event));
 
     const layerSelectorOptions = {
       view: this.view,
@@ -188,6 +188,40 @@ export default class ReactMapView extends Component {
       const extent = await layerView.queryExtent();
       this.view.goTo(extent);
     });
+  }
+
+  async identify(where) {
+    const queryFeatures = async opts => {
+      const query = {
+        geometry: opts.mapPoint,
+        distance: this.view.resolution * 3,
+        spatialRelationship: 'intersects',
+        outFields: ['*'],
+        returnGeometry: false
+      };
+
+      const featureSet = await layerView.queryFeatures(query);
+      this.props.mapDispatcher({
+        type: 'MAP_CLICK', payload: {
+          point: opts.mapPoint,
+          features: featureSet.features
+        }
+      });
+    };
+
+    const layerView = await this.view.whenLayerView(this.offenders);
+    if (layerView.updating) {
+      const handle = layerView.watch('updating', stillUpdating => {
+        if (stillUpdating) {
+          return;
+        }
+
+        queryFeatures(where);
+        handle.remove();
+      });
+    } else {
+      queryFeatures(where);
+    }
   }
 
   getView() {

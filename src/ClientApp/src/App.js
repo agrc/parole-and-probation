@@ -24,9 +24,25 @@ const reducer = produce((draft, action) => {
         return draft;
       }
     case 'MAP_CLICK': {
-      draft.showIdentify = true;
+      draft.identify.show = true;
       draft.showSidebar = true;
-      draft.mapPoint = action.payload;
+
+      draft.mapPoint = action.payload.point;
+
+      draft.identify.features = action.payload.features;
+
+      if (!Array.isArray(draft.identify.features) || draft.identify.features.length < 1) {
+        draft.identify.offender = {};
+      } else {
+        draft.identify.index = 0;
+        draft.identify.offender = draft.identify.features[0].attributes;
+      }
+
+      return draft;
+    }
+    case 'IDENTIFY_PAGINATE': {
+      draft.identify.index = action.payload;
+      draft.identify.offender = draft.identify.features[action.payload].attributes;
 
       return draft;
     }
@@ -41,7 +57,7 @@ const reducer = produce((draft, action) => {
     }
     case 'TOGGLE_IDENTIFY': {
       draft.showSidebar = action.payload ? true : draft.showSidebar;
-      draft.showIdentify = action.payload;
+      draft.identify.show = action.payload;
 
       return draft;
     }
@@ -64,9 +80,14 @@ export default function App() {
       level: 0
     },
     mapPoint: {},
-    showIdentify: false,
+    identify: {
+      show: false,
+      features: [],
+      offender: {},
+      index: 0
+    },
     showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
-    filter: '',
+    filter: [],
     definitionExpression: `agent_name='${oidc.user.profile.name}'`
   });
 
@@ -86,11 +107,14 @@ export default function App() {
   return (
     <div className="app">
       <Header title="AP&P Field Map" version={process.env.REACT_APP_VERSION} />
-      {app.showIdentify ?
+      {app.identify.show ?
         <IdentifyContainer show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })}>
           <IdentifyInformation
             apiKey={process.env.REACT_APP_WEB_API}
-            location={app.mapPoint}
+            features={app.identify.features}
+            offender={app.identify.offender}
+            index={app.identify.index}
+            update={dispatcher}
             show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })} />
         </IdentifyContainer>
         : null}
