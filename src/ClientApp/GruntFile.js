@@ -1,7 +1,7 @@
 module.exports = function configure(grunt) {
   require('load-grunt-tasks')(grunt);
 
-  var deployFiles = ['**'];
+  var deployFiles = ['**', '!runtimes/**'];
   var deployDir = 'parole';
   var secrets;
   try {
