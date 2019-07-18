@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/agrc/parole-and-probation/compare/v1.5.0...v1.6.0) (2019-07-18)
+
+
+### Bug Fixes
+
+* **build:** use npm scripts to build and deploy the app ([aee2201](https://github.com/agrc/parole-and-probation/commit/aee2201))
+* **filter-date:** rename to out of compliance ([c3a684a](https://github.com/agrc/parole-and-probation/commit/c3a684a)), closes [#12](https://github.com/agrc/parole-and-probation/issues/12)
+* **filter-date:** replace calendars with 30,60,90,180 ([77c02ba](https://github.com/agrc/parole-and-probation/commit/77c02ba)), closes [#12](https://github.com/agrc/parole-and-probation/issues/12)
+* **filter-other:** active warrant spelling and value is bit ([0f8a5b1](https://github.com/agrc/parole-and-probation/commit/0f8a5b1)), closes [#11](https://github.com/agrc/parole-and-probation/issues/11)
+* do not copy runtimes or build fails ([dbda284](https://github.com/agrc/parole-and-probation/commit/dbda284))
+* **filter-location:** city data is uppercase ([8b3b337](https://github.com/agrc/parole-and-probation/commit/8b3b337)), closes [#9](https://github.com/agrc/parole-and-probation/issues/9)
+* **filter-offender:** offender_name -> offender ([583328f](https://github.com/agrc/parole-and-probation/commit/583328f))
+* **filter-other:** add no std to other ([a7b9a4c](https://github.com/agrc/parole-and-probation/commit/a7b9a4c)), closes [#11](https://github.com/agrc/parole-and-probation/issues/11)
+* **filter-other:** probation and parole are uppercase ([ba0bbc1](https://github.com/agrc/parole-and-probation/commit/ba0bbc1)), closes [#11](https://github.com/agrc/parole-and-probation/issues/11)
+* **idenitfy:** moce event higher if layer fails to draw ([1d43c1c](https://github.com/agrc/parole-and-probation/commit/1d43c1c))
+* **identify:** add alerts ([d9dc3a5](https://github.com/agrc/parole-and-probation/commit/d9dc3a5))
+* **identify:** if no value in sos, no std ([40b791b](https://github.com/agrc/parole-and-probation/commit/40b791b))
+* **identify:** move gang below crime ([445197f](https://github.com/agrc/parole-and-probation/commit/445197f)), closes [#5](https://github.com/agrc/parole-and-probation/issues/5)
+* **identify:** move supervision to own group ([7ad988b](https://github.com/agrc/parole-and-probation/commit/7ad988b))
+
+
+### Features
+
+* **filter-other:** add main gang groups to multi select ([dcf18f4](https://github.com/agrc/parole-and-probation/commit/dcf18f4))
+* **filter-other:** multi select for special supervision ([bcb6589](https://github.com/agrc/parole-and-probation/commit/bcb6589))
+* **filter-other:** offense type as multi select ([2b64587](https://github.com/agrc/parole-and-probation/commit/2b64587))
+* **identify:** add cautions with highlight ([e1f0a65](https://github.com/agrc/parole-and-probation/commit/e1f0a65)), closes [#5](https://github.com/agrc/parole-and-probation/issues/5)
+* **identify:** add fancy links for phone and google directions ([9413044](https://github.com/agrc/parole-and-probation/commit/9413044)), closes [#5](https://github.com/agrc/parole-and-probation/issues/5)
+* **identify:** highlight active warrant ([7079501](https://github.com/agrc/parole-and-probation/commit/7079501))
+
+
+### Tests
+
+* **identify:** add cautions story ([db62bc8](https://github.com/agrc/parole-and-probation/commit/db62bc8))
+
+
+
 ## [1.5.0](https://github.com/agrc/parole-and-probation/compare/v1.4.0...v1.5.0) (2019-07-10)
 
 
