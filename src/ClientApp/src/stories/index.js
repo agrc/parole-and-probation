@@ -38,8 +38,8 @@ storiesOf('Identify', module)
           warrant: 'No Active Warrant',
           sos: 'LOW',
           specialSupervision: [{
-            description: 'Sex Offender',
-            code: 'SO'
+            name: 'Sex Offender',
+            id: 'SO'
           }],
           crimeDegree: 'F1',
           crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -178,8 +178,8 @@ storiesOf('Identify', module)
           warrant: 'Active Warrant',
           sos: 'LOW',
           specialSupervision: [{
-            description: 'Sex Offender',
-            code: 'SO'
+            name: 'Sex Offender',
+            id: 'SO'
           }],
           crimeDegree: 'F1',
           crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -222,8 +222,8 @@ storiesOf('Identify', module)
           warrant: 'No Active Warrant',
           sos: 'LOW',
           specialSupervision: [{
-            description: 'Sex Offender',
-            code: 'SO'
+            name: 'Sex Offender',
+            id: 'SO'
           }],
           crimeDegree: 'F1',
           crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -266,8 +266,8 @@ storiesOf('Identify', module)
           warrant: 'No Active Warrant',
           sos: '',
           specialSupervision: [{
-            description: 'Sex Offender',
-            code: 'SO'
+            name: 'Sex Offender',
+            id: 'SO'
           }],
           crimeDegree: 'F1',
           crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -309,8 +309,8 @@ storiesOf('Identify', module)
           warrant: 'No Active Warrant',
           sos: 'LOW',
           specialSupervision: [{
-            description: 'Sex Offender',
-            code: 'SO'
+            name: 'Sex Offender',
+            id: 'SO'
           }],
           crimeDegree: 'F1',
           crime: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
