@@ -12,8 +12,13 @@ const generateDirectionsUrl = (address) => {
     const params = new URLSearchParams(options);
 
     return `${baseUrl}${params.toString()}`;
-}
+};
+
 export function GoogleDirectionsLink(props) {
+    if (!props.address) {
+        return props.children;
+    }
+
     return (
         <a href={generateDirectionsUrl(props.address)} rel="noopener noreferrer" target="_blank">
             {props.children}
@@ -23,14 +28,10 @@ export function GoogleDirectionsLink(props) {
 
 export function TelephoneLink(props) {
     if (!props.phone) {
-        return (
-            <>
-                {props.children}
-            </>
-        );
+        return props.children;
     }
 
     return (
         <a href={`tel: ${props.phone}`}>{props.children}</a>
     );
-}
+};
