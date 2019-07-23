@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/agrc/parole-and-probation/compare/v1.6.1...v1.7.0) (2019-07-23)
+
+
+### Bug Fixes
+
+* **app:** filters should always be array ([f143136](https://github.com/agrc/parole-and-probation/commit/f143136))
+* **app:** use only fields required for filters in layer ([3492891](https://github.com/agrc/parole-and-probation/commit/3492891))
+* **identify:** do not create links for empty data ([93b171e](https://github.com/agrc/parole-and-probation/commit/93b171e))
+
+
+### Features
+
+* **identify:** use map data for identify ([4a6cdb1](https://github.com/agrc/parole-and-probation/commit/4a6cdb1))
+
+
+
 ### [1.6.1](https://github.com/agrc/parole-and-probation/compare/v1.6.0...v1.6.1) (2019-07-18)
 
 
