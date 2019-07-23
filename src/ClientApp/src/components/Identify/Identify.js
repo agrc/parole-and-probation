@@ -230,8 +230,8 @@ const IdentifyFetch = async (offender, fetch, oidc, cancellationToken) => {
     return null;
   }
 
-  const base = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}${process.env.REACT_APP_BASENAME}`;
-  const url = new URL(`/mapserver/0/query`, base);
+  const base = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}`;
+  const url = new URL(`${process.env.REACT_APP_BASENAME}/mapserver/0/query`, base);
   url.search = new URLSearchParams([
     ['f', 'json'],
     ['outFields', 'date_of_birth,special_supervision,offense_description,crime_degree,address_type,field_contact_result,offender_phone,address_start_date,earned_compliance_credit'],
