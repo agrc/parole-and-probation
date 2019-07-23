@@ -130,7 +130,7 @@ export default class ReactMapView extends Component {
       });
     }
 
-    if (!this.arraysEqual(this.props.filter, prevProps.filter)) {
+    if (Array.isArray(this.props.filter) && !this.arraysEqual(this.props.filter, prevProps.filter)) {
       this.applyFilter(this.props.filter);
     }
   }
