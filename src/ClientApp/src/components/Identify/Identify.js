@@ -17,17 +17,15 @@ const calculateAge = dob => {
   return Math.abs(elapsed.getUTCFullYear() - 1970);
 }
 
-const identifyCache = {
-
-};
+const identifyCache = {};
 const controller = new AbortController();
 let signal = controller.signal;
 
 const IdentifyInformation = props => {
   const [extra, setExtra] = useState({});
   const oidc = useContext(UserData);
-
   const fetch = props.fetch || window.fetch;
+
   useEffect(() => {
     if (props.offender.offender_id in identifyCache) {
       setExtra(identifyCache[props.offender.offender_id]);
