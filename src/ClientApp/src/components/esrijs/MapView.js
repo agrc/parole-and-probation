@@ -182,6 +182,10 @@ export default class ReactMapView extends Component {
       where: where.join(' AND ')
     };
 
+    this.setState({
+      appliedFilter: where.join(' AND ')
+    });
+
     const [watchUtils] = await loadModules(['esri/core/watchUtils']);
 
     await watchUtils.whenFalseOnce(layerView, 'updating', async () => {
@@ -193,6 +197,7 @@ export default class ReactMapView extends Component {
   async identify(where) {
     const queryFeatures = async opts => {
       const query = {
+        where: this.state.appliedFilter,
         geometry: opts.mapPoint,
         distance: this.view.resolution * 3,
         spatialRelationship: 'intersects',
