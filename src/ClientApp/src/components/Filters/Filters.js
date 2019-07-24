@@ -55,7 +55,7 @@ const filterMeta = {
         },
         supervision: data => `standard_of_supervision='${data}'`,
         gang: data => `gang_type in (${data.map(item => `'${item.name.toUpperCase()}'`).join()})`,
-        offense: data => `offense_code='${data}'`
+        offense: data => `offense_code in (${data.map(item => `'${item.id}'`).join()})`
     }
 };
 
