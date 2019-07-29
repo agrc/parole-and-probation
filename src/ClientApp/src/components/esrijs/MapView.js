@@ -10,6 +10,10 @@ export default class ReactMapView extends Component {
   displayedZoomGraphic = null;
   static contextType = UserData;
 
+  state = {
+    appliedFilter: ''
+  }
+
   render() {
     return (
       <div
