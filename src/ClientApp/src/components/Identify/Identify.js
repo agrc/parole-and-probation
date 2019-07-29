@@ -128,7 +128,7 @@ const IdentifyInformation = props => {
         }
         <Row>
           <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
-            <GoogleDirectionsLink address={`${props.offender.address} ${props.offender.unit}, ${props.offender.city} ${props.offender.zip}`}>
+            <GoogleDirectionsLink address={`${props.offender.address} ${props.offender.unit || ''}, ${props.offender.city || ''} ${props.offender.zip || ''}`}>
               Address
             </GoogleDirectionsLink>
           </Label>
