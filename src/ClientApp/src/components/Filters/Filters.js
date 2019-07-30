@@ -71,7 +71,7 @@ const formatForEsriFilter = (data) => {
 
         const criteria = Object.entries(data[key]);
         const sql = criteria.map(([subKey, value]) => {
-            if (!metaKeys.includes(subKey) || Object.keys(value).length === 0 || !value) {
+            if (!value || !metaKeys.includes(subKey) || Object.keys(value).length === 0 || !value) {
                 return undefined;
             }
 

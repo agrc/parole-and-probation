@@ -134,8 +134,12 @@ export default class ReactMapView extends Component {
       });
     }
 
+    if (Array.isArray(this.props.definitionExpression) && !this.arraysEqual(this.props.definitionExpression, prevProps.definitionExpression)) {
+      this.applyFilter(this.props.definitionExpression, false);
+    }
+
     if (Array.isArray(this.props.filter) && !this.arraysEqual(this.props.filter, prevProps.filter)) {
-      this.applyFilter(this.props.filter);
+      this.applyFilter(this.props.filter, true);
     }
   }
 
@@ -178,24 +182,31 @@ export default class ReactMapView extends Component {
     }
   }
 
-  async applyFilter(where) {
-    const layerView = await this.view.whenLayerView(this.offenders);
-    console.log(`applying filter ${where.join(' AND ')}`);
+  async applyFilter(where, isFilter) {
 
-    layerView.filter = {
-      where: where.join(' AND ')
-    };
+    if (isFilter) {
+      const layerView = await this.view.whenLayerView(this.offenders);
+      console.log(`applying filter ${where.join(' AND ')}`);
 
-    this.setState({
-      appliedFilter: where.join(' AND ')
-    });
+      layerView.filter = {
+        where: where.join(' AND ')
+      };
 
-    const [watchUtils] = await loadModules(['esri/core/watchUtils']);
+      this.setState({
+        appliedFilter: where.join(' AND ')
+      });
 
-    await watchUtils.whenFalseOnce(layerView, 'updating', async () => {
-      const extent = await layerView.queryExtent();
-      this.view.goTo(extent);
-    });
+      const [watchUtils] = await loadModules(['esri/core/watchUtils']);
+
+      await watchUtils.whenFalseOnce(layerView, 'updating', async () => {
+        const extent = await layerView.queryExtent();
+        this.view.goTo(extent);
+      });
+    } else {
+      this.offenders.definitionExpression = where.join(' AND ');
+
+      this.view.goTo(this.offenders.fullExtent);
+    }
   }
 
   async identify(where) {
