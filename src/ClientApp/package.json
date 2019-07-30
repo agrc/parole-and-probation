@@ -31,6 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:all": "dotnet run -p ../app.csproj",
     "release": "standard-version",
     "build": "react-scripts build",
     "build-react:stage": "./node_modules/.bin/env-cmd -f ./.env.stage npm run build",
