@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/agrc/parole-and-probation/compare/v1.7.4...v1.8.0) (2019-07-30)
+
+
+### Features
+
+* **app:** remove me filter to see all offenders ([2b7068b](https://github.com/agrc/parole-and-probation/commit/2b7068b))
+
+
+
 ### [1.7.4](https://github.com/agrc/parole-and-probation/compare/v1.7.3...v1.7.4) (2019-07-29)
 
 
