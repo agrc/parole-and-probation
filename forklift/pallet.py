@@ -88,7 +88,37 @@ SET [offenders].[shape] = geography::STGeomFromText('POINT(' + CONVERT(varchar, 
          AND name = 'id'
 )
   ALTER TABLE [offenders] ADD [id] int NOT NULL IDENTITY (1,1)
+  GO
+
+  ALTER TABLE [DOCOAdmin].[offenders]
+  ADD CONSTRAINT [PK_id] primary key(id);
             '''
+
+            add_indexes = '''IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[DOCOAdmin].[offenders]') AND NAME ='IX_offender_shape')
+    DROP INDEX [IX_offender_shape] ON [DOCOAdmin].[offenders];
+
+    IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[DOCOAdmin].[offenders]') AND NAME ='PK_id')
+        ALTER TABLE [DOCOAdmin].[offenders]
+        DROP CONSTRAINT [PK_id];
+
+    IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[DOCOAdmin].[offenders]') AND NAME ='IX_offender_offender_id')
+        DROP INDEX [IX_offender_offender_id] ON [DOCOAdmin].[offenders];
+
+    IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[DOCOAdmin].[offenders]') AND NAME ='IX_offender_agent_id')
+        DROP INDEX [IX_offender_agent_id] ON [DOCOAdmin].[offenders];
+
+    ALTER TABLE [DOCOAdmin].[offenders]
+    ADD CONSTRAINT [PK_id] primary key(id);
+
+    CREATE UNIQUE NONCLUSTERED INDEX [IX_offender_offender_id]
+    ON [DOCOAdmin].[offenders] ([offender_id] ASC)
+
+    CREATE NONCLUSTERED INDEX [IX_offender_agent_id]
+    ON [DOCOAdmin].[offenders] ([agent_id] ASC)
+
+    CREATE SPATIAL INDEX [IX_offender_shape]
+    ON [DOCOAdmin].[offenders]([shape])
+    '''
             #: load new data
             engine = sqlalchemy.create_engine(database.CONNECTION_AT)
 
@@ -109,6 +139,8 @@ SET [offenders].[shape] = geography::STGeomFromText('POINT(' + CONVERT(varchar, 
                 connection.execution_options(autocommit=True).execute(add_shape)
                 self.log.debug('populating shape field')
                 connection.execution_options(autocommit=True).execute(create_shapes)
+                self.log.debug('adding indexes')
+                connection.execution_options(autocommit=True).execute(add_indexes)
         except Exception as e:
             self.log.fatal(e)
             self.success = (False, 'unable to read csv and write data to sql')
