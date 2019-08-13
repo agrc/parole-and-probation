@@ -63,8 +63,9 @@ class CorrectionPallet(Pallet):
                 engine='python',
                 quoting=csv.QUOTE_NONE,
                 names=schema.FIELDS,
+                header=None,
                 converters=schema.CONVERTERS,
-                # nrows=10, #: for testing
+                # nrows=10,  #: for testing
             ).iloc[:, :-1]
 
             self.log.debug(frame.info())
@@ -80,8 +81,16 @@ class CorrectionPallet(Pallet):
             create_shapes = '''UPDATE [offenders]
 SET [offenders].[shape] = geography::STGeomFromText('POINT(' + CONVERT(varchar, [offenders].[x]) + ' ' + CONVERT(varchar, [offenders].[y]) + ')', 4326)'''
 
+            add_pk = '''IF NOT EXISTS (
+  SELECT *
+  FROM   sys.columns
+  WHERE  object_id = OBJECT_ID('[offenders]')
+         AND name = 'id'
+)
+  ALTER TABLE [offenders] ADD [id] int NOT NULL IDENTITY (1,1)
+            '''
             #: load new data
-            engine = sqlalchemy.create_engine(database.CONNECTION)
+            engine = sqlalchemy.create_engine(database.CONNECTION_AT)
 
             with engine.connect() as connection:
                 self.log.info('inserting offender data')
@@ -94,6 +103,8 @@ SET [offenders].[shape] = geography::STGeomFromText('POINT(' + CONVERT(varchar, 
                     dtype=schema.TYPES,
                 )
 
+                self.log.debug('adding primary key')
+                connection.execution_options(autocommit=True).execute(add_pk)
                 self.log.debug('creating shape field')
                 connection.execution_options(autocommit=True).execute(add_shape)
                 self.log.debug('populating shape field')
