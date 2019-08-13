@@ -90,7 +90,7 @@ type_metadata = OrderedDict([
     ('gang_name', [VARCHAR(30), convert_to_str]),
     ('gang_type_id', [INTEGER(), convert_to_int]),
     ('gang_type', [VARCHAR(20), convert_to_str]),
-    ('agent_id', [INTEGER(), convert_to_int]),
+    ('agent_id', [INTEGER(), convert_to_str]),
     ('last_attempted_field_contact', [INTEGER(), convert_to_int]),
     ('in_compliance', [BIT(), convert_to_bool]),
     ('alerts', [VARCHAR(500), convert_to_str]),
