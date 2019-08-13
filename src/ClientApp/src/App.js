@@ -88,7 +88,7 @@ export default function App() {
     },
     showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
     filter: [],
-    definitionExpression: `agent_name='${oidc.user.profile.name}'`
+    definitionExpression: `agent_id='${oidc.user.profile['public:WorkforceID']}'`
   });
 
   const mapOptions = {
