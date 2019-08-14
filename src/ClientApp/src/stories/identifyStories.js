@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { IdentifyInformation, IdentifyContainer } from '../components/Identify/Identify';
 import '../App.css';
 import '../components/Sidebar/Sidebar.css';
+import { UserData } from 'react-oidc';
 
 const features = [
   {
@@ -12,70 +13,91 @@ const features = [
     'symbol': null,
     'attributes': {
       'active_warrant': 0,
-      'address': '1405 Washington Blvd',
-      'agent_name': 'Steve Gourley',
       'city': 'OGDEN',
-      'employer': 'MUSCLE MAN MOVERS, 3607 WASHINGTON BLVD SUITE #1, OGDEN, 385-424-1589',
-      'gang_name': null,
+      'crime_degree': 'F3',
+      'employer': 'MUSCLE MAN',
+      'gang_type': null,
       'gender': 'M',
+      'last_attempted_field_contact': 10,
       'last_field_contact': 1521676800000,
-      'last_office_contact': 1538697600000,
+      'last_office_contact': 25,
+      'last_successful_field_contact': 25,
       'legal_status': 'PROBATION',
       'offender': 'REEF, MIKE SMITH',
       'offender_id': 62868,
-      'standard_of_supervision': 'MOD',
-      'supervision_start_date': 1496275200000,
-      'unit': null,
-      'zip': null
+      'offender_phone': '867-5309',
+      'region': 1,
+      'standard_of_supervision': 'MOD'
     },
     'popupTemplate': null
   }, {
     'geometry': null,
     'symbol': null,
     'attributes': {
-      'active_warrant': 0,
-      'address': '1400 Washington Blvd',
-      'agent_name': 'Steve Gourley',
+      'active_warrant': 1,
       'city': 'OGDEN',
-      'employer': 'ATLAS VAN LINES, 1701 W. RIVERDALE RD, RIVERDALE, 801-825-2236',
-      'field_contact_result': null,
-      'gang_name': null,
+      'crime_degree': 'F3',
+      'employer': 'MUSCLE MAN',
+      'gang_type': null,
       'gender': 'M',
-      'last_field_contact': null,
-      'last_office_contact': 1539216000000,
+      'last_attempted_field_contact': 10,
+      'last_field_contact': 1521676800000,
+      'last_office_contact': 25,
+      'last_successful_field_contact': 25,
       'legal_status': 'PROBATION',
-      'offender': 'HOG, TOM ALEXANDER',
-      'offender_id': 238119,
-      'standard_of_supervision': 'HI',
-      'supervision_start_date': 1529971200000,
-      'unit': '3',
-      'zip': null
+      'offender': 'REEF, SUSAN SMITH',
+      'offender_id': 62868,
+      'offender_phone': '867-5309',
+      'region': 1,
+      'standard_of_supervision': 'MOD'
     },
     'popupTemplate': null
   }];
 
-fetchMock.mock('path:/mapserver/0/query', 200, {
-  features:
-    [{
-      attributes: {
-        'date_of_birth': 648950400000,
-        'cautions': 'lies a lot and has a concealed carry license',
-        'alerts': 'mean dog',
-        'special_supervision': 'SO, SO-A, SO-B, SO-C',
-        'offense_description': 'POSSESSION OR USE OF A CONTROLLED SUBSTANCE',
-        'crime_degree': 'MA',
-        'address_type': '1st PHYSICAL',
-        'field_contact_result': 'Successful',
-        'offender_phone': '801-888-0101',
-        'address_start_date': 1535760000000,
-        'earned_compliance_credit': 1564531200000,
-      }
-    }]
+fetchMock.config.overwriteRoutes = true;
+fetchMock.mock('path:/mapserver/0/query', {
+  'features': [{
+    'attributes': {
+      'address': '1405 Washington Blvd',
+      'address_start_date': 1535760000000,
+      'address_type': '1st PHYSICAL',
+      'agent_name': 'Steve Gourley',
+      'alerts': 'mean dog',
+      'cautions': 'lies a lot and has a concealed carry license',
+      'date_of_birth': 648950400000,
+      'earned_compliance_credit': 1587794400000,
+      'employer_address': 'WEST HIGHWAY 40, ROOSEVELT UT 84066',
+      'employer_phone': '435-722-5650',
+      'field_contact_result': 'SUCCESSFUL',
+      'gang_id': null,
+      'gang_name': null,
+      'gang_type_id': null,
+      'offense_code': 'J',
+      'offense_description': 'DISTRIB/ARRANGE DIST CONT SUBSTANCE',
+      'primary_offense': 'ALCOHOL & DRUG',
+      'race': 'WHITE',
+      'special_supervision': 'INCAR, SO-A, MIO',
+      'state': 'UT',
+      'supervision_start_date': 1471327200000,
+      'unit': '#8',
+      'crime_degree': 'MA',
+      'offender_phone': '801-888-0101'
+    }
+  }]
 });
 
 storiesOf('Identify', module)
-  .add('with basic template', () => (
+  .addDecorator(story => (
     <IdentifyContainer>
-      <IdentifyInformation fetch={fetchMock} features={features}></IdentifyInformation>
+      <UserData.Provider value={{
+        user: {
+          access_token: 'testing'
+        }
+      }}>
+        {story()}
+      </UserData.Provider>
     </IdentifyContainer>
+  ))
+  .add('multiple features', () => (
+    <IdentifyInformation update={() => { }} features={features} offender={features[0].attributes} index={0}></IdentifyInformation>
   ));

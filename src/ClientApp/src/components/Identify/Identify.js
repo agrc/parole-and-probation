@@ -25,7 +25,6 @@ let signal = controller.signal;
 const IdentifyInformation = props => {
   const [extra, setExtra] = useState({});
   const oidc = useContext(UserData);
-  const fetch = props.fetch || window.fetch;
 
   useEffect(() => {
     if (props.offender.offender_id in identifyCache) {
@@ -38,14 +37,14 @@ const IdentifyInformation = props => {
 
     setExtra({});
 
-    IdentifyFetch(props.offender, fetch, oidc, signal).then((result) => {
+    IdentifyFetch(props.offender, oidc, signal).then((result) => {
       console.log('adding extra identify params');
 
       identifyCache[props.offender.offender_id] = result;
 
       setExtra(result);
     });
-  }, [props.offender, props.index, fetch, oidc]);
+  }, [props.offender, props.index, oidc]);
 
   return (
     props.offender ?
@@ -166,7 +165,7 @@ const IdentifyInformation = props => {
         {extra.special_supervision && extra.special_supervision.length > 0 ? <>
           <h5 className="mt-2">Special Supervisions</h5>
           <Row className="border-bottom identify__items-container px-3 pb-3">
-            {extra.special_supervision.split(',').map(item => <span>{item}</span>)}
+            {extra.special_supervision.split(',').map(item => <span key={item}>{item}</span>)}
           </Row>
         </> : null}
         <h5 className="mt-2">Crime</h5>
@@ -224,7 +223,7 @@ const IdentifyContainer = props => {
   );
 }
 
-const IdentifyFetch = async (offender, fetch, oidc, cancellationToken) => {
+const IdentifyFetch = async (offender, oidc, cancellationToken) => {
   if (!offender) {
     return null;
   }

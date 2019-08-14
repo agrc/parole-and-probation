@@ -26,7 +26,7 @@ module.exports = {
       filter: true
     },
     'agency': {
-      identify: true,
+      identify: false,
       filter: false
     },
     'supervisor_id': {
@@ -98,7 +98,7 @@ module.exports = {
       filter: true
     },
     'address_type_code': {
-      identify: true,
+      identify: false,
       filter: false
     },
     'address_type': {
