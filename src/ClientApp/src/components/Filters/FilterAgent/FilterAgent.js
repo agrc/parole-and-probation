@@ -1,24 +1,29 @@
 import React from 'react';
 import { FormGroup, Container, Col, Button, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import Downshift from 'downshift'
+import { startCase } from 'lodash/string';
 import './FilterAgent.css';
 
 
 export default function FilterAgent(props) {
-    const updateAgents = (agentName, add) => {
+    const getAgent = (value, agents) => {
+        return agents.filter(item => item.value.toLowerCase() === value.toLowerCase())[0];
+    }
+
+    const updateAgents = (item, add) => {
         console.info('Filters/FilterAgent:updateAgents');
 
-        if (!agentName) {
+        if (!item.value) {
             return;
         }
 
-        console.log(`${add ? 'adding' : 'removing'} agent list for ${agentName}`);
+        console.log(`${add ? 'adding' : 'removing'} agent list for ${item.value}`);
 
         props.update({
             type: 'UPDATE_AGENT_LIST',
             meta: 'agent',
             payload: {
-                agentName,
+                item,
                 add
             }
         });
@@ -42,7 +47,8 @@ export default function FilterAgent(props) {
                         size="sm"
                         block
                         color={props.criteria.vanity ? 'warning' : 'secondary'}
-                        onClick={() => updateAgents(props.criteria.loggedInUser, !props.criteria.vanity)}>Me</Button>
+                        onClick={() => updateAgents(props.criteria.loggedInUser, !props.criteria.vanity)}
+                    >Me</Button>
                 </FormGroup>
                 <FormGroup>
                     <Label>Agent</Label>
@@ -62,7 +68,7 @@ export default function FilterAgent(props) {
                                 }
                             }
                         }}
-                        itemToString={item => (item ? item.value : '')}>
+                        itemToString={item => (item ? startCase(item.value.toLowerCase()) : '')}>
                         {({
                             clearSelection,
                             getInputProps,
@@ -102,7 +108,7 @@ export default function FilterAgent(props) {
                                                     }
                                                     case 'Enter': {
                                                         if (selectedItem) {
-                                                            updateAgents(selectedItem.value, true);
+                                                            updateAgents(selectedItem, true);
                                                             clearSelection();
 
                                                             break;
@@ -119,7 +125,7 @@ export default function FilterAgent(props) {
                                                                 inputValue: value.value
                                                             }, () => clearSelection());
 
-                                                            updateAgents(value.value, true);
+                                                            updateAgents(value, true);
                                                         }
 
                                                         break;
@@ -132,7 +138,7 @@ export default function FilterAgent(props) {
                                         <InputGroupAddon addonType="append">
                                             <Button onClick={() => {
                                                 if (selectedItem) {
-                                                    updateAgents(selectedItem.value, true);
+                                                    updateAgents(selectedItem, true);
                                                     clearSelection();
                                                 }
                                             }}>Add</Button>
@@ -151,7 +157,7 @@ export default function FilterAgent(props) {
                                                             item,
                                                             className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
                                                         })}>
-                                                            {item.value}
+                                                            {startCase(item.value.toLowerCase())}
                                                         </li>
                                                     ))
                                                 : null}
@@ -180,7 +186,7 @@ export default function FilterAgent(props) {
                                 }
                             }
                         }}
-                        itemToString={item => (item ? item.value : '')}>
+                        itemToString={item => (item ? startCase(item.value.toLowerCase()) : '')}>
                         {({
                             getInputProps,
                             getMenuProps,
@@ -272,7 +278,7 @@ export default function FilterAgent(props) {
                                                             item,
                                                             className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
                                                         })}>
-                                                            {item.value}
+                                                            {startCase(item.value.toLowerCase())}
                                                         </li>
                                                     ))
                                                 : null}
@@ -288,13 +294,17 @@ export default function FilterAgent(props) {
                 <FormGroup>
                     <Label>Agent List</Label>
                     <Input type="select" multiple readOnly
-                        onDoubleClick={event => updateAgents(event.target.value, false)}>
+                        onDoubleClick={event => {
+                            const agent = getAgent(event.target.value, props.criteria.agentList);
+
+                            updateAgents(agent, false)
+                        }}>
                         {props.criteria.agentList.map((agent, key) => (
-                            <option key={key}>{agent}</option>
+                            <option key={key}>{startCase(agent.value.toLowerCase())}</option>
                         ))}
                     </Input>
                 </FormGroup>
             </Col>
-        </Container>
+        </Container >
     )
 }
