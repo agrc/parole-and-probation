@@ -12,7 +12,7 @@ const userManager = makeUserManager(oidcConfig);
 const AppWithAuth = makeAuthenticator({
     userManager: userManager,
     signInArgs: {}
-})(<App />);
+})(App);
 
 ReactDOM.render((
     <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
