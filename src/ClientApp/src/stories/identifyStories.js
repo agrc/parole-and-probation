@@ -98,6 +98,12 @@ storiesOf('Identify', module)
       </UserData.Provider>
     </IdentifyContainer>
   ))
+  .add('single feature', () => (
+    <IdentifyInformation update={() => { }} features={features[0]} offender={features[0].attributes} index={0}></IdentifyInformation>
+  ))
   .add('multiple features', () => (
     <IdentifyInformation update={() => { }} features={features} offender={features[0].attributes} index={0}></IdentifyInformation>
+  ))
+  .add('no features', () => (
+    <IdentifyInformation update={() => { }} features={[]} offender={false} index={0}></IdentifyInformation>
   ));
