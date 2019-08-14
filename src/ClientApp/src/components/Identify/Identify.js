@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Alert, Button, Container, Col, Label, Pagination, PaginationItem, PaginationLink, Row } from 'reactstrap';
-import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
 import { UserData } from 'react-oidc';
+import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
+import { fields } from '../../config';
 import './Identify.css';
 
 var dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
@@ -81,7 +82,7 @@ const IdentifyInformation = props => {
           </Col>
           <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Agent</Label>
           <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
-            <Label className="pl-3 col-form-label">{props.offender.agent_name}</Label>
+            <Label className="pl-3 col-form-label">{extra.agent_name}</Label>
           </Col>
         </Row>
         {extra.cautions ?
@@ -102,15 +103,15 @@ const IdentifyInformation = props => {
         <Row className="j-between border-bottom">
           <Col>
             <Label className="font-weight-bolder">Field</Label>
-            <Label className="d-block">{dateFormatter.format(props.offender.last_field_contact)}</Label>
+            <Label className="d-block">{props.offender.last_field_contact ? dateFormatter.format(props.offender.last_field_contact) : '-'}</Label>
           </Col>
           <Col>
             <Label className="font-weight-bolder">Result</Label>
-            <Label className="d-block">{extra.field_contact_result}</Label>
+            <Label className="d-block">{extra.field_contact_result ? extra.field_contact_result : '-'}</Label>
           </Col>
           <Col>
             <Label className="font-weight-bolder">Office</Label>
-            <Label className="d-block">{dateFormatter.format(props.offender.last_office_contact)}</Label>
+            <Label className="d-block">{props.offender.last_office_contact ? props.offender.last_office_contact : '-'}</Label>
           </Col>
         </Row>
         <h5 className="mt-2">Contact Information</h5>
@@ -118,22 +119,22 @@ const IdentifyInformation = props => {
           extra.offender_phone ? (
             <Row>
               <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
-                <TelephoneLink phone={extra.offender_phone}>Phone</TelephoneLink>
+                <TelephoneLink phone={props.offender.offender_phone}>Phone</TelephoneLink>
               </Label>
               <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-                <Label className="pl-3 pb-0 col-form-label">{extra.offender_phone}</Label>
+                <Label className="pl-3 pb-0 col-form-label">{props.offender.offender_phone}</Label>
               </Col>
             </Row>
           ) : null
         }
         <Row>
           <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
-            <GoogleDirectionsLink address={`${props.offender.address} ${props.offender.unit || ''}, ${props.offender.city || ''} ${props.offender.zip || ''}`}>
+            <GoogleDirectionsLink address={`${extra.address} ${extra.unit || ''}, ${props.offender.city || ''} ${props.offender.zip || ''}`}>
               Address
             </GoogleDirectionsLink>
           </Label>
           <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-            <Label className="pl-3 pb-0 col-form-label">{props.offender.address} {props.offender.unit}</Label>
+            <Label className="pl-3 pb-0 col-form-label">{extra.address} {extra.unit}</Label>
           </Col>
         </Row>
         <Row>
@@ -141,11 +142,11 @@ const IdentifyInformation = props => {
             <Label className="pl-3 col-form-label">{props.offender.city} {props.offender.zip}</Label>
           </Col>
         </Row>
-        {props.offender.address_type ?
+        {extra.address_type ?
           <Row>
             <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Type</Label>
             <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-              <Label className="pl-3 pb-0 col-form-label">{props.offender.address_type}</Label>
+              <Label className="pl-3 pb-0 col-form-label">{extra.address_type}</Label>
             </Col>
           </Row> : null}
         <Row>
@@ -156,13 +157,13 @@ const IdentifyInformation = props => {
         </Row>
         <Row className="border-bottom">
           <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
-            <GoogleDirectionsLink address={props.offender.employer}>Employer</GoogleDirectionsLink>
+            <GoogleDirectionsLink address={extra.employer_address}>Employer</GoogleDirectionsLink>
           </Label>
           <Col className={`pl-0 col-sm-${12 - labelSize}`}>
             <Label className="pl-3 col-form-label">{props.offender.employer || 'unemployed or unknown'}</Label>
           </Col>
         </Row>
-        {Array.isArray(extra.special_supervision) && extra.special_supervision.split(',').length > 0 ? <>
+        {extra.special_supervision && extra.special_supervision.length > 0 ? <>
           <h5 className="mt-2">Special Supervisions</h5>
           <Row className="border-bottom identify__items-container px-3 pb-3">
             {extra.special_supervision.split(',').map(item => <span>{item}</span>)}
@@ -189,7 +190,7 @@ const IdentifyInformation = props => {
                 </Col>
                 <Label className={`pb-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Name</Label>
                 <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
-                  <Label className="pl-3 col-form-label">{props.offender.gang_name}</Label>
+                  <Label className="pl-3 col-form-label">{extra.gang_name}</Label>
                 </Col>
               </Row>
             </> : null
@@ -197,11 +198,11 @@ const IdentifyInformation = props => {
         <Row className="mt-3 j-between">
           <Col>
             <Label className="font-weight-bolder">Supervision Start</Label>
-            <Label className="d-block">{dateFormatter.format(props.offender.supervision_start_date)}</Label>
+            <Label className="d-block">{dateFormatter.format(extra.supervision_start_date)}</Label>
           </Col>
           <Col>
             <Label className="font-weight-bolder">Compliance Credit</Label>
-            <Label className="d-block">{dateFormatter.format(props.offender.earned_compliance_credit)}</Label>
+            <Label className="d-block">{dateFormatter.format(extra.earned_compliance_credit)}</Label>
           </Col>
         </Row>
         <Row className="identify--center-content pt-5 pb-3">
@@ -232,7 +233,7 @@ const IdentifyFetch = async (offender, fetch, oidc, cancellationToken) => {
   const url = new URL(`${process.env.REACT_APP_BASENAME}/mapserver/0/query`, base);
   url.search = new URLSearchParams([
     ['f', 'json'],
-    ['outFields', 'date_of_birth,special_supervision,offense_description,crime_degree,address_type,field_contact_result,offender_phone,address_start_date,earned_compliance_credit'],
+    ['outFields', Object.keys(fields).filter(key => fields[key].identify === true).join()],
     ['where', `offender_id=${offender.offender_id}`],
     ['returnGeometry', false]
   ]);

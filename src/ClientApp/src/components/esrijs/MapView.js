@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { loadModules, loadCss } from 'esri-loader';
 import { LayerSelectorContainer, LayerSelector } from '../../components/LayerSelector/LayerSelector';
 import { UserData } from 'react-oidc';
+import { fields } from '../../config';
 
 
 export default class ReactMapView extends Component {
@@ -81,10 +82,7 @@ export default class ReactMapView extends Component {
 
     this.offenders = new FeatureLayer({
       url: `${process.env.REACT_APP_BASENAME}/mapserver`,
-      outFields: ['offender_id', 'offender', 'agent_name', 'active_warrant', 'gender', 'legal_status',
-        'standard_of_supervision', 'last_field_contact', 'last_office_contact',
-        'address', 'city', 'zip', 'unit', 'employer',
-        'gang_type', 'supervision_start_date'],
+      outFields: Object.keys(fields).filter(key => fields[key].filter === true),
       definitionExpression: this.props.definitionExpression
     });
 
