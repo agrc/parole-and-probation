@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/agrc/parole-and-probation/compare/v1.8.0...v1.9.0) (2019-08-14)
+
+
+### Bug Fixes
+
+* **app:** do not zoom to empty extent when no results found ([b98ce57](https://github.com/agrc/parole-and-probation/commit/b98ce57))
+* **app:** request new scope with employee id ([10e7f13](https://github.com/agrc/parole-and-probation/commit/10e7f13)), closes [#37](https://github.com/agrc/parole-and-probation/issues/37)
+* **db:** add indexes ([4b3e924](https://github.com/agrc/parole-and-probation/commit/4b3e924))
+* **db:** agent_id is empty ([a64a8ea](https://github.com/agrc/parole-and-probation/commit/a64a8ea))
+* **db:** convert numbers as strings otherwise they are missing ([c67e906](https://github.com/agrc/parole-and-probation/commit/c67e906))
+* **db:** update connection string ([dd51e63](https://github.com/agrc/parole-and-probation/commit/dd51e63))
+* **db:** update schema ([5057372](https://github.com/agrc/parole-and-probation/commit/5057372))
+* **filter-agent:** switch to  employee id ([c9d0b6d](https://github.com/agrc/parole-and-probation/commit/c9d0b6d)), closes [#37](https://github.com/agrc/parole-and-probation/issues/37)
+* **pallet:** use new schema and simplify ([9cd5816](https://github.com/agrc/parole-and-probation/commit/9cd5816)), closes [#43](https://github.com/agrc/parole-and-probation/issues/43) [#44](https://github.com/agrc/parole-and-probation/issues/44)
+
+
+### Features
+
+* **map:** symbolize legal status ([70b4590](https://github.com/agrc/parole-and-probation/commit/70b4590))
+
 ## [1.8.0](https://github.com/agrc/parole-and-probation/compare/v1.7.4...v1.8.0) (2019-07-30)
 
 
