@@ -119,7 +119,10 @@ export default function App() {
         </IdentifyContainer>
         : null}
       <Sidebar>
-        <Filters mapDispatcher={dispatcher} loggedInUser={oidc.user.profile.name} />
+        <Filters mapDispatcher={dispatcher} loggedInUser={{
+          value: oidc.user.profile.name,
+          id: oidc.user.profile['public:WorkforceID']
+        }} />
       </Sidebar>
       <MapLens {...sidebarOptions}>
         <MapView {...mapOptions} />

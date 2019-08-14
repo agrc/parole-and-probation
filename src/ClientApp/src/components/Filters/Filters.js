@@ -11,16 +11,16 @@ import { agents, supervisors } from './lookupData';
 import './Filters.css';
 
 const vanityCheck = (agentList, loggedInUser) => {
-    if (Array.isArray(agentList)) {
-        return agentList.indexOf(loggedInUser) > -1;
-    }
+    console.log(`vanity check for ${loggedInUser.value}`);
 
-    return agentList.has(loggedInUser);
+    const agents = Array.from(agentList);
+
+    return agents.some(item => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
 };
 
 const filterMeta = {
     agent: {
-        agentList: data => `agent_name in (${data.map(agent => `'${agent}'`).join()})`
+        agentList: data => `agent_id in (${data.map(agent => `'${agent.id}'`).join()})`
     },
     date: {},
     location: {
@@ -100,36 +100,35 @@ const filterReducer = produce((draft, action) => {
         case 'UPDATE_AGENT_LIST': {
             if (action.meta === 'agent') {
                 if (action.payload.add) {
-                    if (draft.agent.agentList.indexOf(action.payload.agentName) > -1) {
+                    if (draft.agent.agentList.some(item => item.value.toLowerCase() === action.payload.item.value.toLowerCase())) {
                         return draft;
                     }
 
-                    draft.agent.agentList.splice(0, 0, action.payload.agentName);
+                    draft.agent.agentList = [action.payload.item].concat(draft.agent.agentList);
                 } else {
-                    const remove = draft.agent.agentList.indexOf(action.payload.agentName);
-                    draft.agent.agentList.splice(remove, 1);
+                    draft.agent.agentList = draft.agent.agentList.filter(item => item.value.toLowerCase() !== action.payload.item.value.toLowerCase());
                 }
             } else if (action.meta === 'supervisor') {
                 if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
-                    draft.agent.agentList.splice(0, 0, draft.agent.loggedInUser);
+
+                    draft.agent.agentList = agents.some(item => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase());
                 }
 
                 if (!action.payload.supervisorName) {
                     draft.agent.agentList = [];
 
                     if (draft.agent.vanity) {
-                        draft.agent.agentList.splice(0, 0, draft.agent.loggedInUser);
+                        draft.agent.agentList = agents.some(item => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase());
                     }
                 } else {
                     draft.agent.agentList = [];
 
                     if (draft.agent.vanity) {
-                        draft.agent.agentList.splice(0, 0, draft.agent.loggedInUser);
+                        draft.agent.agentList.push(draft.agent.loggedInUser);
                     }
 
                     const agentsForSupervisor = agents
                         .filter(agent => agent.supervisor.toLowerCase() === action.payload.supervisorName.toLowerCase())
-                        .map(item => item.value);
 
                     draft.agent.agentList = draft.agent.agentList.concat(agentsForSupervisor);
                 }
