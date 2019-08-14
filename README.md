@@ -4,8 +4,6 @@
 
 AP&amp;P web application
 
-[test url](https://test2.mapserv.utah.gov/app)
-
 ## Development
 
 _If you are using vscode, download the recommended extensions for this workspace._
