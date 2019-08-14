@@ -99,6 +99,9 @@ export default class ReactMapView extends Component {
 
     await this.offenders.when();
     const extent = await this.offenders.queryExtent();
+    if (extent.count === 0) {
+      return;
+    }
     this.view.goTo(extent);
   }
 
@@ -200,11 +203,17 @@ export default class ReactMapView extends Component {
 
       await watchUtils.whenFalseOnce(layerView, 'updating', async () => {
         const extent = await layerView.queryExtent();
+        console.log('setting map extent');
+        if (extent.count === 0) {
+          return;
+        }
+
         this.view.goTo(extent);
       });
     } else {
       this.offenders.definitionExpression = where.join(' AND ');
 
+      console.log('setting map extent');
       this.view.goTo(this.offenders.fullExtent);
     }
   }
