@@ -1,12 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Alert, Button, Container, Col, Label, Pagination, PaginationItem, PaginationLink, Row } from 'reactstrap';
+import { Alert, Button, Container, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { UserData } from 'react-oidc';
 import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
 import { fields } from '../../config';
 import './Identify.css';
 
 var dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
-const labelSize = 3;
 
 const calculateAge = dob => {
   if (!dob) {
@@ -74,151 +73,122 @@ const IdentifyInformation = props => {
           </div>
         </figure>
         <h4>{props.offender.offender}</h4>
-        <Row className="border-bottom">
-          <Label className={`py-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Number</Label>
-          <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-            <Label className="pt-0 pb-0 pl-3 col-form-label">{props.offender.offender_id}</Label>
-          </Col>
-          <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Agent</Label>
-          <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
-            <Label className="pl-3 col-form-label">{extra.agent_name}</Label>
-          </Col>
-        </Row>
+        <div className="identify-grid--label-text identify__row border-bottom">
+          <label className="identify-grid--label-text__label font-weight-bolder text-right">Number</label>
+          <label className="identify-grid--label-text__text">{props.offender.offender_id}</label>
+          <label className="identify-grid--label-text__label font-weight-bolder text-right">Agent</label>
+          <label className="identify-grid--label-text__text">{extra.agent_name}</label>
+        </div>
         {extra.cautions ?
           <>
             <h5 className="mt-2">Cautions</h5>
-            <Row>
+            <div className="identify__row">
               <Alert className="rounded-0 mb-0 w-100" color="danger">{extra.cautions}</Alert>
-            </Row>
+            </div>
           </> : null}
         {extra.alerts ?
           <>
             <h5 className="mt-2">Alerts</h5>
-            <Row>
+            <div className="identify__row">
               <Alert className="rounded-0 mb-0 w-100" color="danger">{extra.alerts}</Alert>
-            </Row>
+            </div>
           </> : null}
         <h5 className="mt-2">Recent Contact</h5>
-        <Row className="j-between border-bottom">
-          <Col>
-            <Label className="font-weight-bolder">Field</Label>
-            <Label className="d-block">{props.offender.last_field_contact ? dateFormatter.format(props.offender.last_field_contact) : '-'}</Label>
-          </Col>
-          <Col>
-            <Label className="font-weight-bolder">Result</Label>
-            <Label className="d-block">{extra.field_contact_result ? extra.field_contact_result : '-'}</Label>
-          </Col>
-          <Col>
-            <Label className="font-weight-bolder">Office</Label>
-            <Label className="d-block">{props.offender.last_office_contact ? props.offender.last_office_contact : '-'}</Label>
-          </Col>
-        </Row>
+        <div className="identify-grid--contacts identify__row border-bottom">
+          <div className="identify-grid--contacts__item">
+            <label className="font-weight-bolder">Field</label>
+            <label className="d-block">{props.offender.last_field_contact ? dateFormatter.format(props.offender.last_field_contact) : '-'}</label>
+          </div>
+          <div>
+            <label className="font-weight-bolder">Result</label>
+            <label className="d-block">{extra.field_contact_result ? extra.field_contact_result.toLowerCase() : '-'}</label>
+          </div>
+          <div>
+            <label className="font-weight-bolder">Office</label>
+            <label className="d-block">{props.offender.last_office_contact ? props.offender.last_office_contact : '-'}</label>
+          </div>
+        </div>
         <h5 className="mt-2">Contact Information</h5>
         {
           extra.offender_phone ? (
-            <Row>
-              <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
+            <div className="identify-grid--label-text identify__row">
+              <label className="identify-grid--label-text__label font-weight-bolder text-right">
                 <TelephoneLink phone={props.offender.offender_phone}>Phone</TelephoneLink>
-              </Label>
-              <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-                <Label className="pl-3 pb-0 col-form-label">{props.offender.offender_phone}</Label>
-              </Col>
-            </Row>
+              </label>
+              <label className="identify-grid--label-text__text">{props.offender.offender_phone}</label>
+            </div>
           ) : null
         }
-        <Row>
-          <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
+        <div className="identify-grid--label-text identify__row">
+          <label className="identify-grid--label-text__label font-weight-bolder text-right">
             <GoogleDirectionsLink address={`${extra.address} ${extra.unit || ''}, ${props.offender.city || ''} ${props.offender.zip || ''}`}>
               Address
             </GoogleDirectionsLink>
-          </Label>
-          <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-            <Label className="pl-3 pb-0 col-form-label">{extra.address} {extra.unit}</Label>
-          </Col>
-        </Row>
-        <Row>
-          <Col className={`offset-${labelSize} pl-0 col-sm-10`}>
-            <Label className="pl-3 col-form-label">{props.offender.city} {props.offender.zip}</Label>
-          </Col>
-        </Row>
+          </label>
+          <label className="identify-grid--label-text__text">{extra.address} {extra.unit}<br /> {props.offender.city} {props.offender.zip}</label>
+        </div>
         {extra.address_type ?
-          <Row>
-            <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Type</Label>
-            <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-              <Label className="pl-3 pb-0 col-form-label">{extra.address_type}</Label>
-            </Col>
-          </Row> : null}
-        <Row>
-          <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Since</Label>
-          <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-            <Label className="pl-3 pb-0 col-form-label">{dateFormatter.format(extra.address_start_date)}</Label>
-          </Col>
-        </Row>
-        {props.offender.employer ?
-        <Row className={ extra.employer_phone ? null : 'border-bottom'}>
-          <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
-            <GoogleDirectionsLink address={extra.employer_address}>Employer</GoogleDirectionsLink>
-          </Label>
-          <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-            <Label className="pl-3 col-form-label">{props.offender.employer || 'unemployed or unknown'}</Label>
-          </Col>
-        </Row>
-        {
-          extra.employer_phone ? (
-            <Row className="border-bottom">
-              <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
-                <TelephoneLink phone={extra.employer_phone}>Phone</TelephoneLink>
-              </Label>
-              <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-                <Label className="pl-3 pb-0 col-form-label">{extra.employer_phone}</Label>
-              </Col>
-            </Row>
-          ) : null
-        } : null}
+          <div className="identify-grid--label-text identify__row">
+            <label className="identify-grid--label-text__label font-weight-bolder text-right">Type</label>
+            <label className="identify-grid--label-text__text">{extra.address_type}</label>
+          </div> : null}
+        <div className="identify-grid--label-text identify__row">
+          <label className="identify-grid--label-text__label font-weight-bolder text-right">Since</label>
+          <label className="identify-grid--label-text__text">{dateFormatter.format(extra.address_start_date)}</label>
+        </div>
+        <div className="identify-grid--label-text identify__row border-bottom">
+          <label className="identify-grid--label-text__label font-weight-bolder text-right">Employer</label>
+          <label className="identify-grid--label-text__text">{props.offender.employer || 'unemployed or unknown'}</label>
+          {extra.employer_address ? (<>
+            <label className="identify-grid--label-text__label font-weight-bolder text-right">
+              <GoogleDirectionsLink address={extra.employer_address}>Address</GoogleDirectionsLink>
+            </label>
+            <label className="identify-grid--label-text__text">{extra.employer_address}</label>
+          </>) : null}
+          {extra.employer_phone ? (<>
+            <label className="identify-grid--label-text__label font-weight-bolder text-right">
+              <TelephoneLink phone={extra.employer_phone}>Phone</TelephoneLink>
+            </label>
+            <label className="identify-grid--label-text__text">{extra.employer_phone}</label>
+          </>
+          ) : null}
+        </div>
         {extra.special_supervision && extra.special_supervision.length > 0 ? <>
           <h5 className="mt-2">Special Supervisions</h5>
-          <Row className="border-bottom identify__items-container px-3 pb-3">
-            {extra.special_supervision.split(',').map(item => <span key={item}>{item}</span>)}
-          </Row>
+          <div className="identify-grid--contacts identify__row identify__items-container px-3 border-bottom">
+            {extra.special_supervision.split(',').map(item => <label key={item}>{item}</label>)}
+          </div>
         </> : null}
         <h5 className="mt-2">Primary Offense</h5>
-        <Row className="border-bottom">
-          <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-            <Label className="pl-3 col-form-label">{`${extra.primary_offense} (${props.offender.crime_degree})`}</Label>
-          </Col>
-          <Col className={`pl-0`}>
-            <p className="pl-3">{extra.offense_description}</p>
-          </Col>
-        </Row>
+        <div className="identify__row border-bottom">
+          <label className="identify-grid--contacts__item">{`${extra.primary_offense} (${props.offender.crime_degree})`}</label>
+          <p className="pl-3">{extra.offense_description}</p>
+        </div>
         {
           props.offender.gang_type ?
             <>
               <h5 className="mt-2">STG</h5>
-              <Row className="border-bottom">
-                <Label className={`pb-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Gang</Label>
-                <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
-                  <Label className="pb-0 pl-3 col-form-label">{props.offender.gang_type}</Label>
-                </Col>
-                <Label className={`pb-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Set</Label>
-                <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
-                  <Label className="pl-3 col-form-label">{extra.gang_name}</Label>
-                </Col>
-              </Row>
+              <div className="identify-grid--label-text identify__row border-bottom">
+                <label className="identify-grid--label-text__label font-weight-bolder text-right">Gang</label>
+                <label className="identify-grid--label-text__text">{props.offender.gang_type}</label>
+                <label className="identify-grid--label-text__label font-weight-bolder text-right">Set</label>
+                <label className="identify-grid--label-text__text">{extra.gang_name}</label>
+              </div>
             </> : null
         }
-        <Row className="mt-3 j-between">
-          <Col>
-            <Label className="font-weight-bolder">Supervision Start</Label>
-            <Label className="d-block">{dateFormatter.format(extra.supervision_start_date)}</Label>
-          </Col>
-          <Col>
-            <Label className="font-weight-bolder">ECC Date</Label>
-            <Label className="d-block">{dateFormatter.format(extra.earned_compliance_credit)}</Label>
-          </Col>
-        </Row>
-        <Row className="identify--center-content pt-5 pb-3">
+        <div className="identify-grid--contacts identify__row identify__items-container px-3 mt-3">
+          <div>
+            <label className="font-weight-bolder">Supervision Start</label>
+            <label className="d-block">{dateFormatter.format(extra.supervision_start_date)}</label>
+          </div>
+          <div>
+            <label className="font-weight-bolder">ECC Date</label>
+            <label className="d-block">{dateFormatter.format(extra.earned_compliance_credit)}</label>
+          </div>
+        </div>
+        <div className="identify--center-content pt-5 pb-3">
           <Button color="primary" onClick={() => props.show(false)}>Close</Button>
-        </Row>
+        </div>
       </Container>
       : <Container className="identify pt-4">No offenders at click location</Container>
   );
