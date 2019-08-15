@@ -37,7 +37,7 @@ const features = [
       'active_warrant': 1,
       'city': 'OGDEN',
       'crime_degree': 'F3',
-      'employer': 'MUSCLE MAN',
+      'employer': null,
       'gang_type': null,
       'gender': 'M',
       'last_attempted_field_contact': 10,
@@ -102,7 +102,7 @@ storiesOf('Identify', module)
     <IdentifyInformation update={() => { }} features={features[0]} offender={features[0].attributes} index={0}></IdentifyInformation>
   ))
   .add('multiple features', () => (
-    <IdentifyInformation update={() => { }} features={features} offender={features[0].attributes} index={0}></IdentifyInformation>
+    <IdentifyInformation update={() => { }} features={features} offender={features[1].attributes} index={1}></IdentifyInformation>
   ))
   .add('no features', () => (
     <IdentifyInformation update={() => { }} features={[]} offender={false} index={0}></IdentifyInformation>

@@ -154,7 +154,8 @@ const IdentifyInformation = props => {
             <Label className="pl-3 pb-0 col-form-label">{dateFormatter.format(extra.address_start_date)}</Label>
           </Col>
         </Row>
-        <Row className="border-bottom">
+        {props.offender.employer ?
+        <Row className={ extra.employer_phone ? null : 'border-bottom'}>
           <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
             <GoogleDirectionsLink address={extra.employer_address}>Employer</GoogleDirectionsLink>
           </Label>
@@ -162,6 +163,18 @@ const IdentifyInformation = props => {
             <Label className="pl-3 col-form-label">{props.offender.employer || 'unemployed or unknown'}</Label>
           </Col>
         </Row>
+        {
+          extra.employer_phone ? (
+            <Row className="border-bottom">
+              <Label className={`pr-0 pb-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>
+                <TelephoneLink phone={extra.employer_phone}>Phone</TelephoneLink>
+              </Label>
+              <Col className={`pl-0 col-sm-${12 - labelSize}`}>
+                <Label className="pl-3 pb-0 col-form-label">{extra.employer_phone}</Label>
+              </Col>
+            </Row>
+          ) : null
+        } : null}
         {extra.special_supervision && extra.special_supervision.length > 0 ? <>
           <h5 className="mt-2">Special Supervisions</h5>
           <Row className="border-bottom identify__items-container px-3 pb-3">
