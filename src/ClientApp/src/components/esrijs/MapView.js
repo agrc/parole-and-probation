@@ -223,7 +223,8 @@ export default class ReactMapView extends Component {
         geometry: opts.mapPoint,
         distance: this.view.resolution * 3,
         spatialRelationship: 'intersects',
-        outFields: ['*'],
+        outFields: layerView.availableFields,
+        orderByFields: 'offender ASC',
         returnGeometry: false
       };
 
