@@ -180,13 +180,13 @@ const IdentifyInformation = props => {
         {
           props.offender.gang_type ?
             <>
-              <h5 className="mt-2">Gang</h5>
+              <h5 className="mt-2">STG</h5>
               <Row className="border-bottom">
-                <Label className={`pb-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Group</Label>
+                <Label className={`pb-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Gang</Label>
                 <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
                   <Label className="pb-0 pl-3 col-form-label">{props.offender.gang_type}</Label>
                 </Col>
-                <Label className={`pb-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Name</Label>
+                <Label className={`pb-0 pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Set</Label>
                 <Col className={`pl-0 mb-1 col-sm-${12 - labelSize}`}>
                   <Label className="pl-3 col-form-label">{extra.gang_name}</Label>
                 </Col>
