@@ -168,14 +168,13 @@ const IdentifyInformation = props => {
             {extra.special_supervision.split(',').map(item => <span key={item}>{item}</span>)}
           </Row>
         </> : null}
-        <h5 className="mt-2">Crime</h5>
+        <h5 className="mt-2">Primary Offense</h5>
         <Row className="border-bottom">
-          <Label className={`pr-0 font-weight-bolder text-right col-form-label col-sm-${labelSize}`}>Degree</Label>
           <Col className={`pl-0 col-sm-${12 - labelSize}`}>
-            <Label className="pl-3 col-form-label">{props.offender.crime_degree}</Label>
+            <Label className="pl-3 col-form-label">{`${extra.primary_offense} (${props.offender.crime_degree})`}</Label>
           </Col>
           <Col className={`pl-0`}>
-            <p className="pl-3 text-justify">{extra.offense_description}</p>
+            <p className="pl-3">{extra.offense_description}</p>
           </Col>
         </Row>
         {
