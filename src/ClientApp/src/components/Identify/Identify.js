@@ -200,7 +200,7 @@ const IdentifyInformation = props => {
             <Label className="d-block">{dateFormatter.format(extra.supervision_start_date)}</Label>
           </Col>
           <Col>
-            <Label className="font-weight-bolder">Compliance Credit</Label>
+            <Label className="font-weight-bolder">ECC Date</Label>
             <Label className="d-block">{dateFormatter.format(extra.earned_compliance_credit)}</Label>
           </Col>
         </Row>
