@@ -76,7 +76,7 @@ const IdentifyInformation = props => {
           <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr 1fr 1fr' }}>
             <div className="d-flex identify__addon-item pl-1 border-bottom border-info">{calculateAge(extra.date_of_birth)} {props.offender.gender} {extra.race ? extra.race.toLowerCase() === 'unknown' ? null : extra.race.toLowerCase() : null}</div>
             <div className="d-flex identify__addon-item pl-1 border-bottom border-info">{props.offender.standard_of_supervision ? props.offender.standard_of_supervision : 'NO STD'}</div>
-            <div className="d-flex identify__addon-item pl-1 border-bottom border-info">{props.offender.legal_status.toLowerCase()}</div>
+            <div className="d-flex identify__addon-item pl-1 border-bottom border-info">{props.offender.legal_status ? props.offender.legal_status.toLowerCase() : null}</div>
             <div className={`d-flex identify__addon-item pl-1${props.offender.active_warrant ? ' identify__addon-item--danger' : ''}`}>{props.offender.active_warrant ? 'active warrant' : 'no active warrant'}</div>
           </div>
         </div>
