@@ -55,34 +55,8 @@
   top: 0;
 }
 
-.identify--center-item {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  display: flex;
-}
-
-.identify--center-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.identify__image-addon {
-  width: 90px;
-  height: 200px;
-}
-
 .identify__addon-item {
-  height: 100%;
   align-items: center;
-  justify-content: center;
-}
-
-.identify__figure {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
 }
 
 .identify__addon-item--danger {
