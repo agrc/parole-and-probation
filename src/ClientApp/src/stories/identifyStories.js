@@ -1,11 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import fetchMock from 'fetch-mock';
-import 'bootstrap/dist/css/bootstrap.css';
 import { IdentifyInformation, IdentifyContainer } from '../components/Identify/Identify';
-import '../App.css';
-import '../components/Sidebar/Sidebar.css';
 import { UserData } from 'react-oidc';
+
+import '../components/Sidebar/Sidebar.css';
 
 const features = [
   {
@@ -23,8 +22,8 @@ const features = [
       'last_office_contact': 25,
       'last_successful_field_contact': 25,
       'legal_status': 'PROBATION',
-      'offender': 'REEF, MIKE SMITH',
-      'offender_id': 62868,
+      'offender': 'BRAVO, MIKE SMITH',
+      'offender_id': 10,
       'offender_phone': '867-5309',
       'region': 1,
       'standard_of_supervision': 'MOD'
@@ -45,8 +44,96 @@ const features = [
       'last_office_contact': 25,
       'last_successful_field_contact': 25,
       'legal_status': 'PROBATION',
-      'offender': 'REEF, SUSAN SMITH',
-      'offender_id': 62868,
+      'offender': 'ALPHA, SUSAN SMITH',
+      'offender_id': 11,
+      'offender_phone': '867-5309',
+      'region': 1,
+      'standard_of_supervision': 'MOD'
+    },
+    'popupTemplate': null
+  }, {
+    'geometry': null,
+    'symbol': null,
+    'attributes': {
+      'active_warrant': 1,
+      'city': 'OGDEN',
+      'crime_degree': 'F3',
+      'employer': null,
+      'gang_type': null,
+      'gender': 'M',
+      'last_attempted_field_contact': 10,
+      'last_field_contact': 1521676800000,
+      'last_office_contact': 25,
+      'last_successful_field_contact': 25,
+      'legal_status': 'PROBATION',
+      'offender': 'ALPHA, SUSAN SMITH',
+      'offender_id': 12,
+      'offender_phone': '867-5309',
+      'region': 1,
+      'standard_of_supervision': 'MOD'
+    },
+    'popupTemplate': null
+  }, {
+    'geometry': null,
+    'symbol': null,
+    'attributes': {
+      'active_warrant': 1,
+      'city': 'OGDEN',
+      'crime_degree': 'F3',
+      'employer': null,
+      'gang_type': null,
+      'gender': 'M',
+      'last_attempted_field_contact': 10,
+      'last_field_contact': 1521676800000,
+      'last_office_contact': 25,
+      'last_successful_field_contact': 25,
+      'legal_status': 'PROBATION',
+      'offender': 'ALPHA, SUSAN SMITH',
+      'offender_id': 13,
+      'offender_phone': '867-5309',
+      'region': 1,
+      'standard_of_supervision': 'MOD'
+    },
+    'popupTemplate': null
+  }, {
+    'geometry': null,
+    'symbol': null,
+    'attributes': {
+      'active_warrant': 1,
+      'city': 'OGDEN',
+      'crime_degree': 'F3',
+      'employer': null,
+      'gang_type': null,
+      'gender': 'M',
+      'last_attempted_field_contact': 10,
+      'last_field_contact': 1521676800000,
+      'last_office_contact': 25,
+      'last_successful_field_contact': 25,
+      'legal_status': 'PROBATION',
+      'offender': 'ALPHA, SUSAN SMITH',
+      'offender_id': 14,
+      'offender_phone': '867-5309',
+      'region': 1,
+      'standard_of_supervision': 'MOD'
+    },
+    'popupTemplate': null
+  }, {
+    'geometry': null,
+    'symbol': null,
+    'attributes': {
+      'active_warrant': 1,
+      'city': 'OGDEN',
+      'crime_degree': 'F3',
+      'employer': null,
+      'gang_type': null,
+      'gender': 'M',
+      'last_attempted_field_contact': 10,
+      'last_field_contact': 1521676800000,
+      'last_office_contact': 25,
+      'last_successful_field_contact': 25,
+      'legal_status': 'PROBATION',
+      'offender': 'ALPHA, SUSAN SMITH',
+      'offender_id': 15,
       'offender_phone': '867-5309',
       'region': 1,
       'standard_of_supervision': 'MOD'
@@ -98,12 +185,18 @@ storiesOf('Identify', module)
       </UserData.Provider>
     </IdentifyContainer>
   ))
+  .add('no features', () => (
+    <IdentifyInformation update={() => { }} features={[]} offender={false} index={0}></IdentifyInformation>
+  ))
   .add('single feature', () => (
     <IdentifyInformation update={() => { }} features={features[0]} offender={features[0].attributes} index={0}></IdentifyInformation>
   ))
-  .add('multiple features', () => (
-    <IdentifyInformation update={() => { }} features={features} offender={features[1].attributes} index={1}></IdentifyInformation>
+  .add('first of multiple', () => (
+    <IdentifyInformation update={() => { }} features={features} offender={features[0].attributes} index={0}></IdentifyInformation>
   ))
-  .add('no features', () => (
-    <IdentifyInformation update={() => { }} features={[]} offender={false} index={0}></IdentifyInformation>
+  .add('middle of multiple', () => (
+    <IdentifyInformation update={() => { }} features={features} offender={features[3].attributes} index={3}></IdentifyInformation>
+  ))
+  .add('last of multiple', () => (
+    <IdentifyInformation update={() => { }} features={features} offender={features[5].attributes} index={5}></IdentifyInformation>
   ));
