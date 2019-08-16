@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/agrc/parole-and-probation/compare/v1.9.0...v1.10.0) (2019-08-16)
+
+
+### Bug Fixes
+
+* **identify:** add employer phone link ([9c95a2c](https://github.com/agrc/parole-and-probation/commit/9c95a2c)), closes [#58](https://github.com/agrc/parole-and-probation/issues/58)
+* **identify:** do not show unknown for race ([7fb7af5](https://github.com/agrc/parole-and-probation/commit/7fb7af5))
+* **identify:** order results by offender ([70f4173](https://github.com/agrc/parole-and-probation/commit/70f4173)), closes [#54](https://github.com/agrc/parole-and-probation/issues/54)
+* **identify:** primary offense ([845dbf8](https://github.com/agrc/parole-and-probation/commit/845dbf8)), closes [#48](https://github.com/agrc/parole-and-probation/issues/48)
+* **identify:** rename label ([778bac6](https://github.com/agrc/parole-and-probation/commit/778bac6)), closes [#50](https://github.com/agrc/parole-and-probation/issues/50)
+* **identify:** update gang labels ([40023fa](https://github.com/agrc/parole-and-probation/commit/40023fa)), closes [#49](https://github.com/agrc/parole-and-probation/issues/49)
+
+
+### Features
+
+* **map:** color legal status and fugatives ([acba116](https://github.com/agrc/parole-and-probation/commit/acba116)), closes [#53](https://github.com/agrc/parole-and-probation/issues/53)
+
 ## [1.9.0](https://github.com/agrc/parole-and-probation/compare/v1.8.0...v1.9.0) (2019-08-14)
 
 
