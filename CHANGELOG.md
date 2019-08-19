@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.1](https://github.com/agrc/parole-and-probation/compare/v1.10.0...v1.10.1) (2019-08-19)
+
+
+### Bug Fixes
+
+* **identify:** adjust for fat fingers ([c523665](https://github.com/agrc/parole-and-probation/commit/c523665)), closes [#47](https://github.com/agrc/parole-and-probation/issues/47)
+* **identify:** handle empty offender ([2f83e04](https://github.com/agrc/parole-and-probation/commit/2f83e04))
+* **identify:** move race below name ([59eec32](https://github.com/agrc/parole-and-probation/commit/59eec32)), closes [#61](https://github.com/agrc/parole-and-probation/issues/61)
+
 ## [1.10.0](https://github.com/agrc/parole-and-probation/compare/v1.9.0...v1.10.0) (2019-08-16)
 
 
