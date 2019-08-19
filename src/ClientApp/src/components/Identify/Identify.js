@@ -46,7 +46,7 @@ const IdentifyInformation = props => {
   }, [props.offender, props.index, oidc]);
 
   return (
-    props.offender ?
+    props.offender && Object.keys(props.offender).length > 0 ?
       <Container className="identify pt-4">
         {props.features.length > 1 ? (
           <Pagination listClassName="justify-content-center">
