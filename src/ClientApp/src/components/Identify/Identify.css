@@ -1,3 +1,7 @@
+.d-grid {
+  display: grid;
+}
+
 .identify {
   width: 100%;
   height: 100%;
@@ -9,7 +13,6 @@
 }
 
 .identify-grid--label-text {
-  display: grid;
   grid-template-columns: 1fr 2.5fr;
   grid-gap: 0 16px;
 }
@@ -23,7 +26,6 @@
 }
 
 .identify-grid--contacts {
-  display: grid;
   flex: auto;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 16px;
@@ -31,6 +33,14 @@
 
 .identify-grid--contacts__item {
   padding-left: 15px;
+}
+
+.identify-addon {
+  grid-template-columns: 200px 1fr;
+}
+
+.identify-addon__subgrid {
+  grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
 .identify__container {

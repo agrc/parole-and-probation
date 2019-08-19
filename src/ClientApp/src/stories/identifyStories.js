@@ -162,7 +162,7 @@ fetchMock.mock('path:/mapserver/0/query', {
       'offense_code': 'J',
       'offense_description': 'DISTRIB/ARRANGE DIST CONT SUBSTANCE',
       'primary_offense': 'ALCOHOL & DRUG',
-      'race': 'WHITE',
+      'race': 'native american/alaskan',
       'special_supervision': 'INCAR,SO-A, MIO, SO-C, SO-B',
       'state': 'UT',
       'supervision_start_date': 1471327200000,
