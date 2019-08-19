@@ -221,7 +221,7 @@ export default class ReactMapView extends Component {
       const query = {
         where: this.state.appliedFilter,
         geometry: opts.mapPoint,
-        distance: this.view.resolution * 3,
+        distance: this.view.resolution * 7,
         spatialRelationship: 'intersects',
         outFields: layerView.availableFields,
         orderByFields: 'offender ASC',
