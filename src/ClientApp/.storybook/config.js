@@ -8,9 +8,9 @@ if (process.env.NODE_ENV === 'test') {
   const registerRequireContextHook = require('babel-plugin-require-context-hook/register');
   registerRequireContextHook();
 
-  req = global.__requireContext(__dirname, '../src/stories', true, /\.js$/);
+  req = global.__requireContext(__dirname, '../src', true, /\.stories\.js$/);
 } else {
-  req = require.context('../src/stories', true, /\.js$/);
+  req = require.context('../src', true, /\.stories\.js$/);
 }
 
 function loadStories() {
