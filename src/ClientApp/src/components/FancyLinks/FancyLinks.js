@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const generateDirectionsUrl = (address) => {
     const baseUrl = 'https://www.google.com/maps/dir/?';
