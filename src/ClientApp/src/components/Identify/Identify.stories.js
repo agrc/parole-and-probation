@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import fetchMock from 'fetch-mock';
-import { IdentifyInformation, IdentifyContainer } from './Identify';
+import { IdentifyInformation, IdentifyContainer, OffenderQuickLook, OffenderBio, OffenderAlerts, RecentVisitation, SpecialSupervision, PrimaryOffense, GangInformation, OtherInformation } from './Identify';
 import { UserData } from 'react-oidc';
 
 import '../Sidebar/Sidebar.css';
@@ -192,4 +192,173 @@ storiesOf('Identify', module)
   ))
   .add('last of multiple', () => (
     <IdentifyInformation update={() => { }} features={features} offender={features[5].attributes} index={5}></IdentifyInformation>
+  ));
+
+storiesOf('Identify.Offender quick look')
+  .add('normal', () => (
+    <OffenderQuickLook
+      age={412153200000}
+      gender="M"
+      standard_of_supervision="LOW"
+      legal_status="PROBATION"
+      active_warrant={0}
+    />
+  ))
+  .add('no sos', () => (
+    <OffenderQuickLook
+      age={412153200000}
+      gender="M"
+      legal_status="PROBATION"
+      active_warrant={0}
+    />
+  ))
+  .add('active warrant', () => (
+    <OffenderQuickLook
+      age={412153200000}
+      gender="M"
+      legal_status="PROBATION"
+      active_warrant={1}
+    />
+  ));
+
+storiesOf('Identify.Offender Bio')
+  .add('normal', () => (
+    <OffenderBio
+      offender="Last name, middle first"
+      race={"WHITE"}
+      id={999999}
+      agent="Agent Orange"
+    />
+  ))
+  .add('no race', () => (
+    <OffenderBio
+      offender="Last name, middle first"
+      race={null}
+      id={999999}
+      agent="Agent Orange"
+    />
+  ));
+
+storiesOf('Identify.Offender Alerts')
+  .add('normal', () => (
+    <OffenderAlerts
+      cautions="cautions"
+      alerts="alerts"
+    />
+  ))
+  .add('empty cautions', () => (
+    <OffenderAlerts
+      cautions=""
+      alerts="alerts"
+    />
+  ))
+  .add('empty alerts', () => (
+    <OffenderAlerts
+      cautions="cautions"
+      alerts={null}
+    />
+  ))
+  .add('all empty', () => (
+    <OffenderAlerts
+      cautions={null}
+      alerts={null}
+    />
+  ));
+
+storiesOf('Identify.Recent Visitation')
+  .add('normal', () => (
+    <RecentVisitation
+          office={10}
+          successful={1}
+          attempted={15}
+        />
+  ))
+  .add('empty office', () => (
+    <RecentVisitation
+      office=""
+      successful={1}
+      attempted={15}
+    />
+  ))
+  .add('empty success', () => (
+    <RecentVisitation
+      office={10}
+      successful={null}
+      attempted={15}
+    />
+  ))
+  .add('empty attempted', () => (
+    <RecentVisitation
+      office={10}
+      successful={1}
+      attempted={null}
+    />
+  ));
+
+storiesOf('Identify.Special Supervision')
+  .add('normal', () => (
+    <SpecialSupervision>A123,B123,C123,D123,E123,F123,G123</SpecialSupervision>
+  ))
+  .add('single', () => (
+    <SpecialSupervision>A</SpecialSupervision>
+  ))
+  .add('empty', () => (
+    <SpecialSupervision></SpecialSupervision>
+  ));
+
+storiesOf('Identify.Primary Offense')
+  .add('normal', () => (
+    <PrimaryOffense
+          primary_offense="PERSON"
+          degree="F3"
+          description="i did something very bad"
+        />
+  ))
+  .add('empty offense/degree', () => (
+    <PrimaryOffense
+      primary_offense=""
+      degree=""
+      description="hello"
+    />
+  ))
+  .add('null and undefined', () => (
+    <PrimaryOffense
+          primary_offense="ROBBERY"
+          degree={undefined}
+          description={null}
+        />
+  ));
+
+storiesOf('Identify.Gang Information')
+  .add('normal', () => (
+    <GangInformation
+          gang="CRIPS"
+          set="loco yoco"
+        />
+  ))
+  .add('empty', () => (
+    <GangInformation
+          gang={null}
+          set={undefined}
+        />
+  ))
+  .add('null gang', () => (
+    <GangInformation
+          gang={null}
+          set="YOLO"
+        />
+  ));
+
+storiesOf('Identify.Other Information')
+  .add('normal', () => (
+    <OtherInformation
+          supervision_start_date={1535760000000}
+          ecc={1535760000000}
+        />
+  ))
+  .add('empty', () => (
+    <OtherInformation
+          supervision_start_date={null}
+          ecc={null}
+        />
   ));

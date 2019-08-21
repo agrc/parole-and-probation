@@ -139,10 +139,10 @@ module.exports = {
     },
     'last_field_contact': {
       identify: false,
-      filter: true
+      filter: false
     },
     'field_contact_result': {
-      identify: true,
+      identify: false,
       filter: false
     },
     'offense_code': {
