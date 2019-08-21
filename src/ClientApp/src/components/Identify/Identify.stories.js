@@ -1,10 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import fetchMock from 'fetch-mock';
-import { IdentifyInformation, IdentifyContainer } from '../components/Identify/Identify';
+import { IdentifyInformation, IdentifyContainer } from './Identify';
 import { UserData } from 'react-oidc';
 
-import '../components/Sidebar/Sidebar.css';
+import '../Sidebar/Sidebar.css';
 
 const features = [
   {
@@ -18,9 +18,8 @@ const features = [
       'gang_type': 'NORTENOS',
       'gender': 'M',
       'last_attempted_field_contact': 10,
-      'last_field_contact': 1521676800000,
       'last_office_contact': 25,
-      'last_successful_field_contact': 25,
+      'last_successful_field_contact': 322,
       'legal_status': 'PROBATION',
       'offender': 'BRAVO, MIKE SMITH',
       'offender_id': 10,
@@ -40,7 +39,6 @@ const features = [
       'gang_type': null,
       'gender': 'M',
       'last_attempted_field_contact': 10,
-      'last_field_contact': 1521676800000,
       'last_office_contact': 25,
       'last_successful_field_contact': 25,
       'legal_status': 'PROBATION',
@@ -62,7 +60,6 @@ const features = [
       'gang_type': null,
       'gender': 'M',
       'last_attempted_field_contact': 10,
-      'last_field_contact': 1521676800000,
       'last_office_contact': 25,
       'last_successful_field_contact': 25,
       'legal_status': 'PROBATION',
@@ -84,7 +81,6 @@ const features = [
       'gang_type': null,
       'gender': 'M',
       'last_attempted_field_contact': 10,
-      'last_field_contact': 1521676800000,
       'last_office_contact': 25,
       'last_successful_field_contact': 25,
       'legal_status': 'PROBATION',
@@ -106,7 +102,6 @@ const features = [
       'gang_type': null,
       'gender': 'M',
       'last_attempted_field_contact': 10,
-      'last_field_contact': 1521676800000,
       'last_office_contact': 25,
       'last_successful_field_contact': 25,
       'legal_status': 'PROBATION',
@@ -128,7 +123,6 @@ const features = [
       'gang_type': null,
       'gender': 'M',
       'last_attempted_field_contact': 10,
-      'last_field_contact': 1521676800000,
       'last_office_contact': 25,
       'last_successful_field_contact': 25,
       'legal_status': 'PROBATION',
@@ -152,16 +146,15 @@ fetchMock.mock('path:/mapserver/0/query', {
       'alerts': 'mean dog',
       'cautions': 'lies a lot and has a concealed carry license',
       'date_of_birth': 648950400000,
-      'earned_compliance_credit': 1587794400000,
+      'earned_compliance_credit': 1535760000000,
       'employer_address': 'WEST HIGHWAY 40, ROOSEVELT UT 84066',
       'employer_phone': '435-722-5650',
-      'field_contact_result': 'SUCCESSFUL',
       'gang_id': null,
       'gang_name': 'West Side Players',
       'gang_type_id': null,
       'offense_code': 'J',
-      'offense_description': 'DISTRIB/ARRANGE DIST CONT SUBSTANCE',
-      'primary_offense': 'ALCOHOL & DRUG',
+      'offense_description': null,
+      'primary_offense': null,
       'race': 'native american/alaskan',
       'special_supervision': 'INCAR,SO-A, MIO, SO-C, SO-B',
       'state': 'UT',
