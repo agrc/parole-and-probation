@@ -1,16 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { GridLabelGroup, IdentifyAddon, LabelHeading, Label } from './Labels';
+import { GridLabelGroup, IdentifyAddon, LabelGroup } from './Labels';
 
 describe('renders without crashing', () => {
-  it('Label', () => {
+  it('LabelGroup', () => {
     const div = document.createElement('div');
-    ReactDOM.render((<Label />), div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
-  it('LabelHeading', () => {
-    const div = document.createElement('div');
-    ReactDOM.render((<LabelHeading />), div);
+    ReactDOM.render((<LabelGroup />), div);
     ReactDOM.unmountComponentAtNode(div);
   });
   it('IdentifyAddon', () => {
