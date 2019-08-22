@@ -1,19 +1,19 @@
 import React from 'react';
-import { FormGroup, Container, Col, Button, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Card, CardBody, FormGroup, Container, Col, Button, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 import Downshift from 'downshift'
 import { startCase } from 'lodash/string';
 import './FilterAgent.css';
 
 
 export default function FilterAgent(props) {
-    const getAgent = (value, agents) => {
-        return agents.filter(item => item.value.toLowerCase() === value.toLowerCase())[0];
+    const getAgent = (id, agents) => {
+        return agents.filter(item => item.id === id)[0];
     }
 
     const updateAgents = (item, add) => {
         console.info('Filters/FilterAgent:updateAgents');
 
-        if (!item.value) {
+        if (!item || !item.value) {
             return;
         }
 
@@ -291,20 +291,24 @@ export default function FilterAgent(props) {
                 </FormGroup>
             </Col>
             <Col>
-                <FormGroup>
-                    <Label>Agent List</Label>
-                    <Input type="select" multiple readOnly
-                        onDoubleClick={event => {
-                            const agent = getAgent(event.target.value, props.criteria.agentList);
+                {props.criteria.agentList.length > 0 ? <>
+                    <Label>Filtering Offenders For</Label>
+                    <Card className="mb-3 p-3">
+                        <CardBody className="filter-other__items-container p-0">
+                            {props.criteria.agentList.map(item => (
+                                <Button className="mb-1" color="secondary" size="sm" outline id={item.id} key={item.id} onClick={
+                                    event => {
+                                        const agent = getAgent(parseInt(event.target.id), props.criteria.agentList);
 
-                            updateAgents(agent, false)
-                        }}>
-                        {props.criteria.agentList.map((agent, key) => (
-                            <option key={key}>{startCase(agent.value.toLowerCase())}</option>
-                        ))}
-                    </Input>
-                </FormGroup>
+                                        updateAgents(agent, false)
+                                    }}>
+                                    {item.value}
+                                </Button>
+                            ))}
+                        </CardBody>
+                    </Card>
+                </> : null}
             </Col>
-        </Container >
+        </Container>
     )
 }
