@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { loadModules, loadCss } from 'esri-loader';
-import { LayerSelectorContainer, LayerSelector } from '../../components/LayerSelector/LayerSelector';
 import { UserData } from 'react-oidc';
+import { LayerSelectorContainer, LayerSelector } from '../../components/LayerSelector/LayerSelector';
+import HomeButton from '../DefaultExtent';
 import { fields } from '../../config';
 
 
@@ -45,25 +46,29 @@ export default class ReactMapView extends Component {
     // eslint-disable-next-line
     const [esriConfig, Map, MapView, FeatureLayer, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires));
 
+    const defaultExtent = {
+      xmax: -11762120.612131765,
+      xmin: -13074391.513731329,
+      ymax: 5225035.106177688,
+      ymin: 4373832.359194187,
+      spatialReference: 3857
+    };
+
     this.map = new Map();
 
     this.view = new MapView({
       container: this.mapViewDiv,
       map: this.map,
-      extent: {
-        xmax: -11762120.612131765,
-        xmin: -13074391.513731329,
-        ymax: 5225035.106177688,
-        ymin: 4373832.359194187,
-        spatialReference: 3857
-      },
+      extent: defaultExtent,
       ui: {
         components: ['zoom']
       }
     });
 
     const selectorNode = document.createElement('div');
+    const homeNode = document.createElement('div');
     this.view.ui.add(selectorNode, 'top-right');
+    this.view.ui.add(homeNode, 'top-left');
 
     this.view.on('click', event => this.identify(event));
 
@@ -77,8 +82,10 @@ export default class ReactMapView extends Component {
     ReactDOM.render(
       <LayerSelectorContainer>
         <LayerSelector {...layerSelectorOptions}></LayerSelector>
-      </LayerSelectorContainer>,
-      selectorNode);
+      </LayerSelectorContainer>, selectorNode
+    );
+
+    ReactDOM.render(<HomeButton view={this.view} extent={this.view.extent}/>, homeNode);
 
     this.offenders = new FeatureLayer({
       url: `${process.env.REACT_APP_BASENAME}/mapserver`,

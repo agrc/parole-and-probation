@@ -1,0 +1,6 @@
+{
+  "name": "default-extent",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DefaultExtent.js"
+}
