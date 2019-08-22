@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import fetchMock from 'fetch-mock';
-import { IdentifyInformation, IdentifyContainer, OffenderQuickLook, OffenderBio, OffenderAlerts, RecentVisitation, SpecialSupervision, PrimaryOffense, GangInformation, OtherInformation } from './Identify';
+import { IdentifyInformation, IdentifyContainer, OffenderQuickLook, OffenderBio, OffenderAlerts, RecentVisitation, SpecialSupervision, PrimaryOffense, GangInformation, OtherInformation, OffenderContactInfo } from './Identify';
 import { UserData } from 'react-oidc';
 
 import '../Sidebar/Sidebar.css';
@@ -166,7 +166,7 @@ fetchMock.mock('path:/mapserver/0/query', {
   }]
 });
 
-storiesOf('Identify', module)
+storiesOf('Identify.Integration', module)
   .addDecorator(story => (
     <IdentifyContainer>
       <UserData.Provider value={{
@@ -268,10 +268,10 @@ storiesOf('Identify.Offender Alerts')
 storiesOf('Identify.Recent Visitation')
   .add('normal', () => (
     <RecentVisitation
-          office={10}
-          successful={1}
-          attempted={15}
-        />
+      office={10}
+      successful={1}
+      attempted={15}
+    />
   ))
   .add('empty office', () => (
     <RecentVisitation
@@ -309,10 +309,10 @@ storiesOf('Identify.Special Supervision')
 storiesOf('Identify.Primary Offense')
   .add('normal', () => (
     <PrimaryOffense
-          primary_offense="PERSON"
-          degree="F3"
-          description="i did something very bad"
-        />
+      primary_offense="PERSON"
+      degree="F3"
+      description="i did something very bad"
+    />
   ))
   .add('empty offense/degree', () => (
     <PrimaryOffense
@@ -323,42 +323,133 @@ storiesOf('Identify.Primary Offense')
   ))
   .add('null and undefined', () => (
     <PrimaryOffense
-          primary_offense="ROBBERY"
-          degree={undefined}
-          description={null}
-        />
+      primary_offense="ROBBERY"
+      degree={undefined}
+      description={null}
+    />
   ));
 
 storiesOf('Identify.Gang Information')
   .add('normal', () => (
     <GangInformation
-          gang="CRIPS"
-          set="loco yoco"
-        />
+      gang="CRIPS"
+      set="loco yoco"
+    />
   ))
   .add('empty', () => (
     <GangInformation
-          gang={null}
-          set={undefined}
-        />
+      gang={null}
+      set={undefined}
+    />
   ))
   .add('null gang', () => (
     <GangInformation
-          gang={null}
-          set="YOLO"
-        />
+      gang={null}
+      set="YOLO"
+    />
   ));
 
 storiesOf('Identify.Other Information')
   .add('normal', () => (
     <OtherInformation
-          supervision_start_date={1535760000000}
-          ecc={1535760000000}
-        />
+      supervision_start_date={1535760000000}
+      ecc={1535760000000}
+    />
   ))
   .add('empty', () => (
     <OtherInformation
-          supervision_start_date={null}
-          ecc={null}
-        />
+      supervision_start_date={null}
+      ecc={null}
+    />
+  ));
+
+storiesOf('Identify.Contact Information')
+  .add('normal', () => (
+    <OffenderContactInfo
+      phone={'801-111-1111'}
+      address={'123 sesame street'}
+      unit={'#1'}
+      city={'salt lake city'}
+      zip={84101}
+      type={"1st Primary"}
+      since={1535760000000}
+      employer={'ACME'}
+      employer_address={'123 Street Drive'}
+      employer_phone={'801-222-2222'}
+    />
+  ))
+  .add('empty phones', () => (
+    <OffenderContactInfo
+      phone={null}
+      address={'123 sesame street'}
+      unit={'#1'}
+      city={'salt lake city'}
+      zip={84101}
+      type={"1st Primary"}
+      since={1535760000000}
+      employer={'ACME'}
+      employer_address={'123 Street Drive'}
+    />
+  ))
+  .add('address.empty address type', () => (
+    <OffenderContactInfo
+      phone={'801-111-1111'}
+      address={'123 sesame street'}
+      unit={'#1'}
+      city={'salt lake city'}
+      zip={84101}
+      since={1535760000000}
+      employer={'ACME'}
+      employer_address={'123 Street Drive'}
+      employer_phone={'801-222-2222'}
+    />
+  ))
+  .add('address.no unit', () => (
+    <OffenderContactInfo
+      phone={'801-111-1111'}
+      address={'123 sesame street'}
+      city={'salt lake city'}
+      zip={84101}
+      type={"1st Primary"}
+      since={1535760000000}
+      employer={'ACME'}
+      employer_address={'123 Street Drive'}
+      employer_phone={'801-222-2222'}
+    />
+  ))
+  .add('address.empty since', () => (
+    <OffenderContactInfo
+      phone={'801-111-1111'}
+      address={'123 sesame street'}
+      city={'salt lake city'}
+      zip={84101}
+      type={"1st Primary"}
+      since={null}
+      employer={'ACME'}
+      employer_address={'123 Street Drive'}
+      employer_phone={'801-222-2222'}
+    />
+  ))
+  .add('employer.empty employer', () => (
+    <OffenderContactInfo
+      phone={'801-111-1111'}
+      address={'123 sesame street'}
+      city={'salt lake city'}
+      zip={84101}
+      type={"1st Primary"}
+      employer_address={'123 Street Drive'}
+      employer_phone={'801-222-2222'}
+    />
+  ))
+  .add('employer.empty employer address', () => (
+    <OffenderContactInfo
+      phone={'801-111-1111'}
+      address={'123 sesame street'}
+      city={'salt lake city'}
+      zip={84101}
+      type={"1st Primary"}
+      since={null}
+      employer={'ACME'}
+      employer_phone={'801-222-2222'}
+    />
   ));

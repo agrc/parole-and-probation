@@ -227,7 +227,30 @@ const RecentVisitation = props => {
 };
 
 const OffenderContactInfo = props => {
-  const fullAddress = `${props.address} ${props.unit || ''}, ${props.city || ''} ${props.zip || ''}`;
+  let fullAddress = '';
+  if (props.address) {
+    fullAddress = props.address;
+
+    if (props.unit) {
+      fullAddress += ` ${props.unit}`;
+    }
+  }
+
+  if (props.city) {
+    if (fullAddress) {
+      fullAddress += `, ${props.city}`;
+    } else {
+      fullAddress = props.city;
+    }
+  }
+
+  if (props.zip) {
+    if (fullAddress) {
+      fullAddress += ` ${props.zip}`;
+    } else {
+      fullAddress = props.zip;
+    }
+  }
 
   return (<>
     <h5 className="mt-2">Contact Information</h5>
@@ -243,12 +266,12 @@ const OffenderContactInfo = props => {
         {fullAddress}
       </GridLabelGroup>
     </div>
-    {props.address_type ?
+    {props.type ?
       <div className="d-grid identify-grid--label-text identify__row">
         <GridLabelGroup label="Type">{props.type}</GridLabelGroup>
       </div> : null}
     <div className="d-grid identify-grid--label-text identify__row">
-      <GridLabelGroup date label="Since">{props.since}</GridLabelGroup>
+      <GridLabelGroup date label="Since" defaultValue="unknown">{props.since}</GridLabelGroup>
     </div>
     <div className="d-grid identify-grid--label-text identify__row border-bottom">
       <GridLabelGroup label="Employer" defaultValue="unemployed or unknown">{props.employer}</GridLabelGroup>
