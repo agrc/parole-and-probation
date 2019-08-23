@@ -42,6 +42,7 @@
     "deploy:stage": "grunt clean:aspnet && npm run build:stage && grunt deploy:stage",
     "deploy:prod": "grunt clean:aspnet && npm run build && grunt deploy:prod",
     "test": "react-scripts test",
+    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
