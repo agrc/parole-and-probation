@@ -2,12 +2,25 @@ body, html, .app {
     display: grid;
     grid-template-columns: 325px 1fr;
     grid-template-rows: 75px 1fr;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+    grid-column-gap: 7px;
+    grid-template-areas: "header header" "sidebar map";
+    width: calc(100vw - 10px);
+    height: calc(100vh - 5px);
+    margin: auto;
     overflow: hidden;
     color: #444;
+}
+
+.app .esri-ui-top-left {
+    top: 30px;
+}
+
+@media screen and (max-width: 624px) {
+    .app {
+        grid-template-columns: 325px 1fr;
+        grid-template-rows: 0px 1fr;
+        grid-template-areas: "header header" "sidebar map";
+    }
 }
 
 .f-column {

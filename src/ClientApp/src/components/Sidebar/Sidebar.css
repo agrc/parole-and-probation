@@ -1,22 +1,8 @@
 .side-bar {
   overflow-y: auto;
   overflow-x: hidden;
-  position: absolute;
-  left: 5px;
-  top: 75px;
-  bottom: 5px;
-}
-
-.side-bar__padder {
-  padding: 10px;
-  width: 325px;
-  margin: -1px;
-}
-
-.side-bar--with-border {
-  border: 1px solid #b5bcc7;
 }
 
 .side-bar--open {
-  width: 325px;
+  grid-area: sidebar;
 }

@@ -6,7 +6,7 @@ export default function AccordionPane(props) {
   const [open, setOpen] = useState(props.open);
 
   return (<>
-    <Card>
+    <Card className={props.className}>
       <CardHeader onClick={() => setOpen(!open)}>
         {props.title}
       </CardHeader>

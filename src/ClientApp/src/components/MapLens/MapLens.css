@@ -1,24 +1,19 @@
 .map-lens {
-  position: absolute;
-  top: 75px;
-  bottom: 5px;
-  right: 5px;
-  left: 5px;
   overflow: hidden;
   background-color: white;
   z-index: 3;
+  grid-column: 1/3;
+  grid-row: 2;
 }
 
 .map-lens__sidebar {
   position: absolute;
-  left: 0;
-  top: 0;
+  border-radius: unset;
   z-index: 1;
-  margin: -5px;
 }
 
 .map-lens--side-bar-open {
-  left: 335px;
+  grid-area: map;
 }
 
 .map-lens--with-border {

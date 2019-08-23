@@ -1,9 +1,18 @@
 .app__header {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 5px;
+  grid-area: header;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   padding: 8px;
+}
+
+@media screen and (max-width: 624px) {
+  .app__header {
+    grid-area: none;
+    display: none;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .header__heading {
