@@ -1,5 +1,5 @@
 import React from 'react';
-import Filters from '../Filters';
+import { Filters } from '../Filters';
 import { storiesOf } from '@storybook/react';
 
 storiesOf('Filters.Agent Filter', module)
