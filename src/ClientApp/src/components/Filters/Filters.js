@@ -278,24 +278,24 @@ const Filters = props => {
 
     return (
         <>
-            <AccordionPane title="Agent" open>
+            <AccordionPane title="Agent" open className="mb-1">
                 <FilterAgent
                     data={{ agents, supervisors }}
                     criteria={criteria.agent}
                     update={dispatcher} />
             </AccordionPane>
-            <AccordionPane title="Offender">
+            <AccordionPane title="Offender" className="mb-1">
                 <FilterOffender
                     criteria={criteria.offender}
                     update={dispatcher} />
             </AccordionPane>
-            <AccordionPane title="Location">
+            <AccordionPane title="Location" className="mb-1">
                 <FilterLocation
                     criteria={criteria.location}
                     update={dispatcher}
                     dispatcher={props.mapDispatcher} />
             </AccordionPane>
-            <AccordionPane title="Supervision Contact">
+            <AccordionPane title="Supervision Contact" className="mb-1">
                 <FilterDate
                     criteria={criteria.date}
                     update={dispatcher}
