@@ -18,11 +18,16 @@ const vanityCheck = (agentList, loggedInUser) => {
     return agents.some(item => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
 };
 
-const filterMeta = {
+const sqlMap = {
     agent: {
-        agentList: data => `agent_id in (${data.map(agent => `'${agent.id}'`).join()})`
+        agentList: data => `agent_id in (${data.map(agent => `${agent.id}`).join()})`
     },
-    date: {},
+    date: {
+        compliant: data => `in_compliance=${data === 'in' ? 1 : 0}`,
+        attempt: data => `last_attempted_field_contact>${data}`,
+        office: data => `last_office_contact>${data}`,
+        success: data => `last_successful_field_contact>${data}`
+    },
     location: {
         buffer: data => undefined,
         region: data => `region in (${data.join()})`,
@@ -34,7 +39,7 @@ const filterMeta = {
     },
     offender: {
         gender: data => `gender='${data.slice(0, 1)}'`,
-        name: data => `offender like '%${data.toUpperCase()}%'`,
+        name: data => `offender='${data.toUpperCase()}'`,
         number: data => `offender_id=${data}`,
         tel: data => `offender_phone='${data}'`,
         employer: data => `employer='${data}'`
@@ -53,29 +58,49 @@ const filterMeta = {
 
             return query.join(' OR ');
         },
-        supervision: data => `standard_of_supervision='${data}'`,
+        supervision: data => `special_supervision='${data.map(item => item.id).join(', ')}'`,
         gang: data => `gang_type in (${data.map(item => `'${item.name.toUpperCase()}'`).join()})`,
         offense: data => `offense_code in (${data.map(item => `'${item.id}'`).join()})`
     }
 };
 
-const formatForEsriFilter = (data) => {
-    console.log(`Filters:formatForEsriFilter`, data);
+const sqlMapper = (data) => {
+    console.log(`Filters:sqlMapper`, data);
 
     let filterParts = [];
     let definitionExpressionParts = [];
 
     // agent/data/location/offender/other
     Object.keys(data).forEach(key => {
-        const metaKeys = Object.keys(filterMeta[key]);
+        const metaKeys = Object.keys(sqlMap[key]);
 
         const criteria = Object.entries(data[key]);
         const sql = criteria.map(([subKey, value]) => {
-            if (!value || !metaKeys.includes(subKey) || Object.keys(value).length === 0 || !value) {
+            if (value === null) {
+                // skipping because null value
+
                 return undefined;
             }
 
-            return filterMeta[key][subKey](value);
+            if (typeof value === 'string' && !value) {
+                // skipping empty string
+
+                return undefined;
+            }
+
+            if (Array.isArray(value) && value.length === 0) {
+                // skipping empty array
+
+                return undefined;
+            }
+
+            if (!metaKeys.includes(subKey)) {
+                // skipping because only interested in top level keys
+
+                return undefined;
+            }
+
+            return sqlMap[key][subKey](value);
         }).filter(x => !!x);
 
         if (key === 'agent' && sql) {
@@ -173,7 +198,7 @@ const initialState = {
         vanity: true
     },
     date: {
-        outOfCompliance: false,
+        compliant: null,
         office: null,
         attempt: null,
         success: null
@@ -211,7 +236,7 @@ const emptyState = {
         vanity: true
     },
     date: {
-        outOfCompliance: false,
+        compliant: null,
         office: null,
         attempt: null,
         success: null
@@ -242,7 +267,7 @@ const emptyState = {
     }
 };
 
-export default function Filters(props) {
+const Filters = props => {
     initialState.agent.loggedInUser = props.loggedInUser;
     initialState.agent.agentList = [props.loggedInUser];
 
@@ -282,8 +307,10 @@ export default function Filters(props) {
                     update={dispatcher} />
             </AccordionPane>
             <FilterActions
-                apply={() => props.mapDispatcher({ type: 'SET_FILTERS', payload: formatForEsriFilter(criteria) })}
+                apply={() => props.mapDispatcher({ type: 'SET_FILTERS', payload: sqlMapper(criteria) })}
                 reset={() => dispatcher({ type: 'RESET' })} />
         </>
     )
-}
+};
+
+export { Filters, sqlMap, sqlMapper };

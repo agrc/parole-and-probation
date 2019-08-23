@@ -10,14 +10,21 @@ export default function FilterDate(props) {
         <Container fluid className="filter-date">
             <Col>
                 <FormGroup>
+                    <Label>Compliance</Label>
                     <div className="text-center">
                         <ButtonGroup>
-                            {['Out of Compliance'].map((payload, index) =>
+                            {['in', 'out'].map((payload, index) =>
                                 <Button
                                     key={index}
                                     size="sm"
-                                    color={props.criteria.outOfCompliance ? 'warning' : 'secondary'}
-                                    onClick={() => { props.update({ type, payload: !props.criteria.outOfCompliance, meta: 'outOfCompliance' }); }}>
+                                    color={props.criteria.compliant === payload ? 'warning' : 'secondary'}
+                                    onClick={() => {
+                                        if (props.criteria.compliant === payload) {
+                                            payload = null;
+                                        }
+
+                                        props.update({ type, payload, meta: 'compliant' });
+                                    }}>
                                     {payload}
                                 </Button>
                             )}
@@ -27,7 +34,7 @@ export default function FilterDate(props) {
             </Col>
             <Col>
                 <FormGroup>
-                    <Label>No attempted field visit within</Label>
+                    <Label>No attempted field contact within</Label>
                     <div className="text-center">
                         <ButtonGroup>
                             {supervisionContactDays.map((payload, index) =>

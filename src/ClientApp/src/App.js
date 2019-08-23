@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import MapLens from './components/MapLens';
 import MapView from './components/esrijs/MapView';
-import Filters from './components/Filters';
+import { Filters } from './components/Filters';
 import { IdentifyInformation, IdentifyContainer } from './components/Identify';
 import { mappingConfig } from './config';
 
