@@ -18,6 +18,50 @@ const vanityCheck = (agentList, loggedInUser) => {
     return agents.some(item => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
 };
 
+const shortCircuitEmpties = (value) => {
+    if (value === null) {
+        // skipping because null value
+
+        return true;
+    }
+
+    if (typeof value === 'string' && !value) {
+        // skipping empty string
+
+        return true;
+    }
+
+    if (Array.isArray(value) && value.length === 0) {
+        // skipping empty array
+
+        return true;
+    }
+
+    return false;
+};
+
+const countActiveFilters = (filter, state) => {
+    const skipKeys = [
+        'loggedInUser',
+        'vanity',
+        'buffer',
+        'extent',
+        'point',
+    ];
+
+    const allKeys = Object.keys(state);
+    const filterKeys = allKeys.filter(filter => !skipKeys.includes(filter))
+    let activeFilters = 0;
+
+    activeFilters = filterKeys.filter(filter => !shortCircuitEmpties(state[filter])).length;
+
+    if (activeFilters > 0) {
+        return `${filter} (${activeFilters}/${filterKeys.length} active)`
+    }
+
+    return filter;
+};
+
 const sqlMap = {
     agent: {
         agentList: data => `agent_id in (${data.map(agent => `${agent.id}`).join()})`
@@ -76,21 +120,7 @@ const sqlMapper = (data) => {
 
         const criteria = Object.entries(data[key]);
         const sql = criteria.map(([subKey, value]) => {
-            if (value === null) {
-                // skipping because null value
-
-                return undefined;
-            }
-
-            if (typeof value === 'string' && !value) {
-                // skipping empty string
-
-                return undefined;
-            }
-
-            if (Array.isArray(value) && value.length === 0) {
-                // skipping empty array
-
+            if (shortCircuitEmpties(value)) {
                 return undefined;
             }
 
@@ -278,30 +308,30 @@ const Filters = props => {
 
     return (
         <>
-            <AccordionPane title="Agent" open className="mb-1">
+            <AccordionPane title={countActiveFilters('Agent', criteria.agent)} open className="mb-1">
                 <FilterAgent
                     data={{ agents, supervisors }}
                     criteria={criteria.agent}
                     update={dispatcher} />
             </AccordionPane>
-            <AccordionPane title="Offender" className="mb-1">
+            <AccordionPane title={countActiveFilters('Offender', criteria.offender)} className="mb-1">
                 <FilterOffender
                     criteria={criteria.offender}
                     update={dispatcher} />
             </AccordionPane>
-            <AccordionPane title="Location" className="mb-1">
+            <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
                 <FilterLocation
                     criteria={criteria.location}
                     update={dispatcher}
                     dispatcher={props.mapDispatcher} />
             </AccordionPane>
-            <AccordionPane title="Supervision Contact" className="mb-1">
+            <AccordionPane title={countActiveFilters('Supervision Contact', criteria.date)} className="mb-1">
                 <FilterDate
                     criteria={criteria.date}
                     update={dispatcher}
                     dispatcher={props.mapDispatcher} />
             </AccordionPane>
-            <AccordionPane title="Other">
+            <AccordionPane title={countActiveFilters('Other', criteria.other)}>
                 <FilterOther
                     criteria={criteria.other}
                     update={dispatcher} />
