@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/agrc/parole-and-probation/compare/v1.10.1...v1.11.0) (2019-08-26)
+
+
+### Bug Fixes
+
+* **deps:** update deps and remove direct dep on eslint hooks ([9bd66ab](https://github.com/agrc/parole-and-probation/commit/9bd66ab))
+* **identiy:** address formatting ([3555bc8](https://github.com/agrc/parole-and-probation/commit/3555bc8))
+
+
+### Features
+
+* **app:** add default extent button ([53c3120](https://github.com/agrc/parole-and-probation/commit/53c3120)), closes [#66](https://github.com/agrc/parole-and-probation/issues/66)
+* **app:** hide header on small screens ([fc3f81a](https://github.com/agrc/parole-and-probation/commit/fc3f81a))
+* **filter-agent:** update agent filtering list ([e6497c3](https://github.com/agrc/parole-and-probation/commit/e6497c3)), closes [#51](https://github.com/agrc/parole-and-probation/issues/51)
+* **filter-date:** enable supervision contact filters ([fc867b6](https://github.com/agrc/parole-and-probation/commit/fc867b6)), closes [#55](https://github.com/agrc/parole-and-probation/issues/55)
+* **filters:** add filter counts ([bbdf4f1](https://github.com/agrc/parole-and-probation/commit/bbdf4f1))
+
 ### [1.10.2](https://github.com/agrc/parole-and-probation/compare/v1.10.1...v1.10.2) (2019-08-21)
 
 ### [1.10.1](https://github.com/agrc/parole-and-probation/compare/v1.10.0...v1.10.1) (2019-08-19)
