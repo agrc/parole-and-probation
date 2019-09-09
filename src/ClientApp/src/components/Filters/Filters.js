@@ -102,7 +102,17 @@ const sqlMap = {
 
             return query.join(' OR ');
         },
-        supervision: data => `special_supervision='${data.map(item => item.id).join(', ')}'`,
+        supervision: data => `special_supervision='${data.sort((a, b) => {
+            if (a.sortKey < b.sortKey) {
+                return -1;
+            }
+
+            if (a.sortKey > b.sortKey) {
+                return 1;
+            }
+
+            return 0;
+        }).map(item => item.id).join(', ')}'`,
         gang: data => `gang_type in (${data.map(item => `'${item.name.toUpperCase()}'`).join()})`,
         offense: data => `offense_code in (${data.map(item => `'${item.id}'`).join()})`
     }
