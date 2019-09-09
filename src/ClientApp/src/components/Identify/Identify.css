@@ -35,12 +35,9 @@
   padding-left: 15px;
 }
 
-.identify-addon {
-  grid-template-columns: 200px 1fr;
-}
-
 .identify-addon__subgrid {
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 .identify__container {
