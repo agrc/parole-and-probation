@@ -1,67 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, ButtonGroup, FormGroup, Label, Input, Container, Col } from 'reactstrap';
 import useFilterReducer from '../useFilterReducer';
-import DartBoard from '../../DartBoard';
 import produce from 'immer';
 import './FilterLocation.css';
 
 const type = 'UPDATE_LOCATION';
 
 export default function FilterLocation(props) {
-    const [activeLocationType, setActive] = useState();
-    const [buffer, setBuffer] = useFilterReducer(props, type, 'buffer');
     const [zip, setZip] = useFilterReducer(props, type, 'zip');
     const [city, setCity] = useFilterReducer(props, type, 'city');
     const [county, setCounty] = useFilterReducer(props, type, 'county');
 
     return (
         <Container fluid className="filter-location">
-            <Col>
-                <FormGroup>
-                    <Label>Location</Label>
-                    <div className="text-center">
-                        <ButtonGroup>
-                            {['Current', 'Select', 'Address'].map((type, index) =>
-                                <Button
-                                    key={index}
-                                    size="sm"
-                                    color={activeLocationType === type ? 'warning' : 'secondary'}
-                                    onClick={() => {
-                                        if (activeLocationType === type) {
-                                            type = null;
-                                        }
-
-                                        setActive(type);
-                                    }}>
-                                    {type}
-                                </Button>
-                            )}
-                        </ButtonGroup>
-                    </div>
-                    {['Current', 'Select'].indexOf(activeLocationType) > -1 ? (
-                        <FormGroup>
-                            <Label>Buffer radius (m)</Label>
-                            <Input type="number" name="buffer" id="buffer" placeholder="meters" value={buffer} onChange={setBuffer} />
-                        </FormGroup>
-                    ) : null}
-                    {activeLocationType === 'Address' ? (
-                        <DartBoard
-                            apiKey={process.env.REACT_APP_WEB_API}
-                            onFindAddress={result => props.dispatcher({ type: 'ZOOM_TO_GRAPHIC', payload: result })}
-                            pointSymbol={{
-                                type: 'simple-marker',
-                                style: 'diamond',
-                                color: [130, 65, 47, 0.5],
-                                size: '18px',
-                                outline: {
-                                    color: [230, 126, 21, 0.7],
-                                    width: 1
-                                }
-                            }}
-                        />
-                    ) : null}
-                </FormGroup>
-            </Col>
             <Col>
                 <FormGroup>
                     <Label>City</Label>

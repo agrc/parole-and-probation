@@ -73,13 +73,10 @@ const sqlMap = {
         success: data => `last_successful_field_contact>${data}`
     },
     location: {
-        buffer: data => undefined,
         region: data => `region in (${data.join()})`,
         zip: data => `zip=${data}`,
         city: data => `city='${data.toUpperCase()}'`,
         county: data => `county='${data.toUpperCase()}'`,
-        extent: data => undefined,
-        point: data => undefined
     },
     offender: {
         gender: data => `gender='${data.slice(0, 1)}'`,
@@ -234,13 +231,10 @@ const initialState = {
         success: null
     },
     location: {
-        buffer: '',
         region: [],
         zip: '',
         city: '',
         county: '',
-        extent: '', // TODO: implement
-        point: '' // TODO: implement
     },
     offender: {
         gender: '',
@@ -272,13 +266,10 @@ const emptyState = {
         success: null
     },
     location: {
-        buffer: '',
         region: [],
         zip: '',
         city: '',
         county: '',
-        extent: {}, // TODO: implement
-        point: {} // TODO: implement
     },
     offender: {
         gender: '',
