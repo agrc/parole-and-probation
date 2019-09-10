@@ -4,6 +4,7 @@ import { loadModules, loadCss } from 'esri-loader';
 import { UserData } from 'react-oidc';
 import { LayerSelectorContainer, LayerSelector } from '../../components/LayerSelector/LayerSelector';
 import HomeButton from '../DefaultExtent';
+import Geolocation from '../Geolocation';
 import { fields } from '../../config';
 
 
@@ -67,8 +68,11 @@ export default class ReactMapView extends Component {
 
     const selectorNode = document.createElement('div');
     const homeNode = document.createElement('div');
+    const geolocateNode = document.createElement('div');
+
     this.view.ui.add(selectorNode, 'top-right');
     this.view.ui.add(homeNode, 'top-left');
+    this.view.ui.add(geolocateNode, 'top-left');
 
     this.view.on('click', event => this.identify(event));
 
@@ -86,6 +90,7 @@ export default class ReactMapView extends Component {
     );
 
     ReactDOM.render(<HomeButton view={this.view} extent={this.view.extent}/>, homeNode);
+    ReactDOM.render(<Geolocation dispatcher={this.props.mapDispatcher} />, geolocateNode);
 
     this.offenders = new FeatureLayer({
       url: `${process.env.REACT_APP_BASENAME}/mapserver`,
