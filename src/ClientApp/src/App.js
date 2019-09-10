@@ -19,7 +19,7 @@ const reducer = produce((draft, action) => {
     case 'ZOOM_TO_GRAPHIC':
       {
         draft.zoomToGraphic.graphic = action.payload;
-        draft.zoomToGraphic.level = 18;
+        draft.zoomToGraphic.level = 15;
 
         return draft;
       }
