@@ -77,7 +77,7 @@ const sqlMap = {
         region: data => `region in (${data.join()})`,
         zip: data => `zip=${data}`,
         city: data => `city='${data.toUpperCase()}'`,
-        county: data => `county='${data.toUpperCase()}'`,
+        counties: data => `county in (${data.map(item => `'${item.toUpperCase()}'`).join()})`,
         extent: data => undefined,
         point: data => undefined
     },
@@ -238,7 +238,7 @@ const initialState = {
         region: [],
         zip: '',
         city: '',
-        county: '',
+        counties: [],
         extent: '', // TODO: implement
         point: '' // TODO: implement
     },
@@ -276,7 +276,7 @@ const emptyState = {
         region: [],
         zip: '',
         city: '',
-        county: '',
+        counties: [],
         extent: {}, // TODO: implement
         point: {} // TODO: implement
     },
