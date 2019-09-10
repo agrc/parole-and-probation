@@ -6,7 +6,7 @@ const goHome = (view, extent) => {
   console.log('zooming to default extent');
 
   return view.goTo(extent);
-}
+};
 
 export default function (props) {
   return (
