@@ -98,6 +98,7 @@ type_metadata = OrderedDict([
     ('employer', [VARCHAR(30), convert_to_str]),
     ('employer_address', [VARCHAR(60), convert_to_str]),
     ('employer_phone', [VARCHAR(12), convert_to_str]),
+    ('county', [VARCHAR(12), convert_to_str]),
 ])
 
 FIELDS = list(type_metadata.keys())
