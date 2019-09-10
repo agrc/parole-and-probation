@@ -87,13 +87,10 @@ describe('sqlMapper', () => {
     it('ignores default values', () => {
       const actual = sqlMapper({
         location: {
-          buffer: '',
           region: [],
           zip: '',
           city: '',
-          county: '',
-          extent: '', // TODO: implement
-          point: '' // TODO: implement
+          counties: [],
         }
       });
 
@@ -104,13 +101,10 @@ describe('sqlMapper', () => {
     it('maps filter values', () => {
       const actual = sqlMapper({
         location: {
-          buffer: '',
           region: [1, 2, 3],
           zip: 84124,
           city: 'Salt Lake City',
-          county: 'Salt Lake',
-          extent: '', // TODO: implement
-          point: '' // TODO: implement
+          counties: ['Salt Lake'],
         }
       });
 
@@ -118,7 +112,7 @@ describe('sqlMapper', () => {
       expect(actual.filter[0]).toBe('region in (1,2,3)');
       expect(actual.filter[1]).toBe('zip=84124');
       expect(actual.filter[2]).toBe("city='SALT LAKE CITY'");
-      expect(actual.filter[3]).toBe("county='SALT LAKE'");
+      expect(actual.filter[3]).toBe("county in ('SALT LAKE')");
       expect(actual.definitionExpression.length).toBe(0);
     });
   });
@@ -183,9 +177,9 @@ describe('sqlMapper', () => {
           warrant: 'Yes',
           status: 'probation',
           sos: ['mod', 'no std'],
-          supervision: [{name: 'EM', id: 'EM', default: true}, { name: 'GPS', id: 'GPS', default: true}],
+          supervision: [{ name: 'EM', id: 'EM', default: true }, { name: 'GPS', id: 'GPS', default: true }],
           gang: [{ name: 'omg', id: 3 }],
-          offense: [{name: 'sex', id: 'E'}]
+          offense: [{ name: 'sex', id: 'E' }]
         }
       });
 

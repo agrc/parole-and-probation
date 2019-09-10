@@ -170,7 +170,7 @@ export default function FilterLocation(props) {
                                                 }
                                             }
                                         })}
-                                            autocomplete="off"
+                                            autoComplete="off"
                                         />
                                         <InputGroupAddon addonType="append">
                                             <Button {...getToggleButtonProps()}>
