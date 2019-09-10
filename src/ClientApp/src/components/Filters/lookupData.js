@@ -538,11 +538,44 @@ const supervisors = [
 
 const supervisionContactDays = [30, 60, 90, 180];
 
+const counties = [
+    'BEAVER',
+    'BOX ELDER',
+    'CACHE',
+    'CARBON',
+    'DAGGETT',
+    'DAVIS',
+    'DUCHESNE',
+    'EMERY',
+    'GARFIELD',
+    'GRAND',
+    'IRON',
+    'JUAB',
+    'KANE',
+    'MILLARD',
+    'MORGAN',
+    'PIUTE',
+    'RICH',
+    'SALT LAKE',
+    'SAN JUAN',
+    'SANPETE',
+    'SEVIER',
+    'SUMMIT',
+    'TOOELE',
+    'UINTAH',
+    'UTAH',
+    'WASATCH',
+    'WASHINGTON',
+    'WAYNE',
+    'WEBER',
+];
+
 export {
     supervisionItems,
     mainGangs,
     offenseTypes,
     agents,
     supervisors,
-    supervisionContactDays
+    supervisionContactDays,
+    counties
 };
