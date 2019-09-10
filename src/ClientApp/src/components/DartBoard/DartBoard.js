@@ -4,6 +4,7 @@ import './DartBoard.css';
 import { Button, FormGroup, FormText, Label, Input, } from 'reactstrap';
 import { loadModules } from 'esri-loader';
 import Helpers from '../../Helpers';
+import classNames from 'classnames';
 
 export default class DartBoard extends Component {
   state = {
@@ -33,8 +34,14 @@ export default class DartBoard extends Component {
   };
 
   render() {
+    const classes = classNames(
+      this.props.className,
+      'dartboard',
+      this.inline ? 'form-inline' : false
+    );
+
     return (
-      <div className={'dart-board' + (this.inline ? ' form-inline' : '')}>
+      <div className={classes}>
         <FormGroup>
           <Label for="address">Street Address</Label>
           <Input
