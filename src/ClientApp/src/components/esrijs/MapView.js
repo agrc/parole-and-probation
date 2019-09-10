@@ -103,13 +103,9 @@ export default class ReactMapView extends Component {
         onFindAddress={result => this.props.mapDispatcher({ type: 'ZOOM_TO_GRAPHIC', payload: result })}
         pointSymbol={{
           type: 'simple-marker',
-          style: 'diamond',
-          color: [130, 65, 47, 0.5],
-          size: '18px',
-          outline: {
-            color: [230, 126, 21, 0.7],
-            width: 1
-          }
+          outline: { width: 1.5, color: [255, 255, 255, 1] },
+          size: 11,
+          color: [0, 116, 217, .75]
         }}
       />
     </MapToolPanel>, geocodeNode);

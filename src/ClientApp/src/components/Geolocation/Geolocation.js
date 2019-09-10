@@ -67,7 +67,7 @@ const geolocate = async (props) => {
       type: 'simple-marker',
       outline: { width: 1.5, color: [255, 255, 255, 1] },
       size: 11,
-      color: [0, 116, 217, 1]
+      color: [0, 116, 217, .75]
     }
   });
 
