@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, ButtonGroup, Card, CardBody, FormGroup, Label, Input, InputGroup, InputGroupAddon, Container, Col } from 'reactstrap';
 import useFilterReducer from '../useFilterReducer';
 import produce from 'immer';
@@ -15,7 +15,6 @@ const itemToString = item => (item ? item : '');
 export default function FilterLocation(props) {
     const [zip, setZip] = useFilterReducer(props, type, 'zip');
     const [city, setCity] = useFilterReducer(props, type, 'city');
-    const [county, setCounty] = useFilterReducer(props, type, 'county');
 
     return (
         <Container fluid className="filter-location">
