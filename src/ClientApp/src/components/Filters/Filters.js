@@ -244,7 +244,7 @@ const initialState = {
         region: [],
         zip: '',
         city: '',
-        county: [],
+        counties: [],
     },
     offender: {
         gender: '',
@@ -279,7 +279,7 @@ const emptyState = {
         region: [],
         zip: '',
         city: '',
-        county: [],
+        counties: [],
     },
     offender: {
         gender: '',
