@@ -214,6 +214,10 @@ module.exports = {
     'employer_phone': {
       identify: true,
       filter: false
+    },
+    'county': {
+      identify: false,
+      filter: true
     }
   }
 }

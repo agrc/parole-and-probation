@@ -1,10 +1,16 @@
-import React from 'react';
-import { Button, ButtonGroup, FormGroup, Label, Input, Container, Col } from 'reactstrap';
+import React, { useState } from 'react';
+import { Button, ButtonGroup, Card, CardBody, FormGroup, Label, Input, InputGroup, InputGroupAddon, Container, Col } from 'reactstrap';
 import useFilterReducer from '../useFilterReducer';
 import produce from 'immer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import MultiDownshift from '../../MultiDownshift';
+import { counties } from '../lookupData';
 import './FilterLocation.css';
 
 const type = 'UPDATE_LOCATION';
+
+const itemToString = item => (item ? item : '');
 
 export default function FilterLocation(props) {
     const [zip, setZip] = useFilterReducer(props, type, 'zip');
@@ -27,8 +33,123 @@ export default function FilterLocation(props) {
             </Col>
             <Col>
                 <FormGroup>
-                    <Label>County</Label>
-                    <Input type="text" name="county" id="county" value={county} onChange={setCounty} />
+                    <MultiDownshift
+                        type={type}
+                        field='counties'
+                        update={props.update}
+                        selectedItems={props.criteria.counties}
+                        itemToString={itemToString}>
+                        {({
+                            closeMenu,
+                            clearSelection,
+                            getInputProps,
+                            getItemProps,
+                            getMenuProps,
+                            getRemoveButtonProps,
+                            getToggleButtonProps,
+                            highlightedIndex,
+                            inputValue,
+                            isOpen,
+                            selectedItem,
+                            setState,
+                        }) => (
+                                <div>
+                                    <Label>County</Label>
+                                    {props.criteria.counties.length > 0 ?
+                                        <Card className="mb-3 p-3">
+                                            <CardBody className="filter-other__items-container p-0">
+                                                {props.criteria.counties.map(item => (
+                                                    <Button className="mb-1" color="secondary" size="sm" outline key={item} {...getRemoveButtonProps({ item })}>
+                                                        {item}
+                                                    </Button>
+                                                ))}
+                                            </CardBody>
+                                        </Card> : null}
+                                    <InputGroup>
+                                        <Input {...getInputProps({
+                                            onBlur: closeMenu,
+                                            onKeyDown: event => {
+                                                switch (event.key) {
+                                                    case 'Tab': {
+                                                        highlightedIndex = highlightedIndex || 0;
+
+                                                        const value = counties
+                                                            .filter(item => inputValue &&
+                                                                !props.criteria.counties.includes(item) &&
+                                                                item.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+
+                                                        if (value) {
+                                                            setState({
+                                                                inputValue: value,
+                                                                isOpen: false,
+                                                                type: '__autocomplete_tab_selection__'
+                                                            });
+
+                                                            event.preventDefault();
+                                                        }
+
+                                                        break;
+                                                    }
+                                                    case 'Enter': {
+                                                        console.log(`Downshift:onKeyDown ${event.key}`);
+
+                                                        if (selectedItem) {
+                                                            clearSelection();
+
+                                                            break;
+                                                        }
+
+                                                        highlightedIndex = highlightedIndex || 0;
+
+                                                        const value = counties
+                                                            .filter(item => inputValue &&
+                                                                !props.criteria.counties.includes(item) &&
+                                                                item.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+
+                                                        if (value && inputValue === value) {
+                                                            setState({
+                                                                selectedItem: value,
+                                                                isOpen: false,
+                                                                type: '__autocomplete_keydown_enter__'
+                                                            });
+                                                        }
+
+                                                        break;
+                                                    }
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+                                        })}
+                                            autoComplete="off"
+                                        />
+                                        <InputGroupAddon addonType="append">
+                                            <Button {...getToggleButtonProps()}>
+                                                {isOpen ? <FontAwesomeIcon icon={faChevronUp} size='xs' /> : <FontAwesomeIcon icon={faChevronUp} size='xs' flip='vertical' />}
+                                            </Button>
+                                        </InputGroupAddon>
+                                    </InputGroup>
+                                    {!isOpen ? null : (
+                                        <div className="downshift__match-dropdown" {...getMenuProps()}>
+                                            <ul className="downshift__matches">
+                                                {counties.filter(item => (!inputValue && !props.criteria.counties.includes(item)) || (inputValue && !props.criteria.counties.includes(item) && item.toLowerCase().includes(inputValue.toLowerCase())))
+                                                    .map((item, index) => (
+                                                        <li key={index}
+                                                            {
+                                                            ...getItemProps({
+                                                                item,
+                                                                index,
+                                                                className: "downshift__match-item" + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
+                                                            })}>
+                                                            {item}
+                                                        </li>
+                                                    ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                    </MultiDownshift>
                 </FormGroup>
             </Col>
             <Col>

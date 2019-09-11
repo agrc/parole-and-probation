@@ -45,8 +45,6 @@ const IdentifyInformation = props => {
           standard_of_supervision={props.offender.standard_of_supervision}
           legal_status={props.offender.legal_status}
           active_warrant={props.offender.active_warrant}
-        />
-        <OffenderBio
           offender={props.offender.offender}
           race={extra.race}
           id={props.offender.offender_id}
@@ -157,35 +155,25 @@ const IdentifyFetch = async (offender, oidc, cancellationToken) => {
 };
 
 const OffenderQuickLook = props => {
-  return (
-    <div className="d-grid identify-addon mb-3 border border-info">
-      <div>
-        <img alt="200x200"
-          src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16b6823d4d9%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16b6823d4d9%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2274.421875%22%20y%3D%22104.65%22%3E200x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-          data-holder-rendered="true" />
-      </div>
-      <div className="d-grid identify-addon__subgrid">
-        <IdentifyAddon border age={props.age}>{props.gender}</IdentifyAddon>
-        <IdentifyAddon border defaultValue="No STD">{props.standard_of_supervision}</IdentifyAddon>
-        <IdentifyAddon border defaultValue="unknown" lower>{props.legal_status}</IdentifyAddon>
-        <IdentifyAddon danger={props.active_warrant}>{props.active_warrant ? 'active warrant' : 'no active warrant'}</IdentifyAddon>
-      </div>
-    </div>
-  );
-};
-
-const OffenderBio = props => {
   return (<>
     <h4>{props.offender}
       {props.race ? props.race.toLowerCase() === 'unknown' ? null : (
         <small className="text-muted d-block" style={{ fontSize: '1rem' }}>{props.race.toLowerCase()}</small>
-      ) : null}
-    </h4>
-    <div className="d-grid identify-grid--label-text identify__row border-bottom">
-      <GridLabelGroup label="Number">{props.id}</GridLabelGroup>
-      <GridLabelGroup label="Agent">{props.agent}</GridLabelGroup>
+      ) : null}</h4>
+    <div className="border-bottom mb-2 pb-2 identify__row">
+      <div className="d-grid identify-grid--label-text">
+        <GridLabelGroup label="Number">{props.id}</GridLabelGroup>
+        <GridLabelGroup label="Agent">{props.agent}</GridLabelGroup>
+      </div>
+        <div className="d-grid identify-addon__subgrid px-3">
+          <IdentifyAddon age={props.age}>{props.gender}</IdentifyAddon>
+          <IdentifyAddon defaultValue="No STD">{props.standard_of_supervision}</IdentifyAddon>
+          <IdentifyAddon defaultValue="unknown" lower>{props.legal_status}</IdentifyAddon>
+          <IdentifyAddon danger={props.active_warrant}>{props.active_warrant ? 'active warrant' : 'no active warrant'}</IdentifyAddon>
+        </div>
     </div>
-  </>);
+    </>
+  );
 };
 
 const OffenderAlerts = props => {
@@ -344,7 +332,6 @@ export {
   IdentifyInformation,
   IdentifyContainer,
   OffenderQuickLook,
-  OffenderBio,
   OffenderAlerts,
   RecentVisitation,
   OffenderContactInfo,

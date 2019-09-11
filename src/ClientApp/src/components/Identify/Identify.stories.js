@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import fetchMock from 'fetch-mock';
-import { IdentifyInformation, IdentifyContainer, OffenderQuickLook, OffenderBio, OffenderAlerts, RecentVisitation, SpecialSupervision, PrimaryOffense, GangInformation, OtherInformation, OffenderContactInfo } from './Identify';
+import { IdentifyInformation, IdentifyContainer, OffenderQuickLook, OffenderAlerts, RecentVisitation, SpecialSupervision, PrimaryOffense, GangInformation, OtherInformation, OffenderContactInfo } from './Identify';
 import { UserData } from 'react-oidc';
 
 import '../Sidebar/Sidebar.css';
@@ -194,7 +194,7 @@ storiesOf('Identify.Integration', module)
     <IdentifyInformation update={() => { }} features={features} offender={features[5].attributes} index={5}></IdentifyInformation>
   ));
 
-storiesOf('Identify.Offender quick look')
+storiesOf('Identify.Offender quick look', module)
   .add('normal', () => (
     <OffenderQuickLook
       age={412153200000}
@@ -202,6 +202,10 @@ storiesOf('Identify.Offender quick look')
       standard_of_supervision="LOW"
       legal_status="PROBATION"
       active_warrant={0}
+      offender="Last name, middle first"
+      race={"WHITE"}
+      id={999999}
+      agent="Agent Orange"
     />
   ))
   .add('no sos', () => (
@@ -210,6 +214,10 @@ storiesOf('Identify.Offender quick look')
       gender="M"
       legal_status="PROBATION"
       active_warrant={0}
+      offender="Last name, middle first"
+      race={null}
+      id={999999}
+      agent="Agent Orange"
     />
   ))
   .add('active warrant', () => (
@@ -218,20 +226,6 @@ storiesOf('Identify.Offender quick look')
       gender="M"
       legal_status="PROBATION"
       active_warrant={1}
-    />
-  ));
-
-storiesOf('Identify.Offender Bio')
-  .add('normal', () => (
-    <OffenderBio
-      offender="Last name, middle first"
-      race={"WHITE"}
-      id={999999}
-      agent="Agent Orange"
-    />
-  ))
-  .add('no race', () => (
-    <OffenderBio
       offender="Last name, middle first"
       race={null}
       id={999999}
@@ -239,7 +233,7 @@ storiesOf('Identify.Offender Bio')
     />
   ));
 
-storiesOf('Identify.Offender Alerts')
+storiesOf('Identify.Offender Alerts', module)
   .add('normal', () => (
     <OffenderAlerts
       cautions="cautions"
@@ -265,7 +259,7 @@ storiesOf('Identify.Offender Alerts')
     />
   ));
 
-storiesOf('Identify.Recent Visitation')
+storiesOf('Identify.Recent Visitation', module)
   .add('normal', () => (
     <RecentVisitation
       office={10}
@@ -295,7 +289,7 @@ storiesOf('Identify.Recent Visitation')
     />
   ));
 
-storiesOf('Identify.Special Supervision')
+storiesOf('Identify.Special Supervision', module)
   .add('normal', () => (
     <SpecialSupervision>A123,B123,C123,D123,E123,F123,G123</SpecialSupervision>
   ))
@@ -306,7 +300,7 @@ storiesOf('Identify.Special Supervision')
     <SpecialSupervision></SpecialSupervision>
   ));
 
-storiesOf('Identify.Primary Offense')
+storiesOf('Identify.Primary Offense', module)
   .add('normal', () => (
     <PrimaryOffense
       primary_offense="PERSON"
@@ -329,7 +323,7 @@ storiesOf('Identify.Primary Offense')
     />
   ));
 
-storiesOf('Identify.Gang Information')
+storiesOf('Identify.Gang Information', module)
   .add('normal', () => (
     <GangInformation
       gang="CRIPS"
@@ -349,7 +343,7 @@ storiesOf('Identify.Gang Information')
     />
   ));
 
-storiesOf('Identify.Other Information')
+storiesOf('Identify.Other Information', module)
   .add('normal', () => (
     <OtherInformation
       supervision_start_date={1535760000000}
@@ -363,7 +357,7 @@ storiesOf('Identify.Other Information')
     />
   ));
 
-storiesOf('Identify.Contact Information')
+storiesOf('Identify.Contact Information', module)
   .add('normal', () => (
     <OffenderContactInfo
       phone={'801-111-1111'}

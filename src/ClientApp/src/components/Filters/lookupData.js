@@ -1,79 +1,98 @@
 const supervisionItems = [{
     name: 'CCC',
     id: 'CCC',
-    default: false
+    default: false,
+    sortKey: 11
 }, {
     name: 'PVP',
     id: 'PVP',
-    default: false
+    default: false,
+    sortKey: 16
 }, {
     name: 'COMP',
     id: 'COMP',
-    default: false
+    default: false,
+    sortKey: 6
 }, {
     name: 'DEP',
     id: 'DEP',
-    default: false
+    default: false,
+    sortKey: 12
 }, {
     name: 'EM',
     id: 'EM',
-    default: true
+    default: true,
+    sortKey: 8
 }, {
     name: 'GPS',
     id: 'GPS',
-    default: true
+    default: true,
+    sortKey: 7
 }, {
     name: 'SO',
     id: 'SO',
-    default: true
+    default: true,
+    sortKey: 2
 }, {
     name: 'SO-A',
     id: 'SO-A',
-    default: true
+    default: true,
+    sortKey: 18
 }, {
     name: 'SO-B',
     id: 'SO-B',
-    default: true
+    default: true,
+    sortKey: 19
 }, {
     name: 'SO-C',
     id: 'SO-C',
-    default: true
+    default: true,
+    sortKey: 22
 }, {
     name: 'FUG',
     id: 'FUG',
-    default: false
+    default: false,
+    sortKey: 3
 }, {
     name: 'INCAR',
     id: 'INCAR',
-    default: false
+    default: false,
+    sortKey: 4
 }, {
     name: 'RESID',
     id: 'RESID',
-    default: false
+    default: false,
+    sortKey: 5
 }, {
     name: 'DRUG CT',
     id: 'DRUG CT',
-    default: false
+    default: false,
+    sortKey: 15
 }, {
     name: 'DORA',
     id: 'DORA',
-    default: true
+    default: true,
+    sortKey: 1
 }, {
     name: 'ECR',
     id: 'ECR',
-    default: true
+    default: true,
+    sortKey: 17
 }, {
     name: 'FOSI',
     id: 'FOSI',
-    default: true
+    default: true,
+    sortKey: 21
 }, {
     name: 'IG INT',
     id: 'IG INT',
-    default: true
+    default: true,
+    sortKey: 20
 }, {
     name: 'MIO',
     id: 'MIO',
-    default: true
+    default: true,
+    sortKey: 10
 }];
 
 const mainGangs = [{
@@ -538,11 +557,44 @@ const supervisors = [
 
 const supervisionContactDays = [30, 60, 90, 180];
 
+const counties = [
+    'BEAVER',
+    'BOX ELDER',
+    'CACHE',
+    'CARBON',
+    'DAGGETT',
+    'DAVIS',
+    'DUCHESNE',
+    'EMERY',
+    'GARFIELD',
+    'GRAND',
+    'IRON',
+    'JUAB',
+    'KANE',
+    'MILLARD',
+    'MORGAN',
+    'PIUTE',
+    'RICH',
+    'SALT LAKE',
+    'SAN JUAN',
+    'SANPETE',
+    'SEVIER',
+    'SUMMIT',
+    'TOOELE',
+    'UINTAH',
+    'UTAH',
+    'WASATCH',
+    'WASHINGTON',
+    'WAYNE',
+    'WEBER',
+];
+
 export {
     supervisionItems,
     mainGangs,
     offenseTypes,
     agents,
     supervisors,
-    supervisionContactDays
+    supervisionContactDays,
+    counties
 };

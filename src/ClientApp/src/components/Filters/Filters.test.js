@@ -87,13 +87,10 @@ describe('sqlMapper', () => {
     it('ignores default values', () => {
       const actual = sqlMapper({
         location: {
-          buffer: '',
           region: [],
           zip: '',
           city: '',
-          county: '',
-          extent: '', // TODO: implement
-          point: '' // TODO: implement
+          counties: [],
         }
       });
 
@@ -104,13 +101,10 @@ describe('sqlMapper', () => {
     it('maps filter values', () => {
       const actual = sqlMapper({
         location: {
-          buffer: '',
           region: [1, 2, 3],
           zip: 84124,
           city: 'Salt Lake City',
-          county: 'Salt Lake',
-          extent: '', // TODO: implement
-          point: '' // TODO: implement
+          counties: ['Salt Lake'],
         }
       });
 
@@ -118,7 +112,7 @@ describe('sqlMapper', () => {
       expect(actual.filter[0]).toBe('region in (1,2,3)');
       expect(actual.filter[1]).toBe('zip=84124');
       expect(actual.filter[2]).toBe("city='SALT LAKE CITY'");
-      expect(actual.filter[3]).toBe("county='SALT LAKE'");
+      expect(actual.filter[3]).toBe("county in ('SALT LAKE')");
       expect(actual.definitionExpression.length).toBe(0);
     });
   });
@@ -183,9 +177,9 @@ describe('sqlMapper', () => {
           warrant: 'Yes',
           status: 'probation',
           sos: ['mod', 'no std'],
-          supervision: [{name: 'EM', id: 'EM', default: true}, { name: 'GPS', id: 'GPS', default: true}],
+          supervision: [{ name: 'EM', id: 'EM', default: true }, { name: 'GPS', id: 'GPS', default: true }],
           gang: [{ name: 'omg', id: 3 }],
-          offense: [{name: 'sex', id: 'E'}]
+          offense: [{ name: 'sex', id: 'E' }]
         }
       });
 
@@ -197,6 +191,79 @@ describe('sqlMapper', () => {
       expect(actual.filter[4]).toBe("gang_type in ('OMG')");
       expect(actual.filter[5]).toBe("offense_code in ('E')");
       expect(actual.definitionExpression.length).toBe(0);
+    });
+
+    it('orders special supervisions', () => {
+      const payload = [
+        {
+          "name": "EM",
+          "id": "EM",
+          "default": true,
+          "sortKey": 8
+        },
+        {
+          "name": "SO",
+          "id": "SO",
+          "default": true,
+          "sortKey": 2
+        },
+        {
+          "name": "SO-A",
+          "id": "SO-A",
+          "default": true,
+          "sortKey": 18
+        },
+        {
+          "name": "SO-B",
+          "id": "SO-B",
+          "default": true,
+          "sortKey": 19
+        },
+        {
+          "name": "SO-C",
+          "id": "SO-C",
+          "default": true,
+          "sortKey": 22
+        },
+        {
+          "name": "DORA",
+          "id": "DORA",
+          "default": true,
+          "sortKey": 1
+        },
+        {
+          "name": "ECR",
+          "id": "ECR",
+          "default": true,
+          "sortKey": 17
+        },
+        {
+          "name": "FOSI",
+          "id": "FOSI",
+          "default": true,
+          "sortKey": 21
+        },
+        {
+          "name": "IG INT",
+          "id": "IG INT",
+          "default": true,
+          "sortKey": 20
+        },
+        {
+          "name": "MIO",
+          "id": "MIO",
+          "default": true,
+          "sortKey": 10
+        }
+      ];
+
+      const actual = sqlMapper({
+        other: {
+          supervision: payload
+        }
+      });
+
+      expect(actual.filter[0]).toBe("special_supervision='DORA, SO, EM, MIO, ECR, SO-A, SO-B, IG INT, FOSI, SO-C'");
     });
   });
 });
