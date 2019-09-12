@@ -96,6 +96,7 @@ export default function Geolocation(props) {
   const classes = classNames(
     'esri-widget--button',
     'esri-widget',
+    spin ? 'esri-button--disabled' : false,
     status === undefined ? false : status ? 'text-primary' : 'text-danger'
   );
 

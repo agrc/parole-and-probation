@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Geolocation from './Geolocation';
 
-storiesOf('Geolocation.Enabled', module)
+storiesOf('MapTools.Geolocation', module)
   .addDecorator(story => (
     <div className="esri-ui-top-left esri-ui-corner">
       <div className="esri-component">{story()}</div>
