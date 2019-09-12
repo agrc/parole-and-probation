@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { loadModules, loadCss } from 'esri-loader';
+import { loadModules } from 'esri-loader';
 import { UserData } from 'react-oidc';
 import { LayerSelectorContainer, LayerSelector } from '../../components/LayerSelector/LayerSelector';
 import HomeButton from '../DefaultExtent';
 import Geolocation from '../Geolocation';
+import CsvDownload from '../CsvDownload';
 import MapToolPanel from '../MapToolPanel';
 import DartBoard from '../DartBoard';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import { fields } from '../../config';
 
+const controller = new AbortController();
+let signal = controller.signal
 
 export default class ReactMapView extends Component {
   zoomLevel = 5;
   displayedZoomGraphic = null;
   static contextType = UserData;
+  download = this.download.bind(this);
 
   state = {
     appliedFilter: ''
@@ -32,7 +36,6 @@ export default class ReactMapView extends Component {
   }
 
   async componentDidMount() {
-    loadCss('https://js.arcgis.com/4.12/esri/css/main.css');
     const mapRequires = [
       'esri/config',
       'esri/Map',
@@ -48,7 +51,7 @@ export default class ReactMapView extends Component {
 
     // FeatureLayer is required even-though unused
     // eslint-disable-next-line
-    const [esriConfig, Map, MapView, FeatureLayer, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires));
+    const [esriConfig, Map, MapView, FeatureLayer, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires), { css: true});
 
     const defaultExtent = {
       xmax: -11762120.612131765,
@@ -57,6 +60,13 @@ export default class ReactMapView extends Component {
       ymin: 4373832.359194187,
       spatialReference: 3857
     };
+
+    esriConfig.request.interceptors.push({
+      urls: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}${process.env.REACT_APP_BASENAME}/mapserver`,
+      headers: {
+        Authorization: `Bearer ${this.context.user.access_token}`
+      }
+    });
 
     this.map = new Map();
 
@@ -73,11 +83,13 @@ export default class ReactMapView extends Component {
     const homeNode = document.createElement('div');
     const geolocateNode = document.createElement('div');
     const geocodeNode = document.createElement('div');
+    const downloadNode = document.createElement('div');
 
     this.view.ui.add(selectorNode, 'top-right');
     this.view.ui.add(homeNode, 'top-left');
     this.view.ui.add(geolocateNode, 'top-left');
     this.view.ui.add(geocodeNode, 'top-left');
+    this.view.ui.add(downloadNode, 'top-left');
 
     this.view.on('click', event => this.identify(event));
 
@@ -94,6 +106,14 @@ export default class ReactMapView extends Component {
       </LayerSelectorContainer>, selectorNode
     );
 
+    this.offenders = new FeatureLayer({
+      url: `${process.env.REACT_APP_BASENAME}/mapserver`,
+      outFields: Object.keys(fields).filter(key => fields[key].filter === true),
+      definitionExpression: this.props.definitionExpression
+    });
+
+    this.map.add(this.offenders);
+
     ReactDOM.render(<HomeButton view={this.view} extent={this.view.extent} />, homeNode);
     ReactDOM.render(<Geolocation dispatcher={this.props.mapDispatcher} />, geolocateNode);
     ReactDOM.render(<MapToolPanel icon={faMapMarkedAlt}>
@@ -109,21 +129,7 @@ export default class ReactMapView extends Component {
         }}
       />
     </MapToolPanel>, geocodeNode);
-
-    this.offenders = new FeatureLayer({
-      url: `${process.env.REACT_APP_BASENAME}/mapserver`,
-      outFields: Object.keys(fields).filter(key => fields[key].filter === true),
-      definitionExpression: this.props.definitionExpression
-    });
-
-    esriConfig.request.interceptors.push({
-      urls: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}${process.env.REACT_APP_BASENAME}/mapserver`,
-      headers: {
-        Authorization: `Bearer ${this.context.user.access_token}`
-      }
-    });
-
-    this.map.add(this.offenders);
+    ReactDOM.render(<CsvDownload download={this.download} />, downloadNode);
 
     await this.offenders.when();
     const extent = await this.offenders.queryExtent();
@@ -284,5 +290,52 @@ export default class ReactMapView extends Component {
 
   getView() {
     return this.view;
+  }
+
+  async download() {
+    const layerView = await this.view.whenLayerView(this.offenders);
+
+    const ids = await layerView
+      .queryObjectIds({
+        where: this.state.appliedFilter,
+        geometry: this.view.extent,
+        returnGeometry: false
+      });
+
+    console.log(`there are ${ids.length} features to download`);
+
+    if (ids.length === 0) {
+      return;
+    }
+
+    const base = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}`;
+    const url = new URL(`${process.env.REACT_APP_BASENAME}/api/download`, base);
+
+    const response = await fetch(url, {
+      signal: signal,
+      method: 'POST',
+      credentials: 'include',
+      mode: 'cors',
+      body: JSON.stringify({
+        offenders: ids,
+        agent: this.context.user.profile['public:Email']
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.context.user.access_token}`
+      }
+    });
+
+    if (response.ok) {
+      return true;
+    }
+
+    const data = await response.json();
+
+    if (data.error) {
+      console.error(data.error);
+
+      return false;
+    }
   }
 }
