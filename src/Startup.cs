@@ -39,6 +39,7 @@ namespace app {
 
             services.AddSingleton<TokenService>();
             services.AddSingleton<IArcGISCredential>(values);
+            services.AddSingleton(Configuration);
 
             services.AddSingleton<ILogger>(provider => new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
@@ -75,6 +76,8 @@ namespace app {
             }
 
             app.UseMiddleware<ReverseProxyMiddleware>();
+            app.UseMiddleware<CsvDownloadMiddleware>();
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
