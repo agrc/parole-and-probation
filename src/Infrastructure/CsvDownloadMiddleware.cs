@@ -1,9 +1,3 @@
-using System;
-using System.Data.SqlClient;
-using System.IdentityModel.Tokens.Jwt;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using app.Models;
 using app.Services;
 using CsvHelper;
@@ -14,6 +8,11 @@ using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Serilog;
+using System;
+using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace app.Infrastructure {
     public class CsvDownloadMiddleware {
@@ -24,12 +23,12 @@ namespace app.Infrastructure {
         private readonly EmailSender _emailer;
 
         public CsvDownloadMiddleware(RequestDelegate nextMiddleware, ILogger log, TokenValidationParameters token,
-                                     IConfiguration config, EmailSender emailer) {
+                                     IConfiguration config, EmailConfig emailConfig) {
             _nextMiddleware = nextMiddleware;
             _log = log;
             _token = token;
             connectionString = config.GetConnectionString("DefaultConnection");
-            _emailer = emailer;
+            _emailer = new EmailSender(emailConfig, log);
         }
 
         public async Task Invoke(HttpContext context) {
@@ -77,6 +76,8 @@ namespace app.Infrastructure {
                 context.Response.StatusCode = 201;
                 context.Response.Headers["Content-Type"] = "application/csv";
                 context.Response.Headers["Content-Disposition"] = "attachment; filename=offenders.csv";
+
+                _log.Debug("Converting to csv {records}", records);
 
                 using (var stream = new MemoryStream())
                 using (var writer = new StreamWriter(stream))

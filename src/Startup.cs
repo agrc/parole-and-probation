@@ -44,7 +44,7 @@ namespace app {
 
             services.AddSingleton<TokenService>();
             services.AddSingleton<IArcGISCredential>(values);
-            services.AddSingleton(provider => new EmailSender(emailValues));
+            services.AddSingleton(emailValues);
             services.AddSingleton(Configuration);
 
             services.AddSingleton<ILogger>(provider => new LoggerConfiguration()
