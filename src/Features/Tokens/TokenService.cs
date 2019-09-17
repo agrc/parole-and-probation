@@ -40,7 +40,7 @@ namespace app.Features.Tokens {
                 new KeyValuePair<string, string>("username", credentials.Username),
                 new KeyValuePair<string, string>("password", credentials.Password),
                 new KeyValuePair<string, string>("client", "requestip"),
-                new KeyValuePair<string, string>("expiration", "14400"),
+                new KeyValuePair<string, string>("expiration", "60"),
                 new KeyValuePair<string, string>("f", "json")
             };
 
