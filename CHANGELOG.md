@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/agrc/parole-and-probation/compare/v1.11.0...v1.12.0) (2019-09-17)
+
+
+### Bug Fixes
+
+* eslint with vscode ([5b55aa6](https://github.com/agrc/parole-and-probation/commit/5b55aa6))
+* **api:** shorten token time to 1 hour ([801a0a9](https://github.com/agrc/parole-and-probation/commit/801a0a9)), closes [#72](https://github.com/agrc/parole-and-probation/issues/72)
+* **api:** switch to mimekit ([283ebbb](https://github.com/agrc/parole-and-probation/commit/283ebbb))
+* **app:** update default zoom to 15 ([f2fedc4](https://github.com/agrc/parole-and-probation/commit/f2fedc4)), closes [#79](https://github.com/agrc/parole-and-probation/issues/79)
+* **dartboard:** mixin classnames ([6763085](https://github.com/agrc/parole-and-probation/commit/6763085))
+* **filter-other:** sort special supervisions by id ([1c77a4f](https://github.com/agrc/parole-and-probation/commit/1c77a4f)), closes [#70](https://github.com/agrc/parole-and-probation/issues/70)
+* **geolocation:** disable button during progress ([ccc45d2](https://github.com/agrc/parole-and-probation/commit/ccc45d2))
+* **identify:** remove image ([2b37de9](https://github.com/agrc/parole-and-probation/commit/2b37de9)), closes [#76](https://github.com/agrc/parole-and-probation/issues/76)
+* **map:** increase point size by 25% ([c93eb51](https://github.com/agrc/parole-and-probation/commit/c93eb51))
+
+
+### Features
+
+* **api:** add middleware to create csv ([54a4c7c](https://github.com/agrc/parole-and-probation/commit/54a4c7c))
+* **api:** send email with csv ([485e975](https://github.com/agrc/parole-and-probation/commit/485e975))
+* **app:** add map tool panel with dartboard ([2384ad9](https://github.com/agrc/parole-and-probation/commit/2384ad9)), closes [#79](https://github.com/agrc/parole-and-probation/issues/79)
+* **csv-download:** create map tool for csv ([9d4b258](https://github.com/agrc/parole-and-probation/commit/9d4b258))
+* **filter-location:** add county ui and filter ([ae0f1ae](https://github.com/agrc/parole-and-probation/commit/ae0f1ae)), closes [#74](https://github.com/agrc/parole-and-probation/issues/74)
+* **geolocation:** add geolocation to map ([8e3a75c](https://github.com/agrc/parole-and-probation/commit/8e3a75c)), closes [#79](https://github.com/agrc/parole-and-probation/issues/79)
+* **map:** add csv export button to map and ping api ([748891e](https://github.com/agrc/parole-and-probation/commit/748891e)), closes [#56](https://github.com/agrc/parole-and-probation/issues/56)
+* **map-tool:** create map tool pane ([d585c49](https://github.com/agrc/parole-and-probation/commit/d585c49)), closes [#79](https://github.com/agrc/parole-and-probation/issues/79)
+* download csv if there is data ([0933e88](https://github.com/agrc/parole-and-probation/commit/0933e88)), closes [#56](https://github.com/agrc/parole-and-probation/issues/56)
+
 ## [1.11.0](https://github.com/agrc/parole-and-probation/compare/v1.10.1...v1.11.0) (2019-08-26)
 
 
