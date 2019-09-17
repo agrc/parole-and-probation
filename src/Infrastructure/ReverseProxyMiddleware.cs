@@ -120,7 +120,7 @@ namespace app.Infrastructure {
         }
 
         private bool ValidateAndDecode(HttpRequest request, TokenValidationParameters validationToken) {
-            if (!request.Path.StartsWithSegments("/mapserver", out var remainingPath)) {
+            if (!request.Path.StartsWithSegments("/mapserver", out _)) {
                 return true;
             }
 
