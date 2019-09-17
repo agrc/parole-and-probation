@@ -12,7 +12,7 @@ storiesOf('MapTools.CsvDownload', module)
     <Item></Item>
   ))
   .add('busy', () => (
-  <Item disabled={true}></Item>
+    <Item disabled={true}></Item>
   ))
   .add('success', () => (
     <Item status={true} />

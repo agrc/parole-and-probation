@@ -35,7 +35,7 @@ export default function CsvDownload(props) {
       role="button"
       aria-label="Export features to CSV"
       title="Export features to CSV"
-      onClick={ async () => {
+      onClick={async () => {
         if (disabled) {
           return;
         }
