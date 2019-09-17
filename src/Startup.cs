@@ -94,6 +94,8 @@ namespace app {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            app.UseApiExceptionHandler();
         }
     }
 }
