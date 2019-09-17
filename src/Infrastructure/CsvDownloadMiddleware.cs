@@ -2,9 +2,10 @@ using System;
 using System.Data.SqlClient;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
 using app.Models;
+using app.Services;
 using CsvHelper;
 using Dapper;
 using Microsoft.AspNetCore.Http;
@@ -20,12 +21,15 @@ namespace app.Infrastructure {
         private readonly ILogger _log;
         private readonly TokenValidationParameters _token;
         private readonly string connectionString;
+        private readonly EmailSender _emailer;
 
-        public CsvDownloadMiddleware(RequestDelegate nextMiddleware, ILogger log, TokenValidationParameters token, IConfiguration config) {
+        public CsvDownloadMiddleware(RequestDelegate nextMiddleware, ILogger log, TokenValidationParameters token,
+                                     IConfiguration config, EmailSender emailer) {
             _nextMiddleware = nextMiddleware;
             _log = log;
             _token = token;
             connectionString = config.GetConnectionString("DefaultConnection");
+            _emailer = emailer;
         }
 
         public async Task Invoke(HttpContext context) {
@@ -69,18 +73,24 @@ namespace app.Infrastructure {
                     ids = model.Offenders
                 });
 
+                context.Response.Clear();
+                context.Response.StatusCode = 201;
+                context.Response.Headers["Content-Type"] = "application/csv";
+                context.Response.Headers["Content-Disposition"] = "attachment; filename=offenders.csv";
+
                 using (var stream = new MemoryStream())
                 using (var writer = new StreamWriter(stream))
                 using (var csv = new CsvWriter(writer)) {
                     csv.WriteRecords(records);
                     await writer.FlushAsync();
 
-                    context.Response.StatusCode = 201;
-                    await context.Response.WriteAsync("{\"status\": \"ok\"");
+                    stream.Position = 0;
+                    await stream.CopyToAsync(context.Response.Body);
+                    stream.Position = 0;
+
+                    await _emailer.SendAsync(new[] { model.Agent }, stream);
                 }
             }
-
-            await _nextMiddleware(context);
         }
 
         private bool ValidateAndDecode(HttpRequest request, TokenValidationParameters validationToken) {

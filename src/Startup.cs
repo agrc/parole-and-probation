@@ -1,6 +1,8 @@
 using app.Features.Tokens;
 using app.Infrastructure;
+using app.Models;
 using app.Models.Tokens;
+using app.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -37,8 +39,12 @@ namespace app {
             var section = Configuration.GetSection("ArcGIS");
             var values = section.Get<Credential>();
 
+            var emailSection = Configuration.GetSection("Email");
+            var emailValues = emailSection.Get<EmailConfig>();
+
             services.AddSingleton<TokenService>();
             services.AddSingleton<IArcGISCredential>(values);
+            services.AddSingleton(provider => new EmailSender(emailValues));
             services.AddSingleton(Configuration);
 
             services.AddSingleton<ILogger>(provider => new LoggerConfiguration()
