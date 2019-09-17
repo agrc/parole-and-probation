@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { loadModules } from 'esri-loader';
 import { UserData } from 'react-oidc';
+import { saveAs } from 'file-saver';
 import { LayerSelectorContainer, LayerSelector } from '../../components/LayerSelector/LayerSelector';
 import HomeButton from '../DefaultExtent';
 import Geolocation from '../Geolocation';
@@ -51,7 +52,7 @@ export default class ReactMapView extends Component {
 
     // FeatureLayer is required even-though unused
     // eslint-disable-next-line
-    const [esriConfig, Map, MapView, FeatureLayer, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires), { css: true});
+    const [esriConfig, Map, MapView, FeatureLayer, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires), { css: true });
 
     const defaultExtent = {
       xmax: -11762120.612131765,
@@ -220,7 +221,6 @@ export default class ReactMapView extends Component {
   }
 
   async applyFilter(where, isFilter) {
-
     if (isFilter) {
       const layerView = await this.view.whenLayerView(this.offenders);
       console.log(`applying filter ${where.join(' AND ')}`);
@@ -326,16 +326,21 @@ export default class ReactMapView extends Component {
       }
     });
 
-    if (response.ok) {
-      return true;
+    const data = await response.text();
+
+    if (data.length === 0) {
+      return false;
     }
 
-    const data = await response.json();
+    try {
+      var blob = new Blob([data], {
+        type: 'application/csv'
+      });
 
-    if (data.error) {
-      console.error(data.error);
-
-      return false;
+      saveAs(blob, 'export.csv');
+    }
+    catch (e) {
+      console.error('unable to create local download');
     }
   }
 }
