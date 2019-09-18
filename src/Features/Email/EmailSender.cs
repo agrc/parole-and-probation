@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace app.Services {
+namespace app.Features.Email {
     public class EmailSender {
         private readonly EmailConfig _config;
         private readonly ILogger _log;
