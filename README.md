@@ -84,3 +84,7 @@ Rename and update `secrets.sample.json` to `secrets.json`
    - Remove `.template` from `vault\ftp.template.py`
 1. Create `corrections` database
 1. Run [schema.sql](/scripts/schema.sql) to create the `offenders` table
+
+### logs
+
+The logs for this project are sent to [Stackdriver](https://console.cloud.google.com/logs/viewer?project=agrc-admin&resource=global&minLogLevel=0&expandAll=false&customFacets=&limitCustomFacetWidth=true&advancedFilter=resource.type%3D%22global%22%0AlogName%3D%22projects%2Fagrc-admin%2Flogs%2Fparole-api%22)
