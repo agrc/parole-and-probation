@@ -68,7 +68,7 @@ namespace app.Infrastructure {
             using (var session = new SqlConnection(connectionString)) {
                 session.Open();
 
-                var records = session.Query<Schema>("SELECT * FROM DOCOAdmin.offenders WHERE id IN @ids", new {
+                var records = await session.QueryAsync<Schema>("SELECT * FROM DOCOAdmin.offenders WHERE id IN @ids", new {
                     ids = model.Offenders
                 });
 
