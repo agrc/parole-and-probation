@@ -24,11 +24,14 @@ namespace app.Features.TypeAhead {
 
         [HttpGet]
         [Route("api/data/{input}/{value}")]
-        public async Task<JsonResult> FindItems(string input, string value) {
+        public async Task<JsonResult> FindItems(string input, string value, int? requestId, int? limit = 25) {
             _log.Debug("Finding matchings for {value} in {input}", value, input);
 
             if (!inputLookup.ContainsKey(input.ToLower())) {
-                return new JsonResult(null);
+                return new JsonResult(new {
+                    requestId,
+                    data = new string[] { }
+                });
             }
 
             var field = inputLookup[input.ToLower()];
@@ -43,21 +46,27 @@ namespace app.Features.TypeAhead {
                 using (var session = new SqlConnection(connectionString)) {
                     session.Open();
 
-                    var data = await session.QueryAsync<string>($"SELECT {field} FROM DOCOAdmin.offenders ORDER BY {field} ASC");
+                    var data = await session.QueryAsync<string>($"SELECT TOP {limit} DISTINCT {field} FROM DOCOAdmin.offenders ORDER BY {field} ASC");
 
-                    return new JsonResult(data);
+                    return new JsonResult(new {
+                        requestId,
+                        data
+                    });
                 }
             }
 
             using (var session = new SqlConnection(connectionString)) {
                 session.Open();
 
-                var data = await session.QueryAsync<string>($"SELECT {field} FROM DOCOAdmin.offenders WHERE {field} LIKE @value" +
+                var data = await session.QueryAsync<string>($"SELECT TOP {limit} DISTINCT {field} FROM DOCOAdmin.offenders WHERE {field} LIKE @value" +
                                                             $" ORDER BY {field} ASC", new {
                                                                 value = $"%{value}%"
                                                             });
 
-                return new JsonResult(data);
+                return new JsonResult(new {
+                    requestId,
+                    data
+                });
             }
         }
     }
