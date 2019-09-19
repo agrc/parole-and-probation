@@ -133,11 +133,12 @@ export default class ReactMapView extends Component {
     ReactDOM.render(<CsvDownload download={this.download} />, downloadNode);
 
     await this.offenders.when();
-    const extent = await this.offenders.queryExtent();
-    if (extent.count === 0) {
+    const result = await this.offenders.queryExtent();
+    if (result.count === 0) {
       return;
     }
-    this.view.goTo(extent);
+
+    return this.view.goTo(result.extent);
   }
 
   arraysEqual(a, b) {
@@ -236,13 +237,17 @@ export default class ReactMapView extends Component {
       const [watchUtils] = await loadModules(['esri/core/watchUtils']);
 
       await watchUtils.whenFalseOnce(layerView, 'updating', async () => {
-        const extent = await layerView.queryExtent();
+        const result = await layerView.queryExtent();
+        console.dir(result);
         console.log('setting map extent');
-        if (extent.count === 0) {
+        if (result.count === 0) {
           return;
         }
 
-        this.view.goTo(extent);
+        return this.view.goTo({
+          target: result.extent,
+          scale: 16000
+        });
       });
     } else {
       this.offenders.definitionExpression = where.join(' AND ');
