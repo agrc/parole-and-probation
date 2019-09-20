@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/agrc/parole-and-probation/compare/v1.12.0...v1.13.0) (2019-09-20)
+
+
+### Bug Fixes
+
+* **filter-offender:** escape single quotes ([a8d70b1](https://github.com/agrc/parole-and-probation/commit/a8d70b1))
+
+
+### Features
+
+* **api:** add type ahead controller ([51d4a2f](https://github.com/agrc/parole-and-probation/commit/51d4a2f)), closes [#57](https://github.com/agrc/parole-and-probation/issues/57)
+* **filter-offender:** hook up front end to api ([def9467](https://github.com/agrc/parole-and-probation/commit/def9467)), closes [#57](https://github.com/agrc/parole-and-probation/issues/57)
+* use current filter state for type aheads ([c65bfe2](https://github.com/agrc/parole-and-probation/commit/c65bfe2))
+
 ## [1.12.0](https://github.com/agrc/parole-and-probation/compare/v1.11.0...v1.12.0) (2019-09-17)
 
 
