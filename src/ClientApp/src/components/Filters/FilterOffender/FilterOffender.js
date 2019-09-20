@@ -1,7 +1,10 @@
 import React from 'react';
+import { UserData } from 'react-oidc';
 import { Button, ButtonGroup, FormGroup, Label, Input, Container, Col } from 'reactstrap'
 import { debounce } from 'lodash';
 import Downshift from 'downshift';
+import Helpers from '../../../Helpers';
+
 import './FilterOffender.css';
 
 const type = 'UPDATE_OFFENDER';
@@ -58,6 +61,7 @@ export default function FilterOffender(props) {
                       <ul className="downshift__matches">
                         <FetchItems
                           field="name"
+                          filter={props.currentFilter}
                           searchValue={inputValue}
                           onLoaded={({ data }) => {
                             console.log(arguments);
@@ -137,6 +141,7 @@ export default function FilterOffender(props) {
                       <ul className="downshift__matches">
                         <FetchItems
                           field="number"
+                          filter={props.currentFilter}
                           searchValue={inputValue}
                           onLoaded={({ data }) => {
                             console.log(arguments);
@@ -244,6 +249,7 @@ export default function FilterOffender(props) {
                       <ul className="downshift__matches">
                         <FetchItems
                           field="phone"
+                          filter={props.currentFilter}
                           searchValue={inputValue}
                           onLoaded={({ data }) => {
                             console.log(arguments);
@@ -323,6 +329,7 @@ export default function FilterOffender(props) {
                       <ul className="downshift__matches">
                         <FetchItems
                           field="employer"
+                          filter={props.currentFilter}
                           searchValue={inputValue}
                           onLoaded={({ data }) => {
                             console.log(arguments);
@@ -361,7 +368,6 @@ export default function FilterOffender(props) {
               )
             }}
           </Downshift>
-
         </FormGroup>
       </Col>
     </Container>
@@ -369,6 +375,7 @@ export default function FilterOffender(props) {
 };
 
 class FetchItems extends React.Component {
+  static contextType = UserData;
   static initialState = { loading: false, error: null, data: [] };
   requestId = 0;
   state = FetchItems.initialState;
@@ -376,6 +383,31 @@ class FetchItems extends React.Component {
 
   reset(overrides) {
     this.setState({ ...FetchItems.initialState, ...overrides });
+  }
+
+  scrub(string, property) {
+    // removes the current applied filter when it's being edited
+    let regex;
+
+    if (property === 'name') {
+      regex = /offender='.*'( AND )?/gm;
+    } else if (property === 'number') {
+      regex = /offender_id=\d+( AND )?/gm;
+    } else if (property === 'phone') {
+      regex = /offender_phone='.*'( AND )?/gm;
+    } else if (property === 'employer') {
+      regex = /employer='.*'( AND )?/gm;
+    }
+
+    string = string.replace(regex, '');
+
+    if (string.endsWith(' AND')) {
+      string = string.substring(0, string.length - 5);
+    }
+
+    string = string.trim();
+
+    return string;
   }
 
   fetch = debounce(
@@ -391,9 +423,23 @@ class FetchItems extends React.Component {
       try {
         console.log('fetching data');
 
-        const response = await fetch(`https://localhost:5001/api/data/${this.props.field}/${this.props.searchValue}?requestId=${this.requestId}&limit=25`, {
+        const query = Helpers.toQueryString({
+          filters: this.scrub(this.props.filter, this.props.field),
+          requestId: this.requestId,
+          limit: 25
+        });
+
+        const baseUrl = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}${process.env.REACT_APP_BASENAME}`;
+        const url = `${baseUrl}/api/data/${this.props.field}/${this.props.searchValue}?${query}`;
+
+        const response = await fetch(url, {
           method: 'GET',
-          mode: 'cors'
+          mode: 'cors',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${this.context.user.access_token}`
+          }
         });
 
         console.log('reading content');
