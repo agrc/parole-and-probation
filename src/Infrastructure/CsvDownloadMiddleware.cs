@@ -1,16 +1,14 @@
-using app.Models;
 using app.Features.Email;
+using app.Features.Tokens;
+using app.Models;
 using CsvHelper;
 using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Serilog;
-using System;
 using System.Data.SqlClient;
-using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -38,7 +36,7 @@ namespace app.Infrastructure {
                 return;
             }
 
-            var validated = ValidateAndDecode(context.Request, _token);
+            var validated = JwtService.ValidateAndDecode(context.Request, _token, _log);
 
             if (!validated) {
                 context.Response.StatusCode = 401;
@@ -91,31 +89,6 @@ namespace app.Infrastructure {
 
                     await _emailer.SendAsync(new[] { model.Agent }, stream);
                 }
-            }
-        }
-
-        private bool ValidateAndDecode(HttpRequest request, TokenValidationParameters validationToken) {
-            var jwt = request.Headers["Authorization"];
-
-            if (StringValues.IsNullOrEmpty(jwt)) {
-                return false;
-            }
-
-            // remove `Bearer `
-            jwt = jwt.ToString().Remove(0, 7);
-
-            try {
-                var claimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(jwt, validationToken, out var rawValidatedToken);
-
-                return true;
-            } catch (SecurityTokenValidationException ex) {
-                _log.Warning(ex, "Token validation failure");
-
-                return false;
-            } catch (ArgumentException ex) {
-                _log.Warning(ex, "Token not well formed");
-
-                return false;
             }
         }
     }
