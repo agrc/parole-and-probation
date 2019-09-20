@@ -149,7 +149,27 @@ describe('sqlMapper', () => {
       expect(actual.filter[1]).toBe("offender='YOURS TRULY'");
       expect(actual.filter[2]).toBe("offender_id=123123");
       expect(actual.filter[3]).toBe("offender_phone='801-111-1111'");
-      expect(actual.filter[4]).toBe("employer='Mr Jobs'");
+      expect(actual.filter[4]).toBe("employer='MR JOBS'");
+      expect(actual.definitionExpression.length).toBe(0);
+    });
+
+    it('escapes single quotes', () => {
+      const actual = sqlMapper({
+        offender: {
+          gender: 'M',
+          name: 'Your\'s Truly\'s',
+          number: 123123,
+          tel: '801-111-1111',
+          employer: 'Mr Job\'s'
+        }
+      });
+
+      expect(actual.filter.length).toBe(5);
+      expect(actual.filter[0]).toBe("gender='M'");
+      expect(actual.filter[1]).toBe("offender='YOUR''S TRULY''S'");
+      expect(actual.filter[2]).toBe("offender_id=123123");
+      expect(actual.filter[3]).toBe("offender_phone='801-111-1111'");
+      expect(actual.filter[4]).toBe("employer='MR JOB''S'");
       expect(actual.definitionExpression.length).toBe(0);
     });
   });
