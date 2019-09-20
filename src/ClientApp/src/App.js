@@ -12,7 +12,7 @@ import { mappingConfig } from './config';
 import './App.css';
 
 const reducer = produce((draft, action) => {
-  console.log(`reducing state for ${action.type}`);
+  console.log(`App: reducing state for ${action.type}`);
   console.dir(action);
 
   switch (action.type) {
@@ -65,6 +65,17 @@ const reducer = produce((draft, action) => {
       draft.filter = action.payload.filter;
       draft.definitionExpression = action.payload.definitionExpression;
 
+      let tempFilter = [];
+      if (draft.filter && draft.filter.length > 0) {
+        tempFilter = draft.filter;
+      }
+
+      if (draft.definitionExpression && draft.definitionExpression.length > 0) {
+        tempFilter = tempFilter.concat(draft.definitionExpression);
+      }
+
+      draft.appliedFilter = tempFilter.join(' AND ');
+
       return draft;
     }
     default:
@@ -88,7 +99,8 @@ export default function App() {
     },
     showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
     filter: [],
-    definitionExpression: `agent_id='${oidc.user.profile['public:WorkforceID']}'`
+    appliedFilter: `agent_id='${oidc.user.profile['public:WorkforceID']}'`,
+    definitionExpression: [`agent_id='${oidc.user.profile['public:WorkforceID']}'`]
   });
 
   const mapOptions = {
@@ -119,10 +131,14 @@ export default function App() {
         </IdentifyContainer>
         : null}
       <Sidebar>
-        <Filters mapDispatcher={dispatcher} loggedInUser={{
-          value: oidc.user.profile.name,
-          id: oidc.user.profile['public:WorkforceID']
-        }} />
+        <Filters
+          mapDispatcher={dispatcher}
+          loggedInUser={{
+            value: oidc.user.profile.name,
+            id: oidc.user.profile['public:WorkforceID']
+          }}
+          appliedFilter={app.appliedFilter}
+        />
       </Sidebar>
       <MapLens {...sidebarOptions}>
         <MapView {...mapOptions} />
