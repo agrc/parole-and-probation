@@ -222,35 +222,45 @@ export default class ReactMapView extends Component {
   }
 
   async applyFilter(where, isFilter) {
+    const filter = where.join(' AND ');
+
     if (isFilter) {
       const layerView = await this.view.whenLayerView(this.offenders);
-      console.log(`applying filter ${where.join(' AND ')}`);
+
+      console.log(`applying filter ${filter}`);
 
       layerView.filter = {
-        where: where.join(' AND ')
+        where: filter
       };
 
       this.setState({
-        appliedFilter: where.join(' AND ')
+        appliedFilter: filter
       });
 
       const [watchUtils] = await loadModules(['esri/core/watchUtils']);
 
       await watchUtils.whenFalseOnce(layerView, 'updating', async () => {
         const result = await layerView.queryExtent();
-        console.dir(result);
+
         console.log('setting map extent');
+        console.dir(JSON.stringify(result));
+
         if (result.count === 0) {
           return;
         }
 
-        return this.view.goTo({
-          target: result.extent,
-          scale: 16000
-        });
+        let extent = result.extent;
+        if (result.count === 1) {
+          extent = {
+            target: result.extent,
+            scale: 16000
+          };
+        }
+
+        return this.view.goTo(extent);
       });
     } else {
-      this.offenders.definitionExpression = where.join(' AND ');
+      this.offenders.definitionExpression = filter;
 
       console.log('setting map extent');
       this.view.goTo(this.offenders.fullExtent);
@@ -291,10 +301,6 @@ export default class ReactMapView extends Component {
     } else {
       queryFeatures(where);
     }
-  }
-
-  getView() {
-    return this.view;
   }
 
   async download() {
