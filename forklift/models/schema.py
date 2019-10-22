@@ -67,7 +67,7 @@ type_metadata = OrderedDict([
     ('unit', [VARCHAR(15), convert_to_str]),
     ('city', [VARCHAR(30), convert_to_str]),
     ('state', [CHAR(2), convert_to_str]),
-    ('zip', [SMALLINT(), convert_to_str]),
+    ('zip', [INTEGER(), convert_to_str]),
     ('address_type_code', [CHAR(1), convert_to_str]),
     ('address_type', [VARCHAR(20), convert_to_str]),
     ('x', [DECIMAL(24, 20), convert_to_float]),
