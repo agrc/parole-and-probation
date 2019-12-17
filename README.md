@@ -28,6 +28,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
 1. Copy the `ArcGIS` section in `src/appsettings.json` to `appsettings.Development.js` adding the correct values
 1. Download a service account json file to log to stack driver and name it `src/log-writer-sa.json`
    - Update the `appsettings.json` if you will be logging to a different project than `agrc-admin`
+   - Create environment variable `GOOGLE_APPLICATION_CREDENTIALS` with the path to the service account json
 1. Start the application
    - You can debug with the `Debug` vscode launch profile
    - `dotnet run`
