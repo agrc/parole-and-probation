@@ -44,6 +44,7 @@ export default class ReactMapView extends Component {
       'esri/layers/FeatureLayer'
     ];
     const selectorRequires = [
+      'esri/layers/support/LabelClass',
       'esri/layers/support/LOD',
       'esri/layers/support/TileInfo',
       'esri/layers/WebTileLayer',
@@ -52,7 +53,7 @@ export default class ReactMapView extends Component {
 
     // FeatureLayer is required even-though unused
     // eslint-disable-next-line
-    const [esriConfig, Map, MapView, FeatureLayer, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires), { css: true });
+    const [esriConfig, Map, MapView, FeatureLayer, LabelClass, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires), { css: true });
 
     const defaultExtent = {
       xmax: -11762120.612131765,
@@ -94,9 +95,28 @@ export default class ReactMapView extends Component {
 
     this.view.on('click', event => this.identify(event));
 
+    const regionLabels = new LabelClass({
+      labelExpressionInfo: { expression: "$feature.REGION" },
+      symbol: {
+        type: 'text',
+        color: 'black',
+        haloSize: 1,
+        haloColor: 'white'
+      }
+    });
+
+    const regions = {
+      Factory: FeatureLayer,
+      opacity: .25,
+      labelingInfo: [regionLabels],
+      url: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/Corrections_Regions/FeatureServer',
+      id: 'Regions'
+    };
+
     const layerSelectorOptions = {
       view: this.view,
       quadWord: this.props.discoverKey,
+      overlays: [regions],
       baseLayers: ['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR'],
       modules: [LOD, TileInfo, WebTileLayer, Basemap]
     };
