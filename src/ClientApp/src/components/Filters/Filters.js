@@ -310,6 +310,10 @@ const Filters = props => {
   emptyState.agent.agentList = [props.loggedInUser];
 
   const [criteria, dispatcher] = useReducer(filterReducer, initialState);
+  const dispatcherPipeline = (args) => {
+    dispatcher.call(null, args);
+    props.mapDispatcher({ type: 'SET_FILTERS', payload: sqlMapper(criteria) });
+  }
 
   return (
     <>
@@ -317,34 +321,33 @@ const Filters = props => {
         <FilterAgent
           data={{ agents, supervisors }}
           criteria={criteria.agent}
-          update={dispatcher} />
+          update={dispatcherPipeline} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Offender', criteria.offender)} className="mb-1">
         <FilterOffender
           criteria={criteria.offender}
-          update={dispatcher}
+          update={dispatcherPipeline}
           currentFilter={props.appliedFilter} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
         <FilterLocation
           criteria={criteria.location}
-          update={dispatcher}
+          update={dispatcherPipeline}
           dispatcher={props.mapDispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Supervision Contact', criteria.date)} className="mb-1">
         <FilterDate
           criteria={criteria.date}
-          update={dispatcher}
+          update={dispatcherPipeline}
           dispatcher={props.mapDispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Other', criteria.other)}>
         <FilterOther
           criteria={criteria.other}
-          update={dispatcher} />
+          update={dispatcherPipeline} />
       </AccordionPane>
       <FilterActions
-        apply={() => props.mapDispatcher({ type: 'SET_FILTERS', payload: sqlMapper(criteria) })}
-        reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })} />
+        reset={() => dispatcherPipeline({ type: 'RESET', payload: props.loggedInUser })} />
     </>
   )
 };
