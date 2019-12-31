@@ -74,7 +74,13 @@ const reducer = produce((draft, action) => {
         tempFilter = tempFilter.concat(draft.definitionExpression);
       }
 
-      draft.appliedFilter = tempFilter.join(' AND ');
+      const newFilters = tempFilter.join(' AND ');
+
+      if (draft.appliedFilter === newFilters) {
+        return draft;
+      }
+
+      draft.appliedFilter = newFilters;
 
       return draft;
     }
