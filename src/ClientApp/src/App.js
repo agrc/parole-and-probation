@@ -105,8 +105,8 @@ export default function App() {
     },
     showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
     filter: [],
-    appliedFilter: `agent_id='${oidc.user.profile['public:WorkforceID']}'`,
-    definitionExpression: [`agent_id='${oidc.user.profile['public:WorkforceID']}'`]
+    appliedFilter: `agent_id in (${oidc.user.profile['public:WorkforceID']})`,
+    definitionExpression: [`agent_id in (${oidc.user.profile['public:WorkforceID']})`]
   });
 
   const mapOptions = {
