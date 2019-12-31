@@ -24,7 +24,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
 
 ### asp.net core mvc
 
-1. Install the [dotnet core 2.2.* SDK](https://dotnet.microsoft.com/download/dotnet-core/2.2)
+1. Install the [dotnet core 3.1.* SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 1. Copy the `ArcGIS` section in `src/appsettings.json` to `appsettings.Development.js` adding the correct values
 1. Download a service account json file to log to stack driver and name it `src/log-writer-sa.json`
    - Update the `appsettings.json` if you will be logging to a different project than `agrc-admin`
