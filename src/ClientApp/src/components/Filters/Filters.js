@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import produce from 'immer';
 import AccordionPane from '../AccordionPane';
 import FilterActions from './FilterActions';
@@ -310,10 +310,16 @@ const Filters = props => {
   emptyState.agent.agentList = [props.loggedInUser];
 
   const [criteria, dispatcher] = useReducer(filterReducer, initialState);
-  const dispatcherPipeline = (args) => {
-    dispatcher.call(null, args);
-    props.mapDispatcher({ type: 'SET_FILTERS', payload: sqlMapper(criteria) });
-  }
+
+  const payload = sqlMapper(criteria);
+
+  useEffect(() => {
+    console.log('setting map filters')
+    props.mapDispatcher({ type: 'SET_FILTERS', payload: payload });
+    // React guarantees that dispatch function identity is stable and won’t change on re-renders.
+    // This is why it’s safe to omit from the useEffect or useCallback dependency list.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [payload]);
 
   return (
     <>
@@ -321,33 +327,33 @@ const Filters = props => {
         <FilterAgent
           data={{ agents, supervisors }}
           criteria={criteria.agent}
-          update={dispatcherPipeline} />
+          update={dispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Offender', criteria.offender)} className="mb-1">
         <FilterOffender
           criteria={criteria.offender}
-          update={dispatcherPipeline}
+          update={dispatcher}
           currentFilter={props.appliedFilter} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
         <FilterLocation
           criteria={criteria.location}
-          update={dispatcherPipeline}
+          update={dispatcher}
           dispatcher={props.mapDispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Supervision Contact', criteria.date)} className="mb-1">
         <FilterDate
           criteria={criteria.date}
-          update={dispatcherPipeline}
+          update={dispatcher}
           dispatcher={props.mapDispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Other', criteria.other)}>
         <FilterOther
           criteria={criteria.other}
-          update={dispatcherPipeline} />
+          update={dispatcher} />
       </AccordionPane>
       <FilterActions
-        reset={() => dispatcherPipeline({ type: 'RESET', payload: props.loggedInUser })} />
+        reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })} />
     </>
   )
 };

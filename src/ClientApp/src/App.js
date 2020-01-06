@@ -62,25 +62,25 @@ const reducer = produce((draft, action) => {
       return draft;
     }
     case 'SET_FILTERS': {
-      draft.filter = action.payload.filter;
-      draft.definitionExpression = action.payload.definitionExpression;
+      let filter = action.payload.filter;
+      let definitionExpression = action.payload.definitionExpression;
 
       let tempFilter = [];
-      if (draft.filter && draft.filter.length > 0) {
-        tempFilter = draft.filter;
+      if (filter && filter.length > 0) {
+        tempFilter = filter;
       }
 
-      if (draft.definitionExpression && draft.definitionExpression.length > 0) {
-        tempFilter = tempFilter.concat(draft.definitionExpression);
+      if (definitionExpression && definitionExpression.length > 0) {
+        tempFilter = tempFilter.concat(definitionExpression);
       }
 
       const newFilters = tempFilter.join(' AND ');
 
-      if (draft.appliedFilter === newFilters) {
-        return draft;
+      if (draft.appliedFilter !== newFilters) {
+        draft.appliedFilter = newFilters;
+        draft.filter = filter;
+        draft.definitionExpression = definitionExpression;
       }
-
-      draft.appliedFilter = newFilters;
 
       return draft;
     }
