@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/agrc/parole-and-probation/compare/v1.13.0...v1.14.0) (2020-01-06)
+
+
+### Features
+
+* update backend to 3.1 LTS ([96272f2](https://github.com/agrc/parole-and-probation/commit/96272f2c200e2c2c53e1d2ff652565871a61e178))
+* **filters:** remove apply and auto apply filters ([c5d7304](https://github.com/agrc/parole-and-probation/commit/c5d7304cc03c9f5ddc3d1ad31c22e41ca0f7195d))
+* **map:** add regions to layer selector ([832d2b9](https://github.com/agrc/parole-and-probation/commit/832d2b9e86872a1770f2b0ebab69b94194ffe7db)), closes [#77](https://github.com/agrc/parole-and-probation/issues/77)
+
+
+### Bug Fixes
+
+* use int instead of small int ([693624a](https://github.com/agrc/parole-and-probation/commit/693624a3495ec7449c8ffd043db562c89be239c3))
+
 ## [1.13.0](https://github.com/agrc/parole-and-probation/compare/v1.12.0...v1.13.0) (2019-09-20)
 
 
