@@ -50,7 +50,7 @@ module.exports = function configure(grunt) {
         files: [{
           src: deployFiles,
           dest: './',
-          cwd: '../bin/Release/netcoreapp2.2/publish',
+          cwd: '../bin/Release/netcoreapp3.1/publish',
           expand: true
         }]
       }
