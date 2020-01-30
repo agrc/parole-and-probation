@@ -56,10 +56,10 @@ export default class ReactMapView extends Component {
     const [esriConfig, Map, MapView, FeatureLayer, LabelClass, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires), { css: true });
 
     const defaultExtent = {
-      xmax: -11762120.612131765,
-      xmin: -13074391.513731329,
-      ymax: 5225035.106177688,
-      ymin: 4373832.359194187,
+      xmax: -12612006,
+      xmin: -12246370,
+      ymax: 5125456,
+      ymin: 4473357,
       spatialReference: 3857
     };
 
