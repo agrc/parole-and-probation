@@ -22,7 +22,7 @@
     "downshift": "^3.4.8",
     "esri-loader": "^2.13.0",
     "file-saver": "^2.0.2",
-    "immer": "^5.1.0",
+    "immer": "^5.3.2",
     "lodash": "^4.17.15",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -30,7 +30,7 @@
     "react-oidc": "^1.0.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "reactstrap": "^8.2.0"
+    "reactstrap": "^8.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -58,19 +58,20 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@storybook/addon-actions": "^5.2.8",
-    "@storybook/addon-links": "^5.2.8",
-    "@storybook/addons": "^5.2.8",
-    "@storybook/react": "^5.2.8",
-    "cz-conventional-changelog": "^3.0.2",
+    "@storybook/addon-actions": "^5.3.9",
+    "@storybook/addon-links": "^5.3.9",
+    "@storybook/addons": "^5.3.9",
+    "@storybook/react": "^5.3.9",
+    "babel-preset-react-app": "^9.1.0",
+    "cz-conventional-changelog": "^3.1.0",
     "env-cmd": "^10.0.1",
-    "fetch-mock": "^8.3.0",
+    "fetch-mock": "^8.3.2",
     "grunt": "^1.0.3",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-compress": "^1.6.0",
     "grunt-ssh": "^0.12.9",
     "load-grunt-tasks": "^5.1.0",
-    "standard-version": "^7.0.1"
+    "standard-version": "^7.1.0"
   },
   "config": {
     "commitizen": {
