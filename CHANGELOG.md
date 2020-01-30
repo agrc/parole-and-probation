@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/agrc/parole-and-probation/compare/v1.14.0...v1.15.0) (2020-01-30)
+
+
+### Features
+
+* **identify:** add close button to no offender identify ([1ff4c0f](https://github.com/agrc/parole-and-probation/commit/1ff4c0feebdc7151a1dfecedbf08159b33adbdcb)), closes [#91](https://github.com/agrc/parole-and-probation/issues/91)
+
 ## [1.14.0](https://github.com/agrc/parole-and-probation/compare/v1.13.0...v1.14.0) (2020-01-06)
 
 
