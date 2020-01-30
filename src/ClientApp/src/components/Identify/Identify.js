@@ -89,7 +89,11 @@ const IdentifyInformation = props => {
           <Button color="primary" onClick={() => props.show(false)}>Close</Button>
         </div>
       </Container>
-      : <Container className="identify pt-4">No offenders at click location</Container>
+      : <Container className="identify pt-4">No offenders at click location
+        <div className="identify__row text-center pt-5 pb-3">
+          <Button color="primary" onClick={() => props.show(false)}>Close</Button>
+        </div>
+      </Container>
   );
 };
 
