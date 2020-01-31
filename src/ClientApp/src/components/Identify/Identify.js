@@ -5,6 +5,7 @@ import Pager from './Pager';
 import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
 import { fields } from '../../config';
 import { GridLabelGroup, IdentifyAddon, LabelGroup } from './Labels';
+import CloseButton from '../CloseButton';
 import './Identify.css';
 
 const identifyCache = {};
@@ -89,20 +90,14 @@ const IdentifyInformation = props => {
           <Button color="primary" onClick={() => props.show(false)}>Close</Button>
         </div>
       </Container>
-      : <Container className="identify pt-4">No offenders at click location
-        <div className="identify__row text-center pt-5 pb-3">
-          <Button color="primary" onClick={() => props.show(false)}>Close</Button>
-        </div>
-      </Container>
+      : <Container className="identify pt-4">No offenders at click location</Container>
   );
 };
 
 const IdentifyContainer = props => {
   return (
     <div className="identify__container side-bar side-bar--with-border side-bar--open">
-      <button type="button" className="identify__close" aria-label="Close" onClick={() => props.show(false)}>
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <CloseButton className="identify__close" onClick={() => props.show(false)} />
       {props.children}
     </div>
   );
@@ -169,14 +164,14 @@ const OffenderQuickLook = props => {
         <GridLabelGroup label="Number">{props.id}</GridLabelGroup>
         <GridLabelGroup label="Agent">{props.agent}</GridLabelGroup>
       </div>
-        <div className="d-grid identify-addon__subgrid px-3">
-          <IdentifyAddon age={props.age}>{props.gender}</IdentifyAddon>
-          <IdentifyAddon defaultValue="No STD">{props.standard_of_supervision}</IdentifyAddon>
-          <IdentifyAddon defaultValue="unknown" lower>{props.legal_status}</IdentifyAddon>
-          <IdentifyAddon danger={props.active_warrant}>{props.active_warrant ? 'active warrant' : 'no active warrant'}</IdentifyAddon>
-        </div>
+      <div className="d-grid identify-addon__subgrid px-3">
+        <IdentifyAddon age={props.age}>{props.gender}</IdentifyAddon>
+        <IdentifyAddon defaultValue="No STD">{props.standard_of_supervision}</IdentifyAddon>
+        <IdentifyAddon defaultValue="unknown" lower>{props.legal_status}</IdentifyAddon>
+        <IdentifyAddon danger={props.active_warrant}>{props.active_warrant ? 'active warrant' : 'no active warrant'}</IdentifyAddon>
+      </div>
     </div>
-    </>
+  </>
   );
 };
 
