@@ -1,0 +1,23 @@
+.static-legend {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  border: 0;
+  opacity: 0.6;
+  z-index: 100;
+}
+
+.static-legend__item {
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 5px;
+  overflow: hidden;
+}
+
+.static-legend__item--invert {
+  color: #111;
+}

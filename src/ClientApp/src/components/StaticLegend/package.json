@@ -1,0 +1,6 @@
+{
+  "name": "static-legend",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./StaticLegend.js"
+}
