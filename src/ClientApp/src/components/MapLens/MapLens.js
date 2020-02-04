@@ -4,7 +4,7 @@ import StaticLegend from '../StaticLegend';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'reactstrap';
-import classNames from 'classnames'
+import classNames from 'classnames';
 
 export default function MapLens(props) {
   const classes = classNames(
@@ -13,10 +13,17 @@ export default function MapLens(props) {
     props.showSidebar ? 'map-lens--side-bar-open' : false
   );
 
+  const buttonClasses = classNames(
+    { 'map-lens__toggle--mobile-open': props.showSidebar },
+    'map-lens__toggle',
+    'btn',
+    'btn-default'
+  )
+
   return (
     <div className={classes}>
       {props.children}
-      <Button color="info" className="map-lens__sidebar btn btn-default" onClick={props.toggleSidebar}>
+      <Button color="info" className={buttonClasses} onClick={props.toggleSidebar}>
         {props.showSidebar ? <FontAwesomeIcon icon={faChevronLeft} size='xs' /> : <FontAwesomeIcon icon={faChevronLeft} size='xs' flip='horizontal' />}
       </Button>
       <StaticLegend legend={[

@@ -136,7 +136,7 @@ export default function App() {
             show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })} />
         </IdentifyContainer>
         : null}
-      <Sidebar>
+      <Sidebar {...sidebarOptions}>
         <Filters
           mapDispatcher={dispatcher}
           loggedInUser={{

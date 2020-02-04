@@ -13,9 +13,12 @@
   .map-lens--side-bar-open {
     grid-column: 1 / span 2 !important;
   }
+  .map-lens__toggle--mobile-open {
+    right: 0;
+  }
 }
 
-.map-lens__sidebar {
+.map-lens__toggle {
   position: absolute;
   border-radius: unset;
   z-index: 1;

@@ -1,11 +1,21 @@
 .side-bar {
   overflow-y: auto;
   overflow-x: hidden;
-  z-index: 4;
   background-color: white;
+}
+
+@media screen and (max-width: 624px) {
+  .side-bar {
+    box-shadow: 3px 0px 9px -4px rgba(0, 0, 0, 0.75);
+  }
 }
 
 .side-bar--open {
   grid-column: 1 / 2;
   grid-row: 2;
+  z-index: 4;
+}
+
+.side-bar--closed {
+  display: none;
 }
