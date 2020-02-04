@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Card, CardBody, CardHeader, Collapse } from 'reactstrap';
 import './AccordionPane.css';
+import classnames from 'classnames';
 
 export default function AccordionPane(props) {
   const [open, setOpen] = useState(props.open);
+  const classes = classnames(
+    'accordian-pane',
+    props.className
+  );
 
   return (<>
-    <Card className={props.className}>
+    <Card className={classes}>
       <CardHeader onClick={() => setOpen(!open)}>
         {props.title}
       </CardHeader>

@@ -9,8 +9,6 @@
 
 @media screen and (max-width: 624px) {
   .app__header {
-    grid-column: 0;
-    grid-row: 0;
     display: none;
     margin: 0;
     padding: 0;

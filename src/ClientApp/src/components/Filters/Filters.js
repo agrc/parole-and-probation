@@ -318,7 +318,7 @@ const Filters = props => {
     props.mapDispatcher({ type: 'SET_FILTERS', payload: payload });
     // React guarantees that dispatch function identity is stable and won’t change on re-renders.
     // This is why it’s safe to omit from the useEffect or useCallback dependency list.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payload]);
 
   return (
