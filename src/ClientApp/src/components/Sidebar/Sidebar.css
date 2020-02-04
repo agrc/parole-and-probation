@@ -1,8 +1,11 @@
 .side-bar {
   overflow-y: auto;
   overflow-x: hidden;
+  z-index: 4;
+  background-color: white;
 }
 
 .side-bar--open {
-  grid-area: sidebar;
+  grid-column: 1 / 2;
+  grid-row: 2;
 }

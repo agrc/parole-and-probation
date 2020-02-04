@@ -1,5 +1,6 @@
 .app__header {
-  grid-area: header;
+  grid-column: 1 / span 2;
+  grid-row: 1;
   margin-top: 5px;
   margin-left: 5px;
   margin-right: 5px;
@@ -8,7 +9,8 @@
 
 @media screen and (max-width: 624px) {
   .app__header {
-    grid-area: none;
+    grid-column: 0;
+    grid-row: 0;
     display: none;
     margin: 0;
     padding: 0;

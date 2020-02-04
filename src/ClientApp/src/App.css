@@ -3,7 +3,6 @@ body, html, .app {
     grid-template-columns: 325px 1fr;
     grid-template-rows: 75px 1fr;
     grid-column-gap: 7px;
-    grid-template-areas: "header header" "sidebar map";
     width: calc(100vw - 10px);
     height: calc(100vh - 5px);
     margin: auto;
@@ -19,7 +18,6 @@ body, html, .app {
     .app {
         grid-template-columns: 325px 1fr;
         grid-template-rows: 0px 1fr;
-        grid-template-areas: "header header" "sidebar map";
     }
 }
 
