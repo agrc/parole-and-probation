@@ -91,6 +91,9 @@ namespace app {
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseRouting();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+
             app.UseSpa(spa => {
                 spa.Options.SourcePath = "ClientApp";
 
