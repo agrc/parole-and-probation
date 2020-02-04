@@ -25,6 +25,8 @@ export default class ReactMapView extends Component {
     appliedFilter: ''
   }
 
+  defaultExtent = {};
+
   render() {
     return (
       <div
@@ -41,7 +43,8 @@ export default class ReactMapView extends Component {
       'esri/config',
       'esri/Map',
       'esri/views/MapView',
-      'esri/layers/FeatureLayer'
+      'esri/layers/FeatureLayer',
+      'esri/geometry/Extent'
     ];
     const selectorRequires = [
       'esri/layers/support/LabelClass',
@@ -53,15 +56,26 @@ export default class ReactMapView extends Component {
 
     // FeatureLayer is required even-though unused
     // eslint-disable-next-line
-    const [esriConfig, Map, MapView, FeatureLayer, LabelClass, LOD, TileInfo, WebTileLayer, Basemap] = await loadModules(mapRequires.concat(selectorRequires), { css: true });
+    const [
+      esriConfig,
+      Map,
+      MapView,
+      FeatureLayer,
+      Extent,
+      LabelClass,
+      LOD,
+      TileInfo,
+      WebTileLayer,
+      Basemap
+    ] = await loadModules(mapRequires.concat(selectorRequires), { css: true });
 
-    const defaultExtent = {
+    this.defaultExtent = new Extent({
       xmax: -12612006,
       xmin: -12246370,
       ymax: 5125456,
       ymin: 4473357,
       spatialReference: 3857
-    };
+    });
 
     esriConfig.request.interceptors.push({
       urls: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}${process.env.REACT_APP_BASENAME}/mapserver`,
@@ -75,7 +89,7 @@ export default class ReactMapView extends Component {
     this.view = new MapView({
       container: this.mapViewDiv,
       map: this.map,
-      extent: defaultExtent,
+      extent: this.defaultExtent,
       ui: {
         components: ['zoom']
       }
@@ -135,7 +149,7 @@ export default class ReactMapView extends Component {
 
     this.map.add(this.offenders);
 
-    ReactDOM.render(<HomeButton view={this.view} extent={this.view.extent} />, homeNode);
+    ReactDOM.render(<HomeButton view={this.view} extent={this.defaultExtent} />, homeNode);
     ReactDOM.render(<Geolocation dispatcher={this.props.mapDispatcher} />, geolocateNode);
     ReactDOM.render(<MapToolPanel icon={faMapMarkedAlt}>
       <DartBoard
@@ -283,7 +297,7 @@ export default class ReactMapView extends Component {
       this.offenders.definitionExpression = filter;
 
       console.log('setting map extent');
-      this.view.goTo(this.offenders.fullExtent);
+      this.view.goTo(this.defaultExtent);
     }
   }
 
