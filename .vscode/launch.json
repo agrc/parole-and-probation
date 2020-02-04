@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Debug",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/bin/Debug/netcoreapp2.2/app.dll",
+            "program": "${workspaceFolder}/src/bin/Debug/netcoreapp3.1/app.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src",
             "stopAtEntry": false,
