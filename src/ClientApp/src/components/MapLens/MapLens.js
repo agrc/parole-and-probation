@@ -10,7 +10,7 @@ export default function MapLens(props) {
   const classes = classNames(
     'map-lens',
     'map-lens--with-border',
-    props.showSidebar ? ' map-lens--side-bar-open' : false
+    props.showSidebar ? 'map-lens--side-bar-open' : false
   );
 
   return (
