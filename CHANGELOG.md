@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/agrc/parole-and-probation/compare/v1.15.0...v1.16.0) (2020-02-04)
+
+
+### Features
+
+* **legend:** add static legend to map ([1dbd108](https://github.com/agrc/parole-and-probation/commit/1dbd1085eadb0a6796547ee2ba32e622dd7a6643)), closes [#95](https://github.com/agrc/parole-and-probation/issues/95)
+* **legend:** create a static legend component ([b72b758](https://github.com/agrc/parole-and-probation/commit/b72b758025bda7e9c37232efbba68ba863abb70a))
+* **map-tool-panel:** show close button on mobile ([dcae492](https://github.com/agrc/parole-and-probation/commit/dcae4925ccdc5468c1b257265ff8068f5cb2de24)), closes [#92](https://github.com/agrc/parole-and-probation/issues/92)
+
+
+### Bug Fixes
+
+* **legend:** add key to mapped items ([0ed70cb](https://github.com/agrc/parole-and-probation/commit/0ed70cb1d42a48021987f769200ddeca9f46d5bb))
+* finish migrating to 3.1 by expliciting using endpoint routing ([0163a80](https://github.com/agrc/parole-and-probation/commit/0163a808f226d54124d4b401aa0b91191e5df6e8)), closes [#94](https://github.com/agrc/parole-and-probation/issues/94)
+* **map:** update extent to make mobile view larger ([1230f02](https://github.com/agrc/parole-and-probation/commit/1230f02ef9f82c0cd3215da91d94efcb1e856ab9)), closes [#89](https://github.com/agrc/parole-and-probation/issues/89)
+
 ## [1.15.0](https://github.com/agrc/parole-and-probation/compare/v1.14.0...v1.15.0) (2020-01-30)
 
 
