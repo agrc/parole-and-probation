@@ -13,14 +13,14 @@ export default function StaticLegend(props) {
 
   return (
     <div className="static-legend" style={props.style}>
-      {props.legend.map((item) => {
+      {props.legend.map((item, index) => {
         const classes = classNames(
           'static-legend__item',
           { 'static-legend__item--invert': item.invert === true }
         );
 
         return (
-          <div className={classes} style={{
+          <div key={index} className={classes} style={{
             backgroundColor: item.color,
             width: `${width}%`,
             maxWidth: `${width}%`
