@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.17.0](https://github.com/agrc/parole-and-probation/compare/v1.16.0...v1.17.0) (2020-02-05)
+
+
+### Features
+
+* **dart-board:** add popuptemplate and address to graphic ([92d0408](https://github.com/agrc/parole-and-probation/commit/92d040804e27bfb2daa1f8caed9552c5d8b38d56)), closes [#96](https://github.com/agrc/parole-and-probation/issues/96)
+
+
+### Bug Fixes
+
+* **identify:** show identify on top of filters ([2a573f1](https://github.com/agrc/parole-and-probation/commit/2a573f1d100a649ee3e9be5a47e7b811f058228c))
+* change layout to leave map width alone ([f4ba7e4](https://github.com/agrc/parole-and-probation/commit/f4ba7e46eeceefe6e38e504893e146d5ab729f0c)), closes [#90](https://github.com/agrc/parole-and-probation/issues/90)
+
 ## [1.16.0](https://github.com/agrc/parole-and-probation/compare/v1.15.0...v1.16.0) (2020-02-04)
 
 
