@@ -140,8 +140,25 @@ export default class DartBoard extends Component {
 
     const graphic = new Graphic({
       geometry: point,
-      symbol: this.props.pointSymbol
+      symbol: this.props.pointSymbol,
+      attributes: {
+        address: result.inputAddress
+      },
+      popupTemplate: {
+        title: '{address}',
+        content: [
+          {
+            type: 'fields',
+            fieldInfos: [{
+              fieldName: 'address',
+              label: 'address'
+            }]
+          }
+        ]
+      }
     });
+
+    console.log(graphic);
 
     return graphic;
   };
