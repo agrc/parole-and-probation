@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Serilog;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -77,18 +78,17 @@ namespace app.Infrastructure {
 
                 _log.Debug("Converting to csv {records}", records);
 
-                using (var stream = new MemoryStream())
-                using (var writer = new StreamWriter(stream))
-                using (var csv = new CsvWriter(writer)) {
-                    csv.WriteRecords(records);
-                    await writer.FlushAsync();
+                using var stream = new MemoryStream();
+                using var writer = new StreamWriter(stream);
+                using var csv = new CsvWriter(writer, CultureInfo.CurrentCulture);
+                csv.WriteRecords(records);
+                await writer.FlushAsync();
 
-                    stream.Position = 0;
-                    await stream.CopyToAsync(context.Response.Body);
-                    stream.Position = 0;
+                stream.Position = 0;
+                await stream.CopyToAsync(context.Response.Body);
+                stream.Position = 0;
 
-                    await _emailer.SendAsync(new[] { model.Agent }, stream);
-                }
+                await _emailer.SendAsync(new[] { model.Agent }, stream);
             }
         }
     }
