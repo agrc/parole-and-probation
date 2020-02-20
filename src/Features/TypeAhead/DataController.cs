@@ -52,7 +52,7 @@ namespace app.Features.TypeAhead {
                 selectAll = true;
             }
 
-            var query = "";
+            string query;
 
             if (selectAll) {
                 using (var session = new SqlConnection(connectionString)) {

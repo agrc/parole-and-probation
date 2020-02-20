@@ -65,7 +65,7 @@ namespace app.Features.Email {
 
         void SendToPickupDirectory(MimeMessage message, string pickupDirectory) {
             do {
-                var path = Path.Combine(pickupDirectory, $"{DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss")}.eml");
+                var path = Path.Combine(pickupDirectory, $"{DateTime.Now:yyyy-MM-dd-hh-mm-ss}.eml");
 
                 if (File.Exists(path)) {
                     continue;
