@@ -43,7 +43,7 @@ export default function FilterOffender(props) {
               }
               return (
                 <div>
-                  <Input autoComplete="nope" {...getInputProps({
+                  <Input {...getInputProps({
                     onBlur: closeMenu,
                     onKeyDown: event => {
                       switch (event.key) {
@@ -54,7 +54,9 @@ export default function FilterOffender(props) {
                         default:
                           break;
                       }
-                    }
+                    },
+                    type: 'text',
+                    autoComplete: 'no'
                   })} />
                   {!isOpen ? null : (
                     <div className="downshift__match-dropdown" {...getMenuProps()}>
@@ -123,7 +125,7 @@ export default function FilterOffender(props) {
               }
               return (
                 <div>
-                  <Input type="number" name="number" id="number" autoComplete="nope" {...getInputProps({
+                  <Input {...getInputProps({
                     onBlur: closeMenu,
                     onKeyDown: event => {
                       switch (event.key) {
@@ -134,7 +136,11 @@ export default function FilterOffender(props) {
                         default:
                           break;
                       }
-                    }
+                    },
+                    type: 'number',
+                    name: 'number',
+                    id: 'number',
+                    autoComplete: 'no'
                   })} />
                   {!isOpen ? null : (
                     <div className="downshift__match-dropdown" {...getMenuProps()}>
@@ -231,7 +237,7 @@ export default function FilterOffender(props) {
               }
               return (
                 <div>
-                  <Input type="tel" name="phone" id="phone" autoComplete="nope" {...getInputProps({
+                  <Input {...getInputProps({
                     onBlur: closeMenu,
                     onKeyDown: event => {
                       switch (event.key) {
@@ -242,7 +248,11 @@ export default function FilterOffender(props) {
                         default:
                           break;
                       }
-                    }
+                    },
+                    type: 'tel',
+                    name: 'phone',
+                    id: 'phone',
+                    autocomplete: 'no'
                   })} />
                   {!isOpen ? null : (
                     <div className="downshift__match-dropdown" {...getMenuProps()}>
@@ -311,7 +321,7 @@ export default function FilterOffender(props) {
               }
               return (
                 <div>
-                  <Input type="text" name="employer" id="employer" autoComplete="nope" {...getInputProps({
+                  <Input {...getInputProps({
                     onBlur: closeMenu,
                     onKeyDown: event => {
                       switch (event.key) {
@@ -322,7 +332,11 @@ export default function FilterOffender(props) {
                         default:
                           break;
                       }
-                    }
+                    },
+                    type: 'text',
+                    name: 'employer',
+                    id: 'employer',
+                    autoComplete: 'no'
                   })} />
                   {!isOpen ? null : (
                     <div className="downshift__match-dropdown" {...getMenuProps()}>
