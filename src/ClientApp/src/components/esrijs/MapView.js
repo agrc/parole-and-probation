@@ -54,8 +54,6 @@ export default class ReactMapView extends Component {
       'esri/Basemap'
     ];
 
-    // FeatureLayer is required even-though unused
-    // eslint-disable-next-line
     const [
       esriConfig,
       Map,
@@ -92,6 +90,18 @@ export default class ReactMapView extends Component {
       extent: this.defaultExtent,
       ui: {
         components: ['zoom']
+      },
+      popup: {
+        actions: null,
+        featureNavigationEnabled: false,
+        spinnerEnabled: false,
+        collapseEnabled: false,
+        highlightEnabled: false,
+        dockOptions: {
+          breakpoint: false,
+          buttonEnabled: false,
+          position: 'top-right'
+        }
       }
     });
 
@@ -106,8 +116,6 @@ export default class ReactMapView extends Component {
     this.view.ui.add(geolocateNode, 'top-left');
     this.view.ui.add(geocodeNode, 'top-left');
     this.view.ui.add(downloadNode, 'top-left');
-
-    this.view.on('click', event => this.identify(event));
 
     const regionLabels = new LabelClass({
       labelExpressionInfo: { expression: "$feature.REGION" },
@@ -146,6 +154,8 @@ export default class ReactMapView extends Component {
       outFields: Object.keys(fields).filter(key => fields[key].filter === true),
       definitionExpression: this.props.definitionExpression
     });
+
+    this.view.on('click', event => this.identify(event));
 
     this.map.add(this.offenders);
 
@@ -251,6 +261,7 @@ export default class ReactMapView extends Component {
     if (!zoomObj.preserve) {
       watchUtils.once(this.view, 'extent', () => {
         this.view.graphics.removeAll();
+        this.view.popup.close();
       });
     }
   }
@@ -302,6 +313,16 @@ export default class ReactMapView extends Component {
   }
 
   async identify(where) {
+    const test = await this.view.hitTest(where);
+
+    if (test.results.length) {
+      const graphic = test.results[0].graphic;
+
+      if (!graphic.layer.id || !graphic.layer.title) {
+        return;
+      }
+    }
+
     const queryFeatures = async opts => {
       const query = {
         where: this.state.appliedFilter,

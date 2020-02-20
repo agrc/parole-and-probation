@@ -145,16 +145,7 @@ export default class DartBoard extends Component {
         address: result.inputAddress
       },
       popupTemplate: {
-        title: '{address}',
-        content: [
-          {
-            type: 'fields',
-            fieldInfos: [{
-              fieldName: 'address',
-              label: 'address'
-            }]
-          }
-        ]
+        title: '{address}'
       }
     });
 
