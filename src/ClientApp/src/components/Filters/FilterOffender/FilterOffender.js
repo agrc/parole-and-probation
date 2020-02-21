@@ -11,7 +11,7 @@ const type = 'UPDATE_OFFENDER';
 
 export default function FilterOffender(props) {
   const publish = (selectedItem, field) => {
-    console.log(`Downshift:handleSelection ${selectedItem}`);
+    console.log(`Downshift:onChange ${selectedItem}`);
 
     props.update({
       type: type,
@@ -26,7 +26,21 @@ export default function FilterOffender(props) {
         <FormGroup>
           <Label>Name</Label>
           <Downshift itemToString={item => (item ? item : '')}
-            onChange={selectedItem => publish(selectedItem, 'name')}>
+            onChange={selectedItem => publish(selectedItem, 'name')}
+            inputValue={props.downshift.offenderName}
+            onStateChange={changes => {
+              if (changes.hasOwnProperty('inputValue')) {
+                props.update({
+                  type,
+                  meta: {
+                    downshift: true,
+                    field: 'OFFENDER_NAME'
+                  },
+                  payload: changes.inputValue
+                });
+              }
+            }}
+          >
             {({
               closeMenu,
               getInputProps,
@@ -66,7 +80,7 @@ export default function FilterOffender(props) {
                           filter={props.currentFilter}
                           searchValue={inputValue}
                           onLoaded={({ data }) => {
-                            console.log(arguments);
+                            console.log('Downshift:onLoaded', data);
                             if (data) {
                               setHighlightedIndex(data.length ? 0 : null)
                               setItemCount(data.length)
@@ -108,7 +122,20 @@ export default function FilterOffender(props) {
         <FormGroup>
           <Label>Offender Number</Label>
           <Downshift itemToString={item => (item ? item : '')}
-            onChange={selectedItem => publish(selectedItem, 'number')}>
+            onChange={selectedItem => publish(selectedItem, 'number')}
+            inputValue={props.downshift.offenderNumber}
+            onStateChange={changes => {
+              if (changes.hasOwnProperty('inputValue')) {
+                props.update({
+                  type,
+                  meta: {
+                    downshift: true,
+                    field: 'OFFENDER_NUMBER'
+                  },
+                  payload: changes.inputValue
+                });
+              }
+            }}>
             {({
               closeMenu,
               getInputProps,
@@ -220,7 +247,20 @@ export default function FilterOffender(props) {
         <FormGroup>
           <Label>Phone</Label>
           <Downshift itemToString={item => (item ? item : '')}
-            onChange={selectedItem => publish(selectedItem, 'tel')}>
+            onChange={selectedItem => publish(selectedItem, 'tel')}
+            inputValue={props.downshift.offenderTelephone}
+              onStateChange={changes => {
+                if (changes.hasOwnProperty('inputValue')) {
+                  props.update({
+                    type,
+                    meta: {
+                      downshift: true,
+                      field: 'OFFENDER_TEL'
+                    },
+                    payload: changes.inputValue
+                  });
+                }
+              }}>
             {({
               closeMenu,
               getInputProps,
@@ -304,7 +344,20 @@ export default function FilterOffender(props) {
         <FormGroup>
           <Label>Employer</Label>
           <Downshift itemToString={item => (item ? item : '')}
-            onChange={selectedItem => publish(selectedItem, 'employer')}>
+            onChange={selectedItem => publish(selectedItem, 'employer')}
+            inputValue={props.downshift.offenderEmployer}
+              onStateChange={changes => {
+                if (changes.hasOwnProperty('inputValue')) {
+                  props.update({
+                    type,
+                    meta: {
+                      downshift: true,
+                      field: 'OFFENDER_EMPLOYER'
+                    },
+                    payload: changes.inputValue
+                  });
+                }
+              }}>
             {({
               closeMenu,
               getInputProps,
@@ -435,7 +488,7 @@ class FetchItems extends React.Component {
       let data;
 
       try {
-        console.log('fetching data');
+        console.log('FetchItems:fetch fetching data');
 
         const query = Helpers.toQueryString({
           filters: this.scrub(this.props.filter, this.props.field),
@@ -456,13 +509,10 @@ class FetchItems extends React.Component {
           }
         });
 
-        console.log('reading content');
         data = await response.json();
 
-        console.dir(data);
-
         if (this.mounted && data.requestId === this.requestId) {
-          console.log(`calling loaded with ${data.data.length} items`);
+          console.log(`FetchItems:fetch calling onLoaded with ${data.data.length} items`);
 
           this.props.onLoaded({ data: data.data });
           this.setState({ loading: false, data: data.data });

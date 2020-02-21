@@ -8,7 +8,7 @@ fetchMock.mock('end:limit=25', {
   'data': ['steve', 'matt', 'nathan']
 });
 
-storiesOf('Filters.Offender Filter', module)
+storiesOf('Filters/Offender Filter', module)
   .add('normal', () => (
     <Item criteria={{
       gender: '',

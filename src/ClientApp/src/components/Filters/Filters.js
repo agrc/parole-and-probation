@@ -127,6 +127,10 @@ const sqlMapper = (data) => {
 
   // agent/data/location/offender/other
   Object.keys(data).forEach(key => {
+    if (key === 'downshift') {
+      return;
+    }
+
     const metaKeys = Object.keys(sqlMap[key]);
 
     const criteria = Object.entries(data[key]);
@@ -159,15 +163,14 @@ const sqlMapper = (data) => {
 };
 
 const filterReducer = produce((draft, action) => {
-  console.log(`Filter: reducing state for ${action.type}`);
-  console.dir(action);
+  console.log(`Filter:reducing state for ${action.type}`, action);
 
   switch (action.type) {
     case 'UPDATE_AGENT_LIST': {
       if (action.meta === 'agent') {
         if (action.payload.add) {
           if (draft.agent.agentList.some(item => item.value.toLowerCase() === action.payload.item.value.toLowerCase())) {
-            return draft;
+            return;
           }
 
           draft.agent.agentList = [action.payload.item].concat(draft.agent.agentList);
@@ -202,27 +205,54 @@ const filterReducer = produce((draft, action) => {
 
       draft.agent.vanity = vanityCheck(draft.agent.agentList, draft.agent.loggedInUser);
 
-      return draft;
+      return;
     }
     case 'UPDATE_OFFENDER': {
+      if (action.meta.hasOwnProperty('downshift')) {
+        switch (action.meta.field) {
+          case 'OFFENDER_NAME': {
+            draft.downshift.offenderName = action.payload;
+
+            return;
+          }
+          case 'OFFENDER_NUMBER': {
+            draft.downshift.offenderNumber = action.payload;
+
+            return;
+          }
+          case 'OFFENDER_TEL': {
+            draft.downshift.offenderTelephone = action.payload;
+
+            return;
+          }
+          case 'OFFENDER_EMPLOYER': {
+            draft.downshift.offenderEmployer = action.payload;
+
+            return;
+          }
+          default:
+            throw new Error();
+        }
+      }
+
       draft.offender[action.meta] = action.payload;
 
-      return draft;
+      return;
     }
     case 'UPDATE_DATE': {
       draft.date[action.meta] = action.payload;
 
-      return draft;
+      return;
     }
     case 'UPDATE_OTHER': {
       draft.other[action.meta] = action.payload;
 
-      return draft;
+      return;
     }
     case 'UPDATE_LOCATION': {
       draft.location[action.meta] = action.payload;
 
-      return draft;
+      return;
     }
     case 'RESET': {
       return JSON.parse(JSON.stringify(emptyState));
@@ -264,6 +294,12 @@ const initialState = {
     supervision: [],
     gang: [],
     offense: []
+  },
+  downshift: {
+    offenderName: '',
+    offenderNumber: '',
+    offenderTelephone: '',
+    offenderEmployer: ''
   }
 };
 
@@ -299,6 +335,12 @@ const emptyState = {
     supervision: [],
     gang: [],
     offense: []
+  },
+  downshift: {
+    offenderName: '',
+    offenderNumber: '',
+    offenderTelephone: '',
+    offenderEmployer: ''
   }
 };
 
@@ -314,7 +356,7 @@ const Filters = props => {
   const payload = sqlMapper(criteria);
 
   useEffect(() => {
-    console.log('setting map filters')
+    console.log('Filters:useEffect dispatching map filters')
     props.mapDispatcher({ type: 'SET_FILTERS', payload: payload });
     // React guarantees that dispatch function identity is stable and won’t change on re-renders.
     // This is why it’s safe to omit from the useEffect or useCallback dependency list.
@@ -331,9 +373,11 @@ const Filters = props => {
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Offender', criteria.offender)} className="mb-1">
         <FilterOffender
+          downshift={criteria.downshift}
           criteria={criteria.offender}
           update={dispatcher}
-          currentFilter={props.appliedFilter} />
+          currentFilter={props.appliedFilter}
+        />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
         <FilterLocation

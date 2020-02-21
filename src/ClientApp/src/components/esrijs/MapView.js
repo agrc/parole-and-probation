@@ -203,7 +203,7 @@ export default class ReactMapView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('componentDidUpdate');
+    console.log('MapView:componentDidUpdate');
     const currentGraphic = (((this.props || false).zoomToGraphic || false).graphic || false);
     const previousGraphic = (((prevProps || false).zoomToGraphic || false).graphic || false);
 
@@ -272,7 +272,7 @@ export default class ReactMapView extends Component {
     if (isFilter) {
       const layerView = await this.view.whenLayerView(this.offenders);
 
-      console.log(`applying filter ${filter}`);
+      console.log(`MapView:applyFilter ${filter}`);
 
       layerView.filter = {
         where: filter
@@ -287,8 +287,7 @@ export default class ReactMapView extends Component {
       await watchUtils.whenFalseOnce(layerView, 'updating', async () => {
         const result = await layerView.queryExtent();
 
-        console.log('setting map extent');
-        console.dir(JSON.stringify(result));
+        console.log('MapView:applyFilter setting map extent', result);
 
         if (result.count === 0) {
           return;
@@ -307,7 +306,7 @@ export default class ReactMapView extends Component {
     } else {
       this.offenders.definitionExpression = filter;
 
-      console.log('setting map extent');
+      console.log('MapView:applyFilter setting map extent');
       this.view.goTo(this.defaultExtent);
     }
   }

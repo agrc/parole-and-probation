@@ -12,8 +12,7 @@ import { mappingConfig } from './config';
 import './App.css';
 
 const reducer = produce((draft, action) => {
-  console.log(`App: reducing state for ${action.type}`);
-  console.dir(action);
+  console.log(`App:reducing state for ${action.type}`, action);
 
   switch (action.type) {
     case 'ZOOM_TO_GRAPHIC':
