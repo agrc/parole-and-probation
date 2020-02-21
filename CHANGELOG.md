@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.17.1](https://github.com/agrc/parole-and-probation/compare/v1.17.0...v1.17.1) (2020-02-21)
+
+
+### Bug Fixes
+
+* **filter-offender:** clear selection on empty ([803398c](https://github.com/agrc/parole-and-probation/commit/803398cbe9a2a6e5baebd8f0bb5e484ce7b92fc0)), closes [#99](https://github.com/agrc/parole-and-probation/issues/99) [#101](https://github.com/agrc/parole-and-probation/issues/101)
+* **filter-offender:** clear type ahead text on reset ([48718d0](https://github.com/agrc/parole-and-probation/commit/48718d03b80e1464f7dab7937edaa3dae6867ff8)), closes [#100](https://github.com/agrc/parole-and-probation/issues/100)
+* **filter-offender:** remove chrome autocomplete ([2e70e9e](https://github.com/agrc/parole-and-probation/commit/2e70e9e7a61b8610933e25053374cda95c850a74))
+* **filters:** disable autofil ([f2a1dbf](https://github.com/agrc/parole-and-probation/commit/f2a1dbf49417c619c336d674f6db35da1500206e))
+* **identify:** only show if not clicking on dartboard graphic ([2377276](https://github.com/agrc/parole-and-probation/commit/2377276183e2019ab3ef69f9d26e7aa1841236cc)), closes [#102](https://github.com/agrc/parole-and-probation/issues/102)
+
 ## [1.17.0](https://github.com/agrc/parole-and-probation/compare/v1.16.0...v1.17.0) (2020-02-05)
 
 
