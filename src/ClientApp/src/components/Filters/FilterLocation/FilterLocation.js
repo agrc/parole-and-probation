@@ -18,16 +18,17 @@ export default function FilterLocation(props) {
 
     return (
         <Container fluid className="filter-location">
+          <form autocomplete="off" autoComplete="off">
             <Col>
                 <FormGroup>
                     <Label>City</Label>
-                    <Input type="text" name="city" id="city" value={city} onChange={setCity} />
+                    <Input type="text" value={city} onChange={setCity} />
                 </FormGroup>
             </Col>
             <Col>
                 <FormGroup>
                     <Label>Zip</Label>
-                    <Input type="number" name="zip" id="zip" value={zip} onChange={setZip} />
+                    <Input type="number" value={zip} onChange={setZip} />
                 </FormGroup>
             </Col>
             <Col>
@@ -120,7 +121,6 @@ export default function FilterLocation(props) {
                                                 }
                                             }
                                         })}
-                                            autoComplete="off"
                                         />
                                         <InputGroupAddon addonType="append">
                                             <Button {...getToggleButtonProps()}>
@@ -182,6 +182,7 @@ export default function FilterLocation(props) {
                     </div>
                 </FormGroup>
             </Col>
+          </form>
         </Container>
     )
 }

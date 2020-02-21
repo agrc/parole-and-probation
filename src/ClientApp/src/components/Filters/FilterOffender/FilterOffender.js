@@ -22,6 +22,7 @@ export default function FilterOffender(props) {
 
   return (
     <Container fluid className="filter-offender">
+      <form autocomplete="off" autoComplete="off">
       <Col>
         <FormGroup>
           <Label>Name</Label>
@@ -74,8 +75,7 @@ export default function FilterOffender(props) {
                           break;
                       }
                     },
-                    type: 'text',
-                    autoComplete: 'no'
+                    type: 'text'
                   })} />
                   {!isOpen ? null : (
                     <div className="downshift__match-dropdown" {...getMenuProps()}>
@@ -174,10 +174,7 @@ export default function FilterOffender(props) {
                           break;
                       }
                     },
-                    type: 'number',
-                    name: 'number',
-                    id: 'number',
-                    autoComplete: 'no'
+                    type: 'number'
                   })} />
                   {!isOpen ? null : (
                     <div className="downshift__match-dropdown" {...getMenuProps()}>
@@ -303,10 +300,7 @@ export default function FilterOffender(props) {
                           break;
                       }
                     },
-                    type: 'tel',
-                    name: 'phone',
-                    id: 'phone',
-                    autocomplete: 'no'
+                    type: 'tel'
                   })} />
                   {!isOpen ? null : (
                     <div className="downshift__match-dropdown" {...getMenuProps()}>
@@ -404,10 +398,7 @@ export default function FilterOffender(props) {
                           break;
                       }
                     },
-                    type: 'text',
-                    name: 'employer',
-                    id: 'employer',
-                    autoComplete: 'no'
+                    type: 'text'
                   })} />
                   {!isOpen ? null : (
                     <div className="downshift__match-dropdown" {...getMenuProps()}>
@@ -453,7 +444,8 @@ export default function FilterOffender(props) {
             }}
           </Downshift>
         </FormGroup>
-      </Col>
+        </Col>
+      </form>
     </Container>
   )
 };
