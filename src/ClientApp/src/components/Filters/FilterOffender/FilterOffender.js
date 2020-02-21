@@ -28,7 +28,7 @@ export default function FilterOffender(props) {
           <Downshift itemToString={item => (item ? item : '')}
             onChange={selectedItem => publish(selectedItem, 'name')}
             inputValue={props.downshift.offenderName}
-            onStateChange={changes => {
+            onStateChange={(changes, helpers) => {
               if (changes.hasOwnProperty('inputValue')) {
                 props.update({
                   type,
@@ -38,6 +38,11 @@ export default function FilterOffender(props) {
                   },
                   payload: changes.inputValue
                 });
+
+                if (changes.inputValue.trim() === '') {
+                  helpers.clearSelection();
+                  helpers.closeMenu();
+                }
               }
             }}
           >
@@ -124,7 +129,7 @@ export default function FilterOffender(props) {
           <Downshift itemToString={item => (item ? item : '')}
             onChange={selectedItem => publish(selectedItem, 'number')}
             inputValue={props.downshift.offenderNumber}
-            onStateChange={changes => {
+            onStateChange={(changes, helpers) => {
               if (changes.hasOwnProperty('inputValue')) {
                 props.update({
                   type,
@@ -134,6 +139,11 @@ export default function FilterOffender(props) {
                   },
                   payload: changes.inputValue
                 });
+
+                if (changes.inputValue === '') {
+                  helpers.clearSelection();
+                  helpers.closeMenu();
+                }
               }
             }}>
             {({
@@ -177,7 +187,6 @@ export default function FilterOffender(props) {
                           filter={props.currentFilter}
                           searchValue={inputValue}
                           onLoaded={({ data }) => {
-                            console.log(arguments);
                             if (data) {
                               setHighlightedIndex(data.length ? 0 : null)
                               setItemCount(data.length)
@@ -249,7 +258,7 @@ export default function FilterOffender(props) {
           <Downshift itemToString={item => (item ? item : '')}
             onChange={selectedItem => publish(selectedItem, 'tel')}
             inputValue={props.downshift.offenderTelephone}
-              onStateChange={changes => {
+              onStateChange={(changes, helpers) => {
                 if (changes.hasOwnProperty('inputValue')) {
                   props.update({
                     type,
@@ -259,6 +268,11 @@ export default function FilterOffender(props) {
                     },
                     payload: changes.inputValue
                   });
+
+                  if (changes.inputValue === '') {
+                    helpers.clearSelection();
+                    helpers.closeMenu();
+                  }
                 }
               }}>
             {({
@@ -302,7 +316,6 @@ export default function FilterOffender(props) {
                           filter={props.currentFilter}
                           searchValue={inputValue}
                           onLoaded={({ data }) => {
-                            console.log(arguments);
                             if (data) {
                               setHighlightedIndex(data.length ? 0 : null)
                               setItemCount(data.length)
@@ -346,7 +359,7 @@ export default function FilterOffender(props) {
           <Downshift itemToString={item => (item ? item : '')}
             onChange={selectedItem => publish(selectedItem, 'employer')}
             inputValue={props.downshift.offenderEmployer}
-              onStateChange={changes => {
+              onStateChange={(changes, helpers) => {
                 if (changes.hasOwnProperty('inputValue')) {
                   props.update({
                     type,
@@ -356,6 +369,11 @@ export default function FilterOffender(props) {
                     },
                     payload: changes.inputValue
                   });
+
+                  if (changes.inputValue === '') {
+                    helpers.clearSelection();
+                    helpers.closeMenu();
+                  }
                 }
               }}>
             {({
@@ -399,7 +417,6 @@ export default function FilterOffender(props) {
                           filter={props.currentFilter}
                           searchValue={inputValue}
                           onLoaded={({ data }) => {
-                            console.log(arguments);
                             if (data) {
                               setHighlightedIndex(data.length ? 0 : null)
                               setItemCount(data.length)
@@ -479,7 +496,7 @@ class FetchItems extends React.Component {
 
   fetch = debounce(
     async () => {
-      if (!this.mounted || this.props.searchValue.length < 1) {
+      if (!this.mounted || this.props.searchValue.trim().length < 1) {
         return;
       }
 
