@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.17.2](https://github.com/agrc/parole-and-probation/compare/v1.17.1...v1.17.2) (2020-02-24)
+
+
+### Bug Fixes
+
+* update meta data for full screen app ([3814b6e](https://github.com/agrc/parole-and-probation/commit/3814b6e318b4d7191afff003a480a2f830040189))
+
 ### [1.17.1](https://github.com/agrc/parole-and-probation/compare/v1.17.0...v1.17.1) (2020-02-21)
 
 
