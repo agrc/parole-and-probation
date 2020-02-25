@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.17.3](https://github.com/agrc/parole-and-probation/compare/v1.17.2...v1.17.3) (2020-02-25)
+
+
+### Bug Fixes
+
+* **filter-offender:** allow replication of filter after reset ([de75b36](https://github.com/agrc/parole-and-probation/commit/de75b366f5063222ccee9dd00cf8a12a5eeb0d02)), closes [#98](https://github.com/agrc/parole-and-probation/issues/98)
+
 ### [1.17.2](https://github.com/agrc/parole-and-probation/compare/v1.17.1...v1.17.2) (2020-02-24)
 
 
