@@ -29,6 +29,7 @@ export default function FilterOffender(props) {
           <Downshift itemToString={item => (item ? item : '')}
             onChange={selectedItem => publish(selectedItem, 'name')}
             inputValue={props.downshift.offenderName}
+            selectedItem={props.criteria.name}
             onStateChange={(changes, helpers) => {
               if (changes.hasOwnProperty('inputValue')) {
                 props.update({
@@ -129,6 +130,7 @@ export default function FilterOffender(props) {
           <Downshift itemToString={item => (item ? item : '')}
             onChange={selectedItem => publish(selectedItem, 'number')}
             inputValue={props.downshift.offenderNumber}
+              selectedItem={props.criteria.number}
             onStateChange={(changes, helpers) => {
               if (changes.hasOwnProperty('inputValue')) {
                 props.update({
@@ -255,6 +257,7 @@ export default function FilterOffender(props) {
           <Downshift itemToString={item => (item ? item : '')}
             onChange={selectedItem => publish(selectedItem, 'tel')}
             inputValue={props.downshift.offenderTelephone}
+              selectedItem={props.criteria.tel}
               onStateChange={(changes, helpers) => {
                 if (changes.hasOwnProperty('inputValue')) {
                   props.update({
@@ -353,6 +356,7 @@ export default function FilterOffender(props) {
           <Downshift itemToString={item => (item ? item : '')}
             onChange={selectedItem => publish(selectedItem, 'employer')}
             inputValue={props.downshift.offenderEmployer}
+              selectedItem={props.criteria.employer}
               onStateChange={(changes, helpers) => {
                 if (changes.hasOwnProperty('inputValue')) {
                   props.update({
