@@ -27,7 +27,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
 1. Install the [dotnet core 3.1.* SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 1. Copy the `ArcGIS` section in `src/appsettings.json` to `appsettings.Development.js` adding the correct values
 1. Download a service account json file to log to stack driver and name it `src/log-writer-sa.json`
-   - Update the `appsettings.json` if you will be logging to a different project than `agrc-admin`
+   - Update the `appsettings.json` if you will be logging to a different project than `ut-dts-agrc-parole-dev`
    - Create environment variable `GOOGLE_APPLICATION_CREDENTIALS` with the path to the service account json
 1. Start the application
    - You can debug with the `Debug` vscode launch profile
@@ -88,4 +88,4 @@ Rename and update `secrets.sample.json` to `secrets.json`
 
 ### logs
 
-The logs for this project are sent to [Stackdriver](https://console.cloud.google.com/logs/viewer?project=agrc-admin&resource=global&minLogLevel=0&expandAll=false&customFacets=&limitCustomFacetWidth=true&advancedFilter=resource.type%3D%22global%22%0AlogName%3D%22projects%2Fagrc-admin%2Flogs%2Fparole-api%22)
+The logs for this project are sent to [Stackdriver](https://console.cloud.google.com/logs/viewer?project=ut-dts-agrc-parole-dev&resource=global&minLogLevel=0&expandAll=false&customFacets=&limitCustomFacetWidth=true&advancedFilter=resource.type%3D%22global%22%0AlogName%3D%22projects%2Fut-dts-agrc-parole-dev%2Flogs%2Fparole-api%22)
