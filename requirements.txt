@@ -1,4 +1,5 @@
-pysftp
 pandas
 sqlalchemy
 pyodbc
+requests
+xxhash
