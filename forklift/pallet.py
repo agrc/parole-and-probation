@@ -70,55 +70,13 @@ class CorrectionPallet(Pallet):
 
             self.log.debug(frame.info())
 
-            add_shape = '''IF NOT EXISTS (
-  SELECT *
-  FROM   sys.columns
-  WHERE  object_id = OBJECT_ID('[offenders]')
-         AND name = 'shape'
-)
-  ALTER TABLE [offenders] ADD [shape] geography
-'''
-            create_shapes = '''UPDATE [offenders]
-SET [offenders].[shape] = geography::STGeomFromText('POINT(' + CONVERT(varchar, [offenders].[x]) + ' ' + CONVERT(varchar, [offenders].[y]) + ')', 4326)'''
+            cwd = Path()
 
-            add_pk = '''IF NOT EXISTS (
-  SELECT *
-  FROM   sys.columns
-  WHERE  object_id = OBJECT_ID('[offenders]')
-         AND name = 'id'
-)
-  ALTER TABLE [offenders] ADD [id] int NOT NULL IDENTITY (1,1)
-  GO
+            add_shape = (cwd / 'sql' / 'alter_shape.sql').read_text()
+            create_shapes = (cwd / 'sql' / 'create_shape.sql').read_text()
+            add_pk = (cwd / 'sql' / 'create_primary_key.sql').read_text()
+            add_indexes = (cwd / 'sql' / 'create_indexes.sql').read_text()
 
-  ALTER TABLE [DOCOAdmin].[offenders]
-  ADD CONSTRAINT [PK_id] primary key(id);
-            '''
-
-            add_indexes = '''IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[DOCOAdmin].[offenders]') AND NAME ='IX_offender_shape')
-    DROP INDEX [IX_offender_shape] ON [DOCOAdmin].[offenders];
-
-    IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[DOCOAdmin].[offenders]') AND NAME ='PK_id')
-        ALTER TABLE [DOCOAdmin].[offenders]
-        DROP CONSTRAINT [PK_id];
-
-    IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[DOCOAdmin].[offenders]') AND NAME ='IX_offender_offender_id')
-        DROP INDEX [IX_offender_offender_id] ON [DOCOAdmin].[offenders];
-
-    IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('[DOCOAdmin].[offenders]') AND NAME ='IX_offender_agent_id')
-        DROP INDEX [IX_offender_agent_id] ON [DOCOAdmin].[offenders];
-
-    ALTER TABLE [DOCOAdmin].[offenders]
-    ADD CONSTRAINT [PK_id] primary key(id);
-
-    CREATE UNIQUE NONCLUSTERED INDEX [IX_offender_offender_id]
-    ON [DOCOAdmin].[offenders] ([offender_id] ASC)
-
-    CREATE NONCLUSTERED INDEX [IX_offender_agent_id]
-    ON [DOCOAdmin].[offenders] ([agent_id] ASC)
-
-    CREATE SPATIAL INDEX [IX_offender_shape]
-    ON [DOCOAdmin].[offenders]([shape])
-    '''
             #: load new data
             engine = sqlalchemy.create_engine(database.CONNECTION_AT)
 
