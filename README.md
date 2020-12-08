@@ -41,9 +41,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
    - `python -m pip install -U pip`
 1. Install python requirements
    - `pip install -r requirements.dev.txt`
-1. Create hostkey
-   - `ssh {sftp server}`
-   - type `yes` to add the server to known hosts
+1. Create `api.py` and `database.py` files from the templates in the `vault` folder
 
 ## Deployment
 
@@ -77,12 +75,9 @@ Rename and update `secrets.sample.json` to `secrets.json`
 
 1. Install python requirements to forklift environment
    - `pip install -r requirements.txt`
-1. Create a hostkey
-   - `ssh {sftp server}`
-   - type `yes` to add the server to known hosts
 1. Update secrets in the following files
    - Remove `.template` from `vault\database.template.py`
-   - Remove `.template` from `vault\ftp.template.py`
+   - Remove `.template` from `vault\api.template.py`
 1. Create `corrections` database
 1. Run [schema.sql](/scripts/schema.sql) to create the `offenders` table
 
