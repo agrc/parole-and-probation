@@ -8,7 +8,7 @@ A module that holds the schema for the dat file
 from collections import OrderedDict
 
 import pandas as pd
-from sqlalchemy.dialects.mssql import (BIT, CHAR, DATE, DECIMAL, INTEGER, SMALLINT, VARCHAR)
+from sqlalchemy.dialects.mssql import BIT, CHAR, DATE, DECIMAL, INTEGER, SMALLINT, VARCHAR
 
 
 def convert_to_date(value):
