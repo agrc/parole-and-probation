@@ -14,7 +14,7 @@ import sqlalchemy
 
 from forklift.models import Pallet
 from models import schema
-from vault import database, ftp
+from vault import database, api
 
 
 class CorrectionPallet(Pallet):
