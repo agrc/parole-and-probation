@@ -1,6 +1,5 @@
 -r ./requirements.txt
 yapf
 pylint
-flake8
+pylint-quotes
 isort
-pep8
