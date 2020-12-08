@@ -7,46 +7,36 @@ A module that handles the forklifting for the project
 
 import csv
 import os
+from pathlib import Path
 
 import pandas as pd
-import pysftp
+import requests
 import sqlalchemy
+from xxhash import xxh64
 
 from forklift.models import Pallet
-from models import schema
-from vault import database, api
+
+from .models import schema
+from .vault import api, database
 
 
 class CorrectionPallet(Pallet):
 
     def build(self, configuration='Production'):
-        self.corrections = os.path.join(self.staging_rack, 'corrections')
-        self.data = 'udc_ofndr.dat'
+        self.corrections = Path(self.staging_rack) / 'corrections'
+        self.hash = self.corrections / 'hash'
         self.dirty = None
 
     def requires_processing(self):
         if self.dirty is not None:
             return self.dirty
 
-        #: if folder never exists, expect first run and the crate has changes
-        data = os.path.join(self.corrections, self.data)
+        self.corrections.mkdir(exist_ok=True)
 
-        if not os.path.exists(self.corrections) or not os.path.exists(data):
-            os.makedirs(self.corrections, exist_ok=True)
-            self.get_files()
+        current_hash = self.get_hash()
+        new_data_hash = self.get_data()
 
-            self.data_stats = os.stat(data)
-
-            self.dirty = True
-
-            return True
-
-        #: get mtime from current file
-        self.data_stats = os.stat(data)
-        last_modified = self.data_stats.st_mtime
-
-        #: connect to sft, check mtime on remote file, replace if newer
-        self.dirty = self.get_files(mtime=last_modified)
+        self.dirty = current_hash != new_data_hash
 
         return self.dirty
 
@@ -122,38 +112,39 @@ class CorrectionPallet(Pallet):
         if os.path.exists(file_path):
             os.remove(file_path)
 
-    def get_files(self, mtime=0):
-        with pysftp.Connection(**ftp.CREDENTIALS) as sftp:
-            sftp.chdir('/upload')
-            items = sftp.listdir()
+    def update_hash(self, hash_value):
+        hash_file = self.corrections / 'hash'
+        hash_file.write_text(hash_value)
 
-            self.log.debug('found {}'.format(','.join(items)))
+    def get_hash(self):
+        prior_hash_file = self.corrections / 'hash'
 
-            offender_data = [item for item in items if self.is_dat(item)]
+        prior_hash = None
 
-            self.log.debug('filtered to {}'.format(','.join(offender_data)))
-            if len(offender_data) == 0:
-                self.log.warn('no dat files found')
+        if prior_hash_file.exists():
+            prior_hash = prior_hash_file.read_text()
 
-                self.success = (False, 'no dat files found')
+        return prior_hash
 
-                return
+    def get_data(self):
+        response = requests.get(
+            'https://secure.corrections.utah.gov/otrackws_qa/rest/fieldmap/offenders',
+            headers=api.AUTHORIZATION_HEADER,
+            stream=True
+        )
 
-            for file_path in offender_data:
-                local_path = os.path.join(self.corrections, os.path.basename(file_path))
-                if mtime > 0:
-                    self.log.debug('checking {}'.format(file_path))
-                    remote_mtime = sftp.stat(file_path).st_mtime
+        try:
+            response.raise_for_status()
+        except Exception as e:
+            self.success = (False, 'API failure')
+            self.log.fatal(e)
 
-                    if remote_mtime > mtime:
-                        self.log.debug('downloading {}'.format(file_path))
-                        sftp.get(file_path, local_path, preserve_mtime=True)
+            return False
 
-                        return True
+        content_hash = xxh64()
+        with (self.corrections / 'offenders.json').open(mode='wb') as cursor:
+            for chunk in response.iter_content(chunk_size=128):
+                cursor.write(chunk)
+                content_hash.update(chunk)
 
-                    self.log.info('SKIPPING: remote file is not newer')
-
-                    return False
-                else:
-                    self.log.info('downloading {}'.format(file_path))
-                    sftp.get(file_path, local_path, preserve_mtime=True)
+        return content_hash
