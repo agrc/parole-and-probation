@@ -12,12 +12,11 @@ from pathlib import Path
 import pandas as pd
 import requests
 import sqlalchemy
+from vault import api, database
 from xxhash import xxh64
 
 from forklift.models import Pallet
-
-from .models import schema
-from .vault import api, database
+from models import schema
 
 
 class CorrectionPallet(Pallet):
@@ -25,7 +24,9 @@ class CorrectionPallet(Pallet):
     def build(self, configuration='Production'):
         self.corrections = Path(self.staging_rack) / 'corrections'
         self.hash = self.corrections / 'hash'
+        self.offenders = self.corrections / 'offenders.json'
         self.dirty = None
+        self.hash_digest = None
 
     def requires_processing(self):
         if self.dirty is not None:
@@ -34,33 +35,30 @@ class CorrectionPallet(Pallet):
         self.corrections.mkdir(exist_ok=True)
 
         current_hash = self.get_hash()
-        new_data_hash = self.get_data()
+        self.hash_digest = self.get_data()
 
-        self.dirty = current_hash != new_data_hash
+        self.dirty = current_hash != self.hash_digest
+
+        if not self.dirty:
+            try:
+                self.offenders.unlink()
+            except FileNotFoundError:
+                pass
 
         return self.dirty
 
     def process(self):
-        dat_file = os.path.join(self.corrections, self.data)
-        stats = os.stat(dat_file)
         success = True
-
         try:
             self.log.info('converting offender data')
-            frame = pd.read_csv(
-                dat_file,
-                sep='|',
-                engine='python',
-                quoting=csv.QUOTE_NONE,
-                names=schema.FIELDS,
-                header=None,
-                converters=schema.CONVERTERS,
-                # nrows=10,  #: for testing
-            ).iloc[:, :-1]
+            frame = pd.read_json(self.offenders, dtype=schema.TYPES).iloc[:, :-1]
 
             self.log.debug(frame.info())
 
-            cwd = Path()
+            cwd = Path(__file__).parent
+
+            import pdb
+            pdb.set_trace()
 
             add_shape = (cwd / 'sql' / 'alter_shape.sql').read_text()
             create_shapes = (cwd / 'sql' / 'create_shape.sql').read_text()
@@ -68,7 +66,7 @@ class CorrectionPallet(Pallet):
             add_indexes = (cwd / 'sql' / 'create_indexes.sql').read_text()
 
             #: load new data
-            engine = sqlalchemy.create_engine(database.CONNECTION_AT)
+            engine = sqlalchemy.create_engine(database.CONNECTION)
 
             with engine.connect() as connection:
                 self.log.info('inserting offender data')
@@ -77,7 +75,7 @@ class CorrectionPallet(Pallet):
                     engine,
                     if_exists='replace',
                     index=False,
-                    chunksize=5000,
+                    chunksize=1,
                     dtype=schema.TYPES,
                 )
 
@@ -94,23 +92,14 @@ class CorrectionPallet(Pallet):
             self.success = (False, 'unable to read csv and write data to sql')
             success = False
         finally:
-            if os.path.exists(dat_file):
-                with open(dat_file, 'w') as dat:
-                    dat.truncate()
+            try:
+                self.offenders.unlink()
+            except FileNotFoundError:
+                pass
 
-                if success:
-                    #: reset access stats from truncate
-                    os.utime(dat_file, (stats.st_atime, stats.st_mtime))
-                else:
-                    #: reset stats to original because errors
-                    os.utime(dat_file, (self.data_stats.st_atime, stats.st_mtime))
-
-    def is_dat(self, file_path):
-        return os.path.basename(file_path).lower() == self.data
-
-    def remove(self, file_path):
-        if os.path.exists(file_path):
-            os.remove(file_path)
+            if success:
+                #: reset access stats from truncate
+                self.update_hash(self.hash_digest)
 
     def update_hash(self, hash_value):
         hash_file = self.corrections / 'hash'
@@ -119,7 +108,7 @@ class CorrectionPallet(Pallet):
     def get_hash(self):
         prior_hash_file = self.corrections / 'hash'
 
-        prior_hash = None
+        prior_hash = ''
 
         if prior_hash_file.exists():
             prior_hash = prior_hash_file.read_text()
@@ -147,4 +136,4 @@ class CorrectionPallet(Pallet):
                 cursor.write(chunk)
                 content_hash.update(chunk)
 
-        return content_hash
+        return content_hash.hexdigest()
