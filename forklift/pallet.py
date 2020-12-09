@@ -137,3 +137,19 @@ class CorrectionPallet(Pallet):
                 content_hash.update(chunk)
 
         return content_hash.hexdigest()
+
+
+if __name__ == '__main__':
+    import logging
+
+    pallet = CorrectionPallet()
+
+    logging.basicConfig(
+        format='%(levelname)s %(asctime)s %(lineno)s %(message)s', datefmt='%H:%M:%S', level=logging.INFO
+    )
+    pallet.log = logging
+
+    pallet.build('Dev')
+
+    if pallet.requires_processing():
+        pallet.process()
