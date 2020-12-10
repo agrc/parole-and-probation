@@ -28,13 +28,17 @@
   "python.testing.unittestEnabled": false,
   "cSpell.words": [
     "HSTS",
+    "datefmt",
     "downshift",
+    "dtype",
     "esrijs",
     "fortawesome",
     "hostkey",
     "immer",
+    "inplace",
     "maplens",
     "mapserver",
+    "mssql",
     "oidc",
     "onstatechange",
     "onupdatefound",
@@ -43,6 +47,7 @@
     "precached",
     "preprelease",
     "requestip",
-    "serilog"
+    "serilog",
+    "xxhash"
   ]
 }
