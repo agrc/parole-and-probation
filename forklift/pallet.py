@@ -38,6 +38,7 @@ class CorrectionPallet(Pallet):
         self.hash_digest = self.get_data()
 
         self.dirty = current_hash != self.hash_digest
+        self.log.debug(f'requires update: {self.dirty}')
 
         if not self.dirty:
             try:
@@ -51,14 +52,18 @@ class CorrectionPallet(Pallet):
         success = True
         try:
             self.log.info('converting offender data')
-            frame = pd.read_json(self.offenders, dtype=schema.TYPES).iloc[:, :-1]
+            frame = pd.read_json(
+                self.offenders,
+                orient='records',
+                dtype=schema.TYPES,
+                convert_dates=True,
+            )
+
+            frame.drop(columns=['special_supervision'], inplace=True)
 
             self.log.debug(frame.info())
 
             cwd = Path(__file__).parent
-
-            import pdb
-            pdb.set_trace()
 
             add_shape = (cwd / 'sql' / 'alter_shape.sql').read_text()
             create_shapes = (cwd / 'sql' / 'create_shape.sql').read_text()
@@ -66,7 +71,7 @@ class CorrectionPallet(Pallet):
             add_indexes = (cwd / 'sql' / 'create_indexes.sql').read_text()
 
             #: load new data
-            engine = sqlalchemy.create_engine(database.CONNECTION)
+            engine = sqlalchemy.create_engine(database.CONNECTION_AT)
 
             with engine.connect() as connection:
                 self.log.info('inserting offender data')
@@ -75,7 +80,7 @@ class CorrectionPallet(Pallet):
                     engine,
                     if_exists='replace',
                     index=False,
-                    chunksize=1,
+                    chunksize=5000,
                     dtype=schema.TYPES,
                 )
 
@@ -116,11 +121,8 @@ class CorrectionPallet(Pallet):
         return prior_hash
 
     def get_data(self):
-        response = requests.get(
-            'https://secure.corrections.utah.gov/otrackws_qa/rest/fieldmap/offenders',
-            headers=api.AUTHORIZATION_HEADER,
-            stream=True
-        )
+        self.log.debug('requesting api data')
+        response = requests.get(api.ENDPOINT_AT, headers=api.AUTHORIZATION_HEADER, stream=True)
 
         try:
             response.raise_for_status()
@@ -129,6 +131,8 @@ class CorrectionPallet(Pallet):
             self.log.fatal(e)
 
             return False
+
+        self.log.debug('streaming data')
 
         content_hash = xxh64()
         with (self.corrections / 'offenders.json').open(mode='wb') as cursor:
