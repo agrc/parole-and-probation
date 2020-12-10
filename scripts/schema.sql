@@ -7,7 +7,6 @@ CREATE TABLE offenders
     agency nvarchar(30),
     supervisor_id nchar(8),
     supervisor_name nvarchar(35),
-    agent_id_unused nvarchar(8),
     agent_id integer,
     agent_name nvarchar(40),
     offender nvarchar(60),
@@ -20,8 +19,9 @@ CREATE TABLE offenders
     offender_location nvarchar(40),
     address_start_date datetime,
     address nvarchar(50),
-    unit nvarchar(15),
+    unit nvarchar(30),
     city nvarchar(30),
+    county nvarchar(30),
     state nchar(2),
     zip integer,
     address_type_code nchar(1),
@@ -52,5 +52,6 @@ CREATE TABLE offenders
     gang_type nvarchar(20),
     alerts nvarchar(500),
     cautions nvarchar(3500),
+    in_compliance bit,
     shape geography
 )
