@@ -12,11 +12,11 @@ namespace app.Features.TypeAhead {
     public class DataController : ControllerBase {
         private readonly ILogger _log;
         private readonly TokenValidationParameters _token;
-        private readonly Dictionary<string, string> inputLookup = new Dictionary<string, string>{
-            {"name", "offender"},
-            {"number", "offender_id"},
-            {"phone", "offender_phone"},
-            {"employer", "employer"}
+        private readonly Dictionary<string, string> inputLookup = new() {
+            { "name", "offender" },
+            { "number", "offender_id" },
+            { "phone", "offender_phone" },
+            { "employer", "employer" }
         };
         private readonly string connectionString;
 
