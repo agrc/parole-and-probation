@@ -5,8 +5,6 @@ pallet.py
 A module that handles the forklifting for the project
 '''
 
-import csv
-import os
 from pathlib import Path
 
 import pandas as pd
@@ -55,81 +53,9 @@ class CorrectionPallet(Pallet):
 
         return self.dirty
 
-    def process(self):
-        success = True
-        try:
-            self.log.info('converting offender data')
-            frame = pd.read_json(
-                self.offenders,
-                orient='records',
-                dtype=schema.TYPES,
-                convert_dates=True,
-            )
-
-            frame.drop(columns=['special_supervision'], inplace=True)
-
-            self.log.debug(frame.info())
-
-            cwd = Path(__file__).parent
-
-            add_shape = (cwd / 'sql' / 'alter_shape.sql').read_text()
-            create_shapes = (cwd / 'sql' / 'create_shape.sql').read_text()
-            add_pk = (cwd / 'sql' / 'create_primary_key.sql').read_text()
-            add_indexes = (cwd / 'sql' / 'create_indexes.sql').read_text()
-
-            #: load new data
-            engine = sqlalchemy.create_engine(database.CONNECTION_AT)
-
-            with engine.connect() as connection:
-                self.log.info('inserting offender data')
-                frame.to_sql(
-                    'offenders',
-                    engine,
-                    if_exists='replace',
-                    index=False,
-                    chunksize=5000,
-                    dtype=schema.TYPES,
-                )
-
-                self.log.debug('adding primary key')
-                connection.execution_options(autocommit=True).execute(add_pk)
-                self.log.debug('creating shape field')
-                connection.execution_options(autocommit=True).execute(add_shape)
-                self.log.debug('populating shape field')
-                connection.execution_options(autocommit=True).execute(create_shapes)
-                self.log.debug('adding indexes')
-                connection.execution_options(autocommit=True).execute(add_indexes)
-        except Exception as e:
-            self.log.fatal(e)
-            self.success = (False, 'unable to read csv and write data to sql')
-            success = False
-        finally:
-            try:
-                self.offenders.unlink()
-            except FileNotFoundError:
-                pass
-
-            if success:
-                #: reset access stats from truncate
-                self.update_hash(self.hash_digest)
-
-    def update_hash(self, hash_value):
-        hash_file = self.corrections / 'hash'
-        hash_file.write_text(hash_value)
-
-    def get_hash(self):
-        prior_hash_file = self.corrections / 'hash'
-
-        prior_hash = ''
-
-        if prior_hash_file.exists():
-            prior_hash = prior_hash_file.read_text()
-
-        return prior_hash
-
     def get_data(self):
         self.log.debug('requesting api data')
-        response = requests.get(api.ENDPOINT_AT, headers=api.AUTHORIZATION_HEADER, stream=True)
+        response = requests.get(self.api, headers=api.AUTHORIZATION_HEADER, stream=True)
 
         try:
             response.raise_for_status()
@@ -148,6 +74,83 @@ class CorrectionPallet(Pallet):
                 content_hash.update(chunk)
 
         return content_hash.hexdigest()
+
+    def get_hash(self):
+        prior_hash_file = self.corrections / 'hash'
+
+        prior_hash = ''
+
+        if prior_hash_file.exists():
+            prior_hash = prior_hash_file.read_text()
+
+        return prior_hash
+
+    def process(self):
+        success = True
+        try:
+            self.log.info('converting offender data')
+            frame = pd.read_json(
+                self.offenders,
+                orient='records',
+                dtype=schema.DATA_TYPES,
+                convert_dates=True,
+            )
+
+            self.log.debug('creating related data frame')
+
+            for special_supervision in schema.SPECIAL_SUPERVISION:
+                frame[special_supervision.casefold()
+                     ] = frame.special_supervision.apply(lambda value: special_supervision in value)
+
+            frame.drop(columns=['special_supervision'], inplace=True)
+
+            self.log.debug(frame.info())
+
+            cwd = Path(__file__).parent
+
+            add_shape = (cwd / 'sql' / 'alter_shape.sql').read_text()
+            create_shapes = (cwd / 'sql' / 'create_shape.sql').read_text()
+            add_pk = (cwd / 'sql' / 'create_primary_key.sql').read_text()
+            add_indexes = (cwd / 'sql' / 'create_indexes.sql').read_text()
+
+            #: load new data
+            engine = sqlalchemy.create_engine(self.db)
+
+            with engine.connect() as connection:
+                self.log.info('inserting offender data')
+                frame.to_sql(
+                    'offenders',
+                    engine,
+                    if_exists='replace',
+                    index=False,
+                    chunksize=5000,
+                    dtype=schema.SQL_TYPES,
+                )
+
+                self.log.debug('adding primary key')
+                connection.execution_options(autocommit=True).execute(add_pk)
+                self.log.debug('creating shape field')
+                connection.execution_options(autocommit=True).execute(add_shape)
+                self.log.debug('populating shape field')
+                connection.execution_options(autocommit=True).execute(create_shapes)
+                self.log.debug('adding indexes')
+                connection.execution_options(autocommit=True).execute(add_indexes)
+        except Exception as e:
+            self.log.fatal(e)
+            self.success = (False, 'unable to read api and write data to sql')
+            success = False
+        finally:
+            try:
+                self.offenders.unlink()
+            except FileNotFoundError:
+                pass
+
+            if success:
+                self.update_hash(self.hash_digest)
+
+    def update_hash(self, hash_value):
+        hash_file = self.corrections / 'hash'
+        hash_file.write_text(hash_value)
 
 
 if __name__ == '__main__':
