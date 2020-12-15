@@ -6,5 +6,5 @@ A module that holds the api credentials to get the offender data
 '''
 
 AUTHORIZATION_HEADER = {'Authorization': 'Apikey 0000'}
-ENDPOINT_AT = 'url'
-ENDPOINT_PROD = 'url'
+ENDPOINT_AT = 'qa url'
+ENDPOINT = 'production url'
