@@ -1,14 +1,14 @@
-import React, { useReducer, useEffect } from 'react';
 import produce from 'immer';
+import React, { useEffect, useReducer } from 'react';
 import AccordionPane from '../AccordionPane';
 import FilterActions from './FilterActions';
 import FilterAgent from './FilterAgent';
 import FilterDate from './FilterDate';
-import FilterOffender from './FilterOffender';
 import FilterLocation from './FilterLocation';
+import FilterOffender from './FilterOffender';
 import FilterOther from './FilterOther';
-import { agents, supervisors } from './lookupData';
 import './Filters.css';
+import { agents, supervisors } from './lookupData';
 
 const vanityCheck = (agentList, loggedInUser) => {
   console.log(`vanity check for ${loggedInUser.value}`);
@@ -103,17 +103,7 @@ const sqlMap = {
 
       return query.join(' OR ');
     },
-    supervision: data => `special_supervision='${data.sort((a, b) => {
-      if (a.sortKey < b.sortKey) {
-        return -1;
-      }
-
-      if (a.sortKey > b.sortKey) {
-        return 1;
-      }
-
-      return 0;
-    }).map(item => item.id).join(', ')}'`,
+    supervision: data => data.map(item => `${item.id}=1`).join(' AND '),
     gang: data => `gang_type in (${data.map(item => `'${item.name.toUpperCase()}'`).join()})`,
     offense: data => `offense_code in (${data.map(item => `'${item.id}'`).join()})`
   }
