@@ -1,98 +1,79 @@
 const supervisionItems = [{
     name: 'CCC',
-    id: 'CCC',
-    default: false,
-    sortKey: 11
+    id: 'ccc',
+    default: false
 }, {
     name: 'PVP',
-    id: 'PVP',
-    default: false,
-    sortKey: 16
+    id: 'pvp',
+    default: false
 }, {
     name: 'COMP',
-    id: 'COMP',
-    default: false,
-    sortKey: 6
+    id: 'comp',
+    default: false
 }, {
     name: 'DEP',
-    id: 'DEP',
-    default: false,
-    sortKey: 12
+    id: 'dep',
+    default: false
 }, {
     name: 'EM',
-    id: 'EM',
-    default: true,
-    sortKey: 8
+    id: 'em',
+    default: true
 }, {
     name: 'GPS',
-    id: 'GPS',
-    default: true,
-    sortKey: 7
+    id: 'gps',
+    default: true
 }, {
     name: 'SO',
-    id: 'SO',
-    default: true,
-    sortKey: 2
+    id: 'so',
+    default: true
 }, {
     name: 'SO-A',
-    id: 'SO-A',
-    default: true,
-    sortKey: 18
+    id: 'soa',
+    default: true
 }, {
     name: 'SO-B',
-    id: 'SO-B',
-    default: true,
-    sortKey: 19
+    id: 'sob',
+    default: true
 }, {
     name: 'SO-C',
-    id: 'SO-C',
-    default: true,
-    sortKey: 22
+    id: 'soc',
+    default: true
 }, {
     name: 'FUG',
-    id: 'FUG',
-    default: false,
-    sortKey: 3
+    id: 'fug',
+    default: false
 }, {
     name: 'INCAR',
-    id: 'INCAR',
-    default: false,
-    sortKey: 4
+    id: 'incar',
+    default: false
 }, {
     name: 'RESID',
-    id: 'RESID',
-    default: false,
-    sortKey: 5
+    id: 'resid',
+    default: false
 }, {
     name: 'DRUG CT',
-    id: 'DRUG CT',
-    default: false,
-    sortKey: 15
+    id: 'drugct',
+    default: false
 }, {
     name: 'DORA',
-    id: 'DORA',
-    default: true,
-    sortKey: 1
+    id: 'dora',
+    default: true
 }, {
     name: 'ECR',
-    id: 'ECR',
-    default: true,
-    sortKey: 17
+    id: 'ecr',
+    default: true
 }, {
     name: 'FOSI',
-    id: 'FOSI',
-    default: true,
-    sortKey: 21
+    id: 'fosi',
+    default: true
 }, {
     name: 'IG INT',
-    id: 'IG INT',
-    default: true,
-    sortKey: 20
+    id: 'igint',
+    default: true
 }, {
     name: 'MIO',
-    id: 'MIO',
-    default: true,
-    sortKey: 10
+    id: 'mio',
+    default: true
 }];
 
 const mainGangs = [{
@@ -590,11 +571,11 @@ const counties = [
 ];
 
 export {
-    supervisionItems,
-    mainGangs,
-    offenseTypes,
-    agents,
-    supervisors,
-    supervisionContactDays,
-    counties
+  supervisionItems,
+  mainGangs,
+  offenseTypes,
+  agents,
+  supervisors,
+  supervisionContactDays,
+  counties
 };
