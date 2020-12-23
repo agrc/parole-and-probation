@@ -43,7 +43,7 @@ class CorrectionPallet(Pallet):
         self.hash_digest = self.get_data()
 
         self.dirty = current_hash != self.hash_digest
-        self.log.debug(f'requires update: {self.dirty}')
+        self.log.info(f'database refresh required: {self.dirty}')
 
         if not self.dirty:
             try:
@@ -54,7 +54,7 @@ class CorrectionPallet(Pallet):
         return self.dirty
 
     def get_data(self):
-        self.log.debug('requesting api data')
+        self.log.info('requesting api data')
         response = requests.get(self.api, headers=api.AUTHORIZATION_HEADER, stream=True)
 
         try:
@@ -87,6 +87,10 @@ class CorrectionPallet(Pallet):
 
     def process(self):
         success = True
+
+        def convert_special_supervision(code):
+            return code.casefold().replace('-', '').replace(' ', '')
+
         try:
             self.log.info('converting offender data')
             frame = pd.read_json(
@@ -96,15 +100,11 @@ class CorrectionPallet(Pallet):
                 convert_dates=True,
             )
 
-            self.log.debug('creating related data frame')
-
             for special_supervision in schema.SPECIAL_SUPERVISION:
-                frame[special_supervision.casefold()
+                frame[convert_special_supervision(special_supervision)
                      ] = frame.special_supervision.apply(lambda value: special_supervision in value)
 
             frame.drop(columns=['special_supervision'], inplace=True)
-
-            self.log.debug(frame.info())
 
             cwd = Path(__file__).parent
 
@@ -140,12 +140,15 @@ class CorrectionPallet(Pallet):
             self.success = (False, 'unable to read api and write data to sql')
             success = False
         finally:
+            self.log.info('completed')
+
             try:
                 self.offenders.unlink()
             except FileNotFoundError:
                 pass
 
             if success:
+                self.log.debug('updating hash')
                 self.update_hash(self.hash_digest)
 
     def update_hash(self, hash_value):
@@ -159,7 +162,7 @@ if __name__ == '__main__':
     pallet = CorrectionPallet()
 
     logging.basicConfig(
-        format='%(levelname)s %(asctime)s %(lineno)s %(message)s', datefmt='%H:%M:%S', level=logging.INFO
+        format='%(levelname)s %(asctime)s %(lineno)s %(message)s', datefmt='%H:%M:%S', level=logging.DEBUG
     )
     pallet.log = logging
 
