@@ -28,14 +28,20 @@
   "python.testing.unittestEnabled": false,
   "cSpell.words": [
     "HSTS",
+    "agrc",
+    "arcgis",
+    "browserslist",
     "datefmt",
+    "doco",
     "downshift",
     "dtype",
     "dtypes",
     "esrijs",
+    "fontawesome",
     "fortawesome",
     "hostkey",
     "immer",
+    "infile",
     "inplace",
     "maplens",
     "mapserver",
@@ -49,6 +55,8 @@
     "preprelease",
     "requestip",
     "serilog",
+    "wonkavise",
+    "wonkavision",
     "xxhash"
   ]
 }
