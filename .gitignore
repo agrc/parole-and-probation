@@ -25,6 +25,7 @@ secrets.json
 .env.development.local
 .env.test.local
 .env.production.local
+.env-cmdrc.json
 *.odc
 *.pyc
 *.sde
