@@ -29,9 +29,13 @@ class CorrectionPallet(Pallet):
         self.api = api.ENDPOINT
         self.db = database.CONNECTION
 
-        if configuration != 'Production':
+        if configuration == 'Dev':
             self.api = api.ENDPOINT_AT
             self.db = database.CONNECTION_LOCAL
+
+        if configuration == 'Staging':
+            self.api = api.ENDPOINT_AT
+            self.db = database.CONNECTION_AT
 
     def requires_processing(self):
         if self.dirty is not None:
