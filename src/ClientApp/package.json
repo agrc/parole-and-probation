@@ -1,6 +1,6 @@
 {
   "name": "adult-parole-and-probation",
-  "homepage": "https://test2.mapserv.utah.gov/app",
+  "homepage": "https://test.mapserv.utah.gov/app",
   "version": "1.17.4",
   "bugs": "https://github.com/agrc/parole-and-probation/issues",
   "author": {
@@ -19,7 +19,7 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "bootstrap": "^4.5.3",
     "classnames": "^2.2.6",
-    "downshift": "^5.0.5",
+    "downshift": "^5.4.7",
     "esri-loader": "^2.16.0",
     "file-saver": "^2.0.5",
     "immer": "^5.3.6",
@@ -30,7 +30,8 @@
     "react-oidc": "^1.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.4",
-    "reactstrap": "^8.7.1"
+    "reactstrap": "^8.7.1",
+    "wonkavision": "file:../../../wonkavision"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,15 +39,18 @@
     "release": "standard-version",
     "build": "react-scripts build",
     "build-react:stage": "./node_modules/.bin/env-cmd -f ./.env.stage npm run build",
-    "build:stage": "ASPNETCORE_ENVIRONMENT=Staging dotnet publish ../app.csproj -c Release -r win10-x86 --self-contained false",
-    "build:prod": "ASPNETCORE_ENVIRONMENT=Production dotnet publish ../app.csproj -c Release",
-    "deploy:stage": "grunt clean:aspnet && npm run build:stage && grunt deploy:stage",
-    "deploy:prod": "grunt clean:aspnet && npm run build && grunt deploy:prod",
+    "build:stage": "dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false /p:EnvironmentName=Staging",
+    "build:prod": "dotnet publish ../parole.csproj -c Release /p:EnvironmentName=Production",
     "test": "react-scripts test",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "wonkavise": "npm run wonkavise:clean && npm run build:stage && npm run wonkavise:zip && npm run wonkavise:ship && npm run wonkavise:extract",
+    "wonkavise:clean": "wonkavision clean ./build ./../bin ./../../deploy",
+    "wonkavise:zip": "wonkavision zip ../bin/Release/net5.0/win10-x64/publish ./../../deploy deploy.zip",
+    "wonkavise:ship": "env-cmd -e stage wonkavision ship .\\..\\..\\deploy\\deploy.zip parole && env-cmd -e stage wonkavision ship ../app_offline.htm parole",
+    "wonkavise:extract": "env-cmd -e stage wonkavision unzip parole deploy.zip --extra-command \"rm app_offline.htm\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -58,19 +62,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@storybook/addon-actions": "^5.3.17",
-    "@storybook/addon-links": "^5.3.17",
-    "@storybook/addons": "^5.3.17",
-    "@storybook/react": "^5.3.17",
-    "babel-preset-react-app": "^9.1.1",
+    "@storybook/addon-actions": "^5.3.21",
+    "@storybook/addon-links": "^5.3.21",
+    "@storybook/addons": "^5.3.21",
+    "@storybook/react": "^5.3.21",
+    "babel-preset-react-app": "^9.1.2",
     "cz-conventional-changelog": "^3.3.0",
     "env-cmd": "^10.1.0",
     "fetch-mock": "^8.3.2",
-    "grunt": "^1.3.0",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-compress": "^1.6.0",
-    "grunt-ssh": "^0.12.9",
-    "load-grunt-tasks": "^5.1.0",
     "standard-version": "^8.0.2"
   },
   "config": {
