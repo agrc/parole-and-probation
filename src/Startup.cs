@@ -16,155 +16,136 @@ using Polly;
 using Polly.Extensions.Http;
 using Polly.Timeout;
 using Serilog;
+using Serilog.Events;
 
-namespace parole
-{
-  public class Startup
-  {
-    public Startup(IConfiguration configuration)
-    {
-      Configuration = configuration;
-    }
-
-    public IConfiguration Configuration { get; }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-      services.AddReverseProxy()
-        .LoadFromConfig(Configuration.GetSection("ReverseProxy"));
-
-      services.AddControllersWithViews();
-
-      // In production, the React files will be served from this directory
-      services.AddSpaStaticFiles(configuration =>
-      {
-        configuration.RootPath = "ClientApp/build";
-      });
-
-      var section = Configuration.GetSection("ArcGIS");
-      var values = section.Get<Credential>();
-
-      var emailSection = Configuration.GetSection("Email");
-      var emailValues = emailSection.Get<EmailConfig>();
-
-      var retryPolicy = HttpPolicyExtensions
-        .HandleTransientHttpError()
-        .Or<TimeoutRejectedException>() // thrown by Polly's TimeoutPolicy if the inner call times out
-        .WaitAndRetryAsync(3, retryAttempt =>
-                TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
-
-      var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(8); // Timeout for an individual try
-
-      services.AddHttpClient("default", client => { client.Timeout = new TimeSpan(0, 0, 15); })
-        .ConfigurePrimaryHttpMessageHandler(() =>
-        {
-        var handler = new HttpClientHandler();
-        if (handler.SupportsAutomaticDecompression)
-        {
-            handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+namespace parole {
+    public class Startup {
+        public Startup(IConfiguration configuration) {
+            Configuration = configuration;
         }
 
-        return handler;
-        })
-        .AddPolicyHandler(retryPolicy)
-        .AddPolicyHandler(timeoutPolicy);
+        public IConfiguration Configuration { get; }
 
-      services.AddSingleton<TokenService>();
-      services.AddSingleton<IArcGISCredential>(values);
-      services.AddSingleton(emailValues);
-      services.AddSingleton(Configuration);
+        public void ConfigureServices(IServiceCollection services) {
+            services.AddReverseProxy()
+              .LoadFromConfig(Configuration.GetSection("ReverseProxy"));
 
-      services.AddSingleton<ILogger>(provider => new LoggerConfiguration()
-          .ReadFrom.Configuration(Configuration)
-          .CreateLogger());
+            services.AddControllersWithViews();
 
-      services.AddSingleton<TokenValidationParameters>(provider =>
-      {
-        var authority = "https://login.dts.utah.gov:443/sso/oauth2";
+            // In production, the React files will be served from this directory
+            services.AddSpaStaticFiles(configuration => {
+                configuration.RootPath = "ClientApp/build";
+            });
 
-        var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
-            $"{authority}/.well-known/openid-configuration",
-            new OpenIdConnectConfigurationRetriever(),
-            new HttpDocumentRetriever());
+            var section = Configuration.GetSection("ArcGIS");
+            var values = section.Get<Credential>();
 
-        var discoveryDocument = configurationManager.GetConfigurationAsync(default).Result;
+            var emailSection = Configuration.GetSection("Email");
+            var emailValues = emailSection.Get<EmailConfig>();
 
-        return new TokenValidationParameters
-        {
-          ValidIssuer = authority,
-          ValidAudience = "synange-feoffor-673742",
-          IssuerSigningKeys = discoveryDocument.SigningKeys
-        };
-      });
-    }
+            var retryPolicy = HttpPolicyExtensions
+              .HandleTransientHttpError()
+              .Or<TimeoutRejectedException>() // thrown by Polly's TimeoutPolicy if the inner call times out
+              .WaitAndRetryAsync(3, retryAttempt =>
+                      TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-      }
-      else
-      {
-        app.UseExceptionHandler("/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        app.UseHsts();
-      }
+            var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(8); // Timeout for an individual try
 
-      if (env.IsStaging())
-      {
-        app.UsePathBase("/app");
-      }
+            services.AddHttpClient("default", client => { client.Timeout = new TimeSpan(0, 0, 15); })
+              .ConfigurePrimaryHttpMessageHandler(() => {
+                  var handler = new HttpClientHandler();
+                  if (handler.SupportsAutomaticDecompression) {
+                      handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                  }
 
-      app.UseSerilogRequestLogging();
-      app.UseHttpsRedirection();
+                  return handler;
+              })
+              .AddPolicyHandler(retryPolicy)
+              .AddPolicyHandler(timeoutPolicy);
 
-      app.UseMiddleware<CsvDownloadMiddleware>();
+            services.AddSingleton<TokenService>();
+            services.AddSingleton<IArcGISCredential>(values);
+            services.AddSingleton(emailValues);
+            services.AddSingleton(Configuration);
 
-      app.UseStaticFiles();
-      app.UseSpaStaticFiles();
+            services.AddSingleton<ILogger>(provider => new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .CreateLogger());
 
-      app.UseRouting();
+            services.AddSingleton<TokenValidationParameters>(provider => {
+                var authority = "https://login.dts.utah.gov:443/sso/oauth2";
 
-      app.UseEndpoints(endpoints =>
-      {
-        var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
-        var tokenInfo = endpoints.ServiceProvider.GetService<TokenValidationParameters>();
-        var logger = endpoints.ServiceProvider.GetService<ILogger>();
+                var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
+                    $"{authority}/.well-known/openid-configuration",
+                    new OpenIdConnectConfigurationRetriever(),
+                    new HttpDocumentRetriever());
 
-        endpoints.MapReverseProxy(proxyPipeline =>
-        {
-          proxyPipeline.Use(async (context, next) =>
-          {
-            var request = context.Request;
-            var validated = JwtService.ValidateAndDecode(request, tokenInfo, logger);
+                var discoveryDocument = configurationManager.GetConfigurationAsync(default).Result;
 
-            if (!validated)
-            {
-              logger.Information("invalid access token");
+                return new TokenValidationParameters {
+                    ValidIssuer = authority,
+                    ValidAudience = "synange-feoffor-673742",
+                    IssuerSigningKeys = discoveryDocument.SigningKeys
+                };
+            });
+        }
 
-              context.Response.StatusCode = 401;
-              await context.Response.WriteAsync("Invalid Access Token");
-
-              return;
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+            if (env.IsDevelopment()) {
+                app.UseDeveloperExceptionPage();
+                app.UseSerilogRequestLogging();
+            } else {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
 
-            request.QueryString = request.QueryString.Add("token", await tokenService.GetToken());
+            if (env.IsStaging()) {
+                app.UsePathBase("/app");
+            }
 
-            await next();
-          });
-        });
-      });
+            app.UseHttpsRedirection();
 
-      app.UseSpa(spa =>
-      {
-        spa.Options.SourcePath = "ClientApp";
+            app.UseMiddleware<CsvDownloadMiddleware>();
 
-        if (env.IsDevelopment())
-        {
-          spa.UseReactDevelopmentServer(npmScript: "start");
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints => {
+                var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
+                var tokenInfo = endpoints.ServiceProvider.GetService<TokenValidationParameters>();
+                var logger = endpoints.ServiceProvider.GetService<ILogger>();
+
+                endpoints.MapReverseProxy(proxyPipeline => {
+                    proxyPipeline.Use(async (context, next) => {
+                        var request = context.Request;
+                        var validated = JwtService.ValidateAndDecode(request, tokenInfo, logger);
+
+                        if (!validated) {
+                            logger.Warning("invalid access token");
+
+                            context.Response.StatusCode = 401;
+                            await context.Response.WriteAsync("Invalid Access Token");
+
+                            return;
+                        }
+
+                        request.QueryString = request.QueryString.Add("token", await tokenService.GetToken());
+
+                        await next();
+                    });
+                });
+            });
+
+            app.UseSpa(spa => {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment()) {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
         }
-      });
     }
-  }
 }
