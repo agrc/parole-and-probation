@@ -5,31 +5,40 @@ using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
-namespace app.Features.Tokens {
-    public static class JwtService {
-        public static bool ValidateAndDecode(HttpRequest request, TokenValidationParameters validationToken, ILogger log) {
-            var jwt = request.Headers["Authorization"];
+namespace parole.Features
+{
+  public static class JwtService
+  {
+    public static bool ValidateAndDecode(HttpRequest request, TokenValidationParameters validationToken, ILogger log)
+    {
+      var jwt = request.Headers["Authorization"];
 
-            if (StringValues.IsNullOrEmpty(jwt)) {
-                return false;
-            }
+      if (StringValues.IsNullOrEmpty(jwt))
+      {
+        return false;
+      }
 
-            // remove `Bearer `
-            jwt = jwt.ToString().Remove(0, 7);
+      // remove `Bearer `
+      jwt = jwt.ToString().Remove(0, 7);
 
-            try {
-                var claimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(jwt, validationToken, out var rawValidatedToken);
+      try
+      {
+        var claimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(jwt, validationToken, out var rawValidatedToken);
 
-                return true;
-            } catch (SecurityTokenValidationException ex) {
-                log.Warning(ex, "Token validation failure");
+        return true;
+      }
+      catch (SecurityTokenValidationException ex)
+      {
+        log.Warning(ex, "Token validation failure");
 
-                return false;
-            } catch (ArgumentException ex) {
-                log.Warning(ex, "Token not well formed");
+        return false;
+      }
+      catch (ArgumentException ex)
+      {
+        log.Warning(ex, "Token not well formed");
 
-                return false;
-            }
-        }
+        return false;
+      }
     }
+  }
 }
