@@ -1,12 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Alert, Button, Container } from 'reactstrap';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserData } from 'react-oidc';
-import Pager from './Pager';
-import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
+import { Alert, Button, Container } from 'reactstrap';
 import { fields } from '../../config';
-import { GridLabelGroup, IdentifyAddon, LabelGroup } from './Labels';
 import CloseButton from '../CloseButton';
+import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
 import './Identify.css';
+import { GridLabelGroup, IdentifyAddon, LabelGroup } from './Labels';
+import Pager from './Pager';
 
 const identifyCache = {};
 const controller = new AbortController();
@@ -72,7 +72,7 @@ const IdentifyInformation = props => {
           employer_address={extra.employer_address}
           employer_phone={extra.employer_phone}
         />
-        <SpecialSupervision>{extra.special_supervision}</SpecialSupervision>
+        <SpecialSupervision>{extra}</SpecialSupervision>
         <PrimaryOffense
           primary_offense={extra.primary_offense}
           degree={props.offender.crime_degree}
@@ -269,14 +269,24 @@ const OffenderContactInfo = props => {
 };
 
 const SpecialSupervision = props => {
-  if (!props.children || props.children.length < 1) {
+  console.log(props);
+  const keys = Object.keys(props?.children);
+  if (keys.length < 1) {
+    return null;
+  }
+
+  const specialSupervisions = Object.keys(fields).filter(key => fields[key].ss === true);
+  const ssKeys = keys.filter(key => specialSupervisions.includes(key));
+
+  const actives = ssKeys.filter(key => props.children[key] === 1);
+  if (actives.length < 1) {
     return null;
   }
 
   return (<>
     <h5 className="mt-2">Special Supervisions</h5>
     <div className="identify-grid--contacts identify__row identify__items-container px-3 border-bottom">
-      {props.children.split(',').map((item, i) => <label key={item + i}>{item}</label>)}
+      {actives.map((item, i) => <label key={item + i}>{item.toLocaleUpperCase()}</label>)}
     </div>
   </>);
 };

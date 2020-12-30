@@ -1,10 +1,10 @@
-import React from 'react';
 import { storiesOf } from '@storybook/react';
 import fetchMock from 'fetch-mock';
-import { IdentifyInformation, IdentifyContainer, OffenderQuickLook, OffenderAlerts, RecentVisitation, SpecialSupervision, PrimaryOffense, GangInformation, OtherInformation, OffenderContactInfo } from './Identify';
+import React from 'react';
 import { UserData } from 'react-oidc';
-
 import '../Sidebar/Sidebar.css';
+import { GangInformation, IdentifyContainer, IdentifyInformation, OffenderAlerts, OffenderContactInfo, OffenderQuickLook, OtherInformation, PrimaryOffense, RecentVisitation, SpecialSupervision } from './Identify';
+
 
 const features = [
   {
@@ -156,7 +156,25 @@ fetchMock.mock('path:/mapserver/0/query', {
       'offense_description': null,
       'primary_offense': null,
       'race': 'native american/alaskan',
-      'special_supervision': 'INCAR,SO-A, MIO, SO-C, SO-B',
+      'ccc': 0,
+      'comp': 0,
+      'dep': 0,
+      'dora': 0,
+      'drugct': 0,
+      'ecr': 0,
+      'em': 0,
+      'fosi': 0,
+      'fug': 0,
+      'gps': 0,
+      'igint': 0,
+      'incar': 1,
+      'mio': 1,
+      'pvp': 0,
+      'resid': 0,
+      'so': 0,
+      'soa': 1,
+      'sob': 1,
+      'soc': 1,
       'state': 'UT',
       'supervision_start_date': 1471327200000,
       'unit': '#8',
@@ -291,13 +309,139 @@ storiesOf('Identify.Recent Visitation', module)
 
 storiesOf('Identify.Special Supervision', module)
   .add('normal', () => (
-    <SpecialSupervision>A123,B123,C123,D123,E123,F123,G123</SpecialSupervision>
+    <SpecialSupervision>{{
+      address: '1405 Washington Blvd',
+      address_start_date: 1535760000000,
+      address_type: '1st PHYSICAL',
+      agent_name: 'Steve Gourley',
+      alerts: 'mean dog',
+      cautions: 'lies a lot and has a concealed carry license',
+      date_of_birth: 648950400000,
+      earned_compliance_credit: 1535760000000,
+      employer_address: 'WEST HIGHWAY 40, ROOSEVELT UT 84066',
+      employer_phone: '435-722-5650',
+      gang_id: null,
+      gang_name: 'West Side Players',
+      gang_type_id: null,
+      offense_code: 'J',
+      offense_description: null,
+      primary_offense: null,
+      race: 'native american/alaskan',
+      ccc: 0,
+      comp: 0,
+      dep: 0,
+      dora: 0,
+      drugct: 0,
+      ecr: 0,
+      em: 0,
+      fosi: 0,
+      fug: 0,
+      gps: 0,
+      igint: 0,
+      incar: 1,
+      mio: 1,
+      pvp: 0,
+      resid: 0,
+      so: 0,
+      soa: 1,
+      sob: 1,
+      soc: 1,
+      state: 'UT',
+      supervision_start_date: 1471327200000,
+      unit: '#8',
+      crime_degree: 'MA',
+      offender_phone: '801-888-0101'
+    }}</SpecialSupervision>
   ))
   .add('single', () => (
-    <SpecialSupervision>A</SpecialSupervision>
+    <SpecialSupervision>{{
+      address: '1405 Washington Blvd',
+      address_start_date: 1535760000000,
+      address_type: '1st PHYSICAL',
+      agent_name: 'Steve Gourley',
+      alerts: 'mean dog',
+      cautions: 'lies a lot and has a concealed carry license',
+      date_of_birth: 648950400000,
+      earned_compliance_credit: 1535760000000,
+      employer_address: 'WEST HIGHWAY 40, ROOSEVELT UT 84066',
+      employer_phone: '435-722-5650',
+      gang_id: null,
+      gang_name: 'West Side Players',
+      gang_type_id: null,
+      offense_code: 'J',
+      offense_description: null,
+      primary_offense: null,
+      race: 'native american/alaskan',
+      ccc: 0,
+      comp: 0,
+      dep: 0,
+      dora: 0,
+      drugct: 0,
+      ecr: 0,
+      em: 0,
+      fosi: 0,
+      fug: 0,
+      gps: 0,
+      igint: 0,
+      incar: 0,
+      mio: 0,
+      pvp: 0,
+      resid: 0,
+      so: 0,
+      soa: 0,
+      sob: 0,
+      soc: 1,
+      state: 'UT',
+      supervision_start_date: 1471327200000,
+      unit: '#8',
+      crime_degree: 'MA',
+      offender_phone: '801-888-0101'
+    }}</SpecialSupervision>
   ))
   .add('empty', () => (
-    <SpecialSupervision></SpecialSupervision>
+    <SpecialSupervision>{{
+      address: '1405 Washington Blvd',
+      address_start_date: 1535760000000,
+      address_type: '1st PHYSICAL',
+      agent_name: 'Steve Gourley',
+      alerts: 'mean dog',
+      cautions: 'lies a lot and has a concealed carry license',
+      date_of_birth: 648950400000,
+      earned_compliance_credit: 1535760000000,
+      employer_address: 'WEST HIGHWAY 40, ROOSEVELT UT 84066',
+      employer_phone: '435-722-5650',
+      gang_id: null,
+      gang_name: 'West Side Players',
+      gang_type_id: null,
+      offense_code: 'J',
+      offense_description: null,
+      primary_offense: null,
+      race: 'native american/alaskan',
+      ccc: 0,
+      comp: 0,
+      dep: 0,
+      dora: 0,
+      drugct: 0,
+      ecr: 0,
+      em: 0,
+      fosi: 0,
+      fug: 0,
+      gps: 0,
+      igint: 0,
+      incar: 0,
+      mio: 0,
+      pvp: 0,
+      resid: 0,
+      so: 0,
+      soa: 0,
+      sob: 0,
+      soc: 0,
+      state: 'UT',
+      supervision_start_date: 1471327200000,
+      unit: '#8',
+      crime_degree: 'MA',
+      offender_phone: '801-888-0101'
+    }}</SpecialSupervision>
   ));
 
 storiesOf('Identify.Primary Offense', module)
