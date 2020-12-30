@@ -17,6 +17,9 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.6.0",
     "bootstrap": "^4.5.3",
     "classnames": "^2.2.6",
     "downshift": "^5.4.7",
@@ -24,49 +27,58 @@
     "file-saver": "^2.0.5",
     "immer": "^5.3.6",
     "lodash": "^4.17.20",
-    "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-fast-compare": "^3.2.0",
     "react-oidc": "^1.0.3",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "4.0.1",
+    "react": "^17.0.1",
     "reactstrap": "^8.8.1",
+    "web-vitals": "^0.2.4",
     "wonkavision": "file:../../../wonkavision"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "start:all": "dotnet run -p ../app.csproj",
-    "release": "standard-version",
-    "build": "react-scripts build",
     "build-react:stage": "./node_modules/.bin/env-cmd -f ./.env.stage npm run build",
-    "build:stage": "dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false /p:EnvironmentName=Staging",
-    "build:prod": "dotnet publish ../parole.csproj -c Release /p:EnvironmentName=Production",
-    "test": "react-scripts test",
-    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "wonkavise": "npm run wonkavise:clean && npm run build:stage && npm run wonkavise:zip && npm run wonkavise:ship && npm run wonkavise:extract",
+    "build:prod": "dotnet publish ../parole.csproj -c Release /p:EnvironmentName=Production",
+    "build:stage": "dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false /p:EnvironmentName=Staging",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "release": "standard-version",
+    "start:all": "dotnet run -p ../parole.csproj",
+    "start": "react-scripts start",
+    "storybook": "start-storybook -p 9009 -s public",
+    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
+    "test": "react-scripts test",
     "wonkavise:clean": "wonkavision clean ./build ./../bin ./../../deploy",
-    "wonkavise:zip": "wonkavision zip ../bin/Release/net5.0/win10-x64/publish ./../../deploy deploy.zip",
+    "wonkavise:extract": "env-cmd -e stage wonkavision unzip parole deploy.zip --extra-command \"rm app_offline.htm\"",
     "wonkavise:ship": "env-cmd -e stage wonkavision ship .\\..\\..\\deploy\\deploy.zip parole && env-cmd -e stage wonkavision ship ../app_offline.htm parole",
-    "wonkavise:extract": "env-cmd -e stage wonkavision unzip parole deploy.zip --extra-command \"rm app_offline.htm\""
+    "wonkavise:zip": "wonkavision zip ../bin/Release/net5.0/win10-x64/publish ./../../deploy deploy.zip",
+    "wonkavise": "npm run wonkavise:clean && npm run build:stage && npm run wonkavise:zip && npm run wonkavise:ship && npm run wonkavise:extract"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.21",
     "@storybook/addon-links": "^5.3.21",
     "@storybook/addons": "^5.3.21",
     "@storybook/react": "^5.3.21",
-    "babel-preset-react-app": "^10.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "env-cmd": "^10.1.0",
     "fetch-mock": "^8.3.2",

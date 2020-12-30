@@ -1,12 +1,12 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { Callback, makeAuthenticator, makeUserManager } from 'react-oidc';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { makeAuthenticator, makeUserManager, Callback } from 'react-oidc';
-import { oidcConfig } from './config'
+import App from './App';
+import { oidcConfig } from './config';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 
 const userManager = makeUserManager(oidcConfig);
 const AppWithAuth = makeAuthenticator({
@@ -15,6 +15,7 @@ const AppWithAuth = makeAuthenticator({
 })(App);
 
 ReactDOM.render((
+  <React.StrictMode>
     <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
         <Switch>
             <Route
@@ -29,9 +30,7 @@ ReactDOM.render((
             <AppWithAuth />
         </Switch>
     </BrowserRouter>
+  </React.StrictMode>
 ), document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+reportWebVitals(console.log);
