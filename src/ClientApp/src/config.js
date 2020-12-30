@@ -123,9 +123,100 @@ module.exports = {
       identify: false,
       filter: true
     },
-    'special_supervision': {
+    'ccc': {
       identify: true,
-      filter: false
+      filter: false,
+      ss: true
+    },
+    'comp': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'dep': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'dora': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'drugct': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'ecr': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'em': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'fosi': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'fug': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'gps': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'igint': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'incar': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'mio': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'pvp': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'resid': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'so': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'soa': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'sob': {
+      identify: true,
+      filter: false,
+      ss: true
+    },
+    'soc': {
+      identify: true,
+      filter: false,
+      ss: true
     },
     'last_office_contact': {
       identify: false,
