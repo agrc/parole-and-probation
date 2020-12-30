@@ -46,3 +46,4 @@ scripts/tool/vault.py
 **/log-writer-sa.json
 **/appsettings.*.json
 forklift/vault/api.py
+src/ClientApp/.eslintcache
