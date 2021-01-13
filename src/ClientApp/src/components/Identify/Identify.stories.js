@@ -184,7 +184,7 @@ fetchMock.mock('path:/mapserver/0/query', {
   }]
 });
 
-storiesOf('Identify.Integration', module)
+storiesOf('Identify/Integration', module)
   .addDecorator(story => (
     <IdentifyContainer>
       <UserData.Provider value={{
@@ -212,7 +212,7 @@ storiesOf('Identify.Integration', module)
     <IdentifyInformation update={() => { }} features={features} offender={features[5].attributes} index={5}></IdentifyInformation>
   ));
 
-storiesOf('Identify.Offender quick look', module)
+storiesOf('Identify/Offender quick look', module)
   .add('normal', () => (
     <OffenderQuickLook
       age={412153200000}
@@ -251,7 +251,7 @@ storiesOf('Identify.Offender quick look', module)
     />
   ));
 
-storiesOf('Identify.Offender Alerts', module)
+storiesOf('Identify/Offender Alerts', module)
   .add('normal', () => (
     <OffenderAlerts
       cautions="cautions"
@@ -277,7 +277,7 @@ storiesOf('Identify.Offender Alerts', module)
     />
   ));
 
-storiesOf('Identify.Recent Visitation', module)
+storiesOf('Identify/Recent Visitation', module)
   .add('normal', () => (
     <RecentVisitation
       office={10}
@@ -307,7 +307,7 @@ storiesOf('Identify.Recent Visitation', module)
     />
   ));
 
-storiesOf('Identify.Special Supervision', module)
+storiesOf('Identify/Special Supervision', module)
   .add('normal', () => (
     <SpecialSupervision>{{
       address: '1405 Washington Blvd',
@@ -444,7 +444,7 @@ storiesOf('Identify.Special Supervision', module)
     }}</SpecialSupervision>
   ));
 
-storiesOf('Identify.Primary Offense', module)
+storiesOf('Identify/Primary Offense', module)
   .add('normal', () => (
     <PrimaryOffense
       primary_offense="PERSON"
@@ -467,7 +467,7 @@ storiesOf('Identify.Primary Offense', module)
     />
   ));
 
-storiesOf('Identify.Gang Information', module)
+storiesOf('Identify/Gang Information', module)
   .add('normal', () => (
     <GangInformation
       gang="CRIPS"
@@ -487,7 +487,7 @@ storiesOf('Identify.Gang Information', module)
     />
   ));
 
-storiesOf('Identify.Other Information', module)
+storiesOf('Identify/Other Information', module)
   .add('normal', () => (
     <OtherInformation
       supervision_start_date={1535760000000}
@@ -501,7 +501,7 @@ storiesOf('Identify.Other Information', module)
     />
   ));
 
-storiesOf('Identify.Contact Information', module)
+storiesOf('Identify/Contact Information', module)
   .add('normal', () => (
     <OffenderContactInfo
       phone={'801-111-1111'}

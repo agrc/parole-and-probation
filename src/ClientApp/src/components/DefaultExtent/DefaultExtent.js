@@ -1,6 +1,6 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobeAmericas } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 
 const goHome = (view, extent) => {
   console.log('zooming to default extent');
@@ -8,7 +8,7 @@ const goHome = (view, extent) => {
   return view.goTo(extent);
 };
 
-export default function (props) {
+export default function DefaultExtent(props) {
   return (
     <div
       className="esri-home esri-widget--button esri-widget"

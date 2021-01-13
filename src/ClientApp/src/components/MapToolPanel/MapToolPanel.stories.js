@@ -4,7 +4,7 @@ import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import DartBoard from '../DartBoard';
 import MapToolPanel from './MapToolPanel';
 
-storiesOf('MapTools.MapToolPanel', module)
+storiesOf('MapTools/MapToolPanel', module)
     .addDecorator(story => (
         <div className="esri-ui-top-left esri-ui-corner">
             <div className="esri-component">{story()}</div>

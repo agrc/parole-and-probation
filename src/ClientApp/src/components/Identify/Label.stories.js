@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { IdentifyAddon } from './Labels';
 
-storiesOf('Labels.IdentifyAddon', module)
+storiesOf('Labels/IdentifyAddon', module)
   .add('Empty with implicit default', () => (
     <IdentifyAddon></IdentifyAddon>
   ))
