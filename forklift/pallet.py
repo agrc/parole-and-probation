@@ -27,7 +27,7 @@ class CorrectionPallet(Pallet):
         self.hash_digest = None
 
         self.api = api.ENDPOINT
-        self.db = database.CONNECTION
+        self.db = database.CONNECTION_AT
 
         if configuration == 'Dev':
             self.api = api.ENDPOINT_AT
