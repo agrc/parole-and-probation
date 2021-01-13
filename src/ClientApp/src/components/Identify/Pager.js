@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
-export default function (props) {
+export default function pager(props) {
   return (
     props.features.length > 1 ? (
       <Pagination listClassName="justify-content-center">

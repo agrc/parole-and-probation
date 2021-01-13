@@ -6,4 +6,6 @@ const toQueryString = (obj) => {
     .replace(/%20/g, '+');
 };
 
-export default { toQueryString };
+const helpers = { toQueryString };
+
+export default helpers;
