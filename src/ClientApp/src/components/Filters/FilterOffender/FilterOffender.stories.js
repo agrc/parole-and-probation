@@ -1,21 +1,34 @@
+import fetchMock from 'fetch-mock';
 import React from 'react';
 import Item from '../FilterOffender';
-import fetchMock from 'fetch-mock';
-import { storiesOf } from '@storybook/react';
 
 fetchMock.mock('end:limit=25', {
   'requestId': 1,
   'data': ['steve', 'matt', 'nathan']
 });
 
-storiesOf('Filters/Offender Filter', module)
-  .add('normal', () => (
-    <Item criteria={{
-      gender: '',
-      name: '',
-      number: '',
-      tel: '',
-      employer: ''
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
+export default {
+  title: 'Filters/Offender Filter',
+  component: Item,
+  argTypes: {
+    update: { action: 'update' }
+  }
+};
+
+export const normal = (args) => (
+  <Item criteria={{
+    gender: '',
+    name: '',
+    number: '',
+    tel: '',
+    employer: ''
+  }}
+    downshift={{
+      offenderName: '',
+      offenderNumber: '',
+      offenderTelephone: '',
+      offenderEmployer: ''
     }}
-      update={() => { }} />
-  ));
+    update={args.update} />
+);

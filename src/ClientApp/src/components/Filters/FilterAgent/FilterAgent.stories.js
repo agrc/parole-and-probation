@@ -1,8 +1,18 @@
 import React from 'react';
 import { Filters } from '../Filters';
-import { storiesOf } from '@storybook/react';
 
-storiesOf('Filters/Agent Filter', module)
-    .add('normal', () => (
-        <Filters loggedInUser={{ value: 'story tester', id: 999999 }} />
-    ));
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
+export default {
+  title: 'Filters/Agent Filter',
+  component: Filters,
+  argTypes: {
+    dispatch: { action: 'dispatched' }
+  }
+};
+
+export const normal = (args) => (
+  <Filters
+    loggedInUser={{ value: 'story tester', id: 999999 }}
+    mapDispatcher={args.dispatch}
+  />
+);
