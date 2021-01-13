@@ -30,6 +30,7 @@
     "HSTS",
     "agrc",
     "arcgis",
+    "basemap",
     "browserslist",
     "datefmt",
     "doco",
@@ -55,6 +56,8 @@
     "preprelease",
     "requestip",
     "serilog",
+    "topo",
+    "wkid",
     "wonkavise",
     "wonkavision",
     "xxhash"
