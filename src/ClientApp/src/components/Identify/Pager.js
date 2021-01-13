@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 export default function pager(props) {

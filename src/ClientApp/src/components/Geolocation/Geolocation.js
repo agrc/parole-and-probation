@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Graphic from '@arcgis/core/Graphic';
 import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
-import classNames from 'classnames';
-import { loadModules } from 'esri-loader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'clsx';
+import * as React from 'react';
+import useViewUiPosition from '../../useViewUiPosition';
 
 const supportsGeolocation = () => {
   if (!navigator.geolocation) {
@@ -59,8 +60,6 @@ const geolocate = async (props) => {
     }
   };
 
-  const [Graphic] = await loadModules(['esri/Graphic']);
-
   const graphic = new Graphic({
     geometry: point,
     symbol: {
@@ -75,10 +74,11 @@ const geolocate = async (props) => {
 };
 
 export default function Geolocation(props) {
-  const [spin, setProgress] = useState(props.spin || false);
-  const [status, setStatus] = useState(props.status);
+  const [spin, setProgress] = React.useState(props.spin || false);
+  const [status, setStatus] = React.useState(props.status);
+  const me = useViewUiPosition(props.view, props.position);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (status === undefined) {
       return;
     }
@@ -102,6 +102,7 @@ export default function Geolocation(props) {
 
   return (supportsGeolocation() ?
     <div
+      ref={me}
       className={classes}
       role="button"
       aria-label="Zoom to current location"

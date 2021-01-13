@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock';
-import React from 'react';
+import * as React from 'react';
 import Item from '../FilterOffender';
 
 fetchMock.mock('end:limit=25', {

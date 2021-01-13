@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, ButtonGroup, Container, Col, Label, FormGroup } from 'reactstrap'
+import * as React from 'react';
+import { Button, ButtonGroup, Col, Container, FormGroup, Label } from 'reactstrap';
 import { supervisionContactDays } from '../lookupData';
 import './FilterDate.css';
 

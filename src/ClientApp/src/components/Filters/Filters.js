@@ -1,5 +1,5 @@
 import produce from 'immer';
-import React, { useEffect, useReducer } from 'react';
+import * as React from 'react';
 import AccordionPane from '../AccordionPane';
 import FilterActions from './FilterActions';
 import FilterAgent from './FilterAgent';
@@ -341,11 +341,11 @@ const Filters = props => {
   emptyState.agent.loggedInUser = props.loggedInUser;
   emptyState.agent.agentList = [props.loggedInUser];
 
-  const [criteria, dispatcher] = useReducer(filterReducer, initialState);
+  const [criteria, dispatcher] = React.useReducer(filterReducer, initialState);
 
   const payload = sqlMapper(criteria);
 
-  useEffect(() => {
+  React.useEffect(() => {
     console.log('Filters:useEffect dispatching map filters')
     props.mapDispatcher({ type: 'SET_FILTERS', payload: payload });
     // React guarantees that dispatch function identity is stable and won’t change on re-renders.

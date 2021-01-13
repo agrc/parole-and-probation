@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card, CardBody, FormGroup, Container, Col, Button, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
-import Downshift from 'downshift'
+import Downshift from 'downshift';
 import { startCase } from 'lodash/string';
+import * as React from 'react';
+import { Button, Card, CardBody, Col, Container, FormGroup, Input, InputGroup, InputGroupAddon, Label } from 'reactstrap';
 import './FilterAgent.css';
 
 

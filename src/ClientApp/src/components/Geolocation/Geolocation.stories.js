@@ -1,5 +1,5 @@
-import React from 'react';
 import { storiesOf } from '@storybook/react';
+import * as React from 'react';
 import Geolocation from './Geolocation';
 
 storiesOf('MapTools/Geolocation', module)
@@ -12,7 +12,7 @@ storiesOf('MapTools/Geolocation', module)
     <Geolocation />
   ))
   .add('busy', () => (
-    <Geolocation spin={true}/>
+    <Geolocation spin={true} />
   ))
   .add('success', () => (
     <Geolocation status={true} />

@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react';
 import fetchMock from 'fetch-mock';
-import React from 'react';
+import * as React from 'react';
 import { UserData } from 'react-oidc';
 import '../Sidebar/Sidebar.css';
 import { GangInformation, IdentifyContainer, IdentifyInformation, OffenderAlerts, OffenderContactInfo, OffenderQuickLook, OtherInformation, PrimaryOffense, RecentVisitation, SpecialSupervision } from './Identify';

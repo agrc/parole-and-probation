@@ -1,6 +1,6 @@
-import React from 'react';
+import classNames from 'clsx';
+import * as React from 'react';
 import './Sidebar.css';
-import classNames from 'classnames';
 
 export default function Sidebar(props) {
   const classes = classNames(

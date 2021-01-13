@@ -1,6 +1,7 @@
 import { faGlobeAmericas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import * as React from 'react';
+import useViewUiPosition from '../../useViewUiPosition';
 
 const goHome = (view, extent) => {
   console.log('zooming to default extent');
@@ -9,8 +10,11 @@ const goHome = (view, extent) => {
 };
 
 export default function DefaultExtent(props) {
+  const me = useViewUiPosition(props.view, props.position);
+
   return (
     <div
+      ref={me}
       className="esri-home esri-widget--button esri-widget"
       role="button"
       aria-label="Default map view"

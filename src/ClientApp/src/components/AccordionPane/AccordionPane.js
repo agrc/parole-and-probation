@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import classnames from 'clsx';
+import * as React from 'react';
 import { Card, CardBody, CardHeader, Collapse } from 'reactstrap';
 import './AccordionPane.css';
-import classnames from 'classnames';
 
 export default function AccordionPane(props) {
-  const [open, setOpen] = useState(props.open);
+  const [open, setOpen] = React.useState(props.open);
   const classes = classnames(
-    'accordian-pane',
+    'accordion-pane',
     props.className
   );
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { UserData } from 'react-oidc';
 import { IdentifyInformation } from './Identify';

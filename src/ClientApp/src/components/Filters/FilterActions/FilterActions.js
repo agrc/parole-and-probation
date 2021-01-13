@@ -1,5 +1,5 @@
-import React from 'react';
-import { Col, Button } from 'reactstrap'
+import * as React from 'react';
+import { Button, Col } from 'reactstrap';
 import './FilterActions.css';
 
 export default function FilterActions(props) {

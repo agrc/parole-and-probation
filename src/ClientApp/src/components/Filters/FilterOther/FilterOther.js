@@ -1,7 +1,7 @@
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import produce from 'immer';
-import React from 'react';
+import * as React from 'react';
 import { Button, ButtonGroup, Card, CardBody, Col, Container, FormGroup, Input, InputGroup, InputGroupAddon, Label } from 'reactstrap';
 import MultiDownshift from '../../MultiDownshift';
 import { mainGangs, offenseTypes, supervisionItems } from '../lookupData';

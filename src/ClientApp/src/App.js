@@ -1,15 +1,14 @@
-import React, { useContext, useReducer } from 'react';
 import produce from 'immer';
+import * as React from 'react';
 import { UserData } from 'react-oidc';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import MapLens from './components/MapLens';
+import './App.css';
 import MapView from './components/esrijs/MapView';
 import { Filters } from './components/Filters';
-import { IdentifyInformation, IdentifyContainer } from './components/Identify';
+import Header from './components/Header';
+import { IdentifyContainer, IdentifyInformation } from './components/Identify';
+import MapLens from './components/MapLens';
+import Sidebar from './components/Sidebar';
 import { mappingConfig } from './config';
-
-import './App.css';
 
 const reducer = produce((draft, action) => {
   console.log(`App:reducing state for ${action.type}`, action);
@@ -24,6 +23,7 @@ const reducer = produce((draft, action) => {
       }
     case 'MAP_CLICK': {
       draft.identify.show = true;
+      draft.identify.status = 'visible';
       draft.showSidebar = true;
 
       draft.mapPoint = action.payload.point;
@@ -52,11 +52,23 @@ const reducer = produce((draft, action) => {
 
       draft.showSidebar = !action.payload;
 
+      if (!draft.showSidebar && draft.identify.show) {
+        draft.identify.show = false;
+      }
+
+      if (draft.showSidebar && draft.identify.status === 'visible') {
+        draft.identify.show = true;
+      }
+
       return draft;
     }
     case 'TOGGLE_IDENTIFY': {
       draft.showSidebar = action.payload ? true : draft.showSidebar;
       draft.identify.show = action.payload;
+
+      if (!action.payload) {
+        draft.identify.status = 'dismissed';
+      }
 
       return draft;
     }
@@ -89,8 +101,8 @@ const reducer = produce((draft, action) => {
 });
 
 export default function App() {
-  const oidc = useContext(UserData);
-  const [app, dispatcher] = useReducer(reducer, {
+  const oidc = React.useContext(UserData);
+  const [app, dispatcher] = React.useReducer(reducer, {
     zoomToGraphic: {
       graphic: {},
       level: 0
@@ -98,6 +110,7 @@ export default function App() {
     mapPoint: {},
     identify: {
       show: false,
+      status: null,
       features: [],
       offender: {},
       index: 0
@@ -121,18 +134,21 @@ export default function App() {
     toggleSidebar: () => dispatcher({ type: 'TOGGLE_SIDEBAR' })
   };
 
+  const identifyOptions = {
+    apiKey: process.env.REACT_APP_WEB_API,
+    features: app.identify.features,
+    offender: app.identify.offender,
+    index: app.identify.index,
+    update: dispatcher,
+    show: state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })
+  };
+
   return (
     <div className="app">
       <Header title="AP&P Field Map" version={process.env.REACT_APP_VERSION} />
       {app.identify.show ?
-        <IdentifyContainer show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })}>
-          <IdentifyInformation
-            apiKey={process.env.REACT_APP_WEB_API}
-            features={app.identify.features}
-            offender={app.identify.offender}
-            index={app.identify.index}
-            update={dispatcher}
-            show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })} />
+        <IdentifyContainer show={value => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: value })}>
+          <IdentifyInformation {...identifyOptions} />
         </IdentifyContainer>
         : null}
       <Sidebar {...sidebarOptions}>
