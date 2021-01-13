@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudDownloadAlt, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'clsx';
+import * as React from 'react';
+import useViewUiPosition from '../../useViewUiPosition';
+
 
 export default function CsvDownload(props) {
-  const [disabled, setDisabled] = useState(props.disabled || false);
-  const [status, setStatus] = useState(props.status);
+  const [disabled, setDisabled] = React.useState(props.disabled || false);
+  const [status, setStatus] = React.useState(props.status);
+  const me = useViewUiPosition(props.view, props.position);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (status === undefined) {
       return;
     }
@@ -31,6 +34,7 @@ export default function CsvDownload(props) {
 
   return (
     <div
+      ref={me}
       className={classes}
       role="button"
       aria-label="Export features to CSV"

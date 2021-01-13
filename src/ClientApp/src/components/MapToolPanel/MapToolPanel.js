@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
+import classNames from 'clsx';
+import * as React from 'react';
+import useViewUiPosition from '../../useViewUiPosition';
 import CloseButton from '../CloseButton';
 import './MapToolPanel.css';
 
 export default function MapToolPanel(props) {
-  const [expanded, setExpanded] = useState(props.expanded || false);
+  const [expanded, setExpanded] = React.useState(props.expanded || false);
+  const me = useViewUiPosition(props.view, props.position);
+
   const classes = classNames(
     props.className,
     'map-tool-panel',
     'esri-widget--button',
     'esri-widget',
+    'esri-component',
     expanded ? 'map-tool-panel--open' : false
   );
 
@@ -26,6 +30,7 @@ export default function MapToolPanel(props) {
 
   return (
     <div
+      ref={me}
       className={classes}
       role="button"
       aria-label="Zoom to address"
@@ -33,7 +38,7 @@ export default function MapToolPanel(props) {
       onMouseOver={() => setExpanded(true)}
       onMouseOut={() => setExpanded(false)}>
       <FontAwesomeIcon icon={props.icon} className={iconClasses} />
-      <form className={popOutClasses}>
+      <form className={popOutClasses} autoComplete="new-password">
         <CloseButton className="close-button--hide-on-lg" onClick={() => setExpanded(false)} />
         {props.children}
       </form>
