@@ -14,16 +14,17 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@arcgis/core": "^4.18.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "bootstrap": "^4.5.3",
     "classnames": "^2.2.6",
     "downshift": "^5.4.7",
-    "esri-loader": "^2.16.0",
     "file-saver": "^2.0.5",
     "immer": "^8.0.1",
     "lodash": "^4.17.20",
+    "ncp": "^2.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-fast-compare": "^3.2.0",
@@ -39,6 +40,7 @@
     "build:prod": "dotnet publish ../parole.csproj -c Release /p:EnvironmentName=Production",
     "build:stage": "dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false /p:EnvironmentName=Staging",
     "build": "react-scripts build",
+    "copy:arcgis": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
     "eject": "react-scripts eject",
     "release": "standard-version",
     "start:all": "dotnet run -p ../parole.csproj",
@@ -60,9 +62,9 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ],
     "development": [
       "last 1 chrome version",
