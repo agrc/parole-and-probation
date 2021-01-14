@@ -1,10 +1,10 @@
-import React from 'react';
-import './MapLens.css';
-import StaticLegend from '../StaticLegend';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'clsx';
+import React from 'react';
 import { Button } from 'reactstrap';
-import classNames from 'classnames';
+import StaticLegend from '../StaticLegend';
+import './MapLens.css';
 
 export default function MapLens(props) {
   const classes = classNames(

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
+import classNames from 'clsx';
+import React, { useState } from 'react';
 import CloseButton from '../CloseButton';
 import './MapToolPanel.css';
 

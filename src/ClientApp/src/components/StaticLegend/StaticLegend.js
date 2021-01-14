@@ -1,5 +1,5 @@
+import classNames from 'clsx';
 import React from 'react';
-import classNames from 'classnames';
 import './StaticLegend.css';
 
 export default function StaticLegend(props) {

@@ -1,5 +1,5 @@
+import classNames from 'clsx';
 import React from 'react';
-import classNames from 'classnames';
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
 

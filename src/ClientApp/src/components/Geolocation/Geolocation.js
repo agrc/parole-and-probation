@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
-import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'clsx';
 import { loadModules } from 'esri-loader';
+import React, { useEffect, useState } from 'react';
 
 const supportsGeolocation = () => {
   if (!navigator.geolocation) {

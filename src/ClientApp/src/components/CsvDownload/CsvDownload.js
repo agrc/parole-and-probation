@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudDownloadAlt, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'clsx';
+import React, { useEffect, useState } from 'react';
 
 export default function CsvDownload(props) {
   const [disabled, setDisabled] = useState(props.disabled || false);
