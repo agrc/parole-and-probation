@@ -38,7 +38,7 @@ export default function MapToolPanel(props) {
       onMouseOver={() => setExpanded(true)}
       onMouseOut={() => setExpanded(false)}>
       <FontAwesomeIcon icon={props.icon} className={iconClasses} />
-      <form className={popOutClasses}>
+      <form className={popOutClasses} autoComplete="new-password">
         <CloseButton className="close-button--hide-on-lg" onClick={() => setExpanded(false)} />
         {props.children}
       </form>
