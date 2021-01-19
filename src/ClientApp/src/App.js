@@ -135,18 +135,21 @@ export default function App() {
     toggleSidebar: () => dispatcher({ type: 'TOGGLE_SIDEBAR' })
   };
 
+  const identifyOptions = {
+    apiKey: process.env.REACT_APP_WEB_API,
+    features: app.identify.features,
+    offender: app.identify.offender,
+    index: app.identify.index,
+    update: dispatcher,
+    show: state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })
+  };
+
   return (
     <div className="app">
       <Header title="AP&P Field Map" version={process.env.REACT_APP_VERSION} />
       {app.identify.show ?
-        <IdentifyContainer show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })}>
-          <IdentifyInformation
-            apiKey={process.env.REACT_APP_WEB_API}
-            features={app.identify.features}
-            offender={app.identify.offender}
-            index={app.identify.index}
-            update={dispatcher}
-            show={state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })} />
+        <IdentifyContainer show={value => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: value })}>
+          <IdentifyInformation {...identifyOptions} />
         </IdentifyContainer>
         : null}
       <Sidebar {...sidebarOptions}>
