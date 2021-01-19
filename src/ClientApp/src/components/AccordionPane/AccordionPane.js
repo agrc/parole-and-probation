@@ -6,7 +6,7 @@ import './AccordionPane.css';
 export default function AccordionPane(props) {
   const [open, setOpen] = useState(props.open);
   const classes = classnames(
-    'accordian-pane',
+    'accordion-pane',
     props.className
   );
 
