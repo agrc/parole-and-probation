@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { Callback, makeAuthenticator, makeUserManager } from 'react-oidc';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';

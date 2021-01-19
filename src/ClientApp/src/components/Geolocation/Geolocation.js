@@ -2,7 +2,7 @@ import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'clsx';
 import { loadModules } from 'esri-loader';
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import useViewUiPosition from '../../useViewUiPosition';
 
 const supportsGeolocation = () => {
@@ -76,11 +76,11 @@ const geolocate = async (props) => {
 };
 
 export default function Geolocation(props) {
-  const [spin, setProgress] = useState(props.spin || false);
-  const [status, setStatus] = useState(props.status);
+  const [spin, setProgress] = React.useState(props.spin || false);
+  const [status, setStatus] = React.useState(props.status);
   const me = useViewUiPosition(props.view, props.position);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (status === undefined) {
       return;
     }

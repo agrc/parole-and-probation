@@ -1,5 +1,5 @@
 import classNames from 'clsx';
-import React from 'react';
+import * as React from 'react';
 import './Sidebar.css';
 
 export default function Sidebar(props) {

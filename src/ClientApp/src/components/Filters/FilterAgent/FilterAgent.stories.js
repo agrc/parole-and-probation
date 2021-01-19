@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Filters } from '../Filters';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */

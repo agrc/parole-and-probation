@@ -1,7 +1,7 @@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'clsx';
-import React from 'react';
+import * as React from 'react';
 import { Button } from 'reactstrap';
 import StaticLegend from '../StaticLegend';
 import './MapLens.css';

@@ -1,6 +1,6 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+import { storiesOf } from '@storybook/react';
+import * as React from 'react';
 import DartBoard from '../DartBoard';
 import MapToolPanel from './MapToolPanel';
 

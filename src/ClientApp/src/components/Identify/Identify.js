@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import * as React from 'react';
 import { UserData } from 'react-oidc';
 import { Alert, Button, Container } from 'reactstrap';
 import { fields } from '../../config';
@@ -13,10 +13,10 @@ const controller = new AbortController();
 let signal = controller.signal;
 
 const IdentifyInformation = props => {
-  const [extra, setExtra] = useState({});
-  const oidc = useContext(UserData);
+  const [extra, setExtra] = React.useState({});
+  const oidc = React.useContext(UserData);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (props.offender.offender_id in identifyCache) {
       setExtra(identifyCache[props.offender.offender_id]);
 

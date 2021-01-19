@@ -1,5 +1,5 @@
-import React, { useContext, useReducer } from 'react';
 import produce from 'immer';
+import * as React from 'react';
 import { UserData } from 'react-oidc';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -89,8 +89,8 @@ const reducer = produce((draft, action) => {
 });
 
 export default function App() {
-  const oidc = useContext(UserData);
-  const [app, dispatcher] = useReducer(reducer, {
+  const oidc = React.useContext(UserData);
+  const [app, dispatcher] = React.useReducer(reducer, {
     zoomToGraphic: {
       graphic: {},
       level: 0

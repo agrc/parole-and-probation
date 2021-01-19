@@ -1,37 +1,37 @@
-import React from 'react';
+import * as React from 'react';
 
 const generateDirectionsUrl = (address) => {
-    const baseUrl = 'https://www.google.com/maps/dir/?';
-    const options = [
-        ['api', 1],
-        ['travelmode', 'driving'],
-        ['dir_action', 'navigate'],
-        ['destination', address]
-    ];
+  const baseUrl = 'https://www.google.com/maps/dir/?';
+  const options = [
+    ['api', 1],
+    ['travelmode', 'driving'],
+    ['dir_action', 'navigate'],
+    ['destination', address]
+  ];
 
-    const params = new URLSearchParams(options);
+  const params = new URLSearchParams(options);
 
-    return `${baseUrl}${params.toString()}`;
+  return `${baseUrl}${params.toString()}`;
 };
 
 export function GoogleDirectionsLink(props) {
-    if (!props.address) {
-        return props.children;
-    }
+  if (!props.address) {
+    return props.children;
+  }
 
-    return (
-        <a href={generateDirectionsUrl(props.address)} rel="noopener noreferrer" target="_blank">
-            {props.children}
-        </a>
-    )
+  return (
+    <a href={generateDirectionsUrl(props.address)} rel="noopener noreferrer" target="_blank">
+      {props.children}
+    </a>
+  )
 };
 
 export function TelephoneLink(props) {
-    if (!props.phone) {
-        return props.children;
-    }
+  if (!props.phone) {
+    return props.children;
+  }
 
-    return (
-        <a href={`tel: ${props.phone}`}>{props.children}</a>
-    );
+  return (
+    <a href={`tel: ${props.phone}`}>{props.children}</a>
+  );
 };

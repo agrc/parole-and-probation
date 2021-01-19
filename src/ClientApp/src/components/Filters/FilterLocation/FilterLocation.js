@@ -1,11 +1,11 @@
-import React from 'react';
-import { Button, ButtonGroup, Card, CardBody, FormGroup, Label, Input, InputGroup, InputGroupAddon, Container, Col } from 'reactstrap';
-import useFilterReducer from '../useFilterReducer';
-import produce from 'immer';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import produce from 'immer';
+import * as React from 'react';
+import { Button, ButtonGroup, Card, CardBody, Col, Container, FormGroup, Input, InputGroup, InputGroupAddon, Label } from 'reactstrap';
 import MultiDownshift from '../../MultiDownshift';
 import { counties } from '../lookupData';
+import useFilterReducer from '../useFilterReducer';
 import './FilterLocation.css';
 
 const type = 'UPDATE_LOCATION';
@@ -18,41 +18,41 @@ export default function FilterLocation(props) {
 
     return (
         <Container fluid className="filter-location">
-          <form autocomplete="off" autoComplete="off">
-            <Col>
-                <FormGroup>
-                    <Label>City</Label>
-                    <Input type="text" value={city} onChange={setCity} />
-                </FormGroup>
-            </Col>
-            <Col>
-                <FormGroup>
-                    <Label>Zip</Label>
-                    <Input type="number" value={zip} onChange={setZip} />
-                </FormGroup>
-            </Col>
-            <Col>
-                <FormGroup>
-                    <MultiDownshift
-                        type={type}
-                        field='counties'
-                        update={props.update}
-                        selectedItems={props.criteria.counties}
-                        itemToString={itemToString}>
-                        {({
-                            closeMenu,
-                            clearSelection,
-                            getInputProps,
-                            getItemProps,
-                            getMenuProps,
-                            getRemoveButtonProps,
-                            getToggleButtonProps,
-                            highlightedIndex,
-                            inputValue,
-                            isOpen,
-                            selectedItem,
-                            setState,
-                        }) => (
+            <form autocomplete="off" autoComplete="off">
+                <Col>
+                    <FormGroup>
+                        <Label>City</Label>
+                        <Input type="text" value={city} onChange={setCity} />
+                    </FormGroup>
+                </Col>
+                <Col>
+                    <FormGroup>
+                        <Label>Zip</Label>
+                        <Input type="number" value={zip} onChange={setZip} />
+                    </FormGroup>
+                </Col>
+                <Col>
+                    <FormGroup>
+                        <MultiDownshift
+                            type={type}
+                            field='counties'
+                            update={props.update}
+                            selectedItems={props.criteria.counties}
+                            itemToString={itemToString}>
+                            {({
+                                closeMenu,
+                                clearSelection,
+                                getInputProps,
+                                getItemProps,
+                                getMenuProps,
+                                getRemoveButtonProps,
+                                getToggleButtonProps,
+                                highlightedIndex,
+                                inputValue,
+                                isOpen,
+                                selectedItem,
+                                setState,
+                            }) => (
                                 <div>
                                     <Label>County</Label>
                                     {props.criteria.counties.length > 0 ?
@@ -148,41 +148,41 @@ export default function FilterLocation(props) {
                                     )}
                                 </div>
                             )}
-                    </MultiDownshift>
-                </FormGroup>
-            </Col>
-            <Col>
-                <FormGroup>
-                    <Label>Region</Label>
-                    <div className="text-center">
-                        <ButtonGroup>
-                            {[1, 3, 4, 5, 6].map(region =>
-                                <Button
-                                    key={region}
-                                    value={region}
-                                    size="sm"
-                                    color={props.criteria.region.indexOf(region) > -1 ? 'warning' : 'secondary'}
-                                    onClick={() => {
-                                        const payload = produce(props.criteria.region, draft => {
-                                            const index = draft.indexOf(region);
+                        </MultiDownshift>
+                    </FormGroup>
+                </Col>
+                <Col>
+                    <FormGroup>
+                        <Label>Region</Label>
+                        <div className="text-center">
+                            <ButtonGroup>
+                                {[1, 3, 4, 5, 6].map(region =>
+                                    <Button
+                                        key={region}
+                                        value={region}
+                                        size="sm"
+                                        color={props.criteria.region.indexOf(region) > -1 ? 'warning' : 'secondary'}
+                                        onClick={() => {
+                                            const payload = produce(props.criteria.region, draft => {
+                                                const index = draft.indexOf(region);
 
-                                            if (index === -1) {
-                                                draft.splice(0, 0, region);
-                                            } else {
-                                                draft.splice(index, 1);
-                                            }
-                                        });
+                                                if (index === -1) {
+                                                    draft.splice(0, 0, region);
+                                                } else {
+                                                    draft.splice(index, 1);
+                                                }
+                                            });
 
-                                        props.update({ type, payload, meta: 'region' });
-                                    }}>
-                                    {region}
-                                </Button>
-                            )}
-                        </ButtonGroup>
-                    </div>
-                </FormGroup>
-            </Col>
-          </form>
+                                            props.update({ type, payload, meta: 'region' });
+                                        }}>
+                                        {region}
+                                    </Button>
+                                )}
+                            </ButtonGroup>
+                        </div>
+                    </FormGroup>
+                </Col>
+            </form>
         </Container>
     )
 }

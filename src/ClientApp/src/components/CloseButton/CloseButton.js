@@ -1,5 +1,5 @@
 import classNames from 'clsx';
-import React from 'react';
+import * as React from 'react';
 import './CloseButton.css';
 
 export default function CloseButton(props) {
