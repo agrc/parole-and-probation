@@ -14,6 +14,7 @@ export default function MapToolPanel(props) {
     'map-tool-panel',
     'esri-widget--button',
     'esri-widget',
+    'esri-component',
     expanded ? 'map-tool-panel--open' : false
   );
 
