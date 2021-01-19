@@ -23,12 +23,12 @@ const IdentifyInformation = props => {
       return;
     }
 
-    console.log('effect fetching');
+    console.log('IdentifyInformation::effect fetching');
 
     setExtra({});
 
     IdentifyFetch(props.offender, oidc, signal).then((result) => {
-      console.log('adding extra identify params');
+      console.log('IdentifyFetch::Promise Resolution::adding extra identify params');
 
       identifyCache[props.offender.offender_id] = result;
 
@@ -117,7 +117,7 @@ const IdentifyFetch = async (offender, oidc, cancellationToken) => {
     ['returnGeometry', false]
   ]);
 
-  console.log('querying extra offender data');
+  console.log('IdentifyFetch::querying extra offender data');
 
   const response = await fetch(url, {
     signal: cancellationToken,
@@ -269,7 +269,6 @@ const OffenderContactInfo = props => {
 };
 
 const SpecialSupervision = props => {
-  console.log(props);
   const keys = Object.keys(props?.children);
   if (keys.length < 1) {
     return null;
