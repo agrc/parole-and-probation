@@ -24,6 +24,7 @@ const reducer = produce((draft, action) => {
       }
     case 'MAP_CLICK': {
       draft.identify.show = true;
+      draft.identify.status = 'visible';
       draft.showSidebar = true;
 
       draft.mapPoint = action.payload.point;
@@ -52,11 +53,23 @@ const reducer = produce((draft, action) => {
 
       draft.showSidebar = !action.payload;
 
+      if (!draft.showSidebar && draft.identify.show) {
+        draft.identify.show = false;
+      }
+
+      if (draft.showSidebar && draft.identify.status === 'visible') {
+        draft.identify.show = true;
+      }
+
       return draft;
     }
     case 'TOGGLE_IDENTIFY': {
       draft.showSidebar = action.payload ? true : draft.showSidebar;
       draft.identify.show = action.payload;
+
+      if (!action.payload) {
+        draft.identify.status = 'dismissed';
+      }
 
       return draft;
     }
@@ -98,6 +111,7 @@ export default function App() {
     mapPoint: {},
     identify: {
       show: false,
+      status: null,
       features: [],
       offender: {},
       index: 0
