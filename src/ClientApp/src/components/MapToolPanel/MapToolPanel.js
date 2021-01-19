@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'clsx';
 import React, { useState } from 'react';
+import useViewUiPosition from '../../useViewUiPosition';
 import CloseButton from '../CloseButton';
 import './MapToolPanel.css';
 
 export default function MapToolPanel(props) {
   const [expanded, setExpanded] = useState(props.expanded || false);
+  const me = useViewUiPosition(props.view, props.position);
+
   const classes = classNames(
     props.className,
     'map-tool-panel',
@@ -26,6 +29,7 @@ export default function MapToolPanel(props) {
 
   return (
     <div
+      ref={me}
       className={classes}
       role="button"
       aria-label="Zoom to address"

@@ -2,10 +2,12 @@ import { faCloudDownloadAlt, faPaperPlane } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'clsx';
 import React, { useEffect, useState } from 'react';
+import useViewUiPosition from '../../useViewUiPosition';
 
 export default function CsvDownload(props) {
   const [disabled, setDisabled] = useState(props.disabled || false);
   const [status, setStatus] = useState(props.status);
+  const me = useViewUiPosition(props.view, props.position);
 
   useEffect(() => {
     if (status === undefined) {
@@ -31,6 +33,7 @@ export default function CsvDownload(props) {
 
   return (
     <div
+      ref={me}
       className={classes}
       role="button"
       aria-label="Export features to CSV"

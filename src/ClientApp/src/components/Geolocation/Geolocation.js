@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'clsx';
 import { loadModules } from 'esri-loader';
 import React, { useEffect, useState } from 'react';
+import useViewUiPosition from '../../useViewUiPosition';
 
 const supportsGeolocation = () => {
   if (!navigator.geolocation) {
@@ -77,6 +78,7 @@ const geolocate = async (props) => {
 export default function Geolocation(props) {
   const [spin, setProgress] = useState(props.spin || false);
   const [status, setStatus] = useState(props.status);
+  const me = useViewUiPosition(props.view, props.position);
 
   useEffect(() => {
     if (status === undefined) {
@@ -102,6 +104,7 @@ export default function Geolocation(props) {
 
   return (supportsGeolocation() ?
     <div
+      ref={me}
       className={classes}
       role="button"
       aria-label="Zoom to current location"
