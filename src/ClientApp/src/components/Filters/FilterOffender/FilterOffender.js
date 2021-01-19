@@ -21,7 +21,7 @@ export default function FilterOffender(props) {
 
   return (
     <Container fluid className="filter-offender">
-      <form autocomplete="off" autoComplete="off">
+      <form autoComplete="off">
         <Col>
           <FormGroup>
             <Label>Name</Label>
