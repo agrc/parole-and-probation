@@ -1,7 +1,7 @@
+import Graphic from '@arcgis/core/Graphic';
 import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'clsx';
-import { loadModules } from 'esri-loader';
 import * as React from 'react';
 import useViewUiPosition from '../../useViewUiPosition';
 
@@ -59,8 +59,6 @@ const geolocate = async (props) => {
       wkid: 4326
     }
   };
-
-  const [Graphic] = await loadModules(['esri/Graphic']);
 
   const graphic = new Graphic({
     geometry: point,
