@@ -1,15 +1,14 @@
 import produce from 'immer';
 import * as React from 'react';
 import { UserData } from 'react-oidc';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import MapLens from './components/MapLens';
+import './App.css';
 import MapView from './components/esrijs/MapView';
 import { Filters } from './components/Filters';
-import { IdentifyInformation, IdentifyContainer } from './components/Identify';
+import Header from './components/Header';
+import { IdentifyContainer, IdentifyInformation } from './components/Identify';
+import MapLens from './components/MapLens';
+import Sidebar from './components/Sidebar';
 import { mappingConfig } from './config';
-
-import './App.css';
 
 const reducer = produce((draft, action) => {
   console.log(`App:reducing state for ${action.type}`, action);
