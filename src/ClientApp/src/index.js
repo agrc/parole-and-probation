@@ -1,3 +1,4 @@
+import '@arcgis/core/assets/esri/themes/light/main.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
