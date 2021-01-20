@@ -14,11 +14,11 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@agrc/dart-board": "^3.2.2",
-    "@agrc/layer-selector": "^4.0.3",
+    "@agrc/dart-board": "^3.3.0",
+    "@agrc/layer-selector": "^4.0.4",
     "@arcgis/core": "^4.18.1",
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "bootstrap": "^4.5.3",
     "clsx": "^1.1.1",
@@ -28,6 +28,7 @@
     "lodash": "^4.17.20",
     "lodash.isequal": "^4.5.0",
     "ncp": "^2.0.0",
+    "oidc-react": "^1.1.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-fast-compare": "^3.2.0",
@@ -35,7 +36,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "reactstrap": "^8.8.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^1.1.0"
   },
   "scripts": {
     "build-react:stage": "./node_modules/.bin/env-cmd -f ./.env.stage npm run build",
@@ -43,10 +44,12 @@
     "build:prod": "dotnet publish ../parole.csproj -c Release /p:EnvironmentName=Production",
     "build:stage": "dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false /p:EnvironmentName=Staging",
     "build": "react-scripts build",
-    "copy:arcgis": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
+    "copy:arcgis": "npm run copy:public && npm run copy:build",
+    "copy:public": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
+    "copy:build": "ncp ./node_modules/@arcgis/core/assets ./build/assets",
     "eject": "react-scripts eject",
     "release": "standard-version",
-    "start:all": "dotnet run -p ../parole.csproj",
+    "start:all": "dotnet run -p ../parole.csproj /p:EnvironmentName=Development",
     "start": "react-scripts start",
     "storybook": "start-storybook -p 9009 -s public",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
@@ -88,7 +91,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "env-cmd": "^10.1.0",
     "fetch-mock": "^8.3.2",
-    "standard-version": "^8.0.2"
+    "standard-version": "^9.1.0"
   },
   "config": {
     "commitizen": {
