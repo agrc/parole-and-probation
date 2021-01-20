@@ -101,7 +101,7 @@ const sqlMap = {
         query.push(`standard_of_supervision in (${data.map(item => `'${item.toUpperCase()}'`).join()})`);
       }
 
-      return query.join(' OR ');
+      return `(${query.join(' OR ')})`;
     },
     supervision: data => data.map(item => `${item.id}=1`).join(' AND '),
     gang: data => `gang_type in (${data.map(item => `'${item.name.toUpperCase()}'`).join()})`,
