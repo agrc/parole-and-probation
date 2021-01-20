@@ -1,4 +1,5 @@
 import produce from 'immer';
+import isEqual from 'lodash.isequal';
 import * as React from 'react';
 import { UserData } from 'react-oidc';
 import './App.css';
@@ -77,20 +78,33 @@ const reducer = produce((draft, action) => {
       let definitionExpression = action.payload.definitionExpression;
 
       let tempFilter = [];
-      if (filter && filter.length > 0) {
+      if (filter?.length > 0) {
         tempFilter = filter;
       }
 
-      if (definitionExpression && definitionExpression.length > 0) {
+      if (definitionExpression?.length > 0) {
         tempFilter = tempFilter.concat(definitionExpression);
       }
 
       const newFilters = tempFilter.join(' AND ');
-
-      if (draft.appliedFilter !== newFilters) {
-        draft.appliedFilter = newFilters;
+      let updated = false;
+      // these are the raw filters as an array for change detection
+      if (!isEqual(draft.filter, filter)) {
         draft.filter = filter;
+        updated = true;
+      }
+
+      if (!isEqual(draft.definitionExpression, definitionExpression)) {
         draft.definitionExpression = definitionExpression;
+        updated = true;
+      }
+
+      if (updated) {
+        // this is a combination of the definition expression and filters
+        // applied to the map as sql
+        // useful for queries/identifying outside of the feature layer
+        // where the queries need to match
+        draft.appliedFilter = newFilters;
       }
 
       return draft;
@@ -104,7 +118,7 @@ export default function App() {
   const oidc = React.useContext(UserData);
   const [app, dispatcher] = React.useReducer(reducer, {
     zoomToGraphic: {
-      graphic: {},
+      graphic: null,
       level: 0
     },
     mapPoint: {},
