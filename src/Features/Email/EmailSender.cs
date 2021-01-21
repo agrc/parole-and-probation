@@ -52,18 +52,22 @@ namespace parole.Features {
 
             using var client = new SmtpClient();
             _log.Debug("Connecting to smtp server");
-            await client.ConnectAsync(_config.Smtp, 25, MailKit.Security.SecureSocketOptions.None);
+            await client.ConnectAsync(_config.Smtp, 25, MailKit.Security.SecureSocketOptions.None).ConfigureAwait(false);
             _log.Debug("Connected to smtp server");
 
-            await client.SendAsync(message);
+            await client.SendAsync(message).ConfigureAwait(false);
             _log.Information("Email sent");
 
-            await client.DisconnectAsync(true);
+            await client.DisconnectAsync(true).ConfigureAwait(false);
         }
 
         private static void SendToPickupDirectory(MimeMessage message, string pickupDirectory) {
-            do {
+            while (true) {
                 var path = Path.Combine(pickupDirectory, $"{DateTime.Now:yyyy-MM-dd-hh-mm-ss}.eml");
+
+                if (!Directory.Exists(pickupDirectory)) {
+                    Directory.CreateDirectory(pickupDirectory);
+                }
 
                 if (File.Exists(path)) {
                     continue;
@@ -74,11 +78,11 @@ namespace parole.Features {
                     message.WriteTo(stream);
 
                     return;
-                } catch (IOException) {
+                } catch (IOException ex) {
                     // The file may have been created between our File.Exists() check and
                     // our attempt to create the stream.
                 }
-            } while (true);
+            }
         }
     }
 }
