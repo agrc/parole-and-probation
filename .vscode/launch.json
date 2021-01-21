@@ -9,13 +9,14 @@
             "request": "launch",
             "name": "Debug",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/bin/Debug/netcoreapp3.1/app.dll",
+            "program": "${workspaceFolder}/src/bin/Debug/net5.0/parole.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "env": {
-                "GOOGLE_APPLICATION_CREDENTIALS": "${workspaceFolder}/src/log-writer-sa.json"
+                "GOOGLE_APPLICATION_CREDENTIALS": "${workspaceFolder}/src/log-writer-sa.json",
+                "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "launchBrowser": {
                 "enabled": true,
