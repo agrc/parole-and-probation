@@ -28,6 +28,7 @@ export default function CsvDownload(props) {
   const classes = classNames(
     'esri-widget--button',
     'esri-widget',
+    'esri-component',
     disabled ? 'esri-button--disabled' : false,
     status === undefined ? false : status ? 'text-primary' : 'text-danger'
   );
