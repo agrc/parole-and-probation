@@ -1,6 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
+using CsvHelper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -64,6 +70,7 @@ namespace parole {
               .AddPolicyHandler(timeoutPolicy);
 
             services.AddSingleton<TokenService>();
+            services.AddSingleton<ExportService>();
             services.AddSingleton<IArcGISCredential>(values);
             services.AddSingleton(emailValues);
             services.AddSingleton(Configuration);
@@ -106,8 +113,6 @@ namespace parole {
 
             app.UseHttpsRedirection();
 
-            app.UseMiddleware<CsvDownloadMiddleware>();
-
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
@@ -117,6 +122,64 @@ namespace parole {
                 var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
                 var tokenInfo = endpoints.ServiceProvider.GetService<TokenValidationParameters>();
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
+
+                endpoints.MapPost("api/download", async context => {
+                    CsvDownload model;
+                    try {
+                        model = await context.Request.ReadFromJsonAsync<CsvDownload>(new JsonSerializerOptions {
+                            PropertyNameCaseInsensitive = true
+                        }).ConfigureAwait(false);
+                    } catch (JsonException) {
+                        context.Response.StatusCode = 400;
+                        await context.Response.WriteAsJsonAsync(new {
+                            message = "Invalid Request"
+                        }).ConfigureAwait(false);
+
+                        return;
+                    }
+
+                    if (model?.Offenders?.Count == 0) {
+                        context.Response.StatusCode = 400;
+                        await context.Response.WriteAsJsonAsync(new {
+                            message = "Invalid Request"
+                        }).ConfigureAwait(false);
+
+                        return;
+                    }
+
+                    var exportService = endpoints.ServiceProvider.GetService<ExportService>();
+
+                    var records = await exportService.GetRecords(model).ConfigureAwait(false);
+                    if (!records.Any()) {
+                        context.Response.StatusCode = 200;
+                        await context.Response.WriteAsJsonAsync(new {
+                            message = "Skipping empty export"
+                        }).ConfigureAwait(false);
+
+                        return;
+                    }
+
+                    context.Response.Clear();
+                    context.Response.StatusCode = 201;
+                    context.Response.Headers["Content-Type"] = "application/csv";
+                    context.Response.Headers["Content-Disposition"] = "attachment; filename=offenders.csv";
+
+                    using var stream = new MemoryStream();
+                    using var writer = new StreamWriter(stream);
+                    using var csv = new CsvWriter(writer, CultureInfo.CurrentCulture);
+
+                    csv.WriteRecords(records);
+                    await writer.FlushAsync().ConfigureAwait(false);
+
+                    stream.Position = 0;
+                    await stream.CopyToAsync(context.Response.Body).ConfigureAwait(false);
+                    stream.Position = 0;
+
+                    var emailConfig = endpoints.ServiceProvider.GetService<EmailConfig>();
+                    var emailer = new EmailSender(emailConfig, logger);
+
+                    await emailer.SendAsync(new[] { model.Agent }, stream).ConfigureAwait(false);
+                });
 
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {
