@@ -39,9 +39,7 @@ namespace parole {
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration => {
-                configuration.RootPath = "ClientApp/build";
-            });
+            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build");
 
             var section = Configuration.GetSection("ArcGIS");
             var values = section.Get<Credential>();
@@ -57,7 +55,7 @@ namespace parole {
 
             var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(8); // Timeout for an individual try
 
-            services.AddHttpClient("default", client => { client.Timeout = new TimeSpan(0, 0, 15); })
+            services.AddHttpClient("default", client => client.Timeout = new TimeSpan(0, 0, 15))
               .ConfigurePrimaryHttpMessageHandler(() => {
                   var handler = new HttpClientHandler();
                   if (handler.SupportsAutomaticDecompression) {
@@ -76,11 +74,11 @@ namespace parole {
             services.AddSingleton(emailValues);
             services.AddSingleton(Configuration);
 
-            services.AddSingleton<ILogger>(provider => new LoggerConfiguration()
+            services.AddSingleton<ILogger>(_ => new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .CreateLogger());
 
-            services.AddSingleton<TokenValidationParameters>(provider => {
+            services.AddSingleton<TokenValidationParameters>(_ => {
                 var authority = "https://login.dts.utah.gov:443/sso/oauth2";
 
                 var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
