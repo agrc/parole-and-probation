@@ -1,7 +1,7 @@
+import DartBoard from '@agrc/dart-board';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import DartBoard from '../DartBoard';
 import MapToolPanel from './MapToolPanel';
 
 storiesOf('MapTools/MapToolPanel', module)
