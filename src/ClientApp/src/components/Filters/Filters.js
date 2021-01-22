@@ -165,6 +165,7 @@ const filterReducer = produce((draft, action) => {
 
           draft.agent.agentList = [action.payload.item].concat(draft.agent.agentList);
         } else {
+          draft.agent.supervisorList = [];
           draft.agent.agentList = draft.agent.agentList.filter(item => item.value.toLowerCase() !== action.payload.item.value.toLowerCase());
         }
       } else if (action.meta === 'supervisor') {
@@ -181,6 +182,7 @@ const filterReducer = produce((draft, action) => {
           }
         } else {
           draft.agent.agentList = [];
+          draft.agent.supervisor = null;
 
           if (draft.agent.vanity) {
             draft.agent.agentList.push(draft.agent.loggedInUser);
@@ -189,6 +191,7 @@ const filterReducer = produce((draft, action) => {
           const agentsForSupervisor = agents
             .filter(agent => agent.supervisor.toLowerCase() === action.payload.supervisorName.toLowerCase())
 
+          draft.agent.supervisor = action.payload.supervisorName;
           draft.agent.agentList = draft.agent.agentList.concat(agentsForSupervisor);
         }
       }
@@ -256,6 +259,7 @@ const initialState = {
   agent: {
     loggedInUser: null,
     agentList: [],
+    supervisor: null,
     vanity: true
   },
   date: {
@@ -297,6 +301,7 @@ const emptyState = {
   agent: {
     loggedInUser: null,
     agentList: [],
+    supervisor: null,
     vanity: true
   },
   date: {
