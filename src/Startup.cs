@@ -71,6 +71,7 @@ namespace parole {
 
             services.AddSingleton<TokenService>();
             services.AddSingleton<ExportService>();
+            services.AddSingleton<TypeAheadService>();
             services.AddSingleton<IArcGISCredential>(values);
             services.AddSingleton(emailValues);
             services.AddSingleton(Configuration);
@@ -122,6 +123,47 @@ namespace parole {
                 var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
                 var tokenInfo = endpoints.ServiceProvider.GetService<TokenValidationParameters>();
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
+
+                endpoints.MapGet("api/data/{input}/{value}", async context => {
+                    // var request = context.Request;
+                    // var validated = JwtService.ValidateAndDecode(request, tokenInfo, logger);
+
+                    // if (!validated) {
+                    //     logger.Warning("invalid access token");
+
+                    //     context.Response.StatusCode = 401;
+                    //     await context.Response.WriteAsync("Invalid Access Token");
+
+                    //     return;
+                    // }
+
+                    var typeAheadProvider = endpoints.ServiceProvider.GetService<TypeAheadService>();
+
+                    var input = context.Request.RouteValues["input"].ToString();
+                    var value = context.Request.RouteValues["value"].ToString();
+                    var limit = 25;
+                    int? requestId = null;
+                    string filter = null;
+
+                    if (context.Request.Query.TryGetValue("filters", out var filtersQuery) &&
+                        !string.IsNullOrEmpty(filtersQuery)) {
+                        filter = filtersQuery.ToString();
+                    }
+                    if (context.Request.Query.TryGetValue("requestId", out var requestIdQuery) &&
+                        int.TryParse(requestIdQuery, out var newRequestId)) {
+                        requestId = newRequestId;
+                    }
+                    if (context.Request.Query.TryGetValue("limit", out var limitQuery) &&
+                        int.TryParse(limitQuery, out var newLimit)) {
+                        limit = newLimit;
+                    }
+
+                    var descriptor = new TypeAheadDescriptor(input, value, filter, requestId, limit);
+
+                    var data = await typeAheadProvider.Find(descriptor).ConfigureAwait(false);
+
+                    await context.Response.WriteAsJsonAsync(data).ConfigureAwait(false);
+                });
 
                 endpoints.MapPost("api/download", async context => {
                     CsvDownload model;
