@@ -18,29 +18,37 @@ export default function MapLens(props) {
     'map-lens__toggle',
     'btn',
     'btn-default'
-  )
+  );
 
   return (
     <div className={classes}>
       {props.children}
       <Button color="info" className={buttonClasses} onClick={props.toggleSidebar}>
-        {props.showSidebar ? <FontAwesomeIcon icon={faChevronLeft} size='xs' /> : <FontAwesomeIcon icon={faChevronLeft} size='xs' flip='horizontal' />}
+        {props.showSidebar ? (
+          <FontAwesomeIcon icon={faChevronLeft} size="xs" />
+        ) : (
+          <FontAwesomeIcon icon={faChevronLeft} size="xs" flip="horizontal" />
+        )}
       </Button>
-      <StaticLegend legend={[
-        {
-          label: 'probation',
-          color: '#53C3F9',
-          invert: true
-        }, {
-          label: 'parole',
-          color: '#DAFC86',
-          invert: true
-        }, {
-          label: 'fugitive',
-          color: '#F08683',
-          invert: true
-        }]
-      } />
+      <StaticLegend
+        legend={[
+          {
+            label: 'probation',
+            color: '#53C3F9',
+            invert: true,
+          },
+          {
+            label: 'parole',
+            color: '#DAFC86',
+            invert: true,
+          },
+          {
+            label: 'fugitive',
+            color: '#F08683',
+            invert: true,
+          },
+        ]}
+      />
     </div>
   );
 }

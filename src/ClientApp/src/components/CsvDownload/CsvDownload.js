@@ -4,7 +4,6 @@ import classNames from 'clsx';
 import * as React from 'react';
 import useViewUiPosition from '../../useViewUiPosition';
 
-
 export default function CsvDownload(props) {
   const [disabled, setDisabled] = React.useState(props.disabled || false);
   const [status, setStatus] = React.useState(props.status);
@@ -16,7 +15,7 @@ export default function CsvDownload(props) {
     }
 
     const timeout = setTimeout(() => {
-      console.log('resetting button')
+      console.log('resetting button');
       setStatus(undefined);
     }, 10000);
 
@@ -55,8 +54,9 @@ export default function CsvDownload(props) {
         } finally {
           setDisabled(false);
         }
-      }}>
+      }}
+    >
       <FontAwesomeIcon spin={disabled} icon={status ? faPaperPlane : faCloudDownloadAlt} className="esri-icon" />
     </div>
   );
-};
+}

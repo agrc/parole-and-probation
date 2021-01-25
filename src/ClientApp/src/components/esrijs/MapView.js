@@ -22,21 +22,21 @@ import Geolocation from '../Geolocation';
 import MapToolPanel from '../MapToolPanel';
 
 const regionLabels = new LabelClass({
-  labelExpressionInfo: { expression: "$feature.REGION" },
+  labelExpressionInfo: { expression: '$feature.REGION' },
   symbol: {
     type: 'text',
     color: 'black',
     haloSize: 1,
-    haloColor: 'white'
-  }
+    haloColor: 'white',
+  },
 });
 
 const regions = {
   Factory: FeatureLayer,
-  opacity: .25,
+  opacity: 0.25,
   labelingInfo: [regionLabels],
   url: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/Corrections_Regions/FeatureServer/0',
-  id: 'Regions'
+  id: 'Regions',
 };
 
 const defaultExtent = new Extent({
@@ -44,11 +44,11 @@ const defaultExtent = new Extent({
   xmin: -12246370,
   ymax: 5125456,
   ymin: 4473357,
-  spatialReference: 3857
+  spatialReference: 3857,
 });
 
 const controller = new AbortController();
-let signal = controller.signal
+let signal = controller.signal;
 
 const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitionExpression }) => {
   const mapDiv = React.useRef(null);
@@ -60,103 +60,110 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
   const clickEvent = React.useRef(null);
   const auth = React.useContext(UserData);
 
-  const setFilters = React.useCallback(async (where, isFilter) => {
-    if (!offenders || !view.ready) {
-      return;
-    }
-
-    const filter = where.join(' AND ');
-
-    if (isFilter) {
-      const layerView = await view.whenLayerView(offenders);
-      console.log(`MapView:setFilters ${filter}`);
-
-      layerView.filter = {
-        where: filter
-      };
-
-      setAppliedFilter(filter);
-
-      await whenFalseOnce(layerView, 'updating', async () => {
-        const result = await layerView.queryExtent();
-
-        console.log('MapView:setFilters setting map extent', result);
-
-        if (result.count === 0) {
-          return;
-        }
-
-        let extent = result.extent;
-        if (result.count === 1) {
-          extent = {
-            target: result.extent,
-            scale: 16000
-          };
-        }
-
-        return view.goTo(extent);
-      });
-    } else {
-      offenders.definitionExpression = filter;
-
-      console.log('MapView:setFilters setting map extent');
-      view.goTo(defaultExtent);
-    }
-  }, [offenders, view]);
-
-  const identify = React.useCallback(async (where) => {
-    if (!where) {
-      return;
-    }
-
-    console.log(`MapView::identify callback`);
-
-    const test = await view.hitTest(where);
-
-    if (test.results.length) {
-      const graphic = test.results[0].graphic;
-
-      if (!graphic.layer.id || !graphic.layer.title) {
+  const setFilters = React.useCallback(
+    async (where, isFilter) => {
+      if (!offenders || !view.ready) {
         return;
       }
-    }
 
-    const queryFeatures = async opts => {
-      console.log(`MapView::queryFeatures:query ${appliedFilter}`);
+      const filter = where.join(' AND ');
 
-      const query = {
-        where: appliedFilter,
-        geometry: opts.mapPoint,
-        distance: view.resolution * 7,
-        spatialRelationship: 'intersects',
-        outFields: layerView.availableFields,
-        orderByFields: 'offender ASC',
-        returnGeometry: false
-      };
+      if (isFilter) {
+        const layerView = await view.whenLayerView(offenders);
+        console.log(`MapView:setFilters ${filter}`);
 
-      const featureSet = await layerView.queryFeatures(query);
-      mapDispatcher({
-        type: 'MAP_CLICK', payload: {
-          point: opts.mapPoint,
-          features: featureSet.features
-        }
-      });
-    };
+        layerView.filter = {
+          where: filter,
+        };
 
-    const layerView = await view.whenLayerView(offenders);
-    if (layerView.updating) {
-      const handle = layerView.watch('updating', stillUpdating => {
-        if (stillUpdating) {
+        setAppliedFilter(filter);
+
+        await whenFalseOnce(layerView, 'updating', async () => {
+          const result = await layerView.queryExtent();
+
+          console.log('MapView:setFilters setting map extent', result);
+
+          if (result.count === 0) {
+            return;
+          }
+
+          let extent = result.extent;
+          if (result.count === 1) {
+            extent = {
+              target: result.extent,
+              scale: 16000,
+            };
+          }
+
+          return view.goTo(extent);
+        });
+      } else {
+        offenders.definitionExpression = filter;
+
+        console.log('MapView:setFilters setting map extent');
+        view.goTo(defaultExtent);
+      }
+    },
+    [offenders, view]
+  );
+
+  const identify = React.useCallback(
+    async (where) => {
+      if (!where) {
+        return;
+      }
+
+      console.log(`MapView::identify callback`);
+
+      const test = await view.hitTest(where);
+
+      if (test.results.length) {
+        const graphic = test.results[0].graphic;
+
+        if (!graphic.layer.id || !graphic.layer.title) {
           return;
         }
+      }
 
+      const queryFeatures = async (opts) => {
+        console.log(`MapView::queryFeatures:query ${appliedFilter}`);
+
+        const query = {
+          where: appliedFilter,
+          geometry: opts.mapPoint,
+          distance: view.resolution * 7,
+          spatialRelationship: 'intersects',
+          outFields: layerView.availableFields,
+          orderByFields: 'offender ASC',
+          returnGeometry: false,
+        };
+
+        const featureSet = await layerView.queryFeatures(query);
+        mapDispatcher({
+          type: 'MAP_CLICK',
+          payload: {
+            point: opts.mapPoint,
+            features: featureSet.features,
+          },
+        });
+      };
+
+      const layerView = await view.whenLayerView(offenders);
+      if (layerView.updating) {
+        const handle = layerView.watch('updating', (stillUpdating) => {
+          if (stillUpdating) {
+            return;
+          }
+
+          queryFeatures(where);
+          handle.remove();
+        });
+      } else {
         queryFeatures(where);
-        handle.remove();
-      });
-    } else {
-      queryFeatures(where);
-    }
-  }, [offenders, view, appliedFilter, mapDispatcher]);
+      }
+    },
+    [offenders, view, appliedFilter, mapDispatcher]
+  );
 
   // set up map effect
   React.useEffect(() => {
@@ -167,16 +174,18 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
     console.log('MapView::set up map effect');
 
     esriConfig.request.interceptors.push({
-      urls: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}${process.env.REACT_APP_BASENAME}/mapserver`,
+      urls: `${window.location.protocol}//${window.location.hostname}${
+        window.location.port ? `:${window.location.port}` : ''
+      }${process.env.REACT_APP_BASENAME}/mapserver`,
       headers: {
-        Authorization: `Bearer ${auth.user.access_token}`
-      }
+        Authorization: `Bearer ${auth.user.access_token}`,
+      },
     });
 
     const offenderLayer = new FeatureLayer({
       url: `${process.env.REACT_APP_BASENAME}/mapserver`,
-      outFields: Object.keys(fields).filter(key => fields[key].filter === true),
-      definitionExpression: '1=2'
+      outFields: Object.keys(fields).filter((key) => fields[key].filter === true),
+      definitionExpression: '1=2',
     });
 
     const map = new EsriMap();
@@ -185,7 +194,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
       container: mapDiv.current,
       extent: defaultExtent,
       ui: {
-        components: ['zoom']
+        components: ['zoom'],
       },
       popup: {
         actions: null,
@@ -195,9 +204,9 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
         dockOptions: {
           breakpoint: false,
           buttonEnabled: false,
-          position: 'top-right'
-        }
-      }
+          position: 'top-right',
+        },
+      },
     });
 
     setSelectorOptions({
@@ -206,7 +215,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
       baseLayers: ['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR'],
       overlays: [regions],
       modules: { LOD, TileInfo, Basemap, WebTileLayer, FeatureLayer },
-      position: 'top-right'
+      position: 'top-right',
     });
 
     map.add(offenderLayer);
@@ -222,7 +231,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
       console.log('MapView::apply filter effect', filter);
       setFilters(filter, true);
     }
-
   }, [filter, setFilters]);
 
   // update definition expression effect
@@ -231,7 +239,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
       console.log('MapView::apply definition expression effect', definitionExpression);
       setFilters(definitionExpression, false);
     }
-
   }, [definitionExpression, setFilters]);
 
   // zooming effect
@@ -247,20 +254,20 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
     if (!Array.isArray(zoomMeta?.graphic)) {
       zoomMeta = {
         ...zoomToGraphic,
-        graphic: [zoomToGraphic.graphic]
+        graphic: [zoomToGraphic.graphic],
       };
     }
 
     let zoom;
     if (!zoomMeta.zoom) {
-      if (zoomMeta.graphic.every(graphic => graphic?.geometry?.type === 'point')) {
+      if (zoomMeta.graphic.every((graphic) => graphic?.geometry?.type === 'point')) {
         zoom = {
           target: zoomMeta.graphic,
-          zoom: view.map.basemap.baseLayers.items[0].tileInfo.lods.length - 5
+          zoom: view.map.basemap.baseLayers.items[0].tileInfo.lods.length - 5,
         };
       } else {
         zoom = {
-          target: zoomMeta.graphic
+          target: zoomMeta.graphic,
         };
       }
     }
@@ -283,26 +290,25 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
       if (timeout) {
         clearTimeout(timeout);
       }
-    }
+    };
   }, [zoomToGraphic, view]);
 
   React.useEffect(() => {
     if (view) {
       console.log('MapView::identify click effect');
       clickEvent.current?.remove();
-      clickEvent.current = view.on('click', event => identify(event));
+      clickEvent.current = view.on('click', (event) => identify(event));
     }
   }, [clickEvent, view, identify]);
 
   const download = async () => {
     const layerView = await view.whenLayerView(offenders);
 
-    const ids = await layerView
-      .queryObjectIds({
-        where: appliedFilter,
-        geometry: view.extent,
-        returnGeometry: false
-      });
+    const ids = await layerView.queryObjectIds({
+      where: appliedFilter,
+      geometry: view.extent,
+      returnGeometry: false,
+    });
 
     console.log(`there are ${ids.length} features to download`);
 
@@ -310,7 +316,9 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
       return;
     }
 
-    const base = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}`;
+    const base = `${window.location.protocol}//${window.location.hostname}${
+      window.location.port ? `:${window.location.port}` : ''
+    }`;
     const url = new URL(`${process.env.REACT_APP_BASENAME}/api/download`, base);
 
     const response = await fetch(url, {
@@ -320,12 +328,12 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
       mode: 'cors',
       body: JSON.stringify({
         offenders: ids,
-        agent: auth.user.profile['public:Email']
+        agent: auth.user.profile['public:Email'],
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${auth.user.access_token}`
-      }
+        Authorization: `Bearer ${auth.user.access_token}`,
+      },
     });
 
     const data = await response.text();
@@ -336,12 +344,11 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
 
     try {
       var blob = new Blob([data], {
-        type: 'application/csv'
+        type: 'application/csv',
       });
 
       saveAs(blob, 'export.csv');
-    }
-    catch (e) {
+    } catch (e) {
       console.error('unable to create local download');
     }
   };
@@ -355,19 +362,19 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
           className="pt-2 px-3"
           apiKey={process.env.REACT_APP_WEB_API}
           events={{
-            success: result => mapDispatcher({ type: 'ZOOM_TO_GRAPHIC', payload: result }),
-            error: console.error
+            success: (result) => mapDispatcher({ type: 'ZOOM_TO_GRAPHIC', payload: result }),
+            error: console.error,
           }}
           pointSymbol={{
             type: 'simple-marker',
             outline: { width: 1.5, color: [255, 255, 255, 1] },
             size: 11,
-            color: [0, 116, 217, .75]
+            color: [0, 116, 217, 0.75],
           }}
         />
       </MapToolPanel>
       <CsvDownload download={download} view={view} position="top-left" />
-      { selectorOptions ? <LayerSelector {...selectorOptions}></LayerSelector> : null}
+      {selectorOptions ? <LayerSelector {...selectorOptions}></LayerSelector> : null}
     </div>
   );
 };

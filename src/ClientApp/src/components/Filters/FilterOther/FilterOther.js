@@ -2,14 +2,26 @@ import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import produce from 'immer';
 import * as React from 'react';
-import { Button, ButtonGroup, Card, CardBody, Col, Container, FormGroup, Input, InputGroup, InputGroupAddon, Label } from 'reactstrap';
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  Col,
+  Container,
+  FormGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  Label,
+} from 'reactstrap';
 import MultiDownshift from '../../MultiDownshift';
 import { mainGangs, offenseTypes, supervisionItems } from '../lookupData';
 import './FilterOther.css';
 
 const type = 'UPDATE_OTHER';
 
-const itemToString = item => (item ? item.name : '');
+const itemToString = (item) => (item ? item.name : '');
 
 export default function FilterOther(props) {
   return (
@@ -19,21 +31,22 @@ export default function FilterOther(props) {
           <Label>Legal Status</Label>
           <div className="text-center">
             <ButtonGroup>
-              {['probation', 'parole'].map((payload, index) =>
+              {['probation', 'parole'].map((payload, index) => (
                 <Button
                   key={index}
                   size="sm"
                   color={props.criteria.status === payload ? 'warning' : 'secondary'}
                   onClick={() => {
                     if (props.criteria.status === payload) {
-                      payload = null
+                      payload = null;
                     }
 
                     props.update({ type, payload, meta: 'status' });
-                  }}>
+                  }}
+                >
                   {payload}
                 </Button>
-              )}
+              ))}
             </ButtonGroup>
           </div>
         </FormGroup>
@@ -43,13 +56,13 @@ export default function FilterOther(props) {
           <Label>Standard of Supervision</Label>
           <div className="text-center">
             <ButtonGroup>
-              {['no std', 'low', 'mod', 'hi', 'int'].map((sos, index) =>
+              {['no std', 'low', 'mod', 'hi', 'int'].map((sos, index) => (
                 <Button
                   key={index}
                   size="sm"
                   color={props.criteria.sos.indexOf(sos) > -1 ? 'warning' : 'secondary'}
                   onClick={() => {
-                    const payload = produce(props.criteria.sos, draft => {
+                    const payload = produce(props.criteria.sos, (draft) => {
                       const index = draft.indexOf(sos);
 
                       if (index === -1) {
@@ -60,10 +73,11 @@ export default function FilterOther(props) {
                     });
 
                     props.update({ type, payload, meta: 'sos' });
-                  }}>
+                  }}
+                >
                   {sos}
                 </Button>
-              )}
+              ))}
             </ButtonGroup>
           </div>
         </FormGroup>
@@ -72,10 +86,11 @@ export default function FilterOther(props) {
         <FormGroup>
           <MultiDownshift
             type={type}
-            field='supervision'
+            field="supervision"
             update={props.update}
             selectedItems={props.criteria.supervision}
-            itemToString={itemToString}>
+            itemToString={itemToString}
+          >
             {({
               closeMenu,
               clearSelection,
@@ -92,94 +107,122 @@ export default function FilterOther(props) {
             }) => (
               <div>
                 <Label>Special Supervision</Label>
-                {props.criteria.supervision.length > 0 ?
+                {props.criteria.supervision.length > 0 ? (
                   <Card className="mb-3 p-3">
                     <CardBody className="filter-other__items-container p-0">
-                      {props.criteria.supervision.map(item => (
-                        <Button className="mb-1" color="secondary" size="sm" outline key={item.id} {...getRemoveButtonProps({ item })}>
+                      {props.criteria.supervision.map((item) => (
+                        <Button
+                          className="mb-1"
+                          color="secondary"
+                          size="sm"
+                          outline
+                          key={item.id}
+                          {...getRemoveButtonProps({ item })}
+                        >
                           {item.name}
                         </Button>
                       ))}
                     </CardBody>
-                  </Card> : null}
+                  </Card>
+                ) : null}
                 <InputGroup>
-                  <Input {...getInputProps({
-                    onBlur: closeMenu,
-                    onKeyDown: event => {
-                      switch (event.key) {
-                        case 'Tab': {
-                          highlightedIndex = highlightedIndex || 0;
+                  <Input
+                    {...getInputProps({
+                      onBlur: closeMenu,
+                      onKeyDown: (event) => {
+                        switch (event.key) {
+                          case 'Tab': {
+                            highlightedIndex = highlightedIndex || 0;
 
-                          const alreadySelected = props.criteria.supervision.map(item => item.name);
+                            const alreadySelected = props.criteria.supervision.map((item) => item.name);
 
-                          const value = supervisionItems
-                            .filter(item => inputValue &&
-                              !alreadySelected.includes(item.name) &&
-                              item.name.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                            const value = supervisionItems.filter(
+                              (item) =>
+                                inputValue &&
+                                !alreadySelected.includes(item.name) &&
+                                item.name.toLowerCase().includes(inputValue.toLowerCase())
+                            )[highlightedIndex];
 
-                          if (value) {
-                            setState({
-                              inputValue: value.name,
-                              isOpen: false,
-                              type: '__autocomplete_tab_selection__'
-                            });
+                            if (value) {
+                              setState({
+                                inputValue: value.name,
+                                isOpen: false,
+                                type: '__autocomplete_tab_selection__',
+                              });
 
-                            event.preventDefault();
-                          }
-
-                          break;
-                        }
-                        case 'Enter': {
-                          console.log(`Downshift:onKeyDown ${event.key}`);
-
-                          if (selectedItem) {
-                            clearSelection();
+                              event.preventDefault();
+                            }
 
                             break;
                           }
+                          case 'Enter': {
+                            console.log(`Downshift:onKeyDown ${event.key}`);
 
-                          highlightedIndex = highlightedIndex || 0;
+                            if (selectedItem) {
+                              clearSelection();
 
-                          const alreadySelected = props.criteria.supervision.map(item => item.name);
+                              break;
+                            }
 
-                          const value = supervisionItems
-                            .filter(item => inputValue &&
-                              !alreadySelected.includes(item.name) &&
-                              item.name.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                            highlightedIndex = highlightedIndex || 0;
 
-                          if (value && inputValue === value.name) {
-                            setState({
-                              selectedItem: value,
-                              isOpen: false,
-                              type: '__autocomplete_keydown_enter__'
-                            });
+                            const alreadySelected = props.criteria.supervision.map((item) => item.name);
+
+                            const value = supervisionItems.filter(
+                              (item) =>
+                                inputValue &&
+                                !alreadySelected.includes(item.name) &&
+                                item.name.toLowerCase().includes(inputValue.toLowerCase())
+                            )[highlightedIndex];
+
+                            if (value && inputValue === value.name) {
+                              setState({
+                                selectedItem: value,
+                                isOpen: false,
+                                type: '__autocomplete_keydown_enter__',
+                              });
+                            }
+
+                            break;
                           }
-
-                          break;
+                          default:
+                            break;
                         }
-                        default:
-                          break;
-                      }
-                    }
-                  })} />
+                      },
+                    })}
+                  />
                   <InputGroupAddon addonType="append">
                     <Button {...getToggleButtonProps()}>
-                      {isOpen ? <FontAwesomeIcon icon={faChevronUp} size='xs' /> : <FontAwesomeIcon icon={faChevronUp} size='xs' flip='vertical' />}
+                      {isOpen ? (
+                        <FontAwesomeIcon icon={faChevronUp} size="xs" />
+                      ) : (
+                        <FontAwesomeIcon icon={faChevronUp} size="xs" flip="vertical" />
+                      )}
                     </Button>
                   </InputGroupAddon>
                 </InputGroup>
                 {!isOpen ? null : (
                   <div className="downshift__match-dropdown" {...getMenuProps()}>
                     <ul className="downshift__matches">
-                      {supervisionItems.filter(item => (!inputValue && !props.criteria.supervision.includes(item)) || (inputValue && !props.criteria.supervision.includes(item) && item.name.toLowerCase().includes(inputValue.toLowerCase())))
+                      {supervisionItems
+                        .filter(
+                          (item) =>
+                            (!inputValue && !props.criteria.supervision.includes(item)) ||
+                            (inputValue &&
+                              !props.criteria.supervision.includes(item) &&
+                              item.name.toLowerCase().includes(inputValue.toLowerCase()))
+                        )
                         .map((item, index) => (
-                          <li key={index}
-                            {
-                            ...getItemProps({
+                          <li
+                            key={index}
+                            {...getItemProps({
                               item,
                               index,
-                              className: "downshift__match-item" + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                            })}>
+                              className:
+                                'downshift__match-item' +
+                                (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
+                            })}
+                          >
                             {item.name}
                           </li>
                         ))}
@@ -195,10 +238,11 @@ export default function FilterOther(props) {
         <FormGroup>
           <MultiDownshift
             type={type}
-            field='gang'
+            field="gang"
             update={props.update}
             selectedItems={props.criteria.gang}
-            itemToString={itemToString}>
+            itemToString={itemToString}
+          >
             {({
               closeMenu,
               clearSelection,
@@ -215,94 +259,122 @@ export default function FilterOther(props) {
             }) => (
               <div>
                 <Label>Gang Name</Label>
-                {props.criteria.gang.length > 0 ?
+                {props.criteria.gang.length > 0 ? (
                   <Card className="mb-3 p-3">
                     <CardBody className="filter-other__items-container p-0">
-                      {props.criteria.gang.map(item => (
-                        <Button className="mb-1" color="secondary" size="sm" outline key={item.id} {...getRemoveButtonProps({ item })}>
+                      {props.criteria.gang.map((item) => (
+                        <Button
+                          className="mb-1"
+                          color="secondary"
+                          size="sm"
+                          outline
+                          key={item.id}
+                          {...getRemoveButtonProps({ item })}
+                        >
                           {item.name}
                         </Button>
                       ))}
                     </CardBody>
-                  </Card> : null}
+                  </Card>
+                ) : null}
                 <InputGroup>
-                  <Input {...getInputProps({
-                    onBlur: closeMenu,
-                    onKeyDown: event => {
-                      switch (event.key) {
-                        case 'Tab': {
-                          highlightedIndex = highlightedIndex || 0;
+                  <Input
+                    {...getInputProps({
+                      onBlur: closeMenu,
+                      onKeyDown: (event) => {
+                        switch (event.key) {
+                          case 'Tab': {
+                            highlightedIndex = highlightedIndex || 0;
 
-                          const alreadySelected = props.criteria.gang.map(item => item.name);
+                            const alreadySelected = props.criteria.gang.map((item) => item.name);
 
-                          const value = mainGangs
-                            .filter(item => inputValue &&
-                              !alreadySelected.includes(item.name) &&
-                              item.name.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                            const value = mainGangs.filter(
+                              (item) =>
+                                inputValue &&
+                                !alreadySelected.includes(item.name) &&
+                                item.name.toLowerCase().includes(inputValue.toLowerCase())
+                            )[highlightedIndex];
 
-                          if (value) {
-                            setState({
-                              inputValue: value.name,
-                              isOpen: false,
-                              type: '__autocomplete_tab_selection__'
-                            });
+                            if (value) {
+                              setState({
+                                inputValue: value.name,
+                                isOpen: false,
+                                type: '__autocomplete_tab_selection__',
+                              });
 
-                            event.preventDefault();
-                          }
-
-                          break;
-                        }
-                        case 'Enter': {
-                          console.log(`Downshift:onKeyDown ${event.key}`);
-
-                          if (selectedItem) {
-                            clearSelection();
+                              event.preventDefault();
+                            }
 
                             break;
                           }
+                          case 'Enter': {
+                            console.log(`Downshift:onKeyDown ${event.key}`);
 
-                          highlightedIndex = highlightedIndex || 0;
+                            if (selectedItem) {
+                              clearSelection();
 
-                          const alreadySelected = props.criteria.gang.map(item => item.name);
+                              break;
+                            }
 
-                          const value = mainGangs
-                            .filter(item => inputValue &&
-                              !alreadySelected.includes(item.name) &&
-                              item.name.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                            highlightedIndex = highlightedIndex || 0;
 
-                          if (value && inputValue === value.name) {
-                            setState({
-                              selectedItem: value,
-                              isOpen: false,
-                              type: '__autocomplete_keydown_enter__'
-                            });
+                            const alreadySelected = props.criteria.gang.map((item) => item.name);
+
+                            const value = mainGangs.filter(
+                              (item) =>
+                                inputValue &&
+                                !alreadySelected.includes(item.name) &&
+                                item.name.toLowerCase().includes(inputValue.toLowerCase())
+                            )[highlightedIndex];
+
+                            if (value && inputValue === value.name) {
+                              setState({
+                                selectedItem: value,
+                                isOpen: false,
+                                type: '__autocomplete_keydown_enter__',
+                              });
+                            }
+
+                            break;
                           }
-
-                          break;
+                          default:
+                            break;
                         }
-                        default:
-                          break;
-                      }
-                    }
-                  })} />
+                      },
+                    })}
+                  />
                   <InputGroupAddon addonType="append">
                     <Button {...getToggleButtonProps()}>
-                      {isOpen ? <FontAwesomeIcon icon={faChevronUp} size='xs' /> : <FontAwesomeIcon icon={faChevronUp} size='xs' flip='vertical' />}
+                      {isOpen ? (
+                        <FontAwesomeIcon icon={faChevronUp} size="xs" />
+                      ) : (
+                        <FontAwesomeIcon icon={faChevronUp} size="xs" flip="vertical" />
+                      )}
                     </Button>
                   </InputGroupAddon>
                 </InputGroup>
                 {!isOpen ? null : (
                   <div className="downshift__match-dropdown" {...getMenuProps()}>
                     <ul className="downshift__matches">
-                      {mainGangs.filter(item => (!inputValue && !props.criteria.gang.includes(item)) || (inputValue && !props.criteria.gang.includes(item) && item.name.toLowerCase().includes(inputValue.toLowerCase())))
+                      {mainGangs
+                        .filter(
+                          (item) =>
+                            (!inputValue && !props.criteria.gang.includes(item)) ||
+                            (inputValue &&
+                              !props.criteria.gang.includes(item) &&
+                              item.name.toLowerCase().includes(inputValue.toLowerCase()))
+                        )
                         .map((item, index) => (
-                          <li key={index}
-                            {
-                            ...getItemProps({
+                          <li
+                            key={index}
+                            {...getItemProps({
                               item,
                               index,
-                              className: "downshift__match-item" + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                            })}>
+                              className:
+                                'downshift__match-item' +
+                                (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
+                            })}
+                          >
                             {item.name}
                           </li>
                         ))}
@@ -318,10 +390,11 @@ export default function FilterOther(props) {
         <FormGroup>
           <MultiDownshift
             type={type}
-            field='offense'
+            field="offense"
             update={props.update}
             selectedItems={props.criteria.offense}
-            itemToString={itemToString}>
+            itemToString={itemToString}
+          >
             {({
               closeMenu,
               clearSelection,
@@ -338,94 +411,122 @@ export default function FilterOther(props) {
             }) => (
               <div>
                 <Label>Offense Type</Label>
-                {props.criteria.offense.length > 0 ?
+                {props.criteria.offense.length > 0 ? (
                   <Card className="mb-3 p-3">
                     <CardBody className="filter-other__items-container p-0">
-                      {props.criteria.offense.map(item => (
-                        <Button className="mb-1" color="secondary" size="sm" outline key={item.id} {...getRemoveButtonProps({ item })}>
+                      {props.criteria.offense.map((item) => (
+                        <Button
+                          className="mb-1"
+                          color="secondary"
+                          size="sm"
+                          outline
+                          key={item.id}
+                          {...getRemoveButtonProps({ item })}
+                        >
                           {item.name}
                         </Button>
                       ))}
                     </CardBody>
-                  </Card> : null}
+                  </Card>
+                ) : null}
                 <InputGroup>
-                  <Input {...getInputProps({
-                    onBlur: closeMenu,
-                    onKeyDown: event => {
-                      switch (event.key) {
-                        case 'Tab': {
-                          highlightedIndex = highlightedIndex || 0;
+                  <Input
+                    {...getInputProps({
+                      onBlur: closeMenu,
+                      onKeyDown: (event) => {
+                        switch (event.key) {
+                          case 'Tab': {
+                            highlightedIndex = highlightedIndex || 0;
 
-                          const alreadySelected = props.criteria.offense.map(item => item.name);
+                            const alreadySelected = props.criteria.offense.map((item) => item.name);
 
-                          const value = offenseTypes
-                            .filter(item => inputValue &&
-                              !alreadySelected.includes(item.name) &&
-                              item.name.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                            const value = offenseTypes.filter(
+                              (item) =>
+                                inputValue &&
+                                !alreadySelected.includes(item.name) &&
+                                item.name.toLowerCase().includes(inputValue.toLowerCase())
+                            )[highlightedIndex];
 
-                          if (value) {
-                            setState({
-                              inputValue: value.name,
-                              isOpen: false,
-                              type: '__autocomplete_tab_selection__'
-                            });
+                            if (value) {
+                              setState({
+                                inputValue: value.name,
+                                isOpen: false,
+                                type: '__autocomplete_tab_selection__',
+                              });
 
-                            event.preventDefault();
-                          }
-
-                          break;
-                        }
-                        case 'Enter': {
-                          console.log(`Downshift:onKeyDown ${event.key}`);
-
-                          if (selectedItem) {
-                            clearSelection();
+                              event.preventDefault();
+                            }
 
                             break;
                           }
+                          case 'Enter': {
+                            console.log(`Downshift:onKeyDown ${event.key}`);
 
-                          highlightedIndex = highlightedIndex || 0;
+                            if (selectedItem) {
+                              clearSelection();
 
-                          const alreadySelected = props.criteria.offense.map(item => item.name);
+                              break;
+                            }
 
-                          const value = offenseTypes
-                            .filter(item => inputValue &&
-                              !alreadySelected.includes(item.name) &&
-                              item.name.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                            highlightedIndex = highlightedIndex || 0;
 
-                          if (value && inputValue === value.name) {
-                            setState({
-                              selectedItem: value,
-                              isOpen: false,
-                              type: '__autocomplete_keydown_enter__'
-                            });
+                            const alreadySelected = props.criteria.offense.map((item) => item.name);
+
+                            const value = offenseTypes.filter(
+                              (item) =>
+                                inputValue &&
+                                !alreadySelected.includes(item.name) &&
+                                item.name.toLowerCase().includes(inputValue.toLowerCase())
+                            )[highlightedIndex];
+
+                            if (value && inputValue === value.name) {
+                              setState({
+                                selectedItem: value,
+                                isOpen: false,
+                                type: '__autocomplete_keydown_enter__',
+                              });
+                            }
+
+                            break;
                           }
-
-                          break;
+                          default:
+                            break;
                         }
-                        default:
-                          break;
-                      }
-                    }
-                  })} />
+                      },
+                    })}
+                  />
                   <InputGroupAddon addonType="append">
                     <Button {...getToggleButtonProps()}>
-                      {isOpen ? <FontAwesomeIcon icon={faChevronUp} size='xs' /> : <FontAwesomeIcon icon={faChevronUp} size='xs' flip='vertical' />}
+                      {isOpen ? (
+                        <FontAwesomeIcon icon={faChevronUp} size="xs" />
+                      ) : (
+                        <FontAwesomeIcon icon={faChevronUp} size="xs" flip="vertical" />
+                      )}
                     </Button>
                   </InputGroupAddon>
                 </InputGroup>
                 {!isOpen ? null : (
                   <div className="downshift__match-dropdown" {...getMenuProps()}>
                     <ul className="downshift__matches">
-                      {offenseTypes.filter(item => (!inputValue && !props.criteria.offense.includes(item)) || (inputValue && !props.criteria.offense.includes(item) && item.name.toLowerCase().includes(inputValue.toLowerCase())))
+                      {offenseTypes
+                        .filter(
+                          (item) =>
+                            (!inputValue && !props.criteria.offense.includes(item)) ||
+                            (inputValue &&
+                              !props.criteria.offense.includes(item) &&
+                              item.name.toLowerCase().includes(inputValue.toLowerCase()))
+                        )
                         .map((item, index) => (
-                          <li key={index}
-                            {
-                            ...getItemProps({
+                          <li
+                            key={index}
+                            {...getItemProps({
                               item,
                               index,
-                              className: "downshift__match-item" + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                            })}>
+                              className:
+                                'downshift__match-item' +
+                                (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
+                            })}
+                          >
                             {item.name}
                           </li>
                         ))}
@@ -442,7 +543,7 @@ export default function FilterOther(props) {
           <Label>Active Warrant</Label>
           <div className="text-center">
             <ButtonGroup>
-              {['Yes', 'No'].map((payload, index) =>
+              {['Yes', 'No'].map((payload, index) => (
                 <Button
                   key={index}
                   size="sm"
@@ -453,14 +554,15 @@ export default function FilterOther(props) {
                     }
 
                     props.update({ type, payload, meta: 'warrant' });
-                  }}>
+                  }}
+                >
                   {payload}
                 </Button>
-              )}
+              ))}
             </ButtonGroup>
           </div>
         </FormGroup>
       </Col>
     </Container>
-  )
+  );
 }

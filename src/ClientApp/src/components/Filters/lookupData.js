@@ -1,137 +1,183 @@
-const supervisionItems = [{
-  name: 'CCC',
-  id: 'ccc'
-}, {
-  name: 'PVP',
-  id: 'pvp'
-}, {
-  name: 'COMP',
-  id: 'comp'
-}, {
-  name: 'DEP',
-  id: 'dep'
-}, {
-  name: 'EM',
-  id: 'em'
-}, {
-  name: 'GPS',
-  id: 'gps'
-}, {
-  name: 'SO',
-  id: 'so'
-}, {
-  name: 'SO-A',
-  id: 'soa'
-}, {
-  name: 'SO-B',
-  id: 'sob'
-}, {
-  name: 'SO-C',
-  id: 'soc'
-}, {
-  name: 'FUG',
-  id: 'fug'
-}, {
-  name: 'INCAR',
-  id: 'incar'
-}, {
-  name: 'RESID',
-  id: 'resid'
-}, {
-  name: 'DRUG CT',
-  id: 'drugct'
-}, {
-  name: 'DORA',
-  id: 'dora'
-}, {
-  name: 'ECR',
-  id: 'ecr'
-}, {
-  name: 'FOSI',
-  id: 'fosi'
-}, {
-  name: 'IG INT',
-  id: 'igint'
-}, {
-  name: 'MIO',
-  id: 'mio'
-}];
+const supervisionItems = [
+  {
+    name: 'CCC',
+    id: 'ccc',
+  },
+  {
+    name: 'PVP',
+    id: 'pvp',
+  },
+  {
+    name: 'COMP',
+    id: 'comp',
+  },
+  {
+    name: 'DEP',
+    id: 'dep',
+  },
+  {
+    name: 'EM',
+    id: 'em',
+  },
+  {
+    name: 'GPS',
+    id: 'gps',
+  },
+  {
+    name: 'SO',
+    id: 'so',
+  },
+  {
+    name: 'SO-A',
+    id: 'soa',
+  },
+  {
+    name: 'SO-B',
+    id: 'sob',
+  },
+  {
+    name: 'SO-C',
+    id: 'soc',
+  },
+  {
+    name: 'FUG',
+    id: 'fug',
+  },
+  {
+    name: 'INCAR',
+    id: 'incar',
+  },
+  {
+    name: 'RESID',
+    id: 'resid',
+  },
+  {
+    name: 'DRUG CT',
+    id: 'drugct',
+  },
+  {
+    name: 'DORA',
+    id: 'dora',
+  },
+  {
+    name: 'ECR',
+    id: 'ecr',
+  },
+  {
+    name: 'FOSI',
+    id: 'fosi',
+  },
+  {
+    name: 'IG INT',
+    id: 'igint',
+  },
+  {
+    name: 'MIO',
+    id: 'mio',
+  },
+];
 
-const mainGangs = [{
-  name: 'sureno',
-  id: 1
-}, {
-  name: 'nortenos',
-  id: 2
-}, {
-  name: 'omg - outlaw motorcycl',
-  id: 3
-}, {
-  name: 'white supremacist',
-  id: 4
-}, {
-  name: 'crip',
-  id: 5
-}, {
-  name: 'bloods',
-  id: 6
-}, {
-  name: 'people nation',
-  id: 7
-}, {
-  name: 'folk nation',
-  id: 8
-}, {
-  name: 'others',
-  id: 9
-}, {
-  name: 'no type specified',
-  id: 10
-}, {
-  name: 'vlt',
-  id: 11
-}, {
-  name: 'o13',
-  id: 12
-}, {
-  name: 'qvo',
-  id: 13
-}];
+const mainGangs = [
+  {
+    name: 'sureno',
+    id: 1,
+  },
+  {
+    name: 'nortenos',
+    id: 2,
+  },
+  {
+    name: 'omg - outlaw motorcycl',
+    id: 3,
+  },
+  {
+    name: 'white supremacist',
+    id: 4,
+  },
+  {
+    name: 'crip',
+    id: 5,
+  },
+  {
+    name: 'bloods',
+    id: 6,
+  },
+  {
+    name: 'people nation',
+    id: 7,
+  },
+  {
+    name: 'folk nation',
+    id: 8,
+  },
+  {
+    name: 'others',
+    id: 9,
+  },
+  {
+    name: 'no type specified',
+    id: 10,
+  },
+  {
+    name: 'vlt',
+    id: 11,
+  },
+  {
+    name: 'o13',
+    id: 12,
+  },
+  {
+    name: 'qvo',
+    id: 13,
+  },
+];
 
-const offenseTypes = [{
-  name: 'murder',
-  id: 'A'
-}, {
-  name: 'sex/registerable',
-  id: 'D'
-}, {
-  name: 'sex/non-registerable',
-  id: 'E'
-}, {
-  name: 'person',
-  id: 'G'
-}, {
-  name: 'alcohol & drug',
-  id: 'J'
-}, {
-  name: 'property',
-  id: 'M'
-}, {
-  name: 'weapons',
-  id: 'P'
-}, {
-  name: 'driving',
-  id: 'S'
-}, {
-  name: 'other',
-  id: 'V'
-}, {
-  name: 'drug possession only',
-  id: 'X'
-}, {
-  name: 'unknown',
-  id: 'Z'
-}];
+const offenseTypes = [
+  {
+    name: 'murder',
+    id: 'A',
+  },
+  {
+    name: 'sex/registerable',
+    id: 'D',
+  },
+  {
+    name: 'sex/non-registerable',
+    id: 'E',
+  },
+  {
+    name: 'person',
+    id: 'G',
+  },
+  {
+    name: 'alcohol & drug',
+    id: 'J',
+  },
+  {
+    name: 'property',
+    id: 'M',
+  },
+  {
+    name: 'weapons',
+    id: 'P',
+  },
+  {
+    name: 'driving',
+    id: 'S',
+  },
+  {
+    name: 'other',
+    id: 'V',
+  },
+  {
+    name: 'drug possession only',
+    id: 'X',
+  },
+  {
+    name: 'unknown',
+    id: 'Z',
+  },
+];
 
 const agents = [
   { value: 'AARON ANDERSON', id: 181698, supervisor: 'TERRY BANKS' },
@@ -511,7 +557,7 @@ const supervisors = [
   { value: 'TRANSITION' },
   { value: 'VIDA BETTS' },
   { value: 'WADE ALLINSON' },
-  { value: 'WILLIAM LUKE' }
+  { value: 'WILLIAM LUKE' },
 ];
 
 const supervisionContactDays = [30, 60, 90, 180];
@@ -548,12 +594,4 @@ const counties = [
   'WEBER',
 ];
 
-export {
-  supervisionItems,
-  mainGangs,
-  offenseTypes,
-  agents,
-  supervisors,
-  supervisionContactDays,
-  counties
-};
+export { supervisionItems, mainGangs, offenseTypes, agents, supervisors, supervisionContactDays, counties };

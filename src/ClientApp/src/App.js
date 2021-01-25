@@ -15,13 +15,12 @@ const reducer = produce((draft, action) => {
   console.log(`App:reducing state for ${action.type}`, action);
 
   switch (action.type) {
-    case 'ZOOM_TO_GRAPHIC':
-      {
-        draft.zoomToGraphic.graphic = action.payload;
-        draft.zoomToGraphic.level = 15;
+    case 'ZOOM_TO_GRAPHIC': {
+      draft.zoomToGraphic.graphic = action.payload;
+      draft.zoomToGraphic.level = 15;
 
-        return draft;
-      }
+      return draft;
+    }
     case 'MAP_CLICK': {
       draft.identify.show = true;
       draft.identify.status = 'visible';
@@ -119,7 +118,7 @@ export default function App() {
   const [app, dispatcher] = React.useReducer(reducer, {
     zoomToGraphic: {
       graphic: null,
-      level: 0
+      level: 0,
     },
     mapPoint: {},
     identify: {
@@ -127,12 +126,12 @@ export default function App() {
       status: null,
       features: [],
       offender: {},
-      index: 0
+      index: 0,
     },
     showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
     filter: [],
     appliedFilter: `agent_id in (${oidc.user.profile['public:WorkforceID']})`,
-    definitionExpression: [`agent_id in (${oidc.user.profile['public:WorkforceID']})`]
+    definitionExpression: [`agent_id in (${oidc.user.profile['public:WorkforceID']})`],
   });
 
   const mapOptions = {
@@ -140,12 +139,12 @@ export default function App() {
     mapDispatcher: dispatcher,
     zoomToGraphic: app.zoomToGraphic,
     definitionExpression: app.definitionExpression,
-    filter: app.filter
+    filter: app.filter,
   };
 
   const sidebarOptions = {
     showSidebar: app.showSidebar,
-    toggleSidebar: () => dispatcher({ type: 'TOGGLE_SIDEBAR' })
+    toggleSidebar: () => dispatcher({ type: 'TOGGLE_SIDEBAR' }),
   };
 
   const identifyOptions = {
@@ -154,23 +153,23 @@ export default function App() {
     offender: app.identify.offender,
     index: app.identify.index,
     update: dispatcher,
-    show: state => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state })
+    show: (state) => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: state }),
   };
 
   return (
     <div className="app">
       <Header title="AP&P Field Map" version={process.env.REACT_APP_VERSION} />
-      {app.identify.show ?
-        <IdentifyContainer show={value => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: value })}>
+      {app.identify.show ? (
+        <IdentifyContainer show={(value) => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: value })}>
           <IdentifyInformation {...identifyOptions} />
         </IdentifyContainer>
-        : null}
+      ) : null}
       <Sidebar {...sidebarOptions}>
         <Filters
           mapDispatcher={dispatcher}
           loggedInUser={{
             value: oidc.user.profile.name,
-            id: oidc.user.profile['public:WorkforceID']
+            id: oidc.user.profile['public:WorkforceID'],
           }}
           appliedFilter={app.appliedFilter}
         />
@@ -180,4 +179,4 @@ export default function App() {
       </MapLens>
     </div>
   );
-};
+}

@@ -7,16 +7,16 @@ describe('sqlMapper', () => {
         agent: {
           loggedInUser: {
             value: 'yolo',
-            id: -1
+            id: -1,
           },
           agentList: [
             {
               value: 'yolo',
-              id: -1
-            }
+              id: -1,
+            },
           ],
-          vanity: true
-        }
+          vanity: true,
+        },
       });
 
       expect(actual.definitionExpression[0]).toBe('agent_id in (-1)');
@@ -29,8 +29,8 @@ describe('sqlMapper', () => {
         agent: {
           loggedInUser: null,
           agentList: [],
-          vanity: true
-        }
+          vanity: true,
+        },
       });
 
       expect(actual.filter.length).toBe(0);
@@ -45,8 +45,8 @@ describe('sqlMapper', () => {
           attempt: 30,
           office: 60,
           success: 180,
-          compliant: null
-        }
+          compliant: null,
+        },
       });
 
       expect(actual.filter[0]).toBe('last_attempted_field_contact>30');
@@ -59,8 +59,8 @@ describe('sqlMapper', () => {
     it('ignores compliance', () => {
       const actual = sqlMapper({
         date: {
-          compliant: 'in'
-        }
+          compliant: 'in',
+        },
       });
 
       expect(actual.filter[0]).toBe('in_compliance=1');
@@ -74,8 +74,8 @@ describe('sqlMapper', () => {
           compliant: null,
           office: null,
           attempt: null,
-          success: null
-        }
+          success: null,
+        },
       });
 
       expect(actual.filter.length).toBe(0);
@@ -91,7 +91,7 @@ describe('sqlMapper', () => {
           zip: '',
           city: '',
           counties: [],
-        }
+        },
       });
 
       expect(actual.filter.length).toBe(0);
@@ -105,7 +105,7 @@ describe('sqlMapper', () => {
           zip: 84124,
           city: 'Salt Lake City',
           counties: ['Salt Lake'],
-        }
+        },
       });
 
       expect(actual.filter.length).toBe(4);
@@ -125,8 +125,8 @@ describe('sqlMapper', () => {
           name: '',
           number: '',
           tel: '',
-          employer: ''
-        }
+          employer: '',
+        },
       });
 
       expect(actual.filter.length).toBe(0);
@@ -140,14 +140,14 @@ describe('sqlMapper', () => {
           name: 'Yours Truly',
           number: 123123,
           tel: '801-111-1111',
-          employer: 'Mr Jobs'
-        }
+          employer: 'Mr Jobs',
+        },
       });
 
       expect(actual.filter.length).toBe(5);
       expect(actual.filter[0]).toBe("gender='M'");
       expect(actual.filter[1]).toBe("offender='YOURS TRULY'");
-      expect(actual.filter[2]).toBe("offender_id=123123");
+      expect(actual.filter[2]).toBe('offender_id=123123');
       expect(actual.filter[3]).toBe("offender_phone='801-111-1111'");
       expect(actual.filter[4]).toBe("employer='MR JOBS'");
       expect(actual.definitionExpression.length).toBe(0);
@@ -157,17 +157,17 @@ describe('sqlMapper', () => {
       const actual = sqlMapper({
         offender: {
           gender: 'M',
-          name: 'Your\'s Truly\'s',
+          name: "Your's Truly's",
           number: 123123,
           tel: '801-111-1111',
-          employer: 'Mr Job\'s'
-        }
+          employer: "Mr Job's",
+        },
       });
 
       expect(actual.filter.length).toBe(5);
       expect(actual.filter[0]).toBe("gender='M'");
       expect(actual.filter[1]).toBe("offender='YOUR''S TRULY''S'");
-      expect(actual.filter[2]).toBe("offender_id=123123");
+      expect(actual.filter[2]).toBe('offender_id=123123');
       expect(actual.filter[3]).toBe("offender_phone='801-111-1111'");
       expect(actual.filter[4]).toBe("employer='MR JOB''S'");
       expect(actual.definitionExpression.length).toBe(0);
@@ -183,8 +183,8 @@ describe('sqlMapper', () => {
           sos: [],
           supervision: [],
           gang: [],
-          offense: []
-        }
+          offense: [],
+        },
       });
 
       expect(actual.filter.length).toBe(0);
@@ -197,14 +197,17 @@ describe('sqlMapper', () => {
           warrant: 'Yes',
           status: 'probation',
           sos: ['mod', 'no std'],
-          supervision: [{ name: 'EM', id: 'EM', default: true }, { name: 'GPS', id: 'GPS', default: true }],
+          supervision: [
+            { name: 'EM', id: 'EM', default: true },
+            { name: 'GPS', id: 'GPS', default: true },
+          ],
           gang: [{ name: 'omg', id: 3 }],
-          offense: [{ name: 'sex', id: 'E' }]
-        }
+          offense: [{ name: 'sex', id: 'E' }],
+        },
       });
 
       expect(actual.filter.length).toBe(6);
-      expect(actual.filter[0]).toBe("active_warrant=1");
+      expect(actual.filter[0]).toBe('active_warrant=1');
       expect(actual.filter[1]).toBe("legal_status='PROBATION'");
       expect(actual.filter[2]).toBe("standard_of_supervision is null OR standard_of_supervision in ('MOD')");
       expect(actual.filter[3]).toBe("special_supervision='EM, GPS'");
@@ -216,71 +219,71 @@ describe('sqlMapper', () => {
     it('orders special supervisions', () => {
       const payload = [
         {
-          "name": "EM",
-          "id": "EM",
-          "default": true,
-          "sortKey": 8
+          name: 'EM',
+          id: 'EM',
+          default: true,
+          sortKey: 8,
         },
         {
-          "name": "SO",
-          "id": "SO",
-          "default": true,
-          "sortKey": 2
+          name: 'SO',
+          id: 'SO',
+          default: true,
+          sortKey: 2,
         },
         {
-          "name": "SO-A",
-          "id": "SO-A",
-          "default": true,
-          "sortKey": 18
+          name: 'SO-A',
+          id: 'SO-A',
+          default: true,
+          sortKey: 18,
         },
         {
-          "name": "SO-B",
-          "id": "SO-B",
-          "default": true,
-          "sortKey": 19
+          name: 'SO-B',
+          id: 'SO-B',
+          default: true,
+          sortKey: 19,
         },
         {
-          "name": "SO-C",
-          "id": "SO-C",
-          "default": true,
-          "sortKey": 22
+          name: 'SO-C',
+          id: 'SO-C',
+          default: true,
+          sortKey: 22,
         },
         {
-          "name": "DORA",
-          "id": "DORA",
-          "default": true,
-          "sortKey": 1
+          name: 'DORA',
+          id: 'DORA',
+          default: true,
+          sortKey: 1,
         },
         {
-          "name": "ECR",
-          "id": "ECR",
-          "default": true,
-          "sortKey": 17
+          name: 'ECR',
+          id: 'ECR',
+          default: true,
+          sortKey: 17,
         },
         {
-          "name": "FOSI",
-          "id": "FOSI",
-          "default": true,
-          "sortKey": 21
+          name: 'FOSI',
+          id: 'FOSI',
+          default: true,
+          sortKey: 21,
         },
         {
-          "name": "IG INT",
-          "id": "IG INT",
-          "default": true,
-          "sortKey": 20
+          name: 'IG INT',
+          id: 'IG INT',
+          default: true,
+          sortKey: 20,
         },
         {
-          "name": "MIO",
-          "id": "MIO",
-          "default": true,
-          "sortKey": 10
-        }
+          name: 'MIO',
+          id: 'MIO',
+          default: true,
+          sortKey: 10,
+        },
       ];
 
       const actual = sqlMapper({
         other: {
-          supervision: payload
-        }
+          supervision: payload,
+        },
       });
 
       expect(actual.filter[0]).toBe("special_supervision='DORA, SO, EM, MIO, ECR, SO-A, SO-B, IG INT, FOSI, SO-C'");
