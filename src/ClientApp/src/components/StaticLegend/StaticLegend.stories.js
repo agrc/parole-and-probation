@@ -7,8 +7,8 @@ export default {
   component: StaticLegend,
 };
 
-export const noLegend = () => <StaticLegend />;
-export const basic = () => (
+export const NoLegend = () => <StaticLegend />;
+export const Basic = () => (
   <StaticLegend
     legend={[
       {
@@ -18,7 +18,7 @@ export const basic = () => (
     ]}
   />
 );
-export const fourColors = () => (
+export const FourColors = () => (
   <StaticLegend
     legend={[
       {
@@ -40,7 +40,7 @@ export const fourColors = () => (
     ]}
   />
 );
-export const textOverflow = () => (
+export const TextOverflow = () => (
   <StaticLegend
     legend={[
       {
@@ -64,7 +64,7 @@ export const textOverflow = () => (
     ]}
   />
 );
-export const invertText = () => (
+export const InvertText = () => (
   <StaticLegend
     legend={[
       {

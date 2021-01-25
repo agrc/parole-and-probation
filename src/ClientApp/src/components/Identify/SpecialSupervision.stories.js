@@ -8,7 +8,7 @@ export default {
   component: SpecialSupervision,
 };
 
-export const normal = () => (
+export const Normal = () => (
   <SpecialSupervision>
     {{
       address: '1405 Washington Blvd',
@@ -55,7 +55,7 @@ export const normal = () => (
     }}
   </SpecialSupervision>
 );
-export const single = () => (
+export const Single = () => (
   <SpecialSupervision>
     {{
       address: '1405 Washington Blvd',
@@ -102,7 +102,7 @@ export const single = () => (
     }}
   </SpecialSupervision>
 );
-export const empty = () => (
+export const Empty = () => (
   <SpecialSupervision>
     {{
       address: '1405 Washington Blvd',

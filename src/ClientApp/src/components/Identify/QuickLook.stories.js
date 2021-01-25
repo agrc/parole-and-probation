@@ -8,7 +8,7 @@ export default {
   component: OffenderQuickLook,
 };
 
-export const normal = () => (
+export const Normal = () => (
   <OffenderQuickLook
     age={412153200000}
     gender="M"
@@ -21,7 +21,7 @@ export const normal = () => (
     agent="Agent Orange"
   />
 );
-export const noSos = () => (
+export const NoSos = () => (
   <OffenderQuickLook
     age={412153200000}
     gender="M"
@@ -33,7 +33,7 @@ export const noSos = () => (
     agent="Agent Orange"
   />
 );
-export const activeWarrant = () => (
+export const ActiveWarrant = () => (
   <OffenderQuickLook
     age={412153200000}
     gender="M"

@@ -10,17 +10,17 @@ export default {
   decorators: [(Story) => <div className="esri-ui-top-left esri-ui-corner">{Story()}</div>],
 };
 
-export const closed = () => (
+export const Closed = () => (
   <MapToolPanel icon={faMapMarkedAlt}>
     <div>Hello!</div>
   </MapToolPanel>
 );
-export const open = () => (
+export const Open = () => (
   <MapToolPanel icon={faMapMarkedAlt} expanded={true}>
     <div>Hello!</div>
   </MapToolPanel>
 );
-export const withComponentChild = () => (
+export const WithComponentChild = () => (
   <MapToolPanel icon={faMapMarkedAlt}>
     <DartBoard
       className="pt-2 px-3"
