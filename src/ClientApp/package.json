@@ -46,8 +46,10 @@
     "copy:public": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
     "copy:build": "ncp ./node_modules/@arcgis/core/assets ./build/assets",
     "eject": "react-scripts eject",
+    "format": "prettier --write src --ignore-path ./.gitignore",
+    "lint": "eslint src",
     "release": "standard-version",
-    "start:all": "dotnet run -p ../parole.csproj /p:EnvironmentName=Development",
+    "start:all": "GOOGLE_APPLICATION_CREDENTIALS=log-writer-sa.json dotnet run -p ../parole.csproj /p:EnvironmentName=Development",
     "start": "react-scripts start",
     "storybook": "start-storybook -p 9009 -s public",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
@@ -61,7 +63,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "prettier"
     ]
   },
   "browserslist": {
@@ -76,6 +79,10 @@
       "last 1 safari version"
     ]
   },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
+  },
   "devDependencies": {
     "@agrc/wonkavision": "^1.0.2",
     "@storybook/addon-actions": "^6.1.14",
@@ -88,8 +95,10 @@
     "@testing-library/user-event": "^12.6.0",
     "cz-conventional-changelog": "^3.3.0",
     "env-cmd": "^10.1.0",
+    "eslint-config-prettier": "^7.2.0",
     "fetch-mock": "^8.3.2",
     "ncp": "^2.0.0",
+    "prettier": "^2.2.1",
     "standard-version": "^9.1.0"
   },
   "config": {
