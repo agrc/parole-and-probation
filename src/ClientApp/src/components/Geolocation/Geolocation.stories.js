@@ -1,14 +1,17 @@
-import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import Geolocation from './Geolocation';
 
-storiesOf('MapTools/Geolocation', module)
-  .addDecorator((story) => (
-    <div className="esri-ui-top-left esri-ui-corner">
-      <div className="esri-component">{story()}</div>
-    </div>
-  ))
-  .add('normal', () => <Geolocation />)
-  .add('busy', () => <Geolocation spin={true} />)
-  .add('success', () => <Geolocation status={true} />)
-  .add('fail', () => <Geolocation status={false} />);
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
+export default {
+  title: 'MapTools/Geolocation',
+  component: Geolocation,
+  decorators: [(Story) => <div className="esri-ui-top-left esri-ui-corner">{Story()}</div>],
+  argTypes: {
+    dispatch: { action: 'dispatched' },
+  },
+};
+
+export const normal = (args) => <Geolocation dispatcher={args.dispatch} />;
+export const busy = (args) => <Geolocation spin={true} dispatcher={args.dispatch} />;
+export const success = (args) => <Geolocation status={true} dispatcher={args.dispatch} />;
+export const fail = (args) => <Geolocation status={false} dispatcher={args.dispatch} />;

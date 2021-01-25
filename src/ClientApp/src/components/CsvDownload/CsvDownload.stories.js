@@ -1,14 +1,14 @@
-import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import Item from './CsvDownload';
 
-storiesOf('MapTools/CsvDownload', module)
-  .addDecorator((story) => (
-    <div className="esri-ui-top-left esri-ui-corner">
-      <div className="esri-component">{story()}</div>
-    </div>
-  ))
-  .add('normal', () => <Item></Item>)
-  .add('busy', () => <Item disabled={true}></Item>)
-  .add('success', () => <Item status={true} />)
-  .add('fail', () => <Item status={false} />);
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
+export default {
+  title: 'MapTools/CsvDownload',
+  component: Item,
+  decorators: [(Story) => <div className="esri-ui-top-left esri-ui-corner">{Story()}</div>],
+};
+
+export const normal = () => <Item></Item>;
+export const busy = () => <Item disabled={true}></Item>;
+export const success = () => <Item status={true} />;
+export const fail = () => <Item status={false} />;
