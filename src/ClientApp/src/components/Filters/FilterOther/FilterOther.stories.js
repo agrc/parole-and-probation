@@ -6,18 +6,23 @@ export default {
   title: 'Filters/Other Filter',
   component: Component,
   argTypes: {
-    update: { action: 'update' }
-  }
+    update: { action: 'update' },
+  },
 };
 
 export const normal = (args) => (
-  <Component criteria={{
-    gang: [{ id: 1, name: 'sureno' }, { id: 2, name: 'crip' }],
-    offense: [{ id: 'A', name: 'murder' }],
-    supervision: [{ id: 1, name: 'ccc' }],
-    warrant: 'Yes',
-    sos: ['low'],
-    status: 'parole'
-  }}
-    update={args.update} />
+  <Component
+    criteria={{
+      gang: [
+        { id: 1, name: 'sureno' },
+        { id: 2, name: 'crip' },
+      ],
+      offense: [{ id: 'A', name: 'murder' }],
+      supervision: [{ id: 1, name: 'ccc' }],
+      warrant: 'Yes',
+      sos: ['low'],
+      status: 'parole',
+    }}
+    update={args.update}
+  />
 );

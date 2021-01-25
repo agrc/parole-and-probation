@@ -12,26 +12,22 @@ import reportWebVitals from './reportWebVitals';
 const userManager = makeUserManager(oidcConfig);
 const AppWithAuth = makeAuthenticator({
   userManager: userManager,
-  signInArgs: {}
+  signInArgs: {},
 })(App);
 
-ReactDOM.render((
+ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
       <Switch>
         <Route
           path="/callback"
-          render={routeProps => (
-            <Callback
-              onSuccess={() => routeProps.history.push('/')}
-              userManager={userManager}
-            />
-          )}
+          render={(routeProps) => <Callback onSuccess={() => routeProps.history.push('/')} userManager={userManager} />}
         />
         <AppWithAuth />
       </Switch>
     </BrowserRouter>
-  </React.StrictMode>
-), document.getElementById('root'));
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
 reportWebVitals(console.log);

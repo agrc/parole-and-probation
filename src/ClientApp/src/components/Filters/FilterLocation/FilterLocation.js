@@ -2,7 +2,19 @@ import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import produce from 'immer';
 import * as React from 'react';
-import { Button, ButtonGroup, Card, CardBody, Col, Container, FormGroup, Input, InputGroup, InputGroupAddon, Label } from 'reactstrap';
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  Col,
+  Container,
+  FormGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  Label,
+} from 'reactstrap';
 import MultiDownshift from '../../MultiDownshift';
 import { counties } from '../lookupData';
 import useFilterReducer from '../useFilterReducer';
@@ -10,7 +22,7 @@ import './FilterLocation.css';
 
 const type = 'UPDATE_LOCATION';
 
-const itemToString = item => (item ? item : '');
+const itemToString = (item) => (item ? item : '');
 
 export default function FilterLocation(props) {
   const [zip, setZip] = useFilterReducer(props, type, 'zip');
@@ -35,10 +47,11 @@ export default function FilterLocation(props) {
           <FormGroup>
             <MultiDownshift
               type={type}
-              field='counties'
+              field="counties"
               update={props.update}
               selectedItems={props.criteria.counties}
-              itemToString={itemToString}>
+              itemToString={itemToString}
+            >
               {({
                 closeMenu,
                 clearSelection,
@@ -55,91 +68,118 @@ export default function FilterLocation(props) {
               }) => (
                 <div>
                   <Label>County</Label>
-                  {props.criteria.counties.length > 0 ?
+                  {props.criteria.counties.length > 0 ? (
                     <Card className="mb-3 p-3">
                       <CardBody className="filter-other__items-container p-0">
-                        {props.criteria.counties.map(item => (
-                          <Button className="mb-1" color="secondary" size="sm" outline key={item} {...getRemoveButtonProps({ item })}>
+                        {props.criteria.counties.map((item) => (
+                          <Button
+                            className="mb-1"
+                            color="secondary"
+                            size="sm"
+                            outline
+                            key={item}
+                            {...getRemoveButtonProps({ item })}
+                          >
                             {item}
                           </Button>
                         ))}
                       </CardBody>
-                    </Card> : null}
+                    </Card>
+                  ) : null}
                   <InputGroup>
-                    <Input {...getInputProps({
-                      onBlur: closeMenu,
-                      onKeyDown: event => {
-                        switch (event.key) {
-                          case 'Tab': {
-                            highlightedIndex = highlightedIndex || 0;
+                    <Input
+                      {...getInputProps({
+                        onBlur: closeMenu,
+                        onKeyDown: (event) => {
+                          switch (event.key) {
+                            case 'Tab': {
+                              highlightedIndex = highlightedIndex || 0;
 
-                            const value = counties
-                              .filter(item => inputValue &&
-                                !props.criteria.counties.includes(item) &&
-                                item.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                              const value = counties.filter(
+                                (item) =>
+                                  inputValue &&
+                                  !props.criteria.counties.includes(item) &&
+                                  item.toLowerCase().includes(inputValue.toLowerCase())
+                              )[highlightedIndex];
 
-                            if (value) {
-                              setState({
-                                inputValue: value,
-                                isOpen: false,
-                                type: '__autocomplete_tab_selection__'
-                              });
+                              if (value) {
+                                setState({
+                                  inputValue: value,
+                                  isOpen: false,
+                                  type: '__autocomplete_tab_selection__',
+                                });
 
-                              event.preventDefault();
-                            }
-
-                            break;
-                          }
-                          case 'Enter': {
-                            console.log(`Downshift:onKeyDown ${event.key}`);
-
-                            if (selectedItem) {
-                              clearSelection();
+                                event.preventDefault();
+                              }
 
                               break;
                             }
+                            case 'Enter': {
+                              console.log(`Downshift:onKeyDown ${event.key}`);
 
-                            highlightedIndex = highlightedIndex || 0;
+                              if (selectedItem) {
+                                clearSelection();
 
-                            const value = counties
-                              .filter(item => inputValue &&
-                                !props.criteria.counties.includes(item) &&
-                                item.toLowerCase().includes(inputValue.toLowerCase()))[highlightedIndex];
+                                break;
+                              }
 
-                            if (value && inputValue === value) {
-                              setState({
-                                selectedItem: value,
-                                isOpen: false,
-                                type: '__autocomplete_keydown_enter__'
-                              });
+                              highlightedIndex = highlightedIndex || 0;
+
+                              const value = counties.filter(
+                                (item) =>
+                                  inputValue &&
+                                  !props.criteria.counties.includes(item) &&
+                                  item.toLowerCase().includes(inputValue.toLowerCase())
+                              )[highlightedIndex];
+
+                              if (value && inputValue === value) {
+                                setState({
+                                  selectedItem: value,
+                                  isOpen: false,
+                                  type: '__autocomplete_keydown_enter__',
+                                });
+                              }
+
+                              break;
                             }
-
-                            break;
+                            default:
+                              break;
                           }
-                          default:
-                            break;
-                        }
-                      }
-                    })}
+                        },
+                      })}
                     />
                     <InputGroupAddon addonType="append">
                       <Button {...getToggleButtonProps()}>
-                        {isOpen ? <FontAwesomeIcon icon={faChevronUp} size='xs' /> : <FontAwesomeIcon icon={faChevronUp} size='xs' flip='vertical' />}
+                        {isOpen ? (
+                          <FontAwesomeIcon icon={faChevronUp} size="xs" />
+                        ) : (
+                          <FontAwesomeIcon icon={faChevronUp} size="xs" flip="vertical" />
+                        )}
                       </Button>
                     </InputGroupAddon>
                   </InputGroup>
                   {!isOpen ? null : (
                     <div className="downshift__match-dropdown" {...getMenuProps()}>
                       <ul className="downshift__matches">
-                        {counties.filter(item => (!inputValue && !props.criteria.counties.includes(item)) || (inputValue && !props.criteria.counties.includes(item) && item.toLowerCase().includes(inputValue.toLowerCase())))
+                        {counties
+                          .filter(
+                            (item) =>
+                              (!inputValue && !props.criteria.counties.includes(item)) ||
+                              (inputValue &&
+                                !props.criteria.counties.includes(item) &&
+                                item.toLowerCase().includes(inputValue.toLowerCase()))
+                          )
                           .map((item, index) => (
-                            <li key={index}
-                              {
-                              ...getItemProps({
+                            <li
+                              key={index}
+                              {...getItemProps({
                                 item,
                                 index,
-                                className: "downshift__match-item" + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                              })}>
+                                className:
+                                  'downshift__match-item' +
+                                  (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
+                              })}
+                            >
                               {item}
                             </li>
                           ))}
@@ -156,14 +196,14 @@ export default function FilterLocation(props) {
             <Label>Region</Label>
             <div className="text-center">
               <ButtonGroup>
-                {[1, 3, 4, 5, 6].map(region =>
+                {[1, 3, 4, 5, 6].map((region) => (
                   <Button
                     key={region}
                     value={region}
                     size="sm"
                     color={props.criteria.region.indexOf(region) > -1 ? 'warning' : 'secondary'}
                     onClick={() => {
-                      const payload = produce(props.criteria.region, draft => {
+                      const payload = produce(props.criteria.region, (draft) => {
                         const index = draft.indexOf(region);
 
                         if (index === -1) {
@@ -174,15 +214,16 @@ export default function FilterLocation(props) {
                       });
 
                       props.update({ type, payload, meta: 'region' });
-                    }}>
+                    }}
+                  >
                     {region}
                   </Button>
-                )}
+                ))}
               </ButtonGroup>
             </div>
           </FormGroup>
         </Col>
       </form>
     </Container>
-  )
+  );
 }

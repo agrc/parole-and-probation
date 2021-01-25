@@ -1,6 +1,6 @@
 {
-    "name": "map-tool-panel",
-    "version": "0.0.0",
-    "private": true,
-    "main": "./MapToolPanel.js"
+  "name": "map-tool-panel",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./MapToolPanel.js"
 }

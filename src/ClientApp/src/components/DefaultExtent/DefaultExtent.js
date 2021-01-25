@@ -24,4 +24,4 @@ export default function DefaultExtent(props) {
       <FontAwesomeIcon icon={faGlobeAmericas} className="esri-icon esri-icon-home" />
     </div>
   );
-};
+}

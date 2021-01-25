@@ -7,9 +7,16 @@ export default function Header(props) {
     <div className="app__header">
       <h1 className="header__heading">
         <span>{props.title}</span>
-        <a className="heading__version" href="https://github.com/agrc/parole-and-probation/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">{props.version}</a>
+        <a
+          className="heading__version"
+          href="https://github.com/agrc/parole-and-probation/blob/main/CHANGELOG.md"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {props.version}
+        </a>
       </h1>
       <img src={logo} className="heading__img" alt="agrc logo" />
     </div>
   );
-};
+}

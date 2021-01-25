@@ -18,15 +18,9 @@ export default function MapToolPanel(props) {
     expanded ? 'map-tool-panel--open' : false
   );
 
-  const popOutClasses = classNames(
-    expanded ? false : 'd-none',
-    'map-tool-panel'
-  );
+  const popOutClasses = classNames(expanded ? false : 'd-none', 'map-tool-panel');
 
-  const iconClasses = classNames(
-    expanded ? 'd-none' : false,
-    'esri-icon'
-  );
+  const iconClasses = classNames(expanded ? 'd-none' : false, 'esri-icon');
 
   return (
     <div
@@ -36,7 +30,8 @@ export default function MapToolPanel(props) {
       aria-label="Zoom to address"
       title="Geocode"
       onMouseOver={() => setExpanded(true)}
-      onMouseOut={() => setExpanded(false)}>
+      onMouseOut={() => setExpanded(false)}
+    >
       <FontAwesomeIcon icon={props.icon} className={iconClasses} />
       <form className={popOutClasses} autoComplete="new-password">
         <CloseButton className="close-button--hide-on-lg" onClick={() => setExpanded(false)} />
@@ -44,4 +39,4 @@ export default function MapToolPanel(props) {
       </form>
     </div>
   );
-};
+}

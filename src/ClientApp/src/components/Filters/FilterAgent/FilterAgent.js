@@ -5,15 +5,14 @@ import Dropdown from '../../Combobox';
 import '../Filters.css';
 import './FilterAgent.css';
 
-
 const getAgent = (id, agents) => {
-  return agents.filter(item => item.id === id)[0];
+  return agents.filter((item) => item.id === id)[0];
 };
 
 const SelectedItems = ({ items, clickHandler }) => (
   <Card className="mb-3 p-3">
     <CardBody className="filter-other__items-container p-0">
-      {items.map(item => (
+      {items.map((item) => (
         <Button className="mb-1" color="secondary" size="sm" outline id={item.id} key={item.id} onClick={clickHandler}>
           {startCase(item.value.toLowerCase())}
         </Button>
@@ -37,18 +36,18 @@ export default function FilterAgent(props) {
       meta: 'agent',
       payload: {
         item,
-        add
-      }
+        add,
+      },
     });
   };
 
-  const addAgentsForSupervisor = supervisorName => {
+  const addAgentsForSupervisor = (supervisorName) => {
     props.update({
       type: 'UPDATE_AGENT_LIST',
       meta: 'supervisor',
       payload: {
-        supervisorName
-      }
+        supervisorName,
+      },
     });
   };
 
@@ -61,7 +60,9 @@ export default function FilterAgent(props) {
             block
             color={props.criteria.vanity ? 'warning' : 'secondary'}
             onClick={() => updateAgents(props.criteria.loggedInUser, !props.criteria.vanity)}
-          >Me</Button>
+          >
+            Me
+          </Button>
         </FormGroup>
         <FormGroup>
           <Label>Agent</Label>
@@ -69,9 +70,9 @@ export default function FilterAgent(props) {
             items={props.data.agents}
             itemPropName="id"
             isEmpty={props.criteria.agentList.length < 1}
-            alreadySelected={props.criteria.agentList.map(x => x.id)}
-            onSelectItem={item => updateAgents(item, true)}
-            ></Dropdown>
+            alreadySelected={props.criteria.agentList.map((x) => x.id)}
+            onSelectItem={(item) => updateAgents(item, true)}
+          ></Dropdown>
         </FormGroup>
         <FormGroup>
           <Label>Supervisor</Label>
@@ -80,21 +81,25 @@ export default function FilterAgent(props) {
             itemPropName="value"
             isEmpty={props.criteria.supervisor === null}
             alreadySelected={props.criteria.supervisor}
-            onSelectItem={item => addAgentsForSupervisor(item.value)}
-            ></Dropdown>
+            onSelectItem={(item) => addAgentsForSupervisor(item.value)}
+          ></Dropdown>
         </FormGroup>
       </Col>
       <Col>
-        {props.criteria.agentList.length > 0 ? <>
-          <Label>Filtering Offenders For</Label>
-          <SelectedItems items={props.criteria.agentList} clickHandler={event => {
-            const agent = getAgent(parseInt(event.target.id), props.criteria.agentList);
+        {props.criteria.agentList.length > 0 ? (
+          <>
+            <Label>Filtering Offenders For</Label>
+            <SelectedItems
+              items={props.criteria.agentList}
+              clickHandler={(event) => {
+                const agent = getAgent(parseInt(event.target.id), props.criteria.agentList);
 
-            updateAgents(agent, false)
-          }} />
-        </>
-        : null }
+                updateAgents(agent, false);
+              }}
+            />
+          </>
+        ) : null}
       </Col>
     </Container>
-  )
+  );
 }

@@ -5,7 +5,6 @@ import { Button, ButtonGroup, Col, Container, FormGroup, Input, Label } from 're
 import Helpers from '../../../Helpers';
 import './FilterOffender.css';
 
-
 const type = 'UPDATE_OFFENDER';
 
 export default function FilterOffender(props) {
@@ -15,7 +14,7 @@ export default function FilterOffender(props) {
     props.update({
       type: type,
       meta: field,
-      payload: selectedItem
+      payload: selectedItem,
     });
   };
 
@@ -25,8 +24,9 @@ export default function FilterOffender(props) {
         <Col>
           <FormGroup>
             <Label>Name</Label>
-            <Downshift itemToString={item => (item ? item : '')}
-              onChange={selectedItem => publish(selectedItem, 'name')}
+            <Downshift
+              itemToString={(item) => (item ? item : '')}
+              onChange={(selectedItem) => publish(selectedItem, 'name')}
               inputValue={props.downshift.offenderName}
               selectedItem={props.criteria.name}
               onStateChange={(changes, helpers) => {
@@ -35,9 +35,9 @@ export default function FilterOffender(props) {
                     type,
                     meta: {
                       downshift: true,
-                      field: 'OFFENDER_NAME'
+                      field: 'OFFENDER_NAME',
                     },
-                    payload: changes.inputValue
+                    payload: changes.inputValue,
                   });
 
                   if (changes.inputValue.trim() === '') {
@@ -63,20 +63,22 @@ export default function FilterOffender(props) {
                 }
                 return (
                   <div>
-                    <Input {...getInputProps({
-                      onBlur: closeMenu,
-                      onKeyDown: event => {
-                        switch (event.key) {
-                          case 'Tab': {
-                            event.preventDefault();
-                            break
+                    <Input
+                      {...getInputProps({
+                        onBlur: closeMenu,
+                        onKeyDown: (event) => {
+                          switch (event.key) {
+                            case 'Tab': {
+                              event.preventDefault();
+                              break;
+                            }
+                            default:
+                              break;
                           }
-                          default:
-                            break;
-                        }
-                      },
-                      type: 'text'
-                    })} />
+                        },
+                        type: 'text',
+                      })}
+                    />
                     {!isOpen ? null : (
                       <div className="downshift__match-dropdown" {...getMenuProps()}>
                         <ul className="downshift__matches">
@@ -87,30 +89,35 @@ export default function FilterOffender(props) {
                             onLoaded={({ data }) => {
                               console.log('Downshift:onLoaded', data);
                               if (data) {
-                                setHighlightedIndex(data.length ? 0 : null)
-                                setItemCount(data.length)
+                                setHighlightedIndex(data.length ? 0 : null);
+                                setItemCount(data.length);
                               }
-                            }}>
+                            }}
+                          >
                             {({ loading, data, error }) => (
                               <>
                                 {loading ? (
-                                  <li className='downshift__match-item'>loading...</li>
+                                  <li className="downshift__match-item">loading...</li>
                                 ) : error ? (
-                                  <li className='downshift__match-item'>error...</li>
+                                  <li className="downshift__match-item">error...</li>
                                 ) : data.length ? (
                                   data.map((item, index) => (
-                                    <li {...getItemProps({
-                                      key: item,
-                                      index,
-                                      item,
-                                      className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                                    })}>
+                                    <li
+                                      {...getItemProps({
+                                        key: item,
+                                        index,
+                                        item,
+                                        className:
+                                          'downshift__match-item' +
+                                          (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
+                                      })}
+                                    >
                                       {item}
                                     </li>
                                   ))
                                 ) : (
-                                        <li className='downshift__match-item'>no results...</li>
-                                      )}
+                                  <li className="downshift__match-item">no results...</li>
+                                )}
                               </>
                             )}
                           </FetchItems>
@@ -118,7 +125,7 @@ export default function FilterOffender(props) {
                       </div>
                     )}
                   </div>
-                )
+                );
               }}
             </Downshift>
           </FormGroup>
@@ -126,8 +133,9 @@ export default function FilterOffender(props) {
         <Col>
           <FormGroup>
             <Label>Offender Number</Label>
-            <Downshift itemToString={item => (item ? item : '')}
-              onChange={selectedItem => publish(selectedItem, 'number')}
+            <Downshift
+              itemToString={(item) => (item ? item : '')}
+              onChange={(selectedItem) => publish(selectedItem, 'number')}
               inputValue={props.downshift.offenderNumber}
               selectedItem={props.criteria.number}
               onStateChange={(changes, helpers) => {
@@ -136,9 +144,9 @@ export default function FilterOffender(props) {
                     type,
                     meta: {
                       downshift: true,
-                      field: 'OFFENDER_NUMBER'
+                      field: 'OFFENDER_NUMBER',
                     },
-                    payload: changes.inputValue
+                    payload: changes.inputValue,
                   });
 
                   if (changes.inputValue === '') {
@@ -146,7 +154,8 @@ export default function FilterOffender(props) {
                     helpers.closeMenu();
                   }
                 }
-              }}>
+              }}
+            >
               {({
                 closeMenu,
                 getInputProps,
@@ -163,20 +172,22 @@ export default function FilterOffender(props) {
                 }
                 return (
                   <div>
-                    <Input {...getInputProps({
-                      onBlur: closeMenu,
-                      onKeyDown: event => {
-                        switch (event.key) {
-                          case 'Tab': {
-                            event.preventDefault();
-                            break
+                    <Input
+                      {...getInputProps({
+                        onBlur: closeMenu,
+                        onKeyDown: (event) => {
+                          switch (event.key) {
+                            case 'Tab': {
+                              event.preventDefault();
+                              break;
+                            }
+                            default:
+                              break;
                           }
-                          default:
-                            break;
-                        }
-                      },
-                      type: 'number'
-                    })} />
+                        },
+                        type: 'number',
+                      })}
+                    />
                     {!isOpen ? null : (
                       <div className="downshift__match-dropdown" {...getMenuProps()}>
                         <ul className="downshift__matches">
@@ -186,30 +197,35 @@ export default function FilterOffender(props) {
                             searchValue={inputValue}
                             onLoaded={({ data }) => {
                               if (data) {
-                                setHighlightedIndex(data.length ? 0 : null)
-                                setItemCount(data.length)
+                                setHighlightedIndex(data.length ? 0 : null);
+                                setItemCount(data.length);
                               }
-                            }}>
+                            }}
+                          >
                             {({ loading, data, error }) => (
                               <>
                                 {loading ? (
-                                  <li className='downshift__match-item'>loading...</li>
+                                  <li className="downshift__match-item">loading...</li>
                                 ) : error ? (
-                                  <li className='downshift__match-item'>error...</li>
+                                  <li className="downshift__match-item">error...</li>
                                 ) : data.length ? (
                                   data.map((item, index) => (
-                                    <li {...getItemProps({
-                                      key: item,
-                                      index,
-                                      item,
-                                      className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                                    })}>
+                                    <li
+                                      {...getItemProps({
+                                        key: item,
+                                        index,
+                                        item,
+                                        className:
+                                          'downshift__match-item' +
+                                          (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
+                                      })}
+                                    >
                                       {item}
                                     </li>
                                   ))
                                 ) : (
-                                        <li className='downshift__match-item'>no results...</li>
-                                      )}
+                                  <li className="downshift__match-item">no results...</li>
+                                )}
                               </>
                             )}
                           </FetchItems>
@@ -217,7 +233,7 @@ export default function FilterOffender(props) {
                       </div>
                     )}
                   </div>
-                )
+                );
               }}
             </Downshift>
           </FormGroup>
@@ -227,7 +243,7 @@ export default function FilterOffender(props) {
             <Label>Gender</Label>
             <div className="text-center">
               <ButtonGroup>
-                {['Male', 'Female'].map((gender, index) =>
+                {['Male', 'Female'].map((gender, index) => (
                   <Button
                     key={index}
                     size="sm"
@@ -240,12 +256,13 @@ export default function FilterOffender(props) {
                       props.update({
                         type,
                         payload: gender,
-                        meta: 'gender'
+                        meta: 'gender',
                       });
-                    }}>
+                    }}
+                  >
                     {gender}
                   </Button>
-                )}
+                ))}
               </ButtonGroup>
             </div>
           </FormGroup>
@@ -253,8 +270,9 @@ export default function FilterOffender(props) {
         <Col>
           <FormGroup>
             <Label>Phone</Label>
-            <Downshift itemToString={item => (item ? item : '')}
-              onChange={selectedItem => publish(selectedItem, 'tel')}
+            <Downshift
+              itemToString={(item) => (item ? item : '')}
+              onChange={(selectedItem) => publish(selectedItem, 'tel')}
               inputValue={props.downshift.offenderTelephone}
               selectedItem={props.criteria.tel}
               onStateChange={(changes, helpers) => {
@@ -263,9 +281,9 @@ export default function FilterOffender(props) {
                     type,
                     meta: {
                       downshift: true,
-                      field: 'OFFENDER_TEL'
+                      field: 'OFFENDER_TEL',
                     },
-                    payload: changes.inputValue
+                    payload: changes.inputValue,
                   });
 
                   if (changes.inputValue === '') {
@@ -273,7 +291,8 @@ export default function FilterOffender(props) {
                     helpers.closeMenu();
                   }
                 }
-              }}>
+              }}
+            >
               {({
                 closeMenu,
                 getInputProps,
@@ -290,20 +309,22 @@ export default function FilterOffender(props) {
                 }
                 return (
                   <div>
-                    <Input {...getInputProps({
-                      onBlur: closeMenu,
-                      onKeyDown: event => {
-                        switch (event.key) {
-                          case 'Tab': {
-                            event.preventDefault();
-                            break
+                    <Input
+                      {...getInputProps({
+                        onBlur: closeMenu,
+                        onKeyDown: (event) => {
+                          switch (event.key) {
+                            case 'Tab': {
+                              event.preventDefault();
+                              break;
+                            }
+                            default:
+                              break;
                           }
-                          default:
-                            break;
-                        }
-                      },
-                      type: 'tel'
-                    })} />
+                        },
+                        type: 'tel',
+                      })}
+                    />
                     {!isOpen ? null : (
                       <div className="downshift__match-dropdown" {...getMenuProps()}>
                         <ul className="downshift__matches">
@@ -313,30 +334,35 @@ export default function FilterOffender(props) {
                             searchValue={inputValue}
                             onLoaded={({ data }) => {
                               if (data) {
-                                setHighlightedIndex(data.length ? 0 : null)
-                                setItemCount(data.length)
+                                setHighlightedIndex(data.length ? 0 : null);
+                                setItemCount(data.length);
                               }
-                            }}>
+                            }}
+                          >
                             {({ loading, data, error }) => (
                               <>
                                 {loading ? (
-                                  <li className='downshift__match-item'>loading...</li>
+                                  <li className="downshift__match-item">loading...</li>
                                 ) : error ? (
-                                  <li className='downshift__match-item'>error...</li>
+                                  <li className="downshift__match-item">error...</li>
                                 ) : data.length ? (
                                   data.map((item, index) => (
-                                    <li {...getItemProps({
-                                      key: item,
-                                      index,
-                                      item,
-                                      className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                                    })}>
+                                    <li
+                                      {...getItemProps({
+                                        key: item,
+                                        index,
+                                        item,
+                                        className:
+                                          'downshift__match-item' +
+                                          (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
+                                      })}
+                                    >
                                       {item}
                                     </li>
                                   ))
                                 ) : (
-                                        <li className='downshift__match-item'>no results...</li>
-                                      )}
+                                  <li className="downshift__match-item">no results...</li>
+                                )}
                               </>
                             )}
                           </FetchItems>
@@ -344,7 +370,7 @@ export default function FilterOffender(props) {
                       </div>
                     )}
                   </div>
-                )
+                );
               }}
             </Downshift>
           </FormGroup>
@@ -352,8 +378,9 @@ export default function FilterOffender(props) {
         <Col>
           <FormGroup>
             <Label>Employer</Label>
-            <Downshift itemToString={item => (item ? item : '')}
-              onChange={selectedItem => publish(selectedItem, 'employer')}
+            <Downshift
+              itemToString={(item) => (item ? item : '')}
+              onChange={(selectedItem) => publish(selectedItem, 'employer')}
               inputValue={props.downshift.offenderEmployer}
               selectedItem={props.criteria.employer}
               onStateChange={(changes, helpers) => {
@@ -362,9 +389,9 @@ export default function FilterOffender(props) {
                     type,
                     meta: {
                       downshift: true,
-                      field: 'OFFENDER_EMPLOYER'
+                      field: 'OFFENDER_EMPLOYER',
                     },
-                    payload: changes.inputValue
+                    payload: changes.inputValue,
                   });
 
                   if (changes.inputValue === '') {
@@ -372,7 +399,8 @@ export default function FilterOffender(props) {
                     helpers.closeMenu();
                   }
                 }
-              }}>
+              }}
+            >
               {({
                 closeMenu,
                 getInputProps,
@@ -389,20 +417,22 @@ export default function FilterOffender(props) {
                 }
                 return (
                   <div>
-                    <Input {...getInputProps({
-                      onBlur: closeMenu,
-                      onKeyDown: event => {
-                        switch (event.key) {
-                          case 'Tab': {
-                            event.preventDefault();
-                            break
+                    <Input
+                      {...getInputProps({
+                        onBlur: closeMenu,
+                        onKeyDown: (event) => {
+                          switch (event.key) {
+                            case 'Tab': {
+                              event.preventDefault();
+                              break;
+                            }
+                            default:
+                              break;
                           }
-                          default:
-                            break;
-                        }
-                      },
-                      type: 'text'
-                    })} />
+                        },
+                        type: 'text',
+                      })}
+                    />
                     {!isOpen ? null : (
                       <div className="downshift__match-dropdown" {...getMenuProps()}>
                         <ul className="downshift__matches">
@@ -412,30 +442,35 @@ export default function FilterOffender(props) {
                             searchValue={inputValue}
                             onLoaded={({ data }) => {
                               if (data) {
-                                setHighlightedIndex(data.length ? 0 : null)
-                                setItemCount(data.length)
+                                setHighlightedIndex(data.length ? 0 : null);
+                                setItemCount(data.length);
                               }
-                            }}>
+                            }}
+                          >
                             {({ loading, data, error }) => (
                               <>
                                 {loading ? (
-                                  <li className='downshift__match-item'>loading...</li>
+                                  <li className="downshift__match-item">loading...</li>
                                 ) : error ? (
-                                  <li className='downshift__match-item'>error...</li>
+                                  <li className="downshift__match-item">error...</li>
                                 ) : data.length ? (
                                   data.map((item, index) => (
-                                    <li {...getItemProps({
-                                      key: item,
-                                      index,
-                                      item,
-                                      className: 'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : '')
-                                    })}>
+                                    <li
+                                      {...getItemProps({
+                                        key: item,
+                                        index,
+                                        item,
+                                        className:
+                                          'downshift__match-item' +
+                                          (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
+                                      })}
+                                    >
                                       {item}
                                     </li>
                                   ))
                                 ) : (
-                                        <li className='downshift__match-item'>no results...</li>
-                                      )}
+                                  <li className="downshift__match-item">no results...</li>
+                                )}
                               </>
                             )}
                           </FetchItems>
@@ -443,15 +478,15 @@ export default function FilterOffender(props) {
                       </div>
                     )}
                   </div>
-                )
+                );
               }}
             </Downshift>
           </FormGroup>
         </Col>
       </form>
     </Container>
-  )
-};
+  );
+}
 
 class FetchItems extends React.Component {
   static initialState = { loading: false, error: null, data: [] };
@@ -488,53 +523,54 @@ class FetchItems extends React.Component {
     return string;
   }
 
-  fetch = debounce(
-    async () => {
-      if (!this.mounted || this.props.searchValue.trim().length < 1) {
-        return;
+  fetch = debounce(async () => {
+    if (!this.mounted || this.props.searchValue.trim().length < 1) {
+      return;
+    }
+
+    this.requestId++;
+
+    let data;
+
+    try {
+      console.log('FetchItems:fetch fetching data');
+
+      const query = Helpers.toQueryString({
+        filters: this.scrub(this.props.filter, this.props.field),
+        requestId: this.requestId,
+        limit: 25,
+      });
+
+      const baseUrl = `${window.location.protocol}//${window.location.hostname}${
+        window.location.port ? `:${window.location.port}` : ''
+      }${process.env.REACT_APP_BASENAME}`;
+      const url = `${baseUrl}/api/data/${this.props.field}/${this.props.searchValue}?${query}`;
+
+      const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          // Authorization: `Bearer ${this.context.user.access_token}`
+        },
+      });
+
+      data = await response.json();
+
+      if (this.mounted && data.requestId === this.requestId) {
+        console.log(`FetchItems:fetch calling onLoaded with ${data.data.length} items`);
+
+        this.props.onLoaded({ data: data.data });
+        this.setState({ loading: false, data: data.data });
       }
-
-      this.requestId++;
-
-      let data;
-
-      try {
-        console.log('FetchItems:fetch fetching data');
-
-        const query = Helpers.toQueryString({
-          filters: this.scrub(this.props.filter, this.props.field),
-          requestId: this.requestId,
-          limit: 25
-        });
-
-        const baseUrl = `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}${process.env.REACT_APP_BASENAME}`;
-        const url = `${baseUrl}/api/data/${this.props.field}/${this.props.searchValue}?${query}`;
-
-        const response = await fetch(url, {
-          method: 'GET',
-          mode: 'cors',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            // Authorization: `Bearer ${this.context.user.access_token}`
-          }
-        });
-
-        data = await response.json();
-
-        if (this.mounted && data.requestId === this.requestId) {
-          console.log(`FetchItems:fetch calling onLoaded with ${data.data.length} items`);
-
-          this.props.onLoaded({ data: data.data });
-          this.setState({ loading: false, data: data.data });
-        }
-      } catch (error) {
-        if (this.mounted && data.requestId === this.requestId) {
-          this.props.onLoaded({ error });
-          this.setState({ loading: false, error });
-        }
+    } catch (error) {
+      if (this.mounted && data.requestId === this.requestId) {
+        this.props.onLoaded({ error });
+        this.setState({ loading: false, error });
       }
-    }, 300)
+    }
+  }, 300);
 
   prepareFetch() {
     this.reset({ loading: true });

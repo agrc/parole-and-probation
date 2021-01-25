@@ -6,7 +6,7 @@ const generateDirectionsUrl = (address) => {
     ['api', 1],
     ['travelmode', 'driving'],
     ['dir_action', 'navigate'],
-    ['destination', address]
+    ['destination', address],
   ];
 
   const params = new URLSearchParams(options);
@@ -23,15 +23,13 @@ export function GoogleDirectionsLink(props) {
     <a href={generateDirectionsUrl(props.address)} rel="noopener noreferrer" target="_blank">
       {props.children}
     </a>
-  )
-};
+  );
+}
 
 export function TelephoneLink(props) {
   if (!props.phone) {
     return props.children;
   }
 
-  return (
-    <a href={`tel: ${props.phone}`}>{props.children}</a>
-  );
-};
+  return <a href={`tel: ${props.phone}`}>{props.children}</a>;
+}
