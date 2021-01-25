@@ -15,7 +15,7 @@ const vanityCheck = (agentList, loggedInUser) => {
 
   const agents = Array.from(agentList);
 
-  return agents.some(item => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
+  return agents.some((item) => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
 };
 
 const shortCircuitEmpties = (value) => {
@@ -41,72 +41,66 @@ const shortCircuitEmpties = (value) => {
 };
 
 const countActiveFilters = (filter, state) => {
-  const skipKeys = [
-    'loggedInUser',
-    'vanity',
-    'buffer',
-    'extent',
-    'point',
-  ];
+  const skipKeys = ['loggedInUser', 'vanity', 'buffer', 'extent', 'point'];
 
   const allKeys = Object.keys(state);
-  const filterKeys = allKeys.filter(filter => !skipKeys.includes(filter))
+  const filterKeys = allKeys.filter((filter) => !skipKeys.includes(filter));
   let activeFilters = 0;
 
-  activeFilters = filterKeys.filter(filter => !shortCircuitEmpties(state[filter])).length;
+  activeFilters = filterKeys.filter((filter) => !shortCircuitEmpties(state[filter])).length;
 
   if (activeFilters > 0) {
-    return `${filter} (${activeFilters}/${filterKeys.length} active)`
+    return `${filter} (${activeFilters}/${filterKeys.length} active)`;
   }
 
   return filter;
 };
 
-const escapeQuotes = value => {
+const escapeQuotes = (value) => {
   return value.replace(/'/gm, "''");
 };
 
 const sqlMap = {
   agent: {
-    agentList: data => `agent_id in (${data.map(agent => `${agent.id}`).join()})`
+    agentList: (data) => `agent_id in (${data.map((agent) => `${agent.id}`).join()})`,
   },
   date: {
-    compliant: data => `in_compliance=${data === 'in' ? 1 : 0}`,
-    attempt: data => `last_attempted_field_contact>${data}`,
-    office: data => `last_office_contact>${data}`,
-    success: data => `last_successful_field_contact>${data}`
+    compliant: (data) => `in_compliance=${data === 'in' ? 1 : 0}`,
+    attempt: (data) => `last_attempted_field_contact>${data}`,
+    office: (data) => `last_office_contact>${data}`,
+    success: (data) => `last_successful_field_contact>${data}`,
   },
   location: {
-    region: data => `region in (${data.join()})`,
-    zip: data => `zip=${data}`,
-    city: data => `city='${data.toUpperCase()}'`,
-    counties: data => `county in (${data.map(item => `'${item.toUpperCase()}'`).join()})`,
+    region: (data) => `region in (${data.join()})`,
+    zip: (data) => `zip=${data}`,
+    city: (data) => `city='${data.toUpperCase()}'`,
+    counties: (data) => `county in (${data.map((item) => `'${item.toUpperCase()}'`).join()})`,
   },
   offender: {
-    gender: data => `gender='${data.slice(0, 1)}'`,
-    name: data => `offender='${escapeQuotes(data.toUpperCase())}'`,
-    number: data => `offender_id=${data}`,
-    tel: data => `offender_phone='${data}'`,
-    employer: data => `employer='${escapeQuotes(data.toUpperCase())}'`
+    gender: (data) => `gender='${data.slice(0, 1)}'`,
+    name: (data) => `offender='${escapeQuotes(data.toUpperCase())}'`,
+    number: (data) => `offender_id=${data}`,
+    tel: (data) => `offender_phone='${data}'`,
+    employer: (data) => `employer='${escapeQuotes(data.toUpperCase())}'`,
   },
   other: {
-    warrant: data => `active_warrant=${data === 'Yes' ? 1 : 0}`,
-    status: data => `legal_status='${data.toUpperCase()}'`,
-    sos: data => {
+    warrant: (data) => `active_warrant=${data === 'Yes' ? 1 : 0}`,
+    status: (data) => `legal_status='${data.toUpperCase()}'`,
+    sos: (data) => {
       const query = ['standard_of_supervision is null'];
 
-      data = data.filter(item => item !== 'no std');
+      data = data.filter((item) => item !== 'no std');
 
       if (data.length > 0) {
-        query.push(`standard_of_supervision in (${data.map(item => `'${item.toUpperCase()}'`).join()})`);
+        query.push(`standard_of_supervision in (${data.map((item) => `'${item.toUpperCase()}'`).join()})`);
       }
 
       return `(${query.join(' OR ')})`;
     },
-    supervision: data => data.map(item => `${item.id}=1`).join(' AND '),
-    gang: data => `gang_type in (${data.map(item => `'${item.name.toUpperCase()}'`).join()})`,
-    offense: data => `offense_code in (${data.map(item => `'${item.id}'`).join()})`
-  }
+    supervision: (data) => data.map((item) => `${item.id}=1`).join(' AND '),
+    gang: (data) => `gang_type in (${data.map((item) => `'${item.name.toUpperCase()}'`).join()})`,
+    offense: (data) => `offense_code in (${data.map((item) => `'${item.id}'`).join()})`,
+  },
 };
 
 const sqlMapper = (data) => {
@@ -116,7 +110,7 @@ const sqlMapper = (data) => {
   let definitionExpressionParts = [];
 
   // agent/data/location/offender/other
-  Object.keys(data).forEach(key => {
+  Object.keys(data).forEach((key) => {
     if (key === 'downshift') {
       return;
     }
@@ -124,28 +118,30 @@ const sqlMapper = (data) => {
     const metaKeys = Object.keys(sqlMap[key]);
 
     const criteria = Object.entries(data[key]);
-    const sql = criteria.map(([subKey, value]) => {
-      if (shortCircuitEmpties(value)) {
-        return undefined;
-      }
+    const sql = criteria
+      .map(([subKey, value]) => {
+        if (shortCircuitEmpties(value)) {
+          return undefined;
+        }
 
-      if (!metaKeys.includes(subKey)) {
-        // skipping because only interested in top level keys
+        if (!metaKeys.includes(subKey)) {
+          // skipping because only interested in top level keys
 
-        return undefined;
-      }
+          return undefined;
+        }
 
-      return sqlMap[key][subKey](value);
-    }).filter(x => !!x);
+        return sqlMap[key][subKey](value);
+      })
+      .filter((x) => !!x);
 
     if (key === 'agent' && sql) {
-      sql.forEach(item => definitionExpressionParts.push(item));
+      sql.forEach((item) => definitionExpressionParts.push(item));
 
       return;
     }
 
     if (sql) {
-      sql.forEach(item => filterParts.push(item));
+      sql.forEach((item) => filterParts.push(item));
     }
   });
 
@@ -159,26 +155,33 @@ const filterReducer = produce((draft, action) => {
     case 'UPDATE_AGENT_LIST': {
       if (action.meta === 'agent') {
         if (action.payload.add) {
-          if (draft.agent.agentList.some(item => item.value.toLowerCase() === action.payload.item.value.toLowerCase())) {
+          if (
+            draft.agent.agentList.some((item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase())
+          ) {
             return;
           }
 
           draft.agent.agentList = [action.payload.item].concat(draft.agent.agentList);
         } else {
           draft.agent.supervisorList = [];
-          draft.agent.agentList = draft.agent.agentList.filter(item => item.value.toLowerCase() !== action.payload.item.value.toLowerCase());
+          draft.agent.agentList = draft.agent.agentList.filter(
+            (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
+          );
         }
       } else if (action.meta === 'supervisor') {
         if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
-
-          draft.agent.agentList = agents.some(item => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase());
+          draft.agent.agentList = agents.some(
+            (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+          );
         }
 
         if (!action.payload.supervisorName) {
           draft.agent.agentList = [];
 
           if (draft.agent.vanity) {
-            draft.agent.agentList = agents.some(item => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase());
+            draft.agent.agentList = agents.some(
+              (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+            );
           }
         } else {
           draft.agent.agentList = [];
@@ -188,8 +191,9 @@ const filterReducer = produce((draft, action) => {
             draft.agent.agentList.push(draft.agent.loggedInUser);
           }
 
-          const agentsForSupervisor = agents
-            .filter(agent => agent.supervisor.toLowerCase() === action.payload.supervisorName.toLowerCase())
+          const agentsForSupervisor = agents.filter(
+            (agent) => agent.supervisor.toLowerCase() === action.payload.supervisorName.toLowerCase()
+          );
 
           draft.agent.supervisor = action.payload.supervisorName;
           draft.agent.agentList = draft.agent.agentList.concat(agentsForSupervisor);
@@ -260,13 +264,13 @@ const initialState = {
     loggedInUser: null,
     agentList: [],
     supervisor: null,
-    vanity: true
+    vanity: true,
   },
   date: {
     compliant: null,
     office: null,
     attempt: null,
-    success: null
+    success: null,
   },
   location: {
     region: [],
@@ -279,7 +283,7 @@ const initialState = {
     name: '',
     number: '',
     tel: '',
-    employer: ''
+    employer: '',
   },
   other: {
     warrant: '',
@@ -287,14 +291,14 @@ const initialState = {
     sos: [],
     supervision: [],
     gang: [],
-    offense: []
+    offense: [],
   },
   downshift: {
     offenderName: '',
     offenderNumber: '',
     offenderTelephone: '',
-    offenderEmployer: ''
-  }
+    offenderEmployer: '',
+  },
 };
 
 const emptyState = {
@@ -302,13 +306,13 @@ const emptyState = {
     loggedInUser: null,
     agentList: [],
     supervisor: null,
-    vanity: true
+    vanity: true,
   },
   date: {
     compliant: null,
     office: null,
     attempt: null,
-    success: null
+    success: null,
   },
   location: {
     region: [],
@@ -321,7 +325,7 @@ const emptyState = {
     name: '',
     number: '',
     tel: '',
-    employer: ''
+    employer: '',
   },
   other: {
     warrant: '',
@@ -329,17 +333,17 @@ const emptyState = {
     sos: [],
     supervision: [],
     gang: [],
-    offense: []
+    offense: [],
   },
   downshift: {
     offenderName: '',
     offenderNumber: '',
     offenderTelephone: '',
-    offenderEmployer: ''
-  }
+    offenderEmployer: '',
+  },
 };
 
-const Filters = props => {
+const Filters = (props) => {
   initialState.agent.loggedInUser = props.loggedInUser;
   initialState.agent.agentList = [props.loggedInUser];
 
@@ -351,7 +355,7 @@ const Filters = props => {
   const payload = sqlMapper(criteria);
 
   React.useEffect(() => {
-    console.log('Filters:useEffect dispatching map filters')
+    console.log('Filters:useEffect dispatching map filters');
     props.mapDispatcher({ type: 'SET_FILTERS', payload: payload });
     // React guarantees that dispatch function identity is stable and won’t change on re-renders.
     // This is why it’s safe to omit from the useEffect or useCallback dependency list.
@@ -361,10 +365,7 @@ const Filters = props => {
   return (
     <>
       <AccordionPane title={countActiveFilters('Agent', criteria.agent)} open className="mb-1">
-        <FilterAgent
-          data={{ agents, supervisors }}
-          criteria={criteria.agent}
-          update={dispatcher} />
+        <FilterAgent data={{ agents, supervisors }} criteria={criteria.agent} update={dispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Offender', criteria.offender)} className="mb-1">
         <FilterOffender
@@ -375,26 +376,17 @@ const Filters = props => {
         />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
-        <FilterLocation
-          criteria={criteria.location}
-          update={dispatcher}
-          dispatcher={props.mapDispatcher} />
+        <FilterLocation criteria={criteria.location} update={dispatcher} dispatcher={props.mapDispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Supervision Contact', criteria.date)} className="mb-1">
-        <FilterDate
-          criteria={criteria.date}
-          update={dispatcher}
-          dispatcher={props.mapDispatcher} />
+        <FilterDate criteria={criteria.date} update={dispatcher} dispatcher={props.mapDispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Other', criteria.other)}>
-        <FilterOther
-          criteria={criteria.other}
-          update={dispatcher} />
+        <FilterOther criteria={criteria.other} update={dispatcher} />
       </AccordionPane>
-      <FilterActions
-        reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })} />
+      <FilterActions reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })} />
     </>
-  )
+  );
 };
 
 export { Filters, sqlMap, sqlMapper, filterReducer };

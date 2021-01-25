@@ -43,7 +43,7 @@
 .identify__container {
   z-index: 5;
   background-color: #f9f9f9;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3)
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .identify__addon-item {
@@ -52,11 +52,11 @@
 
 .identify__addon-item--danger {
   background-color: #f8d7da;
-  color: #721c24
+  color: #721c24;
 }
 
 .identify__items-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between
+  justify-content: space-between;
 }

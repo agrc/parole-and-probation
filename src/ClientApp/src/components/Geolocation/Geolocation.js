@@ -20,14 +20,18 @@ const supportsGeolocation = () => {
 const options = {
   enableHighAccuracy: true,
   timeout: 30000,
-  maximumAge: 0
+  maximumAge: 0,
 };
 
 const getCurrentPosition = () => {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
-      position => { resolve(position); },
-      error => { reject(error); },
+      (position) => {
+        resolve(position);
+      },
+      (error) => {
+        reject(error);
+      },
       options
     );
   });
@@ -56,8 +60,8 @@ const geolocate = async (props) => {
     longitude: position.coords.longitude,
     latitude: position.coords.latitude,
     spatialReference: {
-      wkid: 4326
-    }
+      wkid: 4326,
+    },
   };
 
   const graphic = new Graphic({
@@ -66,11 +70,11 @@ const geolocate = async (props) => {
       type: 'simple-marker',
       outline: { width: 1.5, color: [255, 255, 255, 1] },
       size: 11,
-      color: [0, 116, 217, .75]
-    }
+      color: [0, 116, 217, 0.75],
+    },
   });
 
-  props.dispatch({ type: 'ZOOM_TO_GRAPHIC', payload: graphic })
+  props.dispatch({ type: 'ZOOM_TO_GRAPHIC', payload: graphic });
 };
 
 export default function Geolocation(props) {
@@ -84,7 +88,7 @@ export default function Geolocation(props) {
     }
 
     const timeout = setTimeout(() => {
-      console.log('resetting geolocation')
+      console.log('resetting geolocation');
       setStatus(undefined);
     }, 5000);
 
@@ -101,7 +105,7 @@ export default function Geolocation(props) {
     status === undefined ? false : status ? 'text-primary' : 'text-danger'
   );
 
-  return (supportsGeolocation() ?
+  return supportsGeolocation() ? (
     <div
       ref={me}
       className={classes}
@@ -111,6 +115,6 @@ export default function Geolocation(props) {
       onClick={() => geolocate({ setProgress, setStatus, dispatch: props.dispatcher })}
     >
       <FontAwesomeIcon spin={spin} icon={faCrosshairs} className="esri-icon" />
-    </div> : null
-  );
-};
+    </div>
+  ) : null;
+}

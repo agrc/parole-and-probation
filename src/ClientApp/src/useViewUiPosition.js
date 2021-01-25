@@ -5,8 +5,7 @@ export default function useViewUiPosition(view, position) {
 
   React.useEffect(() => {
     view?.ui.add(me.current, position);
-
   }, [position, view]);
 
   return me;
-};
+}

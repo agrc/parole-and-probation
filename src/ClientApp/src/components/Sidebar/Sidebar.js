@@ -14,4 +14,4 @@ export default function Sidebar(props) {
       {props.children}
     </div>
   );
-};
+}

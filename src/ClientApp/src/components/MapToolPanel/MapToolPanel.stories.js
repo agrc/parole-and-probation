@@ -5,7 +5,7 @@ import * as React from 'react';
 import MapToolPanel from './MapToolPanel';
 
 storiesOf('MapTools/MapToolPanel', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <div className="esri-ui-top-left esri-ui-corner">
       <div className="esri-component">{story()}</div>
     </div>
@@ -25,7 +25,7 @@ storiesOf('MapTools/MapToolPanel', module)
       <DartBoard
         className="pt-2 px-3"
         apiKey={process.env.REACT_APP_WEB_API}
-        onFindAddress={result => console.log({ type: 'ZOOM_TO_GRAPHIC', payload: result })}
+        onFindAddress={(result) => console.log({ type: 'ZOOM_TO_GRAPHIC', payload: result })}
         pointSymbol={{
           type: 'simple-marker',
           style: 'diamond',
@@ -33,8 +33,8 @@ storiesOf('MapTools/MapToolPanel', module)
           size: '18px',
           outline: {
             color: [230, 126, 21, 0.7],
-            width: 1
-          }
+            width: 1,
+          },
         }}
       />
     </MapToolPanel>
