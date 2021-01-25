@@ -1,5 +1,5 @@
-import produce from 'immer';
 import * as React from 'react';
+import { useImmerReducer } from 'use-immer';
 import AccordionPane from '../AccordionPane';
 import FilterActions from './FilterActions';
 import FilterAgent from './FilterAgent';
@@ -148,7 +148,7 @@ const sqlMapper = (data) => {
   return { definitionExpression: definitionExpressionParts, filter: filterParts };
 };
 
-const filterReducer = produce((draft, action) => {
+const filterReducer = (draft, action) => {
   console.log(`Filter:reducing state for ${action.type}`, action);
 
   switch (action.type) {
@@ -257,7 +257,7 @@ const filterReducer = produce((draft, action) => {
     default:
       throw new Error();
   }
-});
+};
 
 const initialState = {
   agent: {
@@ -350,7 +350,7 @@ const Filters = (props) => {
   emptyState.agent.loggedInUser = props.loggedInUser;
   emptyState.agent.agentList = [props.loggedInUser];
 
-  const [criteria, dispatcher] = React.useReducer(filterReducer, initialState);
+  const [criteria, dispatcher] = useImmerReducer(filterReducer, initialState);
 
   const payload = sqlMapper(criteria);
 
