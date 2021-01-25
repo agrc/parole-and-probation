@@ -1,7 +1,7 @@
-import produce from 'immer';
 import isEqual from 'lodash.isequal';
 import * as React from 'react';
 import { UserData } from 'react-oidc';
+import { useImmerReducer } from 'use-immer';
 import './App.css';
 import MapView from './components/esrijs/MapView';
 import { Filters } from './components/Filters';
@@ -11,7 +11,7 @@ import MapLens from './components/MapLens';
 import Sidebar from './components/Sidebar';
 import { mappingConfig } from './config';
 
-const reducer = produce((draft, action) => {
+const reducer = (draft, action) => {
   console.log(`App:reducing state for ${action.type}`, action);
 
   switch (action.type) {
@@ -111,11 +111,11 @@ const reducer = produce((draft, action) => {
     default:
       throw new Error();
   }
-});
+};
 
 export default function App() {
   const oidc = React.useContext(UserData);
-  const [app, dispatcher] = React.useReducer(reducer, {
+  const [app, dispatcher] = useImmerReducer(reducer, {
     zoomToGraphic: {
       graphic: null,
       level: 0,
