@@ -11,7 +11,7 @@ export default {
   },
 };
 
-export const normal = (args) => <Geolocation dispatcher={args.dispatch} />;
-export const busy = (args) => <Geolocation spin={true} dispatcher={args.dispatch} />;
-export const success = (args) => <Geolocation status={true} dispatcher={args.dispatch} />;
-export const fail = (args) => <Geolocation status={false} dispatcher={args.dispatch} />;
+export const Normal = (args) => <Geolocation dispatcher={args.dispatch} />;
+export const Busy = (args) => <Geolocation spin={true} dispatcher={args.dispatch} />;
+export const Success = (args) => <Geolocation status={true} dispatcher={args.dispatch} />;
+export const Fail = (args) => <Geolocation status={false} dispatcher={args.dispatch} />;

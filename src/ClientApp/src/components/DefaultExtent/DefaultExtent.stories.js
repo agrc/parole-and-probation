@@ -11,4 +11,4 @@ export default {
   },
 };
 
-export const normal = (args) => <HomeButton view={{ goTo: args.goTo, ui: { add: () => {} } }} extent={{}}></HomeButton>;
+export const Normal = (args) => <HomeButton view={{ goTo: args.goTo, ui: { add: () => {} } }} extent={{}}></HomeButton>;

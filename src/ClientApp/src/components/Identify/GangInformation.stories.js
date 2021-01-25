@@ -8,6 +8,6 @@ export default {
   component: GangInformation,
 };
 
-export const normal = () => <GangInformation gang="CRIPS" set="loco yoco" />;
-export const empty = () => <GangInformation gang={null} set={undefined} />;
-export const nullGang = () => <GangInformation gang={null} set="YOLO" />;
+export const Normal = () => <GangInformation gang="CRIPS" set="loco yoco" />;
+export const Empty = () => <GangInformation gang={null} set={undefined} />;
+export const NullGang = () => <GangInformation gang={null} set="YOLO" />;

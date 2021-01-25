@@ -8,7 +8,7 @@ export default {
   component: OffenderContactInfo,
 };
 
-export const normal = () => (
+export const Normal = () => (
   <OffenderContactInfo
     phone={'801-111-1111'}
     address={'123 sesame street'}
@@ -22,7 +22,7 @@ export const normal = () => (
     employer_phone={'801-222-2222'}
   />
 );
-export const emptyPhones = () => (
+export const EmptyPhones = () => (
   <OffenderContactInfo
     phone={null}
     address={'123 sesame street'}
@@ -35,7 +35,7 @@ export const emptyPhones = () => (
     employer_address={'123 Street Drive'}
   />
 );
-export const emptyAddressType = () => (
+export const EmptyAddressType = () => (
   <OffenderContactInfo
     phone={'801-111-1111'}
     address={'123 sesame street'}
@@ -48,7 +48,7 @@ export const emptyAddressType = () => (
     employer_phone={'801-222-2222'}
   />
 );
-export const noUnit = () => (
+export const NoUnit = () => (
   <OffenderContactInfo
     phone={'801-111-1111'}
     address={'123 sesame street'}
@@ -61,7 +61,7 @@ export const noUnit = () => (
     employer_phone={'801-222-2222'}
   />
 );
-export const emptySince = () => (
+export const EmptySince = () => (
   <OffenderContactInfo
     phone={'801-111-1111'}
     address={'123 sesame street'}
@@ -74,7 +74,7 @@ export const emptySince = () => (
     employer_phone={'801-222-2222'}
   />
 );
-export const emptyEmployer = () => (
+export const EmptyEmployer = () => (
   <OffenderContactInfo
     phone={'801-111-1111'}
     address={'123 sesame street'}
@@ -85,7 +85,7 @@ export const emptyEmployer = () => (
     employer_phone={'801-222-2222'}
   />
 );
-export const emptyEmployerAddress = () => (
+export const EmptyEmployerAddress = () => (
   <OffenderContactInfo
     phone={'801-111-1111'}
     address={'123 sesame street'}

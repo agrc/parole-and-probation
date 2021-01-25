@@ -6,16 +6,16 @@ export default {
   title: 'Labels/IdentifyAddon',
 };
 
-export const emptyWithImplicitDefault = () => <IdentifyAddon></IdentifyAddon>;
-export const emptyWithExplicitDefault = () => <IdentifyAddon defaultValue="empty"></IdentifyAddon>;
-export const emptyWithNull = () => <IdentifyAddon defaultValue={null}></IdentifyAddon>;
-export const basic = () => <IdentifyAddon>Basic</IdentifyAddon>;
-export const danger = () => <IdentifyAddon danger="1">Danger</IdentifyAddon>;
-export const border = () => <IdentifyAddon border>Border</IdentifyAddon>;
-export const lower = () => <IdentifyAddon lower>LOWER</IdentifyAddon>;
-export const age = () => <IdentifyAddon age="648950400000">years old</IdentifyAddon>;
-export const date = () => <IdentifyAddon date>648950400000</IdentifyAddon>;
-export const all = () => (
+export const EmptyWithImplicitDefault = () => <IdentifyAddon></IdentifyAddon>;
+export const EmptyWithExplicitDefault = () => <IdentifyAddon defaultValue="empty"></IdentifyAddon>;
+export const EmptyWithNull = () => <IdentifyAddon defaultValue={null}></IdentifyAddon>;
+export const Basic = () => <IdentifyAddon>Basic</IdentifyAddon>;
+export const Danger = () => <IdentifyAddon danger="1">Danger</IdentifyAddon>;
+export const Border = () => <IdentifyAddon border>Border</IdentifyAddon>;
+export const Lower = () => <IdentifyAddon lower>LOWER</IdentifyAddon>;
+export const Age = () => <IdentifyAddon age="648950400000">years old</IdentifyAddon>;
+export const Date = () => <IdentifyAddon date>648950400000</IdentifyAddon>;
+export const All = () => (
   <IdentifyAddon age="648950400000" defaultValue="error" danger="1" border lower>
     YEARS old
   </IdentifyAddon>
