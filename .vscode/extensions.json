@@ -1,7 +1,8 @@
 {
     "recommendations": [
         "ms-dotnettools.csharp",
-        "ms-python.python"
+        "ms-python.python",
+        "esbenp.prettier-vscode"
     ],
     "unwantedRecommendations": []
 }
