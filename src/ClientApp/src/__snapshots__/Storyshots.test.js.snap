@@ -1,0 +1,4610 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Filters/Agent Filter Agents Selected 1`] = `
+<div
+  className="filter-agent container-fluid"
+>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-warning btn-sm btn-block"
+        onClick={[Function]}
+        type="button"
+      >
+        Me
+      </button>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Agent
+      </label>
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-owns="downshift-4-menu"
+        role="combobox"
+      >
+        <div
+          className="input-group"
+        >
+          <input
+            aria-autocomplete="list"
+            aria-controls="downshift-4-menu"
+            aria-labelledby="downshift-4-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-4-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-label={null}
+              className="btn btn-secondary"
+              onClick={[Function]}
+              type="button"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+        <div
+          aria-labelledby="downshift-4-label"
+          className="downshift__match-dropdown"
+          id="downshift-4-menu"
+          onClick={[Function]}
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Supervisor
+      </label>
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-owns="downshift-5-menu"
+        role="combobox"
+      >
+        <div
+          className="input-group"
+        >
+          <input
+            aria-autocomplete="list"
+            aria-controls="downshift-5-menu"
+            aria-labelledby="downshift-5-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-5-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-label={null}
+              className="btn btn-secondary"
+              onClick={[Function]}
+              type="button"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+        <div
+          aria-labelledby="downshift-5-label"
+          className="downshift__match-dropdown"
+          id="downshift-5-menu"
+          onClick={[Function]}
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  >
+    <label
+      className=""
+    >
+      Filtering Offenders For
+    </label>
+    <div
+      className="mb-3 p-3 card"
+    >
+      <div
+        className="filter-other__items-container p-0 card-body"
+      >
+        <button
+          aria-label={null}
+          className="mb-1 btn btn-outline-secondary btn-sm"
+          id={-1}
+          onClick={[Function]}
+          type="button"
+        >
+          Storybook
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Filters/Agent Filter Empty 1`] = `
+<div
+  className="filter-agent container-fluid"
+>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-secondary btn-sm btn-block"
+        onClick={[Function]}
+        type="button"
+      >
+        Me
+      </button>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Agent
+      </label>
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-owns="downshift-0-menu"
+        role="combobox"
+      >
+        <div
+          className="input-group"
+        >
+          <input
+            aria-autocomplete="list"
+            aria-controls="downshift-0-menu"
+            aria-labelledby="downshift-0-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-0-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-label={null}
+              className="btn btn-secondary"
+              onClick={[Function]}
+              type="button"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+        <div
+          aria-labelledby="downshift-0-label"
+          className="downshift__match-dropdown"
+          id="downshift-0-menu"
+          onClick={[Function]}
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Supervisor
+      </label>
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-owns="downshift-1-menu"
+        role="combobox"
+      >
+        <div
+          className="input-group"
+        >
+          <input
+            aria-autocomplete="list"
+            aria-controls="downshift-1-menu"
+            aria-labelledby="downshift-1-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-1-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-label={null}
+              className="btn btn-secondary"
+              onClick={[Function]}
+              type="button"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+        <div
+          aria-labelledby="downshift-1-label"
+          className="downshift__match-dropdown"
+          id="downshift-1-menu"
+          onClick={[Function]}
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  />
+</div>
+`;
+
+exports[`Storyshots Filters/Agent Filter Vanity 1`] = `
+<div
+  className="filter-agent container-fluid"
+>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-warning btn-sm btn-block"
+        onClick={[Function]}
+        type="button"
+      >
+        Me
+      </button>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Agent
+      </label>
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-owns="downshift-2-menu"
+        role="combobox"
+      >
+        <div
+          className="input-group"
+        >
+          <input
+            aria-autocomplete="list"
+            aria-controls="downshift-2-menu"
+            aria-labelledby="downshift-2-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-2-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-label={null}
+              className="btn btn-secondary"
+              onClick={[Function]}
+              type="button"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+        <div
+          aria-labelledby="downshift-2-label"
+          className="downshift__match-dropdown"
+          id="downshift-2-menu"
+          onClick={[Function]}
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Supervisor
+      </label>
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-owns="downshift-3-menu"
+        role="combobox"
+      >
+        <div
+          className="input-group"
+        >
+          <input
+            aria-autocomplete="list"
+            aria-controls="downshift-3-menu"
+            aria-labelledby="downshift-3-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-3-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-label={null}
+              className="btn btn-secondary"
+              onClick={[Function]}
+              type="button"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+        <div
+          aria-labelledby="downshift-3-label"
+          className="downshift__match-dropdown"
+          id="downshift-3-menu"
+          onClick={[Function]}
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  />
+</div>
+`;
+
+exports[`Storyshots Filters/Offender Filter Normal 1`] = `
+<div
+  className="filter-offender container-fluid"
+>
+  <form
+    autoComplete="off"
+  >
+    <div
+      className="col"
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className=""
+        >
+          Name
+        </label>
+        <div
+          aria-expanded={false}
+          aria-haspopup="listbox"
+          aria-labelledby="downshift-6-label"
+          aria-owns={null}
+          role="combobox"
+        >
+          <input
+            aria-activedescendant={null}
+            aria-autocomplete="list"
+            aria-controls={null}
+            aria-labelledby="downshift-6-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-6-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="col"
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className=""
+        >
+          Offender Number
+        </label>
+        <div
+          aria-expanded={false}
+          aria-haspopup="listbox"
+          aria-labelledby="downshift-7-label"
+          aria-owns={null}
+          role="combobox"
+        >
+          <input
+            aria-activedescendant={null}
+            aria-autocomplete="list"
+            aria-controls={null}
+            aria-labelledby="downshift-7-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-7-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="number"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="col"
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className=""
+        >
+          Gender
+        </label>
+        <div
+          className="text-center"
+        >
+          <div
+            className="btn-group"
+            role="group"
+          >
+            <button
+              aria-label={null}
+              className="btn btn-secondary btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              Male
+            </button>
+            <button
+              aria-label={null}
+              className="btn btn-secondary btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              Female
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col"
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className=""
+        >
+          Phone
+        </label>
+        <div
+          aria-expanded={false}
+          aria-haspopup="listbox"
+          aria-labelledby="downshift-8-label"
+          aria-owns={null}
+          role="combobox"
+        >
+          <input
+            aria-activedescendant={null}
+            aria-autocomplete="list"
+            aria-controls={null}
+            aria-labelledby="downshift-8-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-8-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="tel"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="col"
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className=""
+        >
+          Employer
+        </label>
+        <div
+          aria-expanded={false}
+          aria-haspopup="listbox"
+          aria-labelledby="downshift-9-label"
+          aria-owns={null}
+          role="combobox"
+        >
+          <input
+            aria-activedescendant={null}
+            aria-autocomplete="list"
+            aria-controls={null}
+            aria-labelledby="downshift-9-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-9-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Storyshots Filters/Other Filter Normal 1`] = `
+<div
+  className="filter-other container-fluid"
+>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Legal Status
+      </label>
+      <div
+        className="text-center"
+      >
+        <div
+          className="btn-group"
+          role="group"
+        >
+          <button
+            aria-label={null}
+            className="btn btn-secondary btn-sm"
+            onClick={[Function]}
+            type="button"
+          >
+            probation
+          </button>
+          <button
+            aria-label={null}
+            className="btn btn-warning btn-sm"
+            onClick={[Function]}
+            type="button"
+          >
+            parole
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Standard of Supervision
+      </label>
+      <div
+        className="text-center"
+      >
+        <div
+          className="btn-group"
+          role="group"
+        >
+          <button
+            aria-label={null}
+            className="btn btn-secondary btn-sm"
+            onClick={[Function]}
+            type="button"
+          >
+            no std
+          </button>
+          <button
+            aria-label={null}
+            className="btn btn-warning btn-sm"
+            onClick={[Function]}
+            type="button"
+          >
+            low
+          </button>
+          <button
+            aria-label={null}
+            className="btn btn-secondary btn-sm"
+            onClick={[Function]}
+            type="button"
+          >
+            mod
+          </button>
+          <button
+            aria-label={null}
+            className="btn btn-secondary btn-sm"
+            onClick={[Function]}
+            type="button"
+          >
+            hi
+          </button>
+          <button
+            aria-label={null}
+            className="btn btn-secondary btn-sm"
+            onClick={[Function]}
+            type="button"
+          >
+            int
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-labelledby="downshift-10-label"
+        aria-owns={null}
+        role="combobox"
+      >
+        <label
+          className=""
+        >
+          Special Supervision
+        </label>
+        <div
+          className="mb-3 p-3 card"
+        >
+          <div
+            className="filter-other__items-container p-0 card-body"
+          >
+            <button
+              aria-label={null}
+              className="mb-1 btn btn-outline-secondary btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              ccc
+            </button>
+          </div>
+        </div>
+        <div
+          className="input-group"
+        >
+          <input
+            aria-activedescendant={null}
+            aria-autocomplete="list"
+            aria-controls={null}
+            aria-labelledby="downshift-10-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-10-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-haspopup={true}
+              aria-label="open menu"
+              className="btn btn-secondary"
+              data-toggle={true}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              role="button"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-chevron-up fa-w-14 fa-flip-vertical fa-xs "
+                data-icon="chevron-up"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-labelledby="downshift-11-label"
+        aria-owns={null}
+        role="combobox"
+      >
+        <label
+          className=""
+        >
+          Gang Name
+        </label>
+        <div
+          className="mb-3 p-3 card"
+        >
+          <div
+            className="filter-other__items-container p-0 card-body"
+          >
+            <button
+              aria-label={null}
+              className="mb-1 btn btn-outline-secondary btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              sureno
+            </button>
+            <button
+              aria-label={null}
+              className="mb-1 btn btn-outline-secondary btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              crip
+            </button>
+          </div>
+        </div>
+        <div
+          className="input-group"
+        >
+          <input
+            aria-activedescendant={null}
+            aria-autocomplete="list"
+            aria-controls={null}
+            aria-labelledby="downshift-11-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-11-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-haspopup={true}
+              aria-label="open menu"
+              className="btn btn-secondary"
+              data-toggle={true}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              role="button"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-chevron-up fa-w-14 fa-flip-vertical fa-xs "
+                data-icon="chevron-up"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-labelledby="downshift-12-label"
+        aria-owns={null}
+        role="combobox"
+      >
+        <label
+          className=""
+        >
+          Offense Type
+        </label>
+        <div
+          className="mb-3 p-3 card"
+        >
+          <div
+            className="filter-other__items-container p-0 card-body"
+          >
+            <button
+              aria-label={null}
+              className="mb-1 btn btn-outline-secondary btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              murder
+            </button>
+          </div>
+        </div>
+        <div
+          className="input-group"
+        >
+          <input
+            aria-activedescendant={null}
+            aria-autocomplete="list"
+            aria-controls={null}
+            aria-labelledby="downshift-12-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-12-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-haspopup={true}
+              aria-label="open menu"
+              className="btn btn-secondary"
+              data-toggle={true}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              role="button"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-chevron-up fa-w-14 fa-flip-vertical fa-xs "
+                data-icon="chevron-up"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Active Warrant
+      </label>
+      <div
+        className="text-center"
+      >
+        <div
+          className="btn-group"
+          role="group"
+        >
+          <button
+            aria-label={null}
+            className="btn btn-warning btn-sm"
+            onClick={[Function]}
+            type="button"
+          >
+            Yes
+          </button>
+          <button
+            aria-label={null}
+            className="btn btn-secondary btn-sm"
+            onClick={[Function]}
+            type="button"
+          >
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Contact Information Empty Address Type 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-111-1111"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-111-1111
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+sesame+street+%231%2C+salt+lake+city+84101"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 sesame street #1, salt lake city 84101
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      8/31/2018
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      ACME
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+Street+Drive"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 Street Drive
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-222-2222"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-222-2222
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Contact Information Empty Employer 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-111-1111"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-111-1111
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+sesame+street%2C+salt+lake+city+84101"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 sesame street, salt lake city 84101
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Type
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      1st Primary
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unknown
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unemployed or unknown
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+Street+Drive"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 Street Drive
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-222-2222"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-222-2222
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Contact Information Empty Employer Address 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-111-1111"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-111-1111
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+sesame+street%2C+salt+lake+city+84101"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 sesame street, salt lake city 84101
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Type
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      1st Primary
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unknown
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      ACME
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-222-2222"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-222-2222
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Contact Information Empty Phones 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+sesame+street+%231%2C+salt+lake+city+84101"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 sesame street #1, salt lake city 84101
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Type
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      1st Primary
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      8/31/2018
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      ACME
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+Street+Drive"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 Street Drive
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Contact Information Empty Since 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-111-1111"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-111-1111
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+sesame+street%2C+salt+lake+city+84101"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 sesame street, salt lake city 84101
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Type
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      1st Primary
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unknown
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      ACME
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+Street+Drive"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 Street Drive
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-222-2222"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-222-2222
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Contact Information No Unit 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-111-1111"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-111-1111
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+sesame+street%2C+salt+lake+city+84101"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 sesame street, salt lake city 84101
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Type
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      1st Primary
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      8/31/2018
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      ACME
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+Street+Drive"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 Street Drive
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-222-2222"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-222-2222
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Contact Information Normal 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-111-1111"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-111-1111
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+sesame+street+%231%2C+salt+lake+city+84101"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 sesame street #1, salt lake city 84101
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Type
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      1st Primary
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      8/31/2018
+    </label>
+  </div>,
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      ACME
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=123+Street+Drive"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      123 Street Drive
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 801-222-2222"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      801-222-2222
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Gang Information Empty 1`] = `null`;
+
+exports[`Storyshots Identify/Gang Information Normal 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    STG
+  </h5>,
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Gang
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      CRIPS
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Set
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      loco yoco
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Gang Information Null Gang 1`] = `null`;
+
+exports[`Storyshots Identify/Integration First Of Multiple 1`] = `
+<div
+  className="identify__container side-bar side-bar--with-border side-bar--open"
+>
+  <button
+    aria-label="Close"
+    className="close-button identify__close"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      aria-hidden="true"
+    >
+      ×
+    </span>
+  </button>
+  <div
+    className="identify pt-4 container"
+  >
+    <nav
+      aria-label="pagination"
+      className=""
+    >
+      <ul
+        className="justify-content-center pagination"
+      >
+        <li
+          className="justify-content-center page-item disabled"
+        >
+          <button
+            aria-label="First"
+            className="page-link"
+            disabled={true}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              «
+            </span>
+            <span
+              className="sr-only"
+            >
+              First
+            </span>
+          </button>
+        </li>
+        <li
+          className="page-item disabled"
+        >
+          <button
+            aria-label="Previous"
+            className="page-link"
+            disabled={true}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              ‹
+            </span>
+            <span
+              className="sr-only"
+            >
+              Previous
+            </span>
+          </button>
+        </li>
+        <li
+          className="page-item disabled"
+        >
+          <button
+            className="page-link"
+            disabled={true}
+          >
+            1 of 6
+          </button>
+        </li>
+        <li
+          className="page-item"
+        >
+          <button
+            aria-label="Next"
+            className="page-link"
+            disabled={false}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              ›
+            </span>
+            <span
+              className="sr-only"
+            >
+              Next
+            </span>
+          </button>
+        </li>
+        <li
+          className="page-item"
+        >
+          <button
+            aria-label="Last"
+            className="page-link"
+            disabled={false}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              »
+            </span>
+            <span
+              className="sr-only"
+            >
+              Last
+            </span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <h4>
+      BRAVO, MIKE SMITH
+    </h4>
+    <div
+      className="border-bottom mb-2 pb-2 identify__row"
+    >
+      <div
+        className="d-grid identify-grid--label-text"
+      >
+        <label
+          className="identify-grid--label-text__label font-weight-bolder text-right"
+        >
+          Number
+        </label>
+        <label
+          className="identify-grid--label-text__text"
+        >
+          10
+        </label>
+        <label
+          className="identify-grid--label-text__label font-weight-bolder text-right"
+        >
+          Agent
+        </label>
+        <label
+          className="identify-grid--label-text__text"
+        >
+          -
+        </label>
+      </div>
+      <div
+        className="d-grid identify-addon__subgrid px-3"
+      >
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          M
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          MOD
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          probation
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          no active warrant
+        </div>
+      </div>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Recent Contact
+      <small
+        className="text-muted"
+        style={
+          Object {
+            "fontSize": "1rem",
+          }
+        }
+      >
+         
+        (days since)
+      </small>
+    </h5>
+    <div
+      className="d-grid identify-grid--contacts identify__row border-bottom"
+    >
+      <div
+        className="identify-grid--contacts__item"
+      >
+        <label
+          className="font-weight-bolder"
+        >
+          Successful
+        </label>
+        <label
+          className="d-block"
+        >
+          322
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Attempted
+        </label>
+        <label
+          className="d-block"
+        >
+          10
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Office
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Contact Information
+    </h5>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        <a
+          href="tel: 867-5309"
+        >
+          Phone
+        </a>
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        867-5309
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        <a
+          href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Address
+        </a>
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        OGDEN
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Since
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        unknown
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Employer
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        MUSCLE MAN
+      </label>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Primary Offense
+    </h5>
+    <div
+      className="identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--contacts__item"
+      >
+         (F3)
+      </label>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      STG
+    </h5>
+    <div
+      className="d-grid identify-grid--label-text identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Gang
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        NORTENOS
+      </label>
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Set
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        -
+      </label>
+    </div>
+    <div
+      className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+    >
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Supervision Start
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          ECC Date
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+    </div>
+    <div
+      className="identify__row text-center pt-5 pb-3"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Integration Last Of Multiple 1`] = `
+<div
+  className="identify__container side-bar side-bar--with-border side-bar--open"
+>
+  <button
+    aria-label="Close"
+    className="close-button identify__close"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      aria-hidden="true"
+    >
+      ×
+    </span>
+  </button>
+  <div
+    className="identify pt-4 container"
+  >
+    <nav
+      aria-label="pagination"
+      className=""
+    >
+      <ul
+        className="justify-content-center pagination"
+      >
+        <li
+          className="justify-content-center page-item"
+        >
+          <button
+            aria-label="First"
+            className="page-link"
+            disabled={false}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              «
+            </span>
+            <span
+              className="sr-only"
+            >
+              First
+            </span>
+          </button>
+        </li>
+        <li
+          className="page-item"
+        >
+          <button
+            aria-label="Previous"
+            className="page-link"
+            disabled={false}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              ‹
+            </span>
+            <span
+              className="sr-only"
+            >
+              Previous
+            </span>
+          </button>
+        </li>
+        <li
+          className="page-item disabled"
+        >
+          <button
+            className="page-link"
+            disabled={true}
+          >
+            6 of 6
+          </button>
+        </li>
+        <li
+          className="page-item disabled"
+        >
+          <button
+            aria-label="Next"
+            className="page-link"
+            disabled={true}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              ›
+            </span>
+            <span
+              className="sr-only"
+            >
+              Next
+            </span>
+          </button>
+        </li>
+        <li
+          className="page-item disabled"
+        >
+          <button
+            aria-label="Last"
+            className="page-link"
+            disabled={true}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              »
+            </span>
+            <span
+              className="sr-only"
+            >
+              Last
+            </span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <h4>
+      ALPHA, SUSAN SMITH
+    </h4>
+    <div
+      className="border-bottom mb-2 pb-2 identify__row"
+    >
+      <div
+        className="d-grid identify-grid--label-text"
+      >
+        <label
+          className="identify-grid--label-text__label font-weight-bolder text-right"
+        >
+          Number
+        </label>
+        <label
+          className="identify-grid--label-text__text"
+        >
+          15
+        </label>
+        <label
+          className="identify-grid--label-text__label font-weight-bolder text-right"
+        >
+          Agent
+        </label>
+        <label
+          className="identify-grid--label-text__text"
+        >
+          -
+        </label>
+      </div>
+      <div
+        className="d-grid identify-addon__subgrid px-3"
+      >
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          M
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          MOD
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          probation
+        </div>
+        <div
+          className="identify__addon-item--danger d-flex identify__addon-item pl-1"
+        >
+          active warrant
+        </div>
+      </div>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Recent Contact
+      <small
+        className="text-muted"
+        style={
+          Object {
+            "fontSize": "1rem",
+          }
+        }
+      >
+         
+        (days since)
+      </small>
+    </h5>
+    <div
+      className="d-grid identify-grid--contacts identify__row border-bottom"
+    >
+      <div
+        className="identify-grid--contacts__item"
+      >
+        <label
+          className="font-weight-bolder"
+        >
+          Successful
+        </label>
+        <label
+          className="d-block"
+        >
+          25
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Attempted
+        </label>
+        <label
+          className="d-block"
+        >
+          10
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Office
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Contact Information
+    </h5>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        <a
+          href="tel: 867-5309"
+        >
+          Phone
+        </a>
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        867-5309
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        <a
+          href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Address
+        </a>
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        OGDEN
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Since
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        unknown
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Employer
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        unemployed or unknown
+      </label>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Primary Offense
+    </h5>
+    <div
+      className="identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--contacts__item"
+      >
+         (F3)
+      </label>
+    </div>
+    <div
+      className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+    >
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Supervision Start
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          ECC Date
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+    </div>
+    <div
+      className="identify__row text-center pt-5 pb-3"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Integration Middle Of Multiple 1`] = `
+<div
+  className="identify__container side-bar side-bar--with-border side-bar--open"
+>
+  <button
+    aria-label="Close"
+    className="close-button identify__close"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      aria-hidden="true"
+    >
+      ×
+    </span>
+  </button>
+  <div
+    className="identify pt-4 container"
+  >
+    <nav
+      aria-label="pagination"
+      className=""
+    >
+      <ul
+        className="justify-content-center pagination"
+      >
+        <li
+          className="justify-content-center page-item"
+        >
+          <button
+            aria-label="First"
+            className="page-link"
+            disabled={false}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              «
+            </span>
+            <span
+              className="sr-only"
+            >
+              First
+            </span>
+          </button>
+        </li>
+        <li
+          className="page-item"
+        >
+          <button
+            aria-label="Previous"
+            className="page-link"
+            disabled={false}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              ‹
+            </span>
+            <span
+              className="sr-only"
+            >
+              Previous
+            </span>
+          </button>
+        </li>
+        <li
+          className="page-item disabled"
+        >
+          <button
+            className="page-link"
+            disabled={true}
+          >
+            4 of 6
+          </button>
+        </li>
+        <li
+          className="page-item"
+        >
+          <button
+            aria-label="Next"
+            className="page-link"
+            disabled={false}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              ›
+            </span>
+            <span
+              className="sr-only"
+            >
+              Next
+            </span>
+          </button>
+        </li>
+        <li
+          className="page-item"
+        >
+          <button
+            aria-label="Last"
+            className="page-link"
+            disabled={false}
+            onClick={[Function]}
+          >
+            <span
+              aria-hidden="true"
+            >
+              »
+            </span>
+            <span
+              className="sr-only"
+            >
+              Last
+            </span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <h4>
+      ALPHA, SUSAN SMITH
+    </h4>
+    <div
+      className="border-bottom mb-2 pb-2 identify__row"
+    >
+      <div
+        className="d-grid identify-grid--label-text"
+      >
+        <label
+          className="identify-grid--label-text__label font-weight-bolder text-right"
+        >
+          Number
+        </label>
+        <label
+          className="identify-grid--label-text__text"
+        >
+          13
+        </label>
+        <label
+          className="identify-grid--label-text__label font-weight-bolder text-right"
+        >
+          Agent
+        </label>
+        <label
+          className="identify-grid--label-text__text"
+        >
+          -
+        </label>
+      </div>
+      <div
+        className="d-grid identify-addon__subgrid px-3"
+      >
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          M
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          MOD
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          probation
+        </div>
+        <div
+          className="identify__addon-item--danger d-flex identify__addon-item pl-1"
+        >
+          active warrant
+        </div>
+      </div>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Recent Contact
+      <small
+        className="text-muted"
+        style={
+          Object {
+            "fontSize": "1rem",
+          }
+        }
+      >
+         
+        (days since)
+      </small>
+    </h5>
+    <div
+      className="d-grid identify-grid--contacts identify__row border-bottom"
+    >
+      <div
+        className="identify-grid--contacts__item"
+      >
+        <label
+          className="font-weight-bolder"
+        >
+          Successful
+        </label>
+        <label
+          className="d-block"
+        >
+          25
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Attempted
+        </label>
+        <label
+          className="d-block"
+        >
+          10
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Office
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Contact Information
+    </h5>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        <a
+          href="tel: 867-5309"
+        >
+          Phone
+        </a>
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        867-5309
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        <a
+          href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Address
+        </a>
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        OGDEN
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Since
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        unknown
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Employer
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        unemployed or unknown
+      </label>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Primary Offense
+    </h5>
+    <div
+      className="identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--contacts__item"
+      >
+         (F3)
+      </label>
+    </div>
+    <div
+      className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+    >
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Supervision Start
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          ECC Date
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+    </div>
+    <div
+      className="identify__row text-center pt-5 pb-3"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Integration No Features 1`] = `
+<div
+  className="identify__container side-bar side-bar--with-border side-bar--open"
+>
+  <button
+    aria-label="Close"
+    className="close-button identify__close"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      aria-hidden="true"
+    >
+      ×
+    </span>
+  </button>
+  <div
+    className="identify pt-4 container"
+  >
+    No offenders at click location
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Integration Single Feature 1`] = `
+<div
+  className="identify__container side-bar side-bar--with-border side-bar--open"
+>
+  <button
+    aria-label="Close"
+    className="close-button identify__close"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      aria-hidden="true"
+    >
+      ×
+    </span>
+  </button>
+  <div
+    className="identify pt-4 container"
+  >
+    <h4>
+      BRAVO, MIKE SMITH
+    </h4>
+    <div
+      className="border-bottom mb-2 pb-2 identify__row"
+    >
+      <div
+        className="d-grid identify-grid--label-text"
+      >
+        <label
+          className="identify-grid--label-text__label font-weight-bolder text-right"
+        >
+          Number
+        </label>
+        <label
+          className="identify-grid--label-text__text"
+        >
+          10
+        </label>
+        <label
+          className="identify-grid--label-text__label font-weight-bolder text-right"
+        >
+          Agent
+        </label>
+        <label
+          className="identify-grid--label-text__text"
+        >
+          -
+        </label>
+      </div>
+      <div
+        className="d-grid identify-addon__subgrid px-3"
+      >
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          M
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          MOD
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          probation
+        </div>
+        <div
+          className="d-flex identify__addon-item pl-1"
+        >
+          no active warrant
+        </div>
+      </div>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Recent Contact
+      <small
+        className="text-muted"
+        style={
+          Object {
+            "fontSize": "1rem",
+          }
+        }
+      >
+         
+        (days since)
+      </small>
+    </h5>
+    <div
+      className="d-grid identify-grid--contacts identify__row border-bottom"
+    >
+      <div
+        className="identify-grid--contacts__item"
+      >
+        <label
+          className="font-weight-bolder"
+        >
+          Successful
+        </label>
+        <label
+          className="d-block"
+        >
+          322
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Attempted
+        </label>
+        <label
+          className="d-block"
+        >
+          10
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Office
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Contact Information
+    </h5>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        <a
+          href="tel: 867-5309"
+        >
+          Phone
+        </a>
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        867-5309
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        <a
+          href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Address
+        </a>
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        OGDEN
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Since
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        unknown
+      </label>
+    </div>
+    <div
+      className="d-grid identify-grid--label-text identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Employer
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        MUSCLE MAN
+      </label>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      Primary Offense
+    </h5>
+    <div
+      className="identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--contacts__item"
+      >
+         (F3)
+      </label>
+    </div>
+    <h5
+      className="mt-2"
+    >
+      STG
+    </h5>
+    <div
+      className="d-grid identify-grid--label-text identify__row border-bottom"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Gang
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        NORTENOS
+      </label>
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Set
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        -
+      </label>
+    </div>
+    <div
+      className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+    >
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          Supervision Start
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+      <div>
+        <label
+          className="font-weight-bolder"
+        >
+          ECC Date
+        </label>
+        <label
+          className="d-block"
+        >
+          -
+        </label>
+      </div>
+    </div>
+    <div
+      className="identify__row text-center pt-5 pb-3"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Offender Alerts All Empty 1`] = `null`;
+
+exports[`Storyshots Identify/Offender Alerts Empty Alerts 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Cautions
+  </h5>,
+  <div
+    className="identify__row"
+  >
+    <div
+      className="rounded-0 mb-0 w-100 alert alert-danger fade"
+      role="alert"
+    >
+      cautions
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Offender Alerts Empty Cautions 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Alerts
+  </h5>,
+  <div
+    className="identify__row"
+  >
+    <div
+      className="rounded-0 mb-0 w-100 alert alert-danger fade"
+      role="alert"
+    >
+      alerts
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Offender Alerts Normal 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Cautions
+  </h5>,
+  <div
+    className="identify__row"
+  >
+    <div
+      className="rounded-0 mb-0 w-100 alert alert-danger fade"
+      role="alert"
+    >
+      cautions
+    </div>
+  </div>,
+  <h5
+    className="mt-2"
+  >
+    Alerts
+  </h5>,
+  <div
+    className="identify__row"
+  >
+    <div
+      className="rounded-0 mb-0 w-100 alert alert-danger fade"
+      role="alert"
+    >
+      alerts
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Offender quick look Active Warrant 1`] = `
+Array [
+  <h4>
+    Last name, middle first
+  </h4>,
+  <div
+    className="border-bottom mb-2 pb-2 identify__row"
+  >
+    <div
+      className="d-grid identify-grid--label-text"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Number
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        999999
+      </label>
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Agent
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        Agent Orange
+      </label>
+    </div>
+    <div
+      className="d-grid identify-addon__subgrid px-3"
+    >
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        38 M
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        No STD
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        probation
+      </div>
+      <div
+        className="identify__addon-item--danger d-flex identify__addon-item pl-1"
+      >
+        active warrant
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Offender quick look No Sos 1`] = `
+Array [
+  <h4>
+    Last name, middle first
+  </h4>,
+  <div
+    className="border-bottom mb-2 pb-2 identify__row"
+  >
+    <div
+      className="d-grid identify-grid--label-text"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Number
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        999999
+      </label>
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Agent
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        Agent Orange
+      </label>
+    </div>
+    <div
+      className="d-grid identify-addon__subgrid px-3"
+    >
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        38 M
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        No STD
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        probation
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        no active warrant
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Offender quick look Normal 1`] = `
+Array [
+  <h4>
+    Last name, middle first
+    <small
+      className="text-muted d-block"
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+    >
+      white
+    </small>
+  </h4>,
+  <div
+    className="border-bottom mb-2 pb-2 identify__row"
+  >
+    <div
+      className="d-grid identify-grid--label-text"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Number
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        999999
+      </label>
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Agent
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        Agent Orange
+      </label>
+    </div>
+    <div
+      className="d-grid identify-addon__subgrid px-3"
+    >
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        38 M
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        LOW
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        probation
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        no active warrant
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Other Information Empty 1`] = `
+<div
+  className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+>
+  <div>
+    <label
+      className="font-weight-bolder"
+    >
+      Supervision Start
+    </label>
+    <label
+      className="d-block"
+    >
+      -
+    </label>
+  </div>
+  <div>
+    <label
+      className="font-weight-bolder"
+    >
+      ECC Date
+    </label>
+    <label
+      className="d-block"
+    >
+      -
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Other Information Normal 1`] = `
+<div
+  className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+>
+  <div>
+    <label
+      className="font-weight-bolder"
+    >
+      Supervision Start
+    </label>
+    <label
+      className="d-block"
+    >
+      8/31/2018
+    </label>
+  </div>
+  <div>
+    <label
+      className="font-weight-bolder"
+    >
+      ECC Date
+    </label>
+    <label
+      className="d-block"
+    >
+      8/31/2018
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Primary Offense Empty Offense Or Degree 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Primary Offense
+  </h5>,
+  <div
+    className="identify__row border-bottom"
+  >
+    <p
+      className="pl-3"
+    >
+      hello
+    </p>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Primary Offense Normal 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Primary Offense
+  </h5>,
+  <div
+    className="identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--contacts__item"
+    >
+      PERSON (F3)
+    </label>
+    <p
+      className="pl-3"
+    >
+      i did something very bad
+    </p>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Primary Offense Null And Undefined 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Primary Offense
+  </h5>,
+  <div
+    className="identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--contacts__item"
+    >
+      ROBBERY
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Recent Visitation Empty Attempted 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Recent Contact
+    <small
+      className="text-muted"
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+    >
+       
+      (days since)
+    </small>
+  </h5>,
+  <div
+    className="d-grid identify-grid--contacts identify__row border-bottom"
+  >
+    <div
+      className="identify-grid--contacts__item"
+    >
+      <label
+        className="font-weight-bolder"
+      >
+        Successful
+      </label>
+      <label
+        className="d-block"
+      >
+        1
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Attempted
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Office
+      </label>
+      <label
+        className="d-block"
+      >
+        10
+      </label>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Recent Visitation Empty Office 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Recent Contact
+    <small
+      className="text-muted"
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+    >
+       
+      (days since)
+    </small>
+  </h5>,
+  <div
+    className="d-grid identify-grid--contacts identify__row border-bottom"
+  >
+    <div
+      className="identify-grid--contacts__item"
+    >
+      <label
+        className="font-weight-bolder"
+      >
+        Successful
+      </label>
+      <label
+        className="d-block"
+      >
+        1
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Attempted
+      </label>
+      <label
+        className="d-block"
+      >
+        15
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Office
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Recent Visitation Empty Success 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Recent Contact
+    <small
+      className="text-muted"
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+    >
+       
+      (days since)
+    </small>
+  </h5>,
+  <div
+    className="d-grid identify-grid--contacts identify__row border-bottom"
+  >
+    <div
+      className="identify-grid--contacts__item"
+    >
+      <label
+        className="font-weight-bolder"
+      >
+        Successful
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Attempted
+      </label>
+      <label
+        className="d-block"
+      >
+        15
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Office
+      </label>
+      <label
+        className="d-block"
+      >
+        10
+      </label>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Recent Visitation Normal 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Recent Contact
+    <small
+      className="text-muted"
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+    >
+       
+      (days since)
+    </small>
+  </h5>,
+  <div
+    className="d-grid identify-grid--contacts identify__row border-bottom"
+  >
+    <div
+      className="identify-grid--contacts__item"
+    >
+      <label
+        className="font-weight-bolder"
+      >
+        Successful
+      </label>
+      <label
+        className="d-block"
+      >
+        1
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Attempted
+      </label>
+      <label
+        className="d-block"
+      >
+        15
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Office
+      </label>
+      <label
+        className="d-block"
+      >
+        10
+      </label>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Special Supervision Empty 1`] = `null`;
+
+exports[`Storyshots Identify/Special Supervision Normal 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Special Supervisions
+  </h5>,
+  <div
+    className="identify-grid--contacts identify__row identify__items-container px-3 border-bottom"
+  >
+    <label>
+      INCAR
+    </label>
+    <label>
+      MIO
+    </label>
+    <label>
+      SOA
+    </label>
+    <label>
+      SOB
+    </label>
+    <label>
+      SOC
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Identify/Special Supervision Single 1`] = `
+Array [
+  <h5
+    className="mt-2"
+  >
+    Special Supervisions
+  </h5>,
+  <div
+    className="identify-grid--contacts identify__row identify__items-container px-3 border-bottom"
+  >
+    <label>
+      SOC
+    </label>
+  </div>,
+]
+`;
+
+exports[`Storyshots Labels/IdentifyAddon Age 1`] = `
+<div
+  className="d-flex identify__addon-item pl-1"
+>
+  30 years old
+</div>
+`;
+
+exports[`Storyshots Labels/IdentifyAddon All 1`] = `
+<div
+  className="border-bottom border-info d-flex identify__addon-item pl-1"
+>
+  30 years old
+</div>
+`;
+
+exports[`Storyshots Labels/IdentifyAddon Basic 1`] = `
+<div
+  className="d-flex identify__addon-item pl-1"
+>
+  Basic
+</div>
+`;
+
+exports[`Storyshots Labels/IdentifyAddon Border 1`] = `
+<div
+  className="border-bottom border-info d-flex identify__addon-item pl-1"
+>
+  Border
+</div>
+`;
+
+exports[`Storyshots Labels/IdentifyAddon Danger 1`] = `
+<div
+  className="d-flex identify__addon-item pl-1"
+>
+  Danger
+</div>
+`;
+
+exports[`Storyshots Labels/IdentifyAddon Date 1`] = `
+<div
+  className="d-flex identify__addon-item pl-1"
+>
+  7/25/1990
+</div>
+`;
+
+exports[`Storyshots Labels/IdentifyAddon Empty With Explicit Default 1`] = `
+<div
+  className="d-flex identify__addon-item pl-1"
+>
+  empty
+</div>
+`;
+
+exports[`Storyshots Labels/IdentifyAddon Empty With Implicit Default 1`] = `
+<div
+  className="d-flex identify__addon-item pl-1"
+>
+  -
+</div>
+`;
+
+exports[`Storyshots Labels/IdentifyAddon Empty With Null 1`] = `
+<div
+  className="d-flex identify__addon-item pl-1"
+/>
+`;
+
+exports[`Storyshots Labels/IdentifyAddon Lower 1`] = `
+<div
+  className="d-flex identify__addon-item pl-1"
+>
+  lower
+</div>
+`;
+
+exports[`Storyshots Legend/StaticLegend Basic 1`] = `
+<div
+  className="static-legend"
+>
+  <div
+    className="static-legend__item"
+    style={
+      Object {
+        "backgroundColor": "#2ecc40",
+        "maxWidth": "100%",
+        "width": "100%",
+      }
+    }
+  >
+    test
+  </div>
+</div>
+`;
+
+exports[`Storyshots Legend/StaticLegend Four Colors 1`] = `
+<div
+  className="static-legend"
+>
+  <div
+    className="static-legend__item"
+    style={
+      Object {
+        "backgroundColor": "#001f3f",
+        "maxWidth": "25%",
+        "width": "25%",
+      }
+    }
+  >
+    test
+  </div>
+  <div
+    className="static-legend__item"
+    style={
+      Object {
+        "backgroundColor": "#0074d9",
+        "maxWidth": "25%",
+        "width": "25%",
+      }
+    }
+  >
+    test2
+  </div>
+  <div
+    className="static-legend__item"
+    style={
+      Object {
+        "backgroundColor": "#7fdbff",
+        "maxWidth": "25%",
+        "width": "25%",
+      }
+    }
+  >
+    test3
+  </div>
+  <div
+    className="static-legend__item"
+    style={
+      Object {
+        "backgroundColor": "#39cccc",
+        "maxWidth": "25%",
+        "width": "25%",
+      }
+    }
+  >
+    test4
+  </div>
+</div>
+`;
+
+exports[`Storyshots Legend/StaticLegend Invert Text 1`] = `
+<div
+  className="static-legend"
+>
+  <div
+    className="static-legend__item static-legend__item--invert"
+    style={
+      Object {
+        "backgroundColor": "#39cccc",
+        "maxWidth": "100%",
+        "width": "100%",
+      }
+    }
+  >
+    test3
+  </div>
+</div>
+`;
+
+exports[`Storyshots Legend/StaticLegend No Legend 1`] = `null`;
+
+exports[`Storyshots Legend/StaticLegend Text Overflow 1`] = `
+<div
+  className="static-legend"
+>
+  <div
+    className="static-legend__item"
+    style={
+      Object {
+        "backgroundColor": "#001f3f",
+        "maxWidth": "25%",
+        "width": "25%",
+      }
+    }
+  >
+    What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+  </div>
+  <div
+    className="static-legend__item"
+    style={
+      Object {
+        "backgroundColor": "#0074d9",
+        "maxWidth": "25%",
+        "width": "25%",
+      }
+    }
+  >
+    test2
+  </div>
+  <div
+    className="static-legend__item"
+    style={
+      Object {
+        "backgroundColor": "#7fdbff",
+        "maxWidth": "25%",
+        "width": "25%",
+      }
+    }
+  >
+    test3
+  </div>
+  <div
+    className="static-legend__item"
+    style={
+      Object {
+        "backgroundColor": "#39cccc",
+        "maxWidth": "25%",
+        "width": "25%",
+      }
+    }
+  >
+    test4
+  </div>
+</div>
+`;
+
+exports[`Storyshots MapTools/CsvDownload Busy 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+>
+  <div
+    aria-label="Export features to CSV"
+    className="esri-widget--button esri-widget esri-component esri-button--disabled"
+    onClick={[Function]}
+    role="button"
+    title="Export features to CSV"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-cloud-download-alt fa-w-20 fa-spin esri-icon"
+      data-icon="cloud-download-alt"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 640 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zm-132.9 88.7L299.3 420.7c-6.2 6.2-16.4 6.2-22.6 0L171.3 315.3c-10.1-10.1-2.9-27.3 11.3-27.3H248V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v112h65.4c14.2 0 21.4 17.2 11.3 27.3z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Storyshots MapTools/CsvDownload Fail 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+>
+  <div
+    aria-label="Export features to CSV"
+    className="esri-widget--button esri-widget esri-component text-danger"
+    onClick={[Function]}
+    role="button"
+    title="Export features to CSV"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-cloud-download-alt fa-w-20 esri-icon"
+      data-icon="cloud-download-alt"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 640 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zm-132.9 88.7L299.3 420.7c-6.2 6.2-16.4 6.2-22.6 0L171.3 315.3c-10.1-10.1-2.9-27.3 11.3-27.3H248V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v112h65.4c14.2 0 21.4 17.2 11.3 27.3z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Storyshots MapTools/CsvDownload Normal 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+>
+  <div
+    aria-label="Export features to CSV"
+    className="esri-widget--button esri-widget esri-component"
+    onClick={[Function]}
+    role="button"
+    title="Export features to CSV"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-cloud-download-alt fa-w-20 esri-icon"
+      data-icon="cloud-download-alt"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 640 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zm-132.9 88.7L299.3 420.7c-6.2 6.2-16.4 6.2-22.6 0L171.3 315.3c-10.1-10.1-2.9-27.3 11.3-27.3H248V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v112h65.4c14.2 0 21.4 17.2 11.3 27.3z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Storyshots MapTools/CsvDownload Success 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+>
+  <div
+    aria-label="Export features to CSV"
+    className="esri-widget--button esri-widget esri-component text-primary"
+    onClick={[Function]}
+    role="button"
+    title="Export features to CSV"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-paper-plane fa-w-16 esri-icon"
+      data-icon="paper-plane"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Storyshots MapTools/DefaultExtent Normal 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+>
+  <div
+    aria-label="Default map view"
+    className="esri-home esri-widget--button esri-widget"
+    onClick={[Function]}
+    role="button"
+    title="Default map view"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-globe-americas fa-w-16 esri-icon esri-icon-home"
+      data-icon="globe-americas"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 496 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm82.29 357.6c-3.9 3.88-7.99 7.95-11.31 11.28-2.99 3-5.1 6.7-6.17 10.71-1.51 5.66-2.73 11.38-4.77 16.87l-17.39 46.85c-13.76 3-28 4.69-42.65 4.69v-27.38c1.69-12.62-7.64-36.26-22.63-51.25-6-6-9.37-14.14-9.37-22.63v-32.01c0-11.64-6.27-22.34-16.46-27.97-14.37-7.95-34.81-19.06-48.81-26.11-11.48-5.78-22.1-13.14-31.65-21.75l-.8-.72a114.792 114.792 0 0 1-18.06-20.74c-9.38-13.77-24.66-36.42-34.59-51.14 20.47-45.5 57.36-82.04 103.2-101.89l24.01 12.01C203.48 89.74 216 82.01 216 70.11v-11.3c7.99-1.29 16.12-2.11 24.39-2.42l28.3 28.3c6.25 6.25 6.25 16.38 0 22.63L264 112l-10.34 10.34c-3.12 3.12-3.12 8.19 0 11.31l4.69 4.69c3.12 3.12 3.12 8.19 0 11.31l-8 8a8.008 8.008 0 0 1-5.66 2.34h-8.99c-2.08 0-4.08.81-5.58 2.27l-9.92 9.65a8.008 8.008 0 0 0-1.58 9.31l15.59 31.19c2.66 5.32-1.21 11.58-7.15 11.58h-5.64c-1.93 0-3.79-.7-5.24-1.96l-9.28-8.06a16.017 16.017 0 0 0-15.55-3.1l-31.17 10.39a11.95 11.95 0 0 0-8.17 11.34c0 4.53 2.56 8.66 6.61 10.69l11.08 5.54c9.41 4.71 19.79 7.16 30.31 7.16s22.59 27.29 32 32h66.75c8.49 0 16.62 3.37 22.63 9.37l13.69 13.69a30.503 30.503 0 0 1 8.93 21.57 46.536 46.536 0 0 1-13.72 32.98zM417 274.25c-5.79-1.45-10.84-5-14.15-9.97l-17.98-26.97a23.97 23.97 0 0 1 0-26.62l19.59-29.38c2.32-3.47 5.5-6.29 9.24-8.15l12.98-6.49C440.2 193.59 448 223.87 448 256c0 8.67-.74 17.16-1.82 25.54L417 274.25z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Storyshots MapTools/Geolocation Busy 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+/>
+`;
+
+exports[`Storyshots MapTools/Geolocation Fail 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+/>
+`;
+
+exports[`Storyshots MapTools/Geolocation Normal 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+/>
+`;
+
+exports[`Storyshots MapTools/Geolocation Success 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+/>
+`;
+
+exports[`Storyshots MapTools/MapToolPanel Closed 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+>
+  <div
+    aria-label="Zoom to address"
+    className="map-tool-panel esri-widget--button esri-widget esri-component"
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
+    role="button"
+    title="Geocode"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-map-marked-alt fa-w-18 esri-icon"
+      data-icon="map-marked-alt"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 576 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M288 0c-69.59 0-126 56.41-126 126 0 56.26 82.35 158.8 113.9 196.02 6.39 7.54 17.82 7.54 24.2 0C331.65 284.8 414 182.26 414 126 414 56.41 357.59 0 288 0zm0 168c-23.2 0-42-18.8-42-42s18.8-42 42-42 42 18.8 42 42-18.8 42-42 42zM20.12 215.95A32.006 32.006 0 0 0 0 245.66v250.32c0 11.32 11.43 19.06 21.94 14.86L160 448V214.92c-8.84-15.98-16.07-31.54-21.25-46.42L20.12 215.95zM288 359.67c-14.07 0-27.38-6.18-36.51-16.96-19.66-23.2-40.57-49.62-59.49-76.72v182l192 64V266c-18.92 27.09-39.82 53.52-59.49 76.72-9.13 10.77-22.44 16.95-36.51 16.95zm266.06-198.51L416 224v288l139.88-55.95A31.996 31.996 0 0 0 576 426.34V176.02c0-11.32-11.43-19.06-21.94-14.86z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    <form
+      autoComplete="new-password"
+      className="d-none map-tool-panel"
+    >
+      <button
+        aria-label="Close"
+        className="close-button close-button--hide-on-lg"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+        >
+          ×
+        </span>
+      </button>
+      <div>
+        Hello!
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Storyshots MapTools/MapToolPanel Open 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+>
+  <div
+    aria-label="Zoom to address"
+    className="map-tool-panel esri-widget--button esri-widget esri-component map-tool-panel--open"
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
+    role="button"
+    title="Geocode"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-map-marked-alt fa-w-18 d-none esri-icon"
+      data-icon="map-marked-alt"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 576 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M288 0c-69.59 0-126 56.41-126 126 0 56.26 82.35 158.8 113.9 196.02 6.39 7.54 17.82 7.54 24.2 0C331.65 284.8 414 182.26 414 126 414 56.41 357.59 0 288 0zm0 168c-23.2 0-42-18.8-42-42s18.8-42 42-42 42 18.8 42 42-18.8 42-42 42zM20.12 215.95A32.006 32.006 0 0 0 0 245.66v250.32c0 11.32 11.43 19.06 21.94 14.86L160 448V214.92c-8.84-15.98-16.07-31.54-21.25-46.42L20.12 215.95zM288 359.67c-14.07 0-27.38-6.18-36.51-16.96-19.66-23.2-40.57-49.62-59.49-76.72v182l192 64V266c-18.92 27.09-39.82 53.52-59.49 76.72-9.13 10.77-22.44 16.95-36.51 16.95zm266.06-198.51L416 224v288l139.88-55.95A31.996 31.996 0 0 0 576 426.34V176.02c0-11.32-11.43-19.06-21.94-14.86z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    <form
+      autoComplete="new-password"
+      className="map-tool-panel"
+    >
+      <button
+        aria-label="Close"
+        className="close-button close-button--hide-on-lg"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+        >
+          ×
+        </span>
+      </button>
+      <div>
+        Hello!
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Storyshots MapTools/MapToolPanel With Component Child 1`] = `
+<div
+  className="esri-ui-top-left esri-ui-corner"
+>
+  <div
+    aria-label="Zoom to address"
+    className="map-tool-panel esri-widget--button esri-widget esri-component"
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
+    role="button"
+    title="Geocode"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-map-marked-alt fa-w-18 esri-icon"
+      data-icon="map-marked-alt"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 576 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M288 0c-69.59 0-126 56.41-126 126 0 56.26 82.35 158.8 113.9 196.02 6.39 7.54 17.82 7.54 24.2 0C331.65 284.8 414 182.26 414 126 414 56.41 357.59 0 288 0zm0 168c-23.2 0-42-18.8-42-42s18.8-42 42-42 42 18.8 42 42-18.8 42-42 42zM20.12 215.95A32.006 32.006 0 0 0 0 245.66v250.32c0 11.32 11.43 19.06 21.94 14.86L160 448V214.92c-8.84-15.98-16.07-31.54-21.25-46.42L20.12 215.95zM288 359.67c-14.07 0-27.38-6.18-36.51-16.96-19.66-23.2-40.57-49.62-59.49-76.72v182l192 64V266c-18.92 27.09-39.82 53.52-59.49 76.72-9.13 10.77-22.44 16.95-36.51 16.95zm266.06-198.51L416 224v288l139.88-55.95A31.996 31.996 0 0 0 576 426.34V176.02c0-11.32-11.43-19.06-21.94-14.86z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    <form
+      autoComplete="new-password"
+      className="d-none map-tool-panel"
+    >
+      <button
+        aria-label="Close"
+        className="close-button close-button--hide-on-lg"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+        >
+          ×
+        </span>
+      </button>
+      <div
+        className="dartboard pt-2 px-3"
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="dartboard_street_input"
+          >
+            Street address
+          </label>
+          <input
+            autoComplete="off"
+            className="form-control"
+            name="dartboard_street_input"
+            onChange={[Function]}
+            onKeyUp={[Function]}
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <label
+            htmlFor="dartboard_zone_input"
+          >
+            City or Zip code
+          </label>
+          <input
+            autoComplete="off"
+            className="form-control"
+            name="dartboard_zone_input"
+            onChange={[Function]}
+            onKeyUp={[Function]}
+          />
+        </div>
+        <div
+          className="form-group"
+        >
+          <button
+            className="btn btn-outline-dark"
+            onClick={[Function]}
+            type="button"
+          >
+            Find
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
