@@ -20,7 +20,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "bootstrap": "^4.5.3",
+    "bootstrap": "^4.6.0",
     "clsx": "^1.1.1",
     "downshift": "^6.1.0",
     "file-saver": "^2.0.5",
@@ -33,7 +33,7 @@
     "react-oidc": "^1.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "reactstrap": "^8.8.1",
+    "reactstrap": "^8.9.0",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
@@ -92,7 +92,7 @@
     "@storybook/react": "^6.1.15",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
-    "@testing-library/user-event": "^12.6.0",
+    "@testing-library/user-event": "^12.6.2",
     "cz-conventional-changelog": "^3.3.0",
     "env-cmd": "^10.1.0",
     "eslint-config-prettier": "^7.2.0",
