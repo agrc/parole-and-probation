@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { filterReducer } from '../Filters';
 import { agents, supervisors } from '../lookupData';
 import FilterAgent from './FilterAgent';
 
@@ -12,58 +13,58 @@ export default {
 };
 
 
-let criteria = {
-  agentList: [],
-  supervisorList: [],
-  vanity: false
-}
-
-const reduce = (action) => {
-  let agentList;
-  if (action.payload.add) {
-    agentList = [action.payload.item].concat(criteria.agentList);
-  } else {
-    agentList = criteria.agentList.filter(item => item.value.toLowerCase() !== action.payload.item.value.toLowerCase());
+const initialState = {
+  agent: {
+    loggedInUser: {
+      value: 'empty'
+    },
+    agentList: [],
+    supervisor: null,
+    vanity: true
   }
-
-  criteria = { ...criteria, agentList };
 };
 
-export const empty = (args) => (
-  <FilterAgent
+export const Empty = (args) => {
+  const [criteria, dispatcher] = React.useReducer(filterReducer, initialState);
+
+ return <FilterAgent
     data={{ agents, supervisors }}
-    criteria={criteria}
+    criteria={{...criteria.agent, vanity: false}}
     update={(action) => {
-      reduce(action);
+      dispatcher(action);
       args.dispatch(action);
     }}
   />
-);
+};
 
-export const vanity = (args) => (
-  <FilterAgent
+export const Vanity = (args) => {
+  const [criteria, dispatcher] = React.useReducer(filterReducer, initialState);
+
+  return <FilterAgent
     data={{ agents, supervisors }}
-    criteria={{ ...criteria, vanity: true }}
+    criteria={criteria.agent}
     update={(action) => {
-      reduce(action);
+      dispatcher(action);
       args.dispatch(action);
     }}
   />
-);
+};
 
-export const agentsSelected = (args) => (
-  <FilterAgent
+export const AgentsSelected = (args) => {
+  const [criteria, dispatcher] = React.useReducer(filterReducer, initialState);
+
+  return <FilterAgent
     data={{ agents, supervisors }}
     criteria={{
-      ...criteria, agentList: [{
+      ...criteria.agent, agentList: [{
         id: -1,
         value: 'Storybook',
         supervisor: 'Airbnb'
       }]
     }}
     update={(action) => {
-      reduce(action);
+      dispatcher(action);
       args.dispatch(action);
     }}
   />
-);
+};

@@ -397,4 +397,4 @@ const Filters = props => {
   )
 };
 
-export { Filters, sqlMap, sqlMapper };
+export { Filters, sqlMap, sqlMapper, filterReducer };
