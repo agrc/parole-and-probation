@@ -12,6 +12,11 @@
   "editor.rulers": [
     120
   ],
+  "eslint.format.enable": false,
+  "prettier.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "files.insertFinalNewline": true,
   "python.formatting.provider": "yapf",
   "python.formatting.yapfArgs": [
