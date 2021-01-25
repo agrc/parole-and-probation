@@ -209,84 +209,11 @@ describe('sqlMapper', () => {
       expect(actual.filter.length).toBe(6);
       expect(actual.filter[0]).toBe('active_warrant=1');
       expect(actual.filter[1]).toBe("legal_status='PROBATION'");
-      expect(actual.filter[2]).toBe("standard_of_supervision is null OR standard_of_supervision in ('MOD')");
-      expect(actual.filter[3]).toBe("special_supervision='EM, GPS'");
+      expect(actual.filter[2]).toBe("(standard_of_supervision is null OR standard_of_supervision in ('MOD'))");
+      expect(actual.filter[3]).toBe('EM=1 AND GPS=1');
       expect(actual.filter[4]).toBe("gang_type in ('OMG')");
       expect(actual.filter[5]).toBe("offense_code in ('E')");
       expect(actual.definitionExpression.length).toBe(0);
-    });
-
-    it('orders special supervisions', () => {
-      const payload = [
-        {
-          name: 'EM',
-          id: 'EM',
-          default: true,
-          sortKey: 8,
-        },
-        {
-          name: 'SO',
-          id: 'SO',
-          default: true,
-          sortKey: 2,
-        },
-        {
-          name: 'SO-A',
-          id: 'SO-A',
-          default: true,
-          sortKey: 18,
-        },
-        {
-          name: 'SO-B',
-          id: 'SO-B',
-          default: true,
-          sortKey: 19,
-        },
-        {
-          name: 'SO-C',
-          id: 'SO-C',
-          default: true,
-          sortKey: 22,
-        },
-        {
-          name: 'DORA',
-          id: 'DORA',
-          default: true,
-          sortKey: 1,
-        },
-        {
-          name: 'ECR',
-          id: 'ECR',
-          default: true,
-          sortKey: 17,
-        },
-        {
-          name: 'FOSI',
-          id: 'FOSI',
-          default: true,
-          sortKey: 21,
-        },
-        {
-          name: 'IG INT',
-          id: 'IG INT',
-          default: true,
-          sortKey: 20,
-        },
-        {
-          name: 'MIO',
-          id: 'MIO',
-          default: true,
-          sortKey: 10,
-        },
-      ];
-
-      const actual = sqlMapper({
-        other: {
-          supervision: payload,
-        },
-      });
-
-      expect(actual.filter[0]).toBe("special_supervision='DORA, SO, EM, MIO, ECR, SO-A, SO-B, IG INT, FOSI, SO-C'");
     });
   });
 });
