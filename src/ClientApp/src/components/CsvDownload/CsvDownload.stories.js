@@ -8,7 +8,7 @@ export default {
   decorators: [(Story) => <div className="esri-ui-top-left esri-ui-corner">{Story()}</div>],
 };
 
-export const normal = () => <Item></Item>;
-export const busy = () => <Item disabled={true}></Item>;
-export const success = () => <Item status={true} />;
-export const fail = () => <Item status={false} />;
+export const Normal = () => <Item />;
+export const Busy = () => <Item disabled={true} />;
+export const Success = () => <Item status={true} />;
+export const Fail = () => <Item status={false} />;

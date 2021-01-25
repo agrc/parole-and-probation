@@ -210,10 +210,10 @@ export default {
   ],
 };
 
-export const noFeatures = () => (
+export const NoFeatures = () => (
   <IdentifyInformation update={() => {}} features={[]} offender={false} index={0}></IdentifyInformation>
 );
-export const singleFeature = () => (
+export const SingleFeature = () => (
   <IdentifyInformation
     update={() => {}}
     features={features[0]}
@@ -221,7 +221,7 @@ export const singleFeature = () => (
     index={0}
   ></IdentifyInformation>
 );
-export const firstOfMultiple = () => (
+export const FirstOfMultiple = () => (
   <IdentifyInformation
     update={() => {}}
     features={features}
@@ -229,7 +229,7 @@ export const firstOfMultiple = () => (
     index={0}
   ></IdentifyInformation>
 );
-export const middleOfMultiple = () => (
+export const MiddleOfMultiple = () => (
   <IdentifyInformation
     update={() => {}}
     features={features}
@@ -237,7 +237,7 @@ export const middleOfMultiple = () => (
     index={3}
   ></IdentifyInformation>
 );
-export const lastOfMultiple = () => (
+export const LastOfMultiple = () => (
   <IdentifyInformation
     update={() => {}}
     features={features}

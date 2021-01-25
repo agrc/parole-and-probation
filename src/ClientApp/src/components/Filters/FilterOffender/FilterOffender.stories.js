@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const normal = (args) => (
+export const Normal = (args) => (
   <Item
     criteria={{
       gender: '',

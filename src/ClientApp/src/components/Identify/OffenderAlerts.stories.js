@@ -8,7 +8,7 @@ export default {
   component: OffenderAlerts,
 };
 
-export const normal = () => <OffenderAlerts cautions="cautions" alerts="alerts" />;
-export const emptyCautions = () => <OffenderAlerts cautions="" alerts="alerts" />;
-export const emptyAlerts = () => <OffenderAlerts cautions="cautions" alerts={null} />;
-export const allEmpty = () => <OffenderAlerts cautions={null} alerts={null} />;
+export const Normal = () => <OffenderAlerts cautions="cautions" alerts="alerts" />;
+export const EmptyCautions = () => <OffenderAlerts cautions="" alerts="alerts" />;
+export const EmptyAlerts = () => <OffenderAlerts cautions="cautions" alerts={null} />;
+export const AllEmpty = () => <OffenderAlerts cautions={null} alerts={null} />;
