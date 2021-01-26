@@ -1,6 +1,6 @@
 import Downshift from 'downshift';
-import { debounce } from 'lodash';
 import * as React from 'react';
+import { UserData } from 'react-oidc';
 import { Button, ButtonGroup, Col, Container, FormGroup, Input, Label } from 'reactstrap';
 import Helpers from '../../../Helpers';
 import './FilterOffender.css';
@@ -487,113 +487,112 @@ export default function FilterOffender(props) {
     </Container>
   );
 }
+const scrub = (string, property) => {
+  // removes the current applied filter when it's being edited
+  let regex;
 
-class FetchItems extends React.Component {
-  static initialState = { loading: false, error: null, data: [] };
-  requestId = 0;
-  state = FetchItems.initialState;
-  mounted = false;
-
-  reset(overrides) {
-    this.setState({ ...FetchItems.initialState, ...overrides });
+  if (property === 'name') {
+    regex = /offender='.*'( AND )?/gm;
+  } else if (property === 'number') {
+    regex = /offender_id=\d+( AND )?/gm;
+  } else if (property === 'phone') {
+    regex = /offender_phone='.*'( AND )?/gm;
+  } else if (property === 'employer') {
+    regex = /employer='.*'( AND )?/gm;
   }
 
-  scrub(string, property) {
-    // removes the current applied filter when it's being edited
-    let regex;
+  let scrubbed = string.replace(regex, '');
 
-    if (property === 'name') {
-      regex = /offender='.*'( AND )?/gm;
-    } else if (property === 'number') {
-      regex = /offender_id=\d+( AND )?/gm;
-    } else if (property === 'phone') {
-      regex = /offender_phone='.*'( AND )?/gm;
-    } else if (property === 'employer') {
-      regex = /employer='.*'( AND )?/gm;
-    }
-
-    string = string.replace(regex, '');
-
-    if (string.endsWith(' AND')) {
-      string = string.substring(0, string.length - 5);
-    }
-
-    string = string.trim();
-
-    return string;
+  if (scrubbed.endsWith(' AND')) {
+    scrubbed = scrubbed.substring(0, scrubbed.length - 5);
   }
 
-  fetch = debounce(async () => {
-    if (!this.mounted || this.props.searchValue.trim().length < 1) {
+  scrubbed = scrubbed.trim();
+
+  return scrubbed;
+};
+
+const defaultFetchState = { loading: false, error: null, data: [] };
+
+const FetchItems = ({ searchValue, filter, field, onLoaded, children }) => {
+  const oidc = React.useContext(UserData);
+  const [fetchState, setFetchState] = React.useState(defaultFetchState);
+  const requestId = React.useRef(0);
+  const mounted = React.useRef(false);
+
+  const prepareFetch = React.useCallback(() => {
+    reset({ loading: true });
+  }, []);
+
+  const reset = (overrides) => {
+    setFetchState({ defaultFetchState, ...overrides });
+  };
+
+  const queryApi = React.useCallback(() => {
+    const getResults = async () => {
+      requestId.current++;
+
+      let data;
+
+      try {
+        console.log('FetchItems:fetch fetching data');
+
+        const query = Helpers.toQueryString({
+          filters: scrub(filter, field),
+          requestId: requestId.current,
+          limit: 25,
+        });
+
+        const baseUrl = `${window.location.protocol}//${window.location.hostname}${
+          window.location.port ? `:${window.location.port}` : ''
+        }${process.env.REACT_APP_BASENAME}`;
+        const url = `${baseUrl}/api/data/${field}/${searchValue}?${query}`;
+
+        const response = await fetch(url, {
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${oidc.user.access_token}`,
+          },
+        });
+
+        data = await response.json();
+
+        if (mounted.current && data?.requestId === requestId.current) {
+          console.log(`FetchItems:fetch calling onLoaded with ${data.data.length} items`);
+
+          onLoaded({ data: data.data });
+          setFetchState({ loading: false, data: data.data });
+        }
+      } catch (error) {
+        if (mounted.current && data?.requestId === requestId.current) {
+          onLoaded({ error });
+          setFetchState({ loading: false, error });
+        }
+      }
+    };
+
+    if (!mounted.current || searchValue.trim().length < 1) {
       return;
     }
 
-    this.requestId++;
+    getResults();
+  }, [searchValue, oidc, filter, field, onLoaded]);
 
-    let data;
+  React.useEffect(() => {
+    mounted.current = true;
 
-    try {
-      console.log('FetchItems:fetch fetching data');
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
 
-      const query = Helpers.toQueryString({
-        filters: this.scrub(this.props.filter, this.props.field),
-        requestId: this.requestId,
-        limit: 25,
-      });
+  React.useEffect(() => {
+    prepareFetch();
+    queryApi();
+  }, [queryApi, prepareFetch]);
 
-      const baseUrl = `${window.location.protocol}//${window.location.hostname}${
-        window.location.port ? `:${window.location.port}` : ''
-      }${process.env.REACT_APP_BASENAME}`;
-      const url = `${baseUrl}/api/data/${this.props.field}/${this.props.searchValue}?${query}`;
-
-      const response = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          // Authorization: `Bearer ${this.context.user.access_token}`
-        },
-      });
-
-      data = await response.json();
-
-      if (this.mounted && data.requestId === this.requestId) {
-        console.log(`FetchItems:fetch calling onLoaded with ${data.data.length} items`);
-
-        this.props.onLoaded({ data: data.data });
-        this.setState({ loading: false, data: data.data });
-      }
-    } catch (error) {
-      if (this.mounted && data.requestId === this.requestId) {
-        this.props.onLoaded({ error });
-        this.setState({ loading: false, error });
-      }
-    }
-  }, 300);
-
-  prepareFetch() {
-    this.reset({ loading: true });
-  }
-
-  componentDidMount() {
-    this.mounted = true;
-    this.prepareFetch();
-    this.fetch();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.searchValue !== this.props.searchValue) {
-      this.prepareFetch();
-      this.fetch();
-    }
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
-  }
-
-  render() {
-    return this.props.children(this.state);
-  }
-}
+  return children(fetchState);
+};
