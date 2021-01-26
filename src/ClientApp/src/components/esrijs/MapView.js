@@ -336,6 +336,11 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
       },
     });
 
+    if (response.status !== 201) {
+      //TODO: toast an error
+      return;
+    }
+
     const data = await response.text();
 
     if (data.length === 0) {
