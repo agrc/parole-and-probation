@@ -4,6 +4,7 @@ import { IdentifyAddon } from './Labels';
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Labels/IdentifyAddon',
+  component: IdentifyAddon,
 };
 
 export const EmptyWithImplicitDefault = () => <IdentifyAddon></IdentifyAddon>;
