@@ -8,5 +8,5 @@ export default {
   component: OtherInformation,
 };
 
-export const Normal = () => <OtherInformation supervision_start_date={1535760000000} ecc={1535760000000} />;
+export const Normal = () => <OtherInformation supervision_start_date={1535750000000} ecc={1535750000000} />;
 export const Empty = () => <OtherInformation supervision_start_date={null} ecc={null} />;
