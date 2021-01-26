@@ -376,10 +376,10 @@ const Filters = (props) => {
         />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
-        <FilterLocation criteria={criteria.location} update={dispatcher} dispatcher={props.mapDispatcher} />
+        <FilterLocation criteria={criteria.location} update={dispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Supervision Contact', criteria.date)} className="mb-1">
-        <FilterDate criteria={criteria.date} update={dispatcher} dispatcher={props.mapDispatcher} />
+        <FilterDate criteria={criteria.date} update={dispatcher} />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Other', criteria.other)}>
         <FilterOther criteria={criteria.other} update={dispatcher} />
