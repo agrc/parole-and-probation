@@ -1,32 +1,27 @@
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import produce from 'immer';
 import * as React from 'react';
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardBody,
-  Col,
-  Container,
-  FormGroup,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  Label,
-} from 'reactstrap';
-import MultiDownshift from '../../MultiDownshift';
+import { Button, ButtonGroup, Col, Container, FormGroup, Input, Label } from 'reactstrap';
+import { Dropdown, SelectedItems } from '../../Combobox';
 import { counties } from '../lookupData';
 import useFilterReducer from '../useFilterReducer';
 import './FilterLocation.css';
 
 const type = 'UPDATE_LOCATION';
 
-const itemToString = (item) => (item ? item : '');
-
 export default function FilterLocation(props) {
   const [zip, setZip] = useFilterReducer(props, type, 'zip');
   const [city, setCity] = useFilterReducer(props, type, 'city');
+  const updateCounties = (item, add) => {
+    if (!item) {
+      return;
+    }
+
+    props.update({
+      type,
+      payload: { item, add },
+      meta: 'counties',
+    });
+  };
 
   return (
     <Container fluid className="filter-location">
@@ -45,150 +40,21 @@ export default function FilterLocation(props) {
         </Col>
         <Col>
           <FormGroup>
-            <MultiDownshift
-              type={type}
-              field="counties"
-              update={props.update}
-              selectedItems={props.criteria.counties}
-              itemToString={itemToString}
-            >
-              {({
-                closeMenu,
-                clearSelection,
-                getInputProps,
-                getItemProps,
-                getMenuProps,
-                getRemoveButtonProps,
-                getToggleButtonProps,
-                highlightedIndex,
-                inputValue,
-                isOpen,
-                selectedItem,
-                setState,
-              }) => (
-                <div>
-                  <Label>County</Label>
-                  {props.criteria.counties.length > 0 ? (
-                    <Card className="mb-3 p-3">
-                      <CardBody className="filter-other__items-container p-0">
-                        {props.criteria.counties.map((item) => (
-                          <Button
-                            className="mb-1"
-                            color="secondary"
-                            size="sm"
-                            outline
-                            key={item}
-                            {...getRemoveButtonProps({ item })}
-                          >
-                            {item}
-                          </Button>
-                        ))}
-                      </CardBody>
-                    </Card>
-                  ) : null}
-                  <InputGroup>
-                    <Input
-                      {...getInputProps({
-                        onBlur: closeMenu,
-                        onKeyDown: (event) => {
-                          switch (event.key) {
-                            case 'Tab': {
-                              highlightedIndex = highlightedIndex || 0;
-
-                              const value = counties.filter(
-                                (item) =>
-                                  inputValue &&
-                                  !props.criteria.counties.includes(item) &&
-                                  item.toLowerCase().includes(inputValue.toLowerCase())
-                              )[highlightedIndex];
-
-                              if (value) {
-                                setState({
-                                  inputValue: value,
-                                  isOpen: false,
-                                  type: '__autocomplete_tab_selection__',
-                                });
-
-                                event.preventDefault();
-                              }
-
-                              break;
-                            }
-                            case 'Enter': {
-                              console.log(`Downshift:onKeyDown ${event.key}`);
-
-                              if (selectedItem) {
-                                clearSelection();
-
-                                break;
-                              }
-
-                              highlightedIndex = highlightedIndex || 0;
-
-                              const value = counties.filter(
-                                (item) =>
-                                  inputValue &&
-                                  !props.criteria.counties.includes(item) &&
-                                  item.toLowerCase().includes(inputValue.toLowerCase())
-                              )[highlightedIndex];
-
-                              if (value && inputValue === value) {
-                                setState({
-                                  selectedItem: value,
-                                  isOpen: false,
-                                  type: '__autocomplete_keydown_enter__',
-                                });
-                              }
-
-                              break;
-                            }
-                            default:
-                              break;
-                          }
-                        },
-                      })}
-                    />
-                    <InputGroupAddon addonType="append">
-                      <Button {...getToggleButtonProps()}>
-                        {isOpen ? (
-                          <FontAwesomeIcon icon={faChevronUp} size="xs" />
-                        ) : (
-                          <FontAwesomeIcon icon={faChevronUp} size="xs" flip="vertical" />
-                        )}
-                      </Button>
-                    </InputGroupAddon>
-                  </InputGroup>
-                  {!isOpen ? null : (
-                    <div className="downshift__match-dropdown" {...getMenuProps()}>
-                      <ul className="downshift__matches">
-                        {counties
-                          .filter(
-                            (item) =>
-                              (!inputValue && !props.criteria.counties.includes(item)) ||
-                              (inputValue &&
-                                !props.criteria.counties.includes(item) &&
-                                item.toLowerCase().includes(inputValue.toLowerCase()))
-                          )
-                          .map((item, index) => (
-                            <li
-                              key={index}
-                              {...getItemProps({
-                                item,
-                                index,
-                                className:
-                                  'downshift__match-item' +
-                                  (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
-                              })}
-                            >
-                              {item}
-                            </li>
-                          ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              )}
-            </MultiDownshift>
+            <Label>County</Label>
+            <Dropdown
+              items={counties}
+              isEmpty={props.criteria.counties.length < 1}
+              currentSelectedItems={props.criteria.counties}
+              onSelectItem={(item) => updateCounties(item, true)}
+            />
+            {props.criteria.counties.length > 0 ? (
+              <SelectedItems
+                items={props.criteria.counties}
+                clickHandler={(event) => {
+                  updateCounties(event.target.value, false);
+                }}
+              />
+            ) : null}
           </FormGroup>
         </Col>
         <Col>

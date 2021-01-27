@@ -1,9 +1,59 @@
 import { useCombobox } from 'downshift';
 import { startCase } from 'lodash/string';
 import * as React from 'react';
-import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Button, Card, CardBody, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
-export default function Dropdown({ items, isEmpty, alreadySelected, itemPropName, onSelectItem }) {
+const defaultItemToString = (item, titleCaseItem, itemToString) => {
+  if (!item) {
+    return '';
+  }
+
+  if (titleCaseItem) {
+    return startCase(itemToString(item).toLowerCase());
+  }
+
+  return itemToString(item);
+};
+
+const returnItem = (item) => item;
+
+export function SelectedItems({
+  items,
+  itemToString = returnItem,
+  itemToKey = returnItem,
+  clickHandler,
+  titleCaseItem = true,
+}) {
+  return (
+    <Card className="mb-3 p-3">
+      <CardBody className="filter-other__items-container p-0">
+        {items.map((item) => (
+          <Button
+            className="mb-1"
+            color="secondary"
+            size="sm"
+            outline
+            id={itemToKey(item)}
+            key={itemToKey(item)}
+            onClick={clickHandler}
+          >
+            {defaultItemToString(item, titleCaseItem, itemToString)}
+          </Button>
+        ))}
+      </CardBody>
+    </Card>
+  );
+}
+
+export function Dropdown({
+  items,
+  isEmpty,
+  currentSelectedItems,
+  titleCaseItem = true,
+  itemToString = returnItem,
+  itemToKey = returnItem,
+  onSelectItem,
+}) {
   const [inputItems, setInputItems] = React.useState(items);
 
   const {
@@ -18,19 +68,23 @@ export default function Dropdown({ items, isEmpty, alreadySelected, itemPropName
   } = useCombobox({
     items: inputItems,
     defaultHighlightedIndex: 0,
-    itemToString: (item) => (item ? startCase(item.value.toLowerCase()) : ''),
     onInputValueChange: ({ inputValue }) => {
-      const filteredItems = items.filter((item) => item.value.toLowerCase().startsWith(inputValue.toLowerCase()));
+      const filteredItems = items.filter((item) =>
+        itemToString(item).toLowerCase().startsWith(inputValue.toLowerCase())
+      );
 
       if (isEmpty) {
         return setInputItems(filteredItems);
       }
 
-      const difference = filteredItems.filter((x) => !alreadySelected.includes(x[itemPropName]));
+      const difference = filteredItems.filter((filterItem) => {
+        return !currentSelectedItems.some((someItem) => itemToKey(someItem) === itemToKey(filterItem));
+      });
 
       setInputItems(difference);
     },
   });
+
   return (
     <div {...getComboboxProps()}>
       <InputGroup>
@@ -82,12 +136,12 @@ export default function Dropdown({ items, isEmpty, alreadySelected, itemPropName
                 {...getItemProps({
                   item,
                   index,
-                  key: item.id,
+                  key: itemToKey(item),
                   className:
                     'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
                 })}
               >
-                {startCase(item.value.toLowerCase())}
+                {defaultItemToString(item, titleCaseItem, itemToString)}
               </li>
             ))}
         </ul>

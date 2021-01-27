@@ -1,25 +1,12 @@
-import { startCase } from 'lodash/string';
 import * as React from 'react';
-import { Button, Card, CardBody, Col, Container, FormGroup, Label } from 'reactstrap';
-import Dropdown from '../../Combobox';
+import { Button, Col, Container, FormGroup, Label } from 'reactstrap';
+import { Dropdown, SelectedItems } from '../../Combobox';
 import '../Filters.css';
 import './FilterAgent.css';
 
 const getAgent = (id, agents) => {
   return agents.filter((item) => item.id === id)[0];
 };
-
-const SelectedItems = ({ items, clickHandler }) => (
-  <Card className="mb-3 p-3">
-    <CardBody className="filter-other__items-container p-0">
-      {items.map((item) => (
-        <Button className="mb-1" color="secondary" size="sm" outline id={item.id} key={item.id} onClick={clickHandler}>
-          {startCase(item.value.toLowerCase())}
-        </Button>
-      ))}
-    </CardBody>
-  </Card>
-);
 
 export default function FilterAgent(props) {
   const updateAgents = (item, add) => {
@@ -68,21 +55,23 @@ export default function FilterAgent(props) {
           <Label>Agent</Label>
           <Dropdown
             items={props.data.agents}
-            itemPropName="id"
+            itemToString={(item) => item.value}
+            itemToKey={(item) => item.id}
             isEmpty={props.criteria.agentList.length < 1}
-            alreadySelected={props.criteria.agentList.map((x) => x.id)}
+            currentSelectedItems={props.criteria.agentList}
             onSelectItem={(item) => updateAgents(item, true)}
-          ></Dropdown>
+          />
         </FormGroup>
         <FormGroup>
           <Label>Supervisor</Label>
           <Dropdown
             items={props.data.supervisors}
-            itemPropName="value"
+            itemToString={(item) => item.value}
+            itemToKey={(item) => item.value}
             isEmpty={props.criteria.supervisor === null}
-            alreadySelected={props.criteria.supervisor}
+            currentSelectedItems={props.criteria.supervisor}
             onSelectItem={(item) => addAgentsForSupervisor(item.value)}
-          ></Dropdown>
+          />
         </FormGroup>
       </Col>
       <Col>
@@ -91,6 +80,8 @@ export default function FilterAgent(props) {
             <Label>Filtering Offenders For</Label>
             <SelectedItems
               items={props.criteria.agentList}
+              itemToString={(item) => item.value}
+              itemToKey={(item) => item.id}
               clickHandler={(event) => {
                 const agent = getAgent(parseInt(event.target.id), props.criteria.agentList);
 
