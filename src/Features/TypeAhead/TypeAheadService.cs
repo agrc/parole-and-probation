@@ -11,7 +11,6 @@ namespace parole.Features {
     public class TypeAheadService {
         private readonly string connectionString;
         private readonly ILogger _log;
-        private readonly TokenValidationParameters _token;
         private readonly Dictionary<string, string> inputLookup = new() {
             { "name", "offender" },
             { "number", "offender_id" },
@@ -19,10 +18,9 @@ namespace parole.Features {
             { "employer", "employer" }
         };
 
-        public TypeAheadService(ILogger log, IConfiguration config, TokenValidationParameters token) {
+        public TypeAheadService(ILogger log, IConfiguration config) {
             connectionString = config.GetConnectionString("DefaultConnection");
             _log = log;
-            _token = token;
         }
 
         public async Task<TypeAheadResponse> Find(TypeAheadDescriptor descriptor) {
@@ -62,7 +60,7 @@ namespace parole.Features {
                     query = $"SELECT DISTINCT TOP {descriptor.Limit} {field} FROM DOCOAdmin.offenders WHERE {descriptor.Filter} ORDER BY {field} ASC";
                 }
 
-                data = await session.QueryAsync<string>(query);
+                data = await session.QueryAsync<string>(query).ConfigureAwait(false);
 
                 return new TypeAheadResponse(
                     descriptor.RequestId,
@@ -80,7 +78,7 @@ namespace parole.Features {
 
             data = await session.QueryAsync<string>(query, new {
                 value = $"%{descriptor.Value}%"
-            });
+            }).ConfigureAwait(false);
 
             return new TypeAheadResponse(
                 descriptor.RequestId,
