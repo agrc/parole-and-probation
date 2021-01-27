@@ -9,6 +9,7 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <Configurations>Debug;Release;Staging</Configurations>
     <EnableMSDeployAppOffline>true</EnableMSDeployAppOffline>
+    <UserSecretsId>081e4936-cf1a-4979-ae71-a6fb93b2d7db</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup>
