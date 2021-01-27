@@ -50,7 +50,7 @@
     "format": "prettier --write src --ignore-path ./.gitignore",
     "lint": "eslint src",
     "release": "standard-version",
-    "start:all": "GOOGLE_APPLICATION_CREDENTIALS=log-writer-sa.json dotnet run -p ../parole.csproj /p:EnvironmentName=Development",
+    "start:all": "dotnet run -p ../parole.csproj /p:EnvironmentName=Development",
     "start": "react-scripts start",
     "storybook": "start-storybook -p 9009 -s public",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
