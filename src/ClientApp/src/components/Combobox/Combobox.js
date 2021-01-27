@@ -36,6 +36,7 @@ export function SelectedItems({
             id={itemToKey(item)}
             key={itemToKey(item)}
             onClick={clickHandler}
+            value={defaultItemToString(item, titleCaseItem, itemToString)}
           >
             {defaultItemToString(item, titleCaseItem, itemToString)}
           </Button>
