@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 import * as React from 'react';
-import { UserData } from 'react-oidc';
+import { AuthenticatorContext } from '../api-authorization/AuthorizeRoute';
 import '../Sidebar/Sidebar.css';
 import { IdentifyContainer, IdentifyInformation } from './Identify';
 
@@ -196,15 +196,15 @@ export default {
   decorators: [
     (Story) => (
       <IdentifyContainer>
-        <UserData.Provider
-          value={{
+        <AuthenticatorContext.Provider>
+          value=
+          {{
             user: {
               access_token: 'testing',
             },
           }}
-        >
-          {Story()}
-        </UserData.Provider>
+          >{Story()}
+        </AuthenticatorContext.Provider>
       </IdentifyContainer>
     ),
   ],

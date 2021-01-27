@@ -1,6 +1,5 @@
 import Downshift from 'downshift';
 import * as React from 'react';
-import { UserData } from 'react-oidc';
 import { Button, ButtonGroup, Col, Container, FormGroup, Input, Label } from 'reactstrap';
 import Helpers from '../../../Helpers';
 import './FilterOffender.css';
@@ -515,7 +514,6 @@ const scrub = (string, property) => {
 const defaultFetchState = { loading: false, error: null, data: [] };
 
 const FetchItems = ({ searchValue, filter, field, onLoaded, children }) => {
-  const oidc = React.useContext(UserData);
   const [fetchState, setFetchState] = React.useState(defaultFetchState);
   const requestId = React.useRef(0);
   const mounted = React.useRef(false);
@@ -554,7 +552,6 @@ const FetchItems = ({ searchValue, filter, field, onLoaded, children }) => {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${oidc.user.access_token}`,
           },
         });
 
@@ -579,7 +576,7 @@ const FetchItems = ({ searchValue, filter, field, onLoaded, children }) => {
     }
 
     getResults();
-  }, [searchValue, oidc, filter, field, onLoaded]);
+  }, [searchValue, filter, field, onLoaded]);
 
   React.useEffect(() => {
     mounted.current = true;
