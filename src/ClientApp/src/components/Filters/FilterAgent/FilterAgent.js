@@ -55,7 +55,13 @@ export default function FilterAgent(props) {
           <Label>Agent</Label>
           <Dropdown
             items={props.data.agents}
-            itemToString={(item) => item.value}
+            itemToString={(item) => {
+              if (item === null) {
+                return '';
+              }
+
+              return item.value;
+            }}
             itemToKey={(item) => item.id}
             isEmpty={props.criteria.agentList.length < 1}
             currentSelectedItems={props.criteria.agentList}

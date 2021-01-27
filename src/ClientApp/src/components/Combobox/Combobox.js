@@ -15,7 +15,7 @@ const defaultItemToString = (item, titleCaseItem, itemToString) => {
   return itemToString(item);
 };
 
-const returnItem = (item) => item;
+const returnItem = (item) => (item ? item : '');
 
 export function SelectedItems({
   items,
@@ -67,8 +67,13 @@ export function Dropdown({
     selectedItem,
   } = useCombobox({
     items: inputItems,
+    itemToString: itemToString,
     defaultHighlightedIndex: 0,
     onInputValueChange: ({ inputValue }) => {
+      if (inputValue === null) {
+        return items;
+      }
+
       const filteredItems = items.filter((item) =>
         itemToString(item).toLowerCase().startsWith(inputValue.toLowerCase())
       );
