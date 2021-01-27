@@ -124,8 +124,7 @@ Rename and update `secrets.sample.json` to `secrets.json`
 1. Add and set a `GOOGLE_APPLICATION_CREDENTIALS` environment variable with the path to the service account file
 1. Publish to staging
 
-- `npm run deploy:stage`
-- `npm run deploy:prod`
+- `npm run wonkavise`
 
 ### forklift deployment
 
