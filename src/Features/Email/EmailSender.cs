@@ -78,7 +78,7 @@ namespace parole.Features {
                     message.WriteTo(stream);
 
                     return;
-                } catch (IOException ex) {
+                } catch (IOException) {
                     // The file may have been created between our File.Exists() check and
                     // our attempt to create the stream.
                 }
