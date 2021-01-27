@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { UserData } from 'react-oidc';
 import { Alert, Button, Container } from 'reactstrap';
 import { fields } from '../../config';
 import CloseButton from '../CloseButton';
@@ -14,7 +13,6 @@ let signal = controller.signal;
 
 const IdentifyInformation = (props) => {
   const [extra, setExtra] = React.useState({});
-  const oidc = React.useContext(UserData);
 
   React.useEffect(() => {
     if (props.offender.offender_id in identifyCache) {
@@ -27,14 +25,14 @@ const IdentifyInformation = (props) => {
 
     setExtra({});
 
-    IdentifyFetch(props.offender, oidc, signal).then((result) => {
+    IdentifyFetch(props.offender, signal).then((result) => {
       console.log('IdentifyFetch::Promise Resolution::adding extra identify params');
 
       identifyCache[props.offender.offender_id] = result;
 
       setExtra(result);
     });
-  }, [props.offender, props.index, oidc]);
+  }, [props.offender, props.index]);
 
   return props.offender && Object.keys(props.offender).length > 0 ? (
     <Container className="identify pt-4">
@@ -124,9 +122,6 @@ const IdentifyFetch = async (offender, oidc, cancellationToken) => {
     method: 'GET',
     credentials: 'include',
     mode: 'cors',
-    headers: {
-      Authorization: `Bearer ${oidc.user.access_token}`,
-    },
   });
 
   if (!response.ok) {
