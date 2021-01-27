@@ -1,8 +1,8 @@
 import isEqual from 'lodash.isequal';
 import * as React from 'react';
-import { UserData } from 'react-oidc';
 import { useImmerReducer } from 'use-immer';
 import './App.css';
+import { AuthenticatorContext } from './components/api-authorization/AuthorizeRoute';
 import MapView from './components/esrijs/MapView';
 import { Filters } from './components/Filters';
 import Header from './components/Header';
@@ -114,7 +114,7 @@ const reducer = (draft, action) => {
 };
 
 export default function App() {
-  const oidc = React.useContext(UserData);
+  const user = React.useContext(AuthenticatorContext);
   const [app, dispatcher] = useImmerReducer(reducer, {
     zoomToGraphic: {
       graphic: null,
@@ -130,8 +130,8 @@ export default function App() {
     },
     showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
     filter: [],
-    appliedFilter: `agent_id in (${oidc.user.profile['public:WorkforceID']})`,
-    definitionExpression: [`agent_id in (${oidc.user.profile['public:WorkforceID']})`],
+    appliedFilter: `agent_id in (${user?.profile['public:WorkforceID']})`,
+    definitionExpression: [`agent_id in (${user?.profile['public:WorkforceID']})`],
   });
 
   const mapOptions = {
@@ -168,8 +168,8 @@ export default function App() {
         <Filters
           mapDispatcher={dispatcher}
           loggedInUser={{
-            value: oidc.user.profile.name,
-            id: oidc.user.profile['public:WorkforceID'],
+            value: user?.profile?.name,
+            id: user?.profile?.auth_time ? user?.profile['public:WorkforceID'] : null,
           }}
           appliedFilter={app.appliedFilter}
         />

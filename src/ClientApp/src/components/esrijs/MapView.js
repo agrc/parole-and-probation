@@ -1,7 +1,6 @@
 import DartBoard from '@agrc/dart-board';
 import LayerSelector from '@agrc/layer-selector';
 import Basemap from '@arcgis/core/Basemap';
-import esriConfig from '@arcgis/core/config';
 import { once, whenFalseOnce } from '@arcgis/core/core/watchUtils';
 import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
@@ -14,7 +13,6 @@ import MapView from '@arcgis/core/views/MapView';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import { saveAs } from 'file-saver';
 import * as React from 'react';
-import { UserData } from 'react-oidc';
 import { fields } from '../../config';
 import CsvDownload from '../CsvDownload';
 import HomeButton from '../DefaultExtent';
@@ -58,7 +56,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
   const [appliedFilter, setAppliedFilter] = React.useState('');
   const [offenders, setOffenders] = React.useState(null);
   const clickEvent = React.useRef(null);
-  const auth = React.useContext(UserData);
 
   const setFilters = React.useCallback(
     async (where, isFilter) => {
@@ -173,15 +170,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
 
     console.log('MapView::set up map effect');
 
-    esriConfig.request.interceptors.push({
-      urls: `${window.location.protocol}//${window.location.hostname}${
-        window.location.port ? `:${window.location.port}` : ''
-      }${process.env.REACT_APP_BASENAME}/mapserver`,
-      headers: {
-        Authorization: `Bearer ${auth.user.access_token}`,
-      },
-    });
-
     const offenderLayer = new FeatureLayer({
       url: `${process.env.REACT_APP_BASENAME}/mapserver`,
       outFields: Object.keys(fields).filter((key) => fields[key].filter === true),
@@ -223,7 +211,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
     setOffenders(offenderLayer);
 
     localSetView(mapView);
-  }, [auth, mapDispatcher]);
+  }, [mapDispatcher]);
 
   // apply filters to map view effect
   React.useEffect(() => {
@@ -328,11 +316,11 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
       mode: 'cors',
       body: JSON.stringify({
         offenders: ids,
-        agent: auth.user.profile['public:Email'],
+        // TODO: get this from the cookie claims
+        agent: null,
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${auth.user.access_token}`,
       },
     });
 
