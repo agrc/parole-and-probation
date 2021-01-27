@@ -24,7 +24,6 @@ using Polly;
 using Polly.Extensions.Http;
 using Polly.Timeout;
 using Serilog;
-using Serilog.Events;
 
 namespace parole {
     public class Startup {
@@ -251,7 +250,7 @@ namespace parole {
                         var request = context.Request;
                         request.QueryString = request.QueryString.Add("token", await tokenService.GetToken().ConfigureAwait(false));
 
-                        await next();
+                        await next().ConfigureAwait(false);
                     });
                 });
             });
