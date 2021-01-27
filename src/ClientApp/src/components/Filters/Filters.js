@@ -18,6 +18,16 @@ const vanityCheck = (agentList, loggedInUser) => {
   return agents.some((item) => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
 };
 
+const addOrRemove = (list, item, add) => {
+  if (add) {
+    list.push(item);
+  } else {
+    list.splice(list.indexOf(item), 1);
+  }
+
+  return list;
+};
+
 const shortCircuitEmpties = (value) => {
   if (value === null) {
     // skipping because null value
@@ -247,7 +257,11 @@ const filterReducer = (draft, action) => {
       return;
     }
     case 'UPDATE_LOCATION': {
-      draft.location[action.meta] = action.payload;
+      if (action.meta === 'counties') {
+        draft.location[action.meta] = addOrRemove(draft.location[action.meta], action.payload.item, action.payload.add);
+      } else {
+        draft.location[action.meta] = action.payload;
+      }
 
       return;
     }
