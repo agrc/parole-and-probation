@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using CsvHelper;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +35,45 @@ namespace parole {
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) {
+            const string authority = "https://login.dts.utah.gov:443/sso/oauth2";
+            var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
+              $"{authority}/.well-known/openid-configuration",
+              new OpenIdConnectConfigurationRetriever(),
+              new HttpDocumentRetriever()
+            );
+
+            services.AddAuthentication(options => {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            })
+            .AddCookie(options => {
+                options.LoginPath = "/login";
+                options.LogoutPath = "/";
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+            })
+            .AddOpenIdConnect(options => {
+                var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+                options.ClientId = Environment.GetEnvironmentVariable("PAROLE_CLIENT_ID_STAGING");
+                options.ClientSecret = Environment.GetEnvironmentVariable("PAROLE_CLIENT_SECRET_STAGING");
+
+                if (environment == Environments.Development) {
+                    IConfigurationSection oidcSection = Configuration.GetSection("Authentication:UtahId");
+                    options.ClientId = oidcSection["ClientId"];
+                    options.ClientSecret = oidcSection["ClientSecret"];
+                }
+
+                options.ClientId = "heptachord-boweries-528615";
+                options.ClientSecret = "Madura-consonantalizing-134650";
+                options.ConfigurationManager = configurationManager;
+                options.ResponseType = "code";
+                options.UsePkce = true;
+            });
+
+            services.AddAuthorization(options =>
+                options.AddPolicy(CookieAuthenticationDefaults.AuthenticationScheme,
+                    policy => policy.RequireAuthenticatedUser()));
+
             services.AddReverseProxy()
               .LoadFromConfig(Configuration.GetSection("ReverseProxy"));
 
@@ -100,6 +141,9 @@ namespace parole {
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints => {
                 var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
                 var tokenInfo = endpoints.ServiceProvider.GetService<TokenValidationParameters>();
@@ -132,8 +176,7 @@ namespace parole {
                     var data = await typeAheadProvider.Find(descriptor).ConfigureAwait(false);
 
                     await context.Response.WriteAsJsonAsync(data).ConfigureAwait(false);
-                });
-
+                }).RequireAuthorization();
                 endpoints.MapPost("api/download", async context => {
                     CsvDownload model;
                     try {
@@ -190,7 +233,7 @@ namespace parole {
                     var emailer = new EmailSender(emailConfig, logger);
 
                     await emailer.SendAsync(new[] { model.Agent }, stream).ConfigureAwait(false);
-                });
+                }).RequireAuthorization();
 
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {
