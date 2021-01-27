@@ -77,23 +77,6 @@ namespace parole {
             services.AddSingleton<ILogger>(_ => new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .CreateLogger());
-
-            services.AddSingleton<TokenValidationParameters>(_ => {
-                var authority = "https://login.dts.utah.gov:443/sso/oauth2";
-
-                var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
-                    $"{authority}/.well-known/openid-configuration",
-                    new OpenIdConnectConfigurationRetriever(),
-                    new HttpDocumentRetriever());
-
-                var discoveryDocument = configurationManager.GetConfigurationAsync(default).Result;
-
-                return new TokenValidationParameters {
-                    ValidIssuer = authority,
-                    ValidAudience = "synange-feoffor-673742",
-                    IssuerSigningKeys = discoveryDocument.SigningKeys
-                };
-            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -123,18 +106,6 @@ namespace parole {
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
 
                 endpoints.MapGet("api/data/{input}/{value}", async context => {
-                    // var request = context.Request;
-                    // var validated = JwtService.ValidateAndDecode(request, tokenInfo, logger);
-
-                    // if (!validated) {
-                    //     logger.Warning("invalid access token");
-
-                    //     context.Response.StatusCode = 401;
-                    //     await context.Response.WriteAsync("Invalid Access Token");
-
-                    //     return;
-                    // }
-
                     var typeAheadProvider = endpoints.ServiceProvider.GetService<TypeAheadService>();
 
                     var input = context.Request.RouteValues["input"].ToString();
@@ -224,18 +195,7 @@ namespace parole {
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {
                         var request = context.Request;
-                        var validated = JwtService.ValidateAndDecode(request, tokenInfo, logger);
-
-                        if (!validated) {
-                            logger.Warning("invalid access token");
-
-                            context.Response.StatusCode = 401;
-                            await context.Response.WriteAsync("Invalid Access Token");
-
-                            return;
-                        }
-
-                        request.QueryString = request.QueryString.Add("token", await tokenService.GetToken());
+                        request.QueryString = request.QueryString.Add("token", await tokenService.GetToken().ConfigureAwait(false));
 
                         await next();
                     });
