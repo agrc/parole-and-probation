@@ -22,12 +22,10 @@ namespace parole.Features {
 
             using var session = new SqlConnection(connectionString);
             try {
-
                 session.Open();
             } catch (SqlException) {
                 return Array.Empty<Schema>();
             }
-
 
             var records = await session.QueryAsync<Schema>("SELECT * FROM DOCOAdmin.offenders WHERE id IN @ids", new {
                 ids = model.Offenders

@@ -57,7 +57,7 @@ namespace parole.Features {
 
             using var formContent = new FormUrlEncodedContent(FormData);
             try {
-                var response = await _client.PostAsync(TokenUri, formContent);
+                var response = await _client.PostAsync(TokenUri, formContent).ConfigureAwait(false);
                 if (!response.IsSuccessStatusCode) {
                     return null;
                 }
@@ -65,7 +65,7 @@ namespace parole.Features {
                 TokenResponse tokenResponse = null;
 
                 try {
-                    tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
+                    tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>().ConfigureAwait(false);
                 } catch (Exception) {
                     _log.Error("problem creating token response: {data}", response.Content.ReadAsStringAsync().Result);
 
