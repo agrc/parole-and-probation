@@ -2,7 +2,6 @@
   "name": "adult-parole-and-probation",
   "version": "1.17.5",
   "bugs": "https://github.com/agrc/parole-and-probation/issues",
-  "homepage": "https://test.mapserv.utah.gov/app",
   "author": {
     "name": "Steve Gourley",
     "email": "sgourley@utah.gov"
@@ -42,7 +41,7 @@
     "build-storybook": "build-storybook -s public",
     "build:prod": "env-cmd --environments production dotnet publish ../parole.csproj -c Release && npm run copy:build",
     "build:stage": "env-cmd --environments stage dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false && npm run copy:build",
-    "build": "react-scripts build",
+    "build": "env-cmd --environments production react-scripts build",
     "copy:arcgis": "npm run copy:public && npm run copy:build",
     "copy:public": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
     "copy:build": "ncp ./node_modules/@arcgis/core/assets ../bin/Release/net5.0/win10-x64/publish/ClientApp/build/assets",
@@ -51,7 +50,7 @@
     "lint": "eslint src",
     "release": "standard-version",
     "start:all": "dotnet run -p ../parole.csproj /p:EnvironmentName=Development",
-    "start": "react-scripts start",
+    "start": "env-cmd --environments development react-scripts start",
     "storybook": "start-storybook -p 9009 -s public",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "test": "react-scripts test",
