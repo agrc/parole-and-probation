@@ -16,7 +16,7 @@ _If you are using vscode, download the recommended extensions for this workspace
    - `cd src/ClientApp`
 1. Using node lts get all of the project dependencies
    - `npm install`
-1. Duplicate `src/ClientApp/.env.development` to `src/ClientApp/.env.development.local` and add the correct values
+1. Rename `src/ClientApp/.env-cmdrc.template.json` to `src/ClientApp/.env-cmdrc.json` and add the correct values
 1. Start the development server
    - `npm start`
 
