@@ -153,8 +153,8 @@ namespace parole {
                     return context.Response.WriteAsJsonAsync(new Dictionary<string, string>{
                         {"authority","https://login.dts.utah.gov:443/sso/oauth2"},
                         {"client_id", clientId},
-                        {"redirect_uri","https://localhost:5001/authentication/login-callback"},
-                        {"post_logout_redirect_uri","https://localhost:5001/authentication/logout-callback"},
+                        {"redirect_uri","https://test.mapserv.utah.gov/app/authentication/login-callback"},
+                        {"post_logout_redirect_uri","https://test.mapserv.utah.gov/app/authentication/logout-callback"},
                         {"response_type","code"},
                         {"scope","app:public openid profile"}
                     });
