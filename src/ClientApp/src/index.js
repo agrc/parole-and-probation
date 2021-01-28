@@ -11,8 +11,6 @@ import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-console.log(`baseurl ${baseUrl}`);
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
