@@ -38,10 +38,10 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "build-react:stage": "env-cmd -e stage react-scripts build",
+    "build-react:stage": "env-cmd --environments stage react-scripts build",
     "build-storybook": "build-storybook -s public",
-    "build:prod": "env-cmd -e production dotnet publish ../parole.csproj -c Release && npm run copy:build",
-    "build:stage": "env-cmd -e stage dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false && npm run copy:build",
+    "build:prod": "env-cmd --environments production dotnet publish ../parole.csproj -c Release && npm run copy:build",
+    "build:stage": "env-cmd --environments stage dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false && npm run copy:build",
     "build": "react-scripts build",
     "copy:arcgis": "npm run copy:public && npm run copy:build",
     "copy:public": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
@@ -56,8 +56,8 @@
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "test": "react-scripts test",
     "wonkavise:clean": "wonkavision clean ./build ./../bin ./../../deploy",
-    "wonkavise:extract": "env-cmd -e stage wonkavision unzip parole deploy.zip --extra-command \"rm app_offline.htm\"",
-    "wonkavise:ship": "env-cmd -e stage wonkavision ship ./../../deploy/deploy.zip parole && env-cmd -e stage wonkavision ship ../app_offline.htm parole",
+    "wonkavise:extract": "env-cmd --environments stage wonkavision unzip parole deploy.zip --extra-command \"rm app_offline.htm\"",
+    "wonkavise:ship": "env-cmd --environments stage wonkavision ship ./../../deploy/deploy.zip parole && env-cmd --environments stage wonkavision ship ../app_offline.htm parole",
     "wonkavise:zip": "wonkavision zip ../bin/Release/net5.0/win10-x64/publish ./../../deploy deploy.zip",
     "wonkavise": "npm run wonkavise:clean && npm run build:stage && npm run wonkavise:zip && npm run wonkavise:ship && npm run wonkavise:extract"
   },
