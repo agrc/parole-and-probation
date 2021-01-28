@@ -1,6 +1,7 @@
 import DartBoard from '@agrc/dart-board';
 import LayerSelector from '@agrc/layer-selector';
 import Basemap from '@arcgis/core/Basemap';
+import config from '@arcgis/core/config';
 import { once, whenFalseOnce } from '@arcgis/core/core/watchUtils';
 import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
@@ -18,6 +19,8 @@ import CsvDownload from '../CsvDownload';
 import HomeButton from '../DefaultExtent';
 import Geolocation from '../Geolocation';
 import MapToolPanel from '../MapToolPanel';
+
+config.assetsPath = `${process.env.REACT_APP_BASENAME}/assets`;
 
 const regionLabels = new LabelClass({
   labelExpressionInfo: { expression: '$feature.REGION' },
