@@ -3,17 +3,6 @@ module.exports = {
     MIN_DESKTOP_WIDTH: 768,
     WEB_MERCATOR_WKID: 3857,
   },
-  oidcConfig: {
-    authority: 'https://login.dts.utah.gov/sso/oauth2/',
-    client_id: 'synange-feoffor-673742',
-    redirect_uri: `${window.location.protocol}//${window.location.hostname}${
-      window.location.port ? `:${window.location.port}` : ''
-    }${process.env.REACT_APP_BASENAME}/callback`,
-    response_type: 'token id_token',
-    scope: 'openid profile app:public',
-    filterProtocolClaims: true,
-    loadUserInfo: true,
-  },
   fields: {
     offender_id: {
       identify: false,
