@@ -143,20 +143,10 @@ namespace parole {
 
             app.UseEndpoints(endpoints => {
                 var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
-                var tokenInfo = endpoints.ServiceProvider.GetService<TokenValidationParameters>();
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
+                var openIdConfigurationProvider = endpoints.ServiceProvider.GetService<OpenIdConfigurationProvider>();
 
-                endpoints.MapGet("_configuration/{client_id}", context => {
-                    var clientId = context.Request.RouteValues["client_id"].ToString();
-                    return context.Response.WriteAsJsonAsync(new Dictionary<string, string>{
-                        {"authority","https://login.dts.utah.gov:443/sso/oauth2"},
-                        {"client_id", clientId},
-                        {"redirect_uri","https://test.mapserv.utah.gov/app/authentication/login-callback"},
-                        {"post_logout_redirect_uri","https://test.mapserv.utah.gov/app/authentication/logout-callback"},
-                        {"response_type","code"},
-                        {"scope","app:public openid profile"}
-                    });
-                });
+                endpoints.MapGet("api/configuration", context => context.Response.WriteAsJsonAsync(openIdConfigurationProvider.GetConfig()));
                 endpoints.MapGet("api/data/{input}/{value}", async context => {
                     var typeAheadProvider = endpoints.ServiceProvider.GetService<TypeAheadService>();
 

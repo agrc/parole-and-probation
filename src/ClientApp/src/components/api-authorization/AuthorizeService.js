@@ -1,5 +1,5 @@
 import { UserManager, WebStorageStateStore } from 'oidc-client';
-import { ApplicationName, ApplicationPaths } from './ApiAuthorizationConstants';
+import { ApplicationPaths } from './ApiAuthorizationConstants';
 
 export class AuthorizeService {
   _callbacks = [];
@@ -147,14 +147,14 @@ export class AuthorizeService {
 
     let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
     if (!response.ok) {
-      throw new Error(`Could not load settings for '${ApplicationName}'`);
+      throw new Error('Could not load settings');
     }
 
     let settings = await response.json();
     settings.automaticSilentRenew = true;
     settings.includeIdTokenInSilentRenew = true;
     settings.userStore = new WebStorageStateStore({
-      prefix: ApplicationName,
+      prefix: 'parole-and-probation',
     });
 
     this.userManager = new UserManager(settings);

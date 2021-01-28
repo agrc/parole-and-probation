@@ -543,7 +543,7 @@ const FetchItems = ({ searchValue, filter, field, onLoaded, children }) => {
 
         const baseUrl = `${window.location.protocol}//${window.location.hostname}${
           window.location.port ? `:${window.location.port}` : ''
-        }${process.env.REACT_APP_BASENAME}`;
+        }${process.env.PUBLIC_URL}`;
         const url = `${baseUrl}/api/data/${field}/${searchValue}?${query}`;
 
         const response = await fetch(url, {

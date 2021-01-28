@@ -13,7 +13,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <AuthorizeRoute exact path="/" component={App} />
       <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
     </BrowserRouter>

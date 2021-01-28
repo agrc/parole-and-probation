@@ -1,5 +1,3 @@
-export const ApplicationName = 'heptachord-boweries-528615';
-
 export const QueryParameterNames = {
   ReturnUrl: 'returnUrl',
   Message: 'message',
@@ -14,8 +12,8 @@ export const LoginActions = {
 const prefix = '/authentication';
 
 export const ApplicationPaths = {
-  DefaultLoginRedirectPath: `${process.env.REACT_APP_BASENAME ? process.env.REACT_APP_BASENAME : '/'}`,
-  ApiAuthorizationClientConfigurationUrl: `_configuration/${ApplicationName}`,
+  DefaultLoginRedirectPath: `${process.env.PUBLIC_URL ? process.env.PUBLIC_URL : ' / '}`,
+  ApiAuthorizationClientConfigurationUrl: `api/configuration`,
   ApiAuthorizationPrefix: prefix,
   Login: `${prefix}/${LoginActions.Login}`,
   LoginFailed: `${prefix}/${LoginActions.LoginFailed}`,
