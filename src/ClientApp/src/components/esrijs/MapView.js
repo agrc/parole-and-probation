@@ -20,7 +20,7 @@ import HomeButton from '../DefaultExtent';
 import Geolocation from '../Geolocation';
 import MapToolPanel from '../MapToolPanel';
 
-config.assetsPath = `${process.env.REACT_APP_BASENAME}/assets`;
+config.assetsPath = `${process.env.PUBLIC_URL}/assets`;
 
 const regionLabels = new LabelClass({
   labelExpressionInfo: { expression: '$feature.REGION' },
@@ -174,7 +174,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
     console.log('MapView::set up map effect');
 
     const offenderLayer = new FeatureLayer({
-      url: `${process.env.REACT_APP_BASENAME}/mapserver`,
+      url: `${process.env.PUBLIC_URL}/mapserver`,
       outFields: Object.keys(fields).filter((key) => fields[key].filter === true),
       definitionExpression: '1=2',
     });
@@ -310,7 +310,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
     const base = `${window.location.protocol}//${window.location.hostname}${
       window.location.port ? `:${window.location.port}` : ''
     }`;
-    const url = new URL(`${process.env.REACT_APP_BASENAME}/api/download`, base);
+    const url = new URL(`${process.env.PUBLIC_URL}/api/download`, base);
 
     const response = await fetch(url, {
       signal: signal,

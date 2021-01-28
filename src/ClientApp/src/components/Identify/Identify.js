@@ -102,7 +102,7 @@ const IdentifyFetch = async (offender, oidc, cancellationToken) => {
   const base = `${window.location.protocol}//${window.location.hostname}${
     window.location.port ? `:${window.location.port}` : ''
   }`;
-  const url = new URL(`${process.env.REACT_APP_BASENAME}/mapserver/0/query`, base);
+  const url = new URL(`${process.env.PUBLIC_URL}/mapserver/0/query`, base);
   url.search = new URLSearchParams([
     ['f', 'json'],
     [
