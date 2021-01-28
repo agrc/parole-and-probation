@@ -62,8 +62,6 @@ namespace parole {
                     options.ClientSecret = oidcSection["ClientSecret"];
                 }
 
-                options.ClientId = "heptachord-boweries-528615";
-                options.ClientSecret = "Madura-consonantalizing-134650";
                 options.ConfigurationManager = configurationManager;
                 options.ResponseType = "code";
                 options.UsePkce = true;
