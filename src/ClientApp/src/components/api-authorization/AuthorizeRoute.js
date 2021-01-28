@@ -29,7 +29,7 @@ export default class AuthorizeRoute extends Component {
   render() {
     const { ready, authenticated } = this.state;
     var link = document.createElement('a');
-    link.href = this.props.path;
+    link.href = ApplicationPaths.DefaultLoginRedirectPath;
     const returnUrl = `${link.protocol}//${link.host}${link.pathname}${link.search}${link.hash}`;
     const redirectUrl = `${ApplicationPaths.Login}?${QueryParameterNames.ReturnUrl}=${encodeURIComponent(returnUrl)}`;
     if (!ready) {

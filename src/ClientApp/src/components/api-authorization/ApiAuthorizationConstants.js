@@ -14,7 +14,7 @@ export const LoginActions = {
 const prefix = '/authentication';
 
 export const ApplicationPaths = {
-  DefaultLoginRedirectPath: '/',
+  DefaultLoginRedirectPath: `${process.env.REACT_APP_BASENAME ? process.env.REACT_APP_BASENAME : '/'}`,
   ApiAuthorizationClientConfigurationUrl: `_configuration/${ApplicationName}`,
   ApiAuthorizationPrefix: prefix,
   Login: `${prefix}/${LoginActions.Login}`,
