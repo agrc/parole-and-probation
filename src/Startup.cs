@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -115,6 +116,12 @@ namespace parole {
             services.AddSingleton<ILogger>(_ => new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .CreateLogger());
+
+            services.Configure<ForwardedHeadersOptions>(options => {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -123,6 +130,7 @@ namespace parole {
                 app.UseSerilogRequestLogging();
             } else {
                 app.UseExceptionHandler("/Error");
+                app.UseForwardedHeaders();
             }
 
             if (env.IsStaging()) {
