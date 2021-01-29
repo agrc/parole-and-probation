@@ -43,7 +43,6 @@ export default function FilterLocation(props) {
             <Label>County</Label>
             <Dropdown
               items={counties}
-              isEmpty={props.criteria.counties.length < 1}
               currentSelectedItems={props.criteria.counties}
               onSelectItem={(item) => updateCounties(item, true)}
             />
