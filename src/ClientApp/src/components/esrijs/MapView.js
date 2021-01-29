@@ -2,7 +2,7 @@ import DartBoard from '@agrc/dart-board';
 import LayerSelector from '@agrc/layer-selector';
 import Basemap from '@arcgis/core/Basemap';
 import config from '@arcgis/core/config';
-import { once, whenFalseOnce } from '@arcgis/core/core/watchUtils';
+import { once, whenFalseOnce, whenTrueOnce } from '@arcgis/core/core/watchUtils';
 import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
@@ -51,7 +51,7 @@ const defaultExtent = new Extent({
 const controller = new AbortController();
 let signal = controller.signal;
 
-const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitionExpression }) => {
+const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpression }) => {
   const mapDiv = React.useRef(null);
   const displayedZoomGraphic = React.useRef(null);
   const [selectorOptions, setSelectorOptions] = React.useState(null);
@@ -68,8 +68,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
 
       const filter = where.join(' AND ');
 
+      const layerView = await view.whenLayerView(offenders);
       if (isFilter) {
-        const layerView = await view.whenLayerView(offenders);
         console.log(`MapView:setFilters ${filter}`);
 
         layerView.filter = {
@@ -77,14 +77,22 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
         };
 
         setAppliedFilter(filter);
+      } else {
+        offenders.definitionExpression = filter;
 
-        await whenFalseOnce(layerView, 'updating', async () => {
-          const result = await layerView.queryExtent();
+        console.log('MapView:setFilters setting map extent');
+      }
+
+      // give the layerView a chance to start updating...
+      whenTrueOnce(layerView, 'updating', () => {
+        whenFalseOnce(layerView, 'updating', async () => {
+          const result = await offenders.queryExtent();
 
           console.log('MapView:setFilters setting map extent', result);
 
-          if (result.count === 0) {
-            return;
+          // this is in case there is a point way outside of the state...
+          if (result.count === 0 || result.extent.contains(defaultExtent)) {
+            return view.goTo(defaultExtent);
           }
 
           let extent = result.extent;
@@ -97,12 +105,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, onClick, definitio
 
           return view.goTo(extent);
         });
-      } else {
-        offenders.definitionExpression = filter;
-
-        console.log('MapView:setFilters setting map extent');
-        view.goTo(defaultExtent);
-      }
+      });
     },
     [offenders, view]
   );
