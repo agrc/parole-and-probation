@@ -154,6 +154,7 @@ exports[`Storyshots Filters/Agent Filter Agents Selected 1`] = `
           id={-1}
           onClick={[Function]}
           type="button"
+          value="Storybook"
         >
           Storybook
         </button>
@@ -492,25 +493,23 @@ exports[`Storyshots Filters/Location Filter Normal 1`] = `
       <div
         className="form-group"
       >
+        <label
+          className=""
+        >
+          County
+        </label>
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-labelledby="downshift-6-label"
-          aria-owns={null}
+          aria-owns="downshift-6-menu"
           role="combobox"
         >
-          <label
-            className=""
-          >
-            County
-          </label>
           <div
             className="input-group"
           >
             <input
-              aria-activedescendant={null}
               aria-autocomplete="list"
-              aria-controls={null}
+              aria-controls="downshift-6-menu"
               aria-labelledby="downshift-6-label"
               autoComplete="off"
               className="form-control"
@@ -525,36 +524,26 @@ exports[`Storyshots Filters/Location Filter Normal 1`] = `
               className="input-group-append"
             >
               <button
-                aria-haspopup={true}
-                aria-label="open menu"
+                aria-label={null}
                 className="btn btn-secondary"
-                data-toggle={true}
-                onBlur={[Function]}
                 onClick={[Function]}
-                onKeyDown={[Function]}
-                onKeyUp={[Function]}
-                role="button"
                 type="button"
               >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-chevron-up fa-w-14 fa-flip-vertical fa-xs "
-                  data-icon="chevron-up"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
+                Add
               </button>
             </div>
+          </div>
+          <div
+            aria-labelledby="downshift-6-label"
+            className="downshift__match-dropdown"
+            id="downshift-6-menu"
+            onClick={[Function]}
+            onMouseLeave={[Function]}
+            role="listbox"
+          >
+            <ul
+              className="downshift__matches"
+            />
           </div>
         </div>
       </div>
