@@ -55,15 +55,8 @@ export default function FilterAgent(props) {
           <Label>Agent</Label>
           <Dropdown
             items={props.data.agents}
-            itemToString={(item) => {
-              if (item === null) {
-                return '';
-              }
-
-              return item.value;
-            }}
+            itemToString={(item) => (item ? item.value : '')}
             itemToKey={(item) => item.id}
-            isEmpty={props.criteria.agentList.length < 1}
             currentSelectedItems={props.criteria.agentList}
             onSelectItem={(item) => updateAgents(item, true)}
           />
@@ -72,9 +65,8 @@ export default function FilterAgent(props) {
           <Label>Supervisor</Label>
           <Dropdown
             items={props.data.supervisors}
-            itemToString={(item) => item.value}
+            itemToString={(item) => (item ? item.value : '')}
             itemToKey={(item) => item.value}
-            isEmpty={props.criteria.supervisor === null}
             currentSelectedItems={props.criteria.supervisor}
             onSelectItem={(item) => addAgentsForSupervisor(item.value)}
           />

@@ -68,6 +68,7 @@ export const AgentsSelected = (args) => {
   const [criteria, dispatcher] = useImmerReducer(filterReducer, {
     agent: {
       ...defaultAgent,
+      vanity: false,
       agentList: [
         {
           id: -1,
