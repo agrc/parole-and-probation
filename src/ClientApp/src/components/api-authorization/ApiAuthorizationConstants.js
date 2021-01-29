@@ -7,6 +7,7 @@ export const LoginActions = {
   Login: 'login',
   LoginCallback: 'login-callback',
   LoginFailed: 'login-failed',
+  AccessDenied: 'access-denied',
 };
 
 const prefix = '/authentication';
@@ -18,4 +19,5 @@ export const ApplicationPaths = {
   Login: `${prefix}/${LoginActions.Login}`,
   LoginFailed: `${prefix}/${LoginActions.LoginFailed}`,
   LoginCallback: `${prefix}/${LoginActions.LoginCallback}`,
+  AccessDenied: `${prefix}/${LoginActions.AccessDenied}`,
 };
