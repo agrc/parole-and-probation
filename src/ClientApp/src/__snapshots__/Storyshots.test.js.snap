@@ -12,7 +12,7 @@ exports[`Storyshots Filters/Agent Filter Agents Selected 1`] = `
     >
       <button
         aria-label={null}
-        className="btn btn-warning btn-sm btn-block"
+        className="btn btn-secondary btn-sm btn-block"
         onClick={[Function]}
         type="button"
       >
@@ -33,40 +33,23 @@ exports[`Storyshots Filters/Agent Filter Agents Selected 1`] = `
         aria-owns="downshift-4-menu"
         role="combobox"
       >
-        <div
-          className="input-group"
-        >
-          <input
-            aria-autocomplete="list"
-            aria-controls="downshift-4-menu"
-            aria-labelledby="downshift-4-label"
-            autoComplete="off"
-            className="form-control"
-            id="downshift-4-input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value=""
-          />
-          <div
-            className="input-group-append"
-          >
-            <button
-              aria-label={null}
-              className="btn btn-secondary"
-              onClick={[Function]}
-              type="button"
-            >
-              Add
-            </button>
-          </div>
-        </div>
+        <input
+          aria-autocomplete="list"
+          aria-controls="downshift-4-menu"
+          aria-labelledby="downshift-4-label"
+          autoComplete="off"
+          className="form-control"
+          id="downshift-4-input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          type="text"
+          value=""
+        />
         <div
           aria-labelledby="downshift-4-label"
           className="downshift__match-dropdown"
           id="downshift-4-menu"
-          onClick={[Function]}
           onMouseLeave={[Function]}
           role="listbox"
         >
@@ -90,40 +73,23 @@ exports[`Storyshots Filters/Agent Filter Agents Selected 1`] = `
         aria-owns="downshift-5-menu"
         role="combobox"
       >
-        <div
-          className="input-group"
-        >
-          <input
-            aria-autocomplete="list"
-            aria-controls="downshift-5-menu"
-            aria-labelledby="downshift-5-label"
-            autoComplete="off"
-            className="form-control"
-            id="downshift-5-input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value=""
-          />
-          <div
-            className="input-group-append"
-          >
-            <button
-              aria-label={null}
-              className="btn btn-secondary"
-              onClick={[Function]}
-              type="button"
-            >
-              Add
-            </button>
-          </div>
-        </div>
+        <input
+          aria-autocomplete="list"
+          aria-controls="downshift-5-menu"
+          aria-labelledby="downshift-5-label"
+          autoComplete="off"
+          className="form-control"
+          id="downshift-5-input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          type="text"
+          value=""
+        />
         <div
           aria-labelledby="downshift-5-label"
           className="downshift__match-dropdown"
           id="downshift-5-menu"
-          onClick={[Function]}
           onMouseLeave={[Function]}
           role="listbox"
         >
@@ -197,40 +163,23 @@ exports[`Storyshots Filters/Agent Filter Empty 1`] = `
         aria-owns="downshift-0-menu"
         role="combobox"
       >
-        <div
-          className="input-group"
-        >
-          <input
-            aria-autocomplete="list"
-            aria-controls="downshift-0-menu"
-            aria-labelledby="downshift-0-label"
-            autoComplete="off"
-            className="form-control"
-            id="downshift-0-input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value=""
-          />
-          <div
-            className="input-group-append"
-          >
-            <button
-              aria-label={null}
-              className="btn btn-secondary"
-              onClick={[Function]}
-              type="button"
-            >
-              Add
-            </button>
-          </div>
-        </div>
+        <input
+          aria-autocomplete="list"
+          aria-controls="downshift-0-menu"
+          aria-labelledby="downshift-0-label"
+          autoComplete="off"
+          className="form-control"
+          id="downshift-0-input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          type="text"
+          value=""
+        />
         <div
           aria-labelledby="downshift-0-label"
           className="downshift__match-dropdown"
           id="downshift-0-menu"
-          onClick={[Function]}
           onMouseLeave={[Function]}
           role="listbox"
         >
@@ -254,40 +203,23 @@ exports[`Storyshots Filters/Agent Filter Empty 1`] = `
         aria-owns="downshift-1-menu"
         role="combobox"
       >
-        <div
-          className="input-group"
-        >
-          <input
-            aria-autocomplete="list"
-            aria-controls="downshift-1-menu"
-            aria-labelledby="downshift-1-label"
-            autoComplete="off"
-            className="form-control"
-            id="downshift-1-input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value=""
-          />
-          <div
-            className="input-group-append"
-          >
-            <button
-              aria-label={null}
-              className="btn btn-secondary"
-              onClick={[Function]}
-              type="button"
-            >
-              Add
-            </button>
-          </div>
-        </div>
+        <input
+          aria-autocomplete="list"
+          aria-controls="downshift-1-menu"
+          aria-labelledby="downshift-1-label"
+          autoComplete="off"
+          className="form-control"
+          id="downshift-1-input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          type="text"
+          value=""
+        />
         <div
           aria-labelledby="downshift-1-label"
           className="downshift__match-dropdown"
           id="downshift-1-menu"
-          onClick={[Function]}
           onMouseLeave={[Function]}
           role="listbox"
         >
@@ -337,40 +269,23 @@ exports[`Storyshots Filters/Agent Filter Vanity 1`] = `
         aria-owns="downshift-2-menu"
         role="combobox"
       >
-        <div
-          className="input-group"
-        >
-          <input
-            aria-autocomplete="list"
-            aria-controls="downshift-2-menu"
-            aria-labelledby="downshift-2-label"
-            autoComplete="off"
-            className="form-control"
-            id="downshift-2-input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value=""
-          />
-          <div
-            className="input-group-append"
-          >
-            <button
-              aria-label={null}
-              className="btn btn-secondary"
-              onClick={[Function]}
-              type="button"
-            >
-              Add
-            </button>
-          </div>
-        </div>
+        <input
+          aria-autocomplete="list"
+          aria-controls="downshift-2-menu"
+          aria-labelledby="downshift-2-label"
+          autoComplete="off"
+          className="form-control"
+          id="downshift-2-input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          type="text"
+          value=""
+        />
         <div
           aria-labelledby="downshift-2-label"
           className="downshift__match-dropdown"
           id="downshift-2-menu"
-          onClick={[Function]}
           onMouseLeave={[Function]}
           role="listbox"
         >
@@ -394,40 +309,23 @@ exports[`Storyshots Filters/Agent Filter Vanity 1`] = `
         aria-owns="downshift-3-menu"
         role="combobox"
       >
-        <div
-          className="input-group"
-        >
-          <input
-            aria-autocomplete="list"
-            aria-controls="downshift-3-menu"
-            aria-labelledby="downshift-3-label"
-            autoComplete="off"
-            className="form-control"
-            id="downshift-3-input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value=""
-          />
-          <div
-            className="input-group-append"
-          >
-            <button
-              aria-label={null}
-              className="btn btn-secondary"
-              onClick={[Function]}
-              type="button"
-            >
-              Add
-            </button>
-          </div>
-        </div>
+        <input
+          aria-autocomplete="list"
+          aria-controls="downshift-3-menu"
+          aria-labelledby="downshift-3-label"
+          autoComplete="off"
+          className="form-control"
+          id="downshift-3-input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          type="text"
+          value=""
+        />
         <div
           aria-labelledby="downshift-3-label"
           className="downshift__match-dropdown"
           id="downshift-3-menu"
-          onClick={[Function]}
           onMouseLeave={[Function]}
           role="listbox"
         >
@@ -528,40 +426,23 @@ exports[`Storyshots Filters/Location Filter Normal 1`] = `
           aria-owns="downshift-6-menu"
           role="combobox"
         >
-          <div
-            className="input-group"
-          >
-            <input
-              aria-autocomplete="list"
-              aria-controls="downshift-6-menu"
-              aria-labelledby="downshift-6-label"
-              autoComplete="off"
-              className="form-control"
-              id="downshift-6-input"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              type="text"
-              value=""
-            />
-            <div
-              className="input-group-append"
-            >
-              <button
-                aria-label={null}
-                className="btn btn-secondary"
-                onClick={[Function]}
-                type="button"
-              >
-                Add
-              </button>
-            </div>
-          </div>
+          <input
+            aria-autocomplete="list"
+            aria-controls="downshift-6-menu"
+            aria-labelledby="downshift-6-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-6-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
           <div
             aria-labelledby="downshift-6-label"
             className="downshift__match-dropdown"
             id="downshift-6-menu"
-            onClick={[Function]}
             onMouseLeave={[Function]}
             role="listbox"
           >
