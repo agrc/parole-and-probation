@@ -440,7 +440,31 @@ exports[`Storyshots Filters/Agent Filter Vanity 1`] = `
   </div>
   <div
     className="col"
-  />
+  >
+    <label
+      className=""
+    >
+      Filtering Offenders For
+    </label>
+    <div
+      className="mb-3 p-3 card"
+    >
+      <div
+        className="filter-other__items-container p-0 card-body"
+      >
+        <button
+          aria-label={null}
+          className="mb-1 btn btn-outline-secondary btn-sm"
+          id={999}
+          onClick={[Function]}
+          type="button"
+          value="Somebody Famous"
+        >
+          Somebody Famous
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
