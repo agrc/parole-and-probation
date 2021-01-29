@@ -107,6 +107,7 @@ namespace parole {
               .AddPolicyHandler(timeoutPolicy);
 
             services.AddSingleton<TokenService>();
+            services.AddSingleton<OpenIdConfigurationProvider>();
             services.AddSingleton<ExportService>();
             services.AddSingleton<TypeAheadService>();
             services.AddSingleton<IArcGISCredential>(values);
