@@ -169,7 +169,7 @@ export default function App() {
           mapDispatcher={dispatcher}
           loggedInUser={{
             value: user?.profile?.name,
-            id: user?.profile?.auth_time ? user?.profile['public:WorkforceID'] : null,
+            id: user?.profile?.auth_time && user.profile ? parseInt(user.profile['public:WorkforceID']) : null,
           }}
           appliedFilter={app.appliedFilter}
         />
