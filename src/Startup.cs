@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -19,7 +18,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
 using parole.Features;
 using Polly;
 using Polly.Extensions.Http;
@@ -36,24 +34,19 @@ namespace parole {
 
         public void ConfigureServices(IServiceCollection services) {
             const string authority = "https://login.dts.utah.gov:443/sso/oauth2";
-            var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
-              $"{authority}/.well-known/openid-configuration",
-              new OpenIdConnectConfigurationRetriever(),
-              new HttpDocumentRetriever()
-            );
 
             services.AddAuthentication(options => {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
             .AddCookie(options => {
-                options.LoginPath = "/login";
+                options.LoginPath = "/authentication/login";
                 options.LogoutPath = "/";
-                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                options.AccessDeniedPath = "/authentication/access-denied";
+                //     options.ExpireTimeSpan = TimeSpan.FromDays(1);
             })
             .AddOpenIdConnect(options => {
                 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
                 options.ClientId = Environment.GetEnvironmentVariable("PAROLE_CLIENT_ID_STAGING");
                 options.ClientSecret = Environment.GetEnvironmentVariable("PAROLE_CLIENT_SECRET_STAGING");
 
@@ -63,9 +56,17 @@ namespace parole {
                     options.ClientSecret = oidcSection["ClientSecret"];
                 }
 
-                options.ConfigurationManager = configurationManager;
+                options.Authority = authority;
                 options.ResponseType = "code";
                 options.UsePkce = true;
+
+                options.GetClaimsFromUserInfoEndpoint = true;
+
+                options.Scope.Clear();
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
+                options.Scope.Add("app:public");
+                options.Scope.Add("App:DOCFieldMap");
             });
 
             services.AddAuthorization(options =>
@@ -179,7 +180,7 @@ namespace parole {
                     var data = await typeAheadProvider.Find(descriptor).ConfigureAwait(false);
 
                     await context.Response.WriteAsJsonAsync(data).ConfigureAwait(false);
-                }).RequireAuthorization();
+                }).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme });
                 endpoints.MapPost("api/download", async context => {
                     CsvDownload model;
                     try {
@@ -236,7 +237,7 @@ namespace parole {
                     var emailer = new EmailSender(emailConfig, logger);
 
                     await emailer.SendAsync(new[] { model.Agent }, stream).ConfigureAwait(false);
-                }).RequireAuthorization();
+                }).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme });
 
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {
