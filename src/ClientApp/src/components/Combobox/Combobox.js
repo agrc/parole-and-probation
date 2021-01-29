@@ -1,7 +1,7 @@
 import { useCombobox } from 'downshift';
 import { startCase } from 'lodash/string';
 import * as React from 'react';
-import { Button, Card, CardBody, Input, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Button, Card, CardBody, Input } from 'reactstrap';
 
 const defaultItemToString = (item, titleCaseItem, itemToString) => {
   if (!item) {
@@ -48,14 +48,24 @@ export function SelectedItems({
 
 export function Dropdown({
   items,
-  isEmpty,
   currentSelectedItems,
   titleCaseItem = true,
   itemToString = returnItem,
   itemToKey = returnItem,
   onSelectItem,
 }) {
-  const [inputItems, setInputItems] = React.useState(items);
+  const [inputValue, setInputValue] = React.useState('');
+  const getFilteredItems = (filterItems) => {
+    return filterItems.filter((item) => {
+      const matchesWithInput = itemToString(item).toLowerCase().startsWith(inputValue.toLowerCase());
+
+      if (!currentSelectedItems || !Array.isArray(currentSelectedItems)) {
+        return matchesWithInput;
+      }
+
+      return matchesWithInput && !currentSelectedItems.some((someItem) => itemToKey(someItem) === itemToKey(item));
+    });
+  };
 
   const {
     isOpen,
@@ -65,79 +75,40 @@ export function Dropdown({
     highlightedIndex,
     getItemProps,
     selectItem,
-    selectedItem,
   } = useCombobox({
-    items: inputItems,
+    inputValue,
+    items: getFilteredItems(items),
     itemToString: itemToString,
     defaultHighlightedIndex: 0,
-    onInputValueChange: ({ inputValue }) => {
-      if (inputValue === null) {
-        return items;
+    onStateChange: ({ inputValue, type, selectedItem }) => {
+      switch (type) {
+        case useCombobox.stateChangeTypes.InputChange:
+          setInputValue(inputValue);
+          break;
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
+        case useCombobox.stateChangeTypes.ItemClick:
+        case useCombobox.stateChangeTypes.InputBlur:
+          if (selectedItem) {
+            setInputValue('');
+            onSelectItem(selectedItem);
+            selectItem(null);
+          }
+
+          break;
+        default:
+          break;
       }
-
-      const filteredItems = items.filter((item) =>
-        itemToString(item).toLowerCase().startsWith(inputValue.toLowerCase())
-      );
-
-      if (isEmpty) {
-        return setInputItems(filteredItems);
-      }
-
-      const difference = filteredItems.filter((filterItem) => {
-        return !currentSelectedItems.some((someItem) => itemToKey(someItem) === itemToKey(filterItem));
-      });
-
-      setInputItems(difference);
     },
   });
 
   return (
     <div {...getComboboxProps()}>
-      <InputGroup>
-        <Input
-          {...getInputProps({
-            onKeyDown: (event) => {
-              switch (event.key) {
-                case 'Enter': {
-                  if (selectedItem) {
-                    onSelectItem(selectedItem);
-                    selectItem(null);
-                  }
-                  break;
-                }
-                default:
-                  break;
-              }
-            },
-          })}
-        />
-        <InputGroupAddon addonType="append">
-          <Button
-            onClick={() => {
-              if (selectedItem) {
-                onSelectItem(selectedItem);
-                selectItem(null);
-              }
-            }}
-          >
-            Add
-          </Button>
-        </InputGroupAddon>
-      </InputGroup>
+      <Input {...getInputProps()} />
 
-      <div
-        className="downshift__match-dropdown"
-        {...getMenuProps({
-          onClick: () => {
-            const selectedItem = inputItems[highlightedIndex];
-            onSelectItem(selectedItem);
-            selectItem(null);
-          },
-        })}
-      >
+      <div className="downshift__match-dropdown" {...getMenuProps()}>
         <ul className="downshift__matches">
           {isOpen &&
-            inputItems.map((item, index) => (
+            getFilteredItems(items).map((item, index) => (
               <li
                 {...getItemProps({
                   item,
