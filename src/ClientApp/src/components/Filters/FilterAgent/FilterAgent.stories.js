@@ -13,11 +13,12 @@ export default {
   },
 };
 
+const vanityUser = {
+  value: 'somebody famous',
+  id: 999,
+};
 const defaultAgent = {
-  loggedInUser: {
-    value: 'somebody famous',
-    id: 999,
-  },
+  loggedInUser: vanityUser,
   agentList: [],
   supervisor: null,
   vanity: true,
@@ -44,7 +45,12 @@ export const Empty = (args) => {
 };
 
 export const Vanity = (args) => {
-  const [criteria, dispatcher] = useImmerReducer(filterReducer, { agent: defaultAgent });
+  const [criteria, dispatcher] = useImmerReducer(filterReducer, {
+    agent: {
+      ...defaultAgent,
+      agentList: [vanityUser],
+    },
+  });
 
   return (
     <FilterAgent
