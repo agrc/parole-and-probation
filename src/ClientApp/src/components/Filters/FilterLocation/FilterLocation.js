@@ -47,16 +47,16 @@ export default function FilterLocation(props) {
               onSelectItem={(item) => updateCounties(item, true)}
             />
           </FormGroup>
-          <FormGroup>
-            {props.criteria.counties.length > 0 ? (
+          {props.criteria.counties.length > 0 ? (
+            <FormGroup>
               <SelectedItems
                 items={props.criteria.counties}
                 clickHandler={(event) => {
                   updateCounties(event.target.id, false);
                 }}
               />
-            ) : null}
-          </FormGroup>
+            </FormGroup>
+          ) : null}
         </Col>
         <Col>
           <FormGroup>
