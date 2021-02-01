@@ -107,22 +107,28 @@ export function Dropdown({
     },
   });
 
+  const addItem = () => {
+    if (selectedItem) {
+      setInputValue('');
+      onSelectItem(selectedItem);
+      selectItem(null);
+    }
+  };
+
   return (
     <div {...getComboboxProps()}>
       <InputGroup>
-        <Input {...getInputProps()} />
-        <InputGroupAddon addonType="append">
-          <Button
-            onClick={() => {
-              if (selectedItem) {
-                setInputValue('');
-                onSelectItem(selectedItem);
-                selectItem(null);
+        <Input
+          {...getInputProps({
+            onKeyUp: (event) => {
+              if (event.key === 'Enter') {
+                addItem();
               }
-            }}
-          >
-            Add
-          </Button>
+            },
+          })}
+        />
+        <InputGroupAddon addonType="append">
+          <Button onClick={addItem}>Add</Button>
         </InputGroupAddon>
       </InputGroup>
 
