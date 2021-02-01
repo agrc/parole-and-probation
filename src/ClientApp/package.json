@@ -101,6 +101,7 @@
     "fetch-mock": "^8.3.2",
     "ncp": "^2.0.0",
     "prettier": "^2.2.1",
+    "query-string": "^6.13.8",
     "standard-version": "^9.1.0"
   },
   "config": {
