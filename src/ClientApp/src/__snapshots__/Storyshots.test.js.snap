@@ -154,7 +154,6 @@ exports[`Storyshots Filters/Agent Filter Agents Selected 1`] = `
           id={-1}
           onClick={[Function]}
           type="button"
-          value="Storybook"
         >
           Storybook
         </button>
@@ -458,7 +457,6 @@ exports[`Storyshots Filters/Agent Filter Vanity 1`] = `
           id={999}
           onClick={[Function]}
           type="button"
-          value="Somebody Famous"
         >
           Somebody Famous
         </button>
@@ -571,9 +569,6 @@ exports[`Storyshots Filters/Location Filter Normal 1`] = `
           </div>
         </div>
       </div>
-      <div
-        className="form-group"
-      />
     </div>
     <div
       className="col"
