@@ -52,7 +52,7 @@ export default function FilterLocation(props) {
               <SelectedItems
                 items={props.criteria.counties}
                 clickHandler={(event) => {
-                  updateCounties(event.target.value, false);
+                  updateCounties(event.target.id, false);
                 }}
               />
             ) : null}
