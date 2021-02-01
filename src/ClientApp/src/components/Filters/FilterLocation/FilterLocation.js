@@ -46,6 +46,8 @@ export default function FilterLocation(props) {
               currentSelectedItems={props.criteria.counties}
               onSelectItem={(item) => updateCounties(item, true)}
             />
+          </FormGroup>
+          <FormGroup>
             {props.criteria.counties.length > 0 ? (
               <SelectedItems
                 items={props.criteria.counties}
