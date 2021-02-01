@@ -41,6 +41,10 @@ export default class AuthorizeRoute extends Component {
           {...rest}
           render={(props) => {
             if (authenticated) {
+              if (!this.state.user?.profile['DOCFieldMap:AccessGranted']) {
+                return <Redirect to={ApplicationPaths.AccessDenied} />;
+              }
+
               return (
                 <AuthenticatorContext.Provider value={this.state.user}>
                   <Component {...props} />
