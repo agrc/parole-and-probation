@@ -196,14 +196,14 @@ export default {
   decorators: [
     (Story) => (
       <IdentifyContainer>
-        <AuthenticatorContext.Provider>
-          value=
-          {{
+        <AuthenticatorContext.Provider
+          value={{
             user: {
               access_token: 'testing',
             },
           }}
-          >{Story()}
+        >
+          {Story()}
         </AuthenticatorContext.Provider>
       </IdentifyContainer>
     ),
