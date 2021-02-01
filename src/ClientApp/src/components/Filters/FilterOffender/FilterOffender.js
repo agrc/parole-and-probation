@@ -435,17 +435,7 @@ export default function FilterOffender(props) {
                     {!isOpen ? null : (
                       <div className="downshift__match-dropdown" {...getMenuProps()}>
                         <ul className="downshift__matches">
-                          <FetchItems
-                            field="employer"
-                            filter={props.currentFilter}
-                            searchValue={inputValue}
-                            onLoaded={({ data }) => {
-                              if (data) {
-                                setHighlightedIndex(data.length ? 0 : null);
-                                setItemCount(data.length);
-                              }
-                            }}
-                          >
+                          <FetchItems field="employer" filter={props.currentFilter} searchValue={inputValue}>
                             {({ loading, data, error }) => (
                               <>
                                 {loading ? (
@@ -513,10 +503,9 @@ const scrub = (string, property) => {
 
 const defaultFetchState = { loading: false, error: null, data: [] };
 
-const FetchItems = ({ searchValue, filter, field, onLoaded, children }) => {
+const FetchItems = ({ searchValue, filter, field, children }) => {
   const [fetchState, setFetchState] = React.useState(defaultFetchState);
   const requestId = React.useRef(0);
-  const mounted = React.useRef(false);
 
   const prepareFetch = React.useCallback(() => {
     reset({ loading: true });
@@ -526,7 +515,12 @@ const FetchItems = ({ searchValue, filter, field, onLoaded, children }) => {
     setFetchState({ defaultFetchState, ...overrides });
   };
 
-  const queryApi = React.useCallback(() => {
+  React.useEffect(() => {
+    console.log('searchValue', searchValue);
+    console.log('filter', filter);
+    console.log('field', field);
+    console.log('prepareFetch', prepareFetch);
+
     const getResults = async () => {
       requestId.current++;
 
@@ -560,39 +554,27 @@ const FetchItems = ({ searchValue, filter, field, onLoaded, children }) => {
 
         data = await response.json();
 
-        if (mounted.current && data?.requestId === requestId.current) {
+        if (data?.requestId === requestId.current) {
           console.log(`FetchItems:fetch calling onLoaded with ${data.data.length} items`);
 
-          onLoaded({ data: data.data });
+          // onLoaded({ data: data.data });
           setFetchState({ loading: false, data: data.data });
         }
       } catch (error) {
-        if (mounted.current && data?.requestId === requestId.current) {
-          onLoaded({ error });
+        if (data?.requestId === requestId.current) {
+          // onLoaded({ error });
           setFetchState({ loading: false, error });
         }
       }
     };
 
-    if (!mounted.current || searchValue.trim().length < 1) {
+    if (searchValue.trim().length < 1) {
       return;
     }
 
-    getResults();
-  }, [searchValue, filter, field, onLoaded]);
-
-  React.useEffect(() => {
-    mounted.current = true;
-
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
-
-  React.useEffect(() => {
     prepareFetch();
-    queryApi();
-  }, [queryApi, prepareFetch]);
+    getResults();
+  }, [searchValue, filter, field, prepareFetch]);
 
   return children(fetchState);
 };
