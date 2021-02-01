@@ -38,7 +38,7 @@ namespace parole.Features {
                 { "redirect_uri", $"{config.BaseUrl}/authentication/login-callback" },
                 { "post_logout_redirect_uri", $"{config.BaseUrl}/authentication/logout-callback" },
                 { "response_type", "code" },
-                { "scope", "App:DOCFieldMap openid profile app:public" }
+                { "scope", "app:DOCFieldMap openid app:public" }
             };
         }
     }
