@@ -1,7 +1,7 @@
 import { useCombobox } from 'downshift';
 import { startCase } from 'lodash/string';
 import * as React from 'react';
-import { Button, Card, CardBody, Input } from 'reactstrap';
+import { Button, Card, CardBody, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
 const defaultItemToString = (item, titleCaseItem, itemToString) => {
   if (!item) {
@@ -75,6 +75,7 @@ export function Dropdown({
     highlightedIndex,
     getItemProps,
     selectItem,
+    selectedItem,
   } = useCombobox({
     inputValue,
     items: getFilteredItems(items),
@@ -85,9 +86,14 @@ export function Dropdown({
         case useCombobox.stateChangeTypes.InputChange:
           setInputValue(inputValue);
           break;
-        case useCombobox.stateChangeTypes.InputKeyDownEnter:
         case useCombobox.stateChangeTypes.ItemClick:
         case useCombobox.stateChangeTypes.InputBlur:
+          if (selectedItem) {
+            setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
+          }
+
+          break;
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
           if (selectedItem) {
             setInputValue('');
             onSelectItem(selectedItem);
@@ -103,7 +109,22 @@ export function Dropdown({
 
   return (
     <div {...getComboboxProps()}>
-      <Input {...getInputProps()} />
+      <InputGroup>
+        <Input {...getInputProps()} />
+        <InputGroupAddon addonType="append">
+          <Button
+            onClick={() => {
+              if (selectedItem) {
+                setInputValue('');
+                onSelectItem(selectedItem);
+                selectItem(null);
+              }
+            }}
+          >
+            Add
+          </Button>
+        </InputGroupAddon>
+      </InputGroup>
 
       <div className="downshift__match-dropdown" {...getMenuProps()}>
         <ul className="downshift__matches">
