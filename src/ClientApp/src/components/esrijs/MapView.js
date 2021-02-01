@@ -18,7 +18,6 @@ import { fields } from '../../config';
 import CsvDownload from '../CsvDownload';
 import HomeButton from '../DefaultExtent';
 import Geolocation from '../Geolocation';
-import MapLoadingIndicator from '../MapLoadingIndicator';
 import MapToolPanel from '../MapToolPanel';
 
 config.assetsPath = `${process.env.PUBLIC_URL}/assets`;
@@ -374,7 +373,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         />
       </MapToolPanel>
       <CsvDownload download={download} view={view} position="top-left" />
-      <MapLoadingIndicator view={view} position="bottom-left" />
       {selectorOptions ? <LayerSelector {...selectorOptions}></LayerSelector> : null}
     </div>
   );
