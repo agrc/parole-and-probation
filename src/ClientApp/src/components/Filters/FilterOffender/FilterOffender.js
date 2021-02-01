@@ -541,9 +541,12 @@ const FetchItems = ({ searchValue, filter, field, onLoaded, children }) => {
           limit: 25,
         });
 
-        const baseUrl = `${window.location.protocol}//${window.location.hostname}${
+        let baseUrl = `${window.location.protocol}//${window.location.hostname}${
           window.location.port ? `:${window.location.port}` : ''
-        }${process.env.PUBLIC_URL}`;
+        }`;
+        if (process.env.PUBLIC_URL.length > 1) {
+          baseUrl = `baseUrl${process.env.PUBLIC_URL}`;
+        }
         const url = `${baseUrl}/api/data/${field}/${searchValue}?${query}`;
 
         const response = await fetch(url, {
