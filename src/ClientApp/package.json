@@ -41,6 +41,7 @@
     "build-storybook": "build-storybook -s public",
     "build:prod": "env-cmd --environments production dotnet publish ../parole.csproj -c Release && npm run copy:build",
     "build:stage": "env-cmd --environments stage dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false && npm run copy:build",
+    "build:test": "react-scripts build",
     "build": "env-cmd --environments production react-scripts build",
     "copy:arcgis": "npm run copy:public && npm run copy:build",
     "copy:public": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
