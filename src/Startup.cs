@@ -39,13 +39,12 @@ namespace parole {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
-            .AddCookie(options => {
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => {
                 options.LoginPath = "/authentication/login";
                 options.LogoutPath = "/";
                 options.AccessDeniedPath = "/authentication/access-denied";
-                //     options.ExpireTimeSpan = TimeSpan.FromDays(1);
             })
-            .AddOpenIdConnect(options => {
+            .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options => {
                 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
                 options.ClientId = Environment.GetEnvironmentVariable("PAROLE_CLIENT_ID_STAGING");
                 options.ClientSecret = Environment.GetEnvironmentVariable("PAROLE_CLIENT_SECRET_STAGING");
@@ -64,14 +63,18 @@ namespace parole {
 
                 options.Scope.Clear();
                 options.Scope.Add("openid");
-                options.Scope.Add("profile");
                 options.Scope.Add("app:public");
-                options.Scope.Add("App:DOCFieldMap");
+                options.Scope.Add("app:DOCFieldMap");
             });
 
-            services.AddAuthorization(options =>
-                options.AddPolicy(CookieAuthenticationDefaults.AuthenticationScheme,
-                    policy => policy.RequireAuthenticatedUser()));
+            services.AddAuthorization(options => {
+                options.AddPolicy(CookieAuthenticationDefaults.AuthenticationScheme, policy => {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("DOCFieldMap:AccessGranted", "true");
+                });
+                options.AddPolicy(OpenIdConnectDefaults.AuthenticationScheme, policy =>
+                    policy.RequireClaim("DOCFieldMap:AccessGranted", "true"));
+            });
 
             services.AddReverseProxy()
               .LoadFromConfig(Configuration.GetSection("ReverseProxy"));
@@ -180,7 +183,7 @@ namespace parole {
                     var data = await typeAheadProvider.Find(descriptor).ConfigureAwait(false);
 
                     await context.Response.WriteAsJsonAsync(data).ConfigureAwait(false);
-                }).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme });
+                }).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
                 endpoints.MapPost("api/download", async context => {
                     CsvDownload model;
                     try {
@@ -237,7 +240,7 @@ namespace parole {
                     var emailer = new EmailSender(emailConfig, logger);
 
                     await emailer.SendAsync(new[] { model.Agent }, stream).ConfigureAwait(false);
-                }).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme });
+                }).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
 
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {

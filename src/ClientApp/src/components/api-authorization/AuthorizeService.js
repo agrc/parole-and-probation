@@ -13,7 +13,7 @@ export class AuthorizeService {
 
   async isAuthenticated() {
     const user = await this.getUser();
-    return !!user;
+    return user?.profile['DOCFieldMap:AccessGranted'] ? true : false;
   }
 
   async getUser() {
