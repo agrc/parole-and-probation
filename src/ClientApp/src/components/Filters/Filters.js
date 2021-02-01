@@ -22,7 +22,13 @@ const addOrRemove = (list, item, add) => {
   if (add) {
     list.push(item);
   } else {
-    list.splice(list.indexOf(item), 1);
+    const index = list.indexOf(item);
+
+    if (index === -1) {
+      throw Error(`The item ${item} was not found in the list: ${list}`);
+    }
+
+    list.splice(index, 1);
   }
 
   return list;
