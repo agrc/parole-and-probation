@@ -1,7 +1,7 @@
 import produce from 'immer';
 import * as React from 'react';
 import { Button, ButtonGroup, Col, Container, FormGroup, Input, Label } from 'reactstrap';
-import { Dropdown, SelectedItems } from '../../Combobox';
+import { MultiSelect, SelectedItems } from '../../Combobox';
 import { counties } from '../lookupData';
 import useFilterReducer from '../useFilterReducer';
 import './FilterLocation.css';
@@ -41,7 +41,7 @@ export default function FilterLocation(props) {
         <Col>
           <FormGroup>
             <Label>County</Label>
-            <Dropdown
+            <MultiSelect
               items={counties}
               currentSelectedItems={props.criteria.counties}
               onSelectItem={(item) => updateCounties(item, true)}
