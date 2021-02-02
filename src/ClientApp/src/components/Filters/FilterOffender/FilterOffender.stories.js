@@ -1,26 +1,35 @@
-import fetchMock from 'fetch-mock';
-import queryString from 'query-string';
 import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
-import Item from '../FilterOffender';
+import FilterOffender from '../FilterOffender';
 import { filterReducer } from '../Filters';
-
-fetchMock.mock('glob:*api/data/name*', (url) => {
-  const { requestId } = queryString.parse(url.split('?')[1]);
-
-  return {
-    requestId: parseInt(requestId),
-    data: ['steve', 'matt', 'nathan'],
-  };
-});
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Filters/Offender Filter',
-  component: Item,
+  component: FilterOffender,
   argTypes: {
     update: { action: 'update' },
   },
+};
+
+const featureSet = {
+  features: [
+    {
+      attributes: {
+        offender: 'scott',
+      },
+    },
+    {
+      attributes: {
+        offender: 'matt',
+      },
+    },
+    {
+      attributes: {
+        offender: 'steve',
+      },
+    },
+  ],
 };
 
 export const Normal = (args) => {
@@ -41,7 +50,7 @@ export const Normal = (args) => {
   });
 
   return (
-    <Item
+    <FilterOffender
       downshift={criteria.downshift}
       criteria={criteria.offender}
       update={(action) => {
@@ -49,6 +58,7 @@ export const Normal = (args) => {
         args.update(action);
       }}
       currentFilter=""
+      items={featureSet}
     />
   );
 };

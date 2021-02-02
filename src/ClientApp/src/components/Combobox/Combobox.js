@@ -45,7 +45,7 @@ export function SelectedItems({
   );
 }
 
-export function Dropdown({
+export function MultiSelect({
   items,
   currentSelectedItems,
   titleCaseItem = true,
@@ -135,6 +135,87 @@ export function Dropdown({
         <ul className="downshift__matches">
           {isOpen &&
             getFilteredItems(items).map((item, index) => (
+              <li
+                {...getItemProps({
+                  item,
+                  index,
+                  key: itemToKey(item),
+                  className:
+                    'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
+                })}
+              >
+                {defaultItemToString(item, titleCaseItem, itemToString)}
+              </li>
+            ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export function Dropdown({
+  featureSet,
+  titleCaseItem = true,
+  itemToString = returnItem,
+  itemToKey = returnItem,
+  onSelectItem,
+}) {
+  const [inputValue, setInputValue] = React.useState('');
+  const getFilteredItems = (filterItems) => {
+    return filterItems.filter((item) => {
+      const matchesWithInput = itemToString(item).toLowerCase().startsWith(inputValue.toLowerCase());
+
+      return matchesWithInput;
+    });
+  };
+
+  const {
+    isOpen,
+    getMenuProps,
+    getInputProps,
+    getComboboxProps,
+    highlightedIndex,
+    getItemProps,
+    selectItem,
+  } = useCombobox({
+    inputValue,
+    items: getFilteredItems(featureSet.features),
+    itemToString: itemToString,
+    defaultHighlightedIndex: 0,
+    onStateChange: ({ inputValue, type, selectedItem }) => {
+      switch (type) {
+        case useCombobox.stateChangeTypes.InputChange:
+          setInputValue(inputValue);
+          break;
+        case useCombobox.stateChangeTypes.ItemClick:
+        case useCombobox.stateChangeTypes.InputBlur:
+          if (selectedItem) {
+            setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
+          }
+
+          break;
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
+          if (selectedItem) {
+            setInputValue(itemToString(selectedItem));
+            onSelectItem(selectedItem);
+            selectItem(null);
+          }
+
+          break;
+        default:
+          break;
+      }
+    },
+  });
+
+  return (
+    <div {...getComboboxProps()}>
+      <Input {...getInputProps()} />
+
+      <div className="downshift__match-dropdown" {...getMenuProps()}>
+        <ul className="downshift__matches">
+          {isOpen &&
+            getFilteredItems(featureSet.features).map((item, index) => (
               <li
                 {...getItemProps({
                   item,
