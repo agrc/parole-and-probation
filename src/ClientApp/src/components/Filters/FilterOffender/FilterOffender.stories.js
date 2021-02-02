@@ -17,16 +17,19 @@ const featureSet = {
     {
       attributes: {
         offender: 'scott',
+        offender_id: 1,
       },
     },
     {
       attributes: {
         offender: 'matt',
+        offender_id: 2,
       },
     },
     {
       attributes: {
         offender: 'steve',
+        offender_id: 3,
       },
     },
   ],
@@ -57,7 +60,6 @@ export const Normal = (args) => {
         dispatcher(action);
         args.update(action);
       }}
-      currentFilter=""
       items={featureSet}
     />
   );
