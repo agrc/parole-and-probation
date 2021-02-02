@@ -208,7 +208,7 @@ export function Dropdown({
           break;
         case useCombobox.stateChangeTypes.InputKeyDownEnter:
           if (selectedItem) {
-            setInputValue(itemToString(selectedItem));
+            setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
             onSelectItem(selectedItem);
             selectItem(null);
           }
