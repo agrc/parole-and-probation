@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text.Json;
 using CsvHelper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
@@ -35,11 +38,9 @@ namespace parole {
         public void ConfigureServices(IServiceCollection services) {
             const string authority = "https://login.dts.utah.gov:443/sso/oauth2";
 
-            services.AddAuthentication(options => {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            })
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => {
+                options.ForwardChallenge = OpenIdConnectDefaults.AuthenticationScheme;
                 options.LoginPath = "/authentication/login";
                 options.LogoutPath = "/";
                 options.AccessDeniedPath = "/authentication/access-denied";
@@ -78,8 +79,6 @@ namespace parole {
 
             services.AddReverseProxy()
               .LoadFromConfig(Configuration.GetSection("ReverseProxy"));
-
-            services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build");
@@ -155,7 +154,12 @@ namespace parole {
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
                 var openIdConfigurationProvider = endpoints.ServiceProvider.GetService<OpenIdConfigurationProvider>();
 
-                endpoints.MapGet("api/configuration", context => context.Response.WriteAsJsonAsync(openIdConfigurationProvider.GetConfig()));
+                endpoints.MapGet("api/configuration", context => context.Response.WriteAsJsonAsync(new Dictionary<string, string>{
+                        { "id", context.User.Claims.First(x=> x.Type == "public:WorkforceID").Value },
+                        { "name", context.User.Claims.First(x=> x.Type == "public:FullName").Value }
+                    })
+                ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
+
                 endpoints.MapGet("api/data/{input}/{value}", async context => {
                     var typeAheadProvider = endpoints.ServiceProvider.GetService<TypeAheadService>();
 
@@ -183,7 +187,9 @@ namespace parole {
                     var data = await typeAheadProvider.Find(descriptor).ConfigureAwait(false);
 
                     await context.Response.WriteAsJsonAsync(data).ConfigureAwait(false);
-                }).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
+                }
+                ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
+
                 endpoints.MapPost("api/download", async context => {
                     CsvDownload model;
                     try {
@@ -240,7 +246,8 @@ namespace parole {
                     var emailer = new EmailSender(emailConfig, logger);
 
                     await emailer.SendAsync(new[] { model.Agent }, stream).ConfigureAwait(false);
-                }).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
+                }
+                ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
 
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {
@@ -250,6 +257,19 @@ namespace parole {
                         await next().ConfigureAwait(false);
                     });
                 });
+            });
+
+            app.Use(async (context, next) => {
+                if (context.User.Identity.IsAuthenticated) {
+                    var appClaim = context.User.Claims.FirstOrDefault(x => x.Type == "DOCFieldMap:AccessGranted");
+                    if (appClaim?.Value == "true") {
+                        await next().ConfigureAwait(false);
+                    } else {
+                        await context.Response.WriteAsync("Access denied").ConfigureAwait(false);
+                    }
+                } else {
+                    await context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme).ConfigureAwait(false);
+                }
             });
 
             app.UseSpa(spa => {

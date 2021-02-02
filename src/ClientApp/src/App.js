@@ -2,7 +2,6 @@ import isEqual from 'lodash.isequal';
 import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
 import './App.css';
-import { AuthenticatorContext } from './components/api-authorization/AuthorizeRoute';
 import MapView from './components/esrijs/MapView';
 import { Filters } from './components/Filters';
 import Header from './components/Header';
@@ -10,6 +9,7 @@ import { IdentifyContainer, IdentifyInformation } from './components/Identify';
 import MapLens from './components/MapLens';
 import Sidebar from './components/Sidebar';
 import { mappingConfig } from './config';
+import UserContext from './UserContext';
 
 const reducer = (draft, action) => {
   console.log(`App:reducing state for ${action.type}`, action);
@@ -114,7 +114,22 @@ const reducer = (draft, action) => {
 };
 
 export default function App() {
-  const user = React.useContext(AuthenticatorContext);
+  const [user, setUser] = React.useState(null);
+  React.useEffect(() => {
+    const getUser = async () => {
+      let response = await fetch('/api/configuration');
+      if (!response.ok) {
+        throw new Error('Could not load settings');
+      }
+
+      setUser(await response.json());
+    };
+
+    if (!user) {
+      getUser();
+    }
+  }, [user]);
+
   const [app, dispatcher] = useImmerReducer(reducer, {
     zoomToGraphic: {
       graphic: null,
@@ -130,8 +145,8 @@ export default function App() {
     },
     showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
     filter: [],
-    appliedFilter: `agent_id in (${user?.profile['public:WorkforceID']})`,
-    definitionExpression: [`agent_id in (${user?.profile['public:WorkforceID']})`],
+    appliedFilter: `agent_id in (${user?.id})`,
+    definitionExpression: [`agent_id in (${user?.id})`],
   });
 
   const mapOptions = {
@@ -157,26 +172,30 @@ export default function App() {
   };
 
   return (
-    <div className="app">
-      <Header title="AP&P Field Map" version={process.env.REACT_APP_VERSION} />
-      {app.identify.show ? (
-        <IdentifyContainer show={(value) => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: value })}>
-          <IdentifyInformation {...identifyOptions} />
-        </IdentifyContainer>
-      ) : null}
-      <Sidebar {...sidebarOptions}>
-        <Filters
-          mapDispatcher={dispatcher}
-          loggedInUser={{
-            value: user?.profile ? user?.profile['public:FullName'] : null,
-            id: user?.profile ? parseInt(user.profile['public:WorkforceID']) : null,
-          }}
-          appliedFilter={app.appliedFilter}
-        />
-      </Sidebar>
-      <MapLens {...sidebarOptions}>
-        <MapView {...mapOptions} />
-      </MapLens>
-    </div>
+    <UserContext.Provider value={user}>
+      <div className="app">
+        <Header title="AP&P Field Map" version={process.env.REACT_APP_VERSION} />
+        {app.identify.show ? (
+          <IdentifyContainer show={(value) => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: value })}>
+            <IdentifyInformation {...identifyOptions} />
+          </IdentifyContainer>
+        ) : null}
+        <Sidebar {...sidebarOptions}>
+          {user ? (
+            <Filters
+              mapDispatcher={dispatcher}
+              loggedInUser={{
+                value: user.name,
+                id: parseInt(user.id),
+              }}
+              appliedFilter={app.appliedFilter}
+            />
+          ) : null}
+        </Sidebar>
+        <MapLens {...sidebarOptions}>
+          <MapView {...mapOptions} />
+        </MapLens>
+      </div>
+    </UserContext.Provider>
   );
 }
