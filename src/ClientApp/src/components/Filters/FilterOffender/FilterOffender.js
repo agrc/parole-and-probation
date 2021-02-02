@@ -2,6 +2,7 @@ import Downshift from 'downshift';
 import * as React from 'react';
 import { Button, ButtonGroup, Col, Container, FormGroup, Input, Label } from 'reactstrap';
 import Helpers from '../../../Helpers';
+import { Dropdown } from '../../Combobox';
 import './FilterOffender.css';
 
 const type = 'UPDATE_OFFENDER';
@@ -23,6 +24,31 @@ export default function FilterOffender(props) {
         <Col>
           <FormGroup>
             <Label>Name</Label>
+
+            <Dropdown
+              items={props.featureSet}
+              itemToString={(item) => (item ? item.attributes.offender : '')}
+              itemToKey={(item) => (item ? item.attributes.offender_id : '')}
+              type={type}
+              field="OFFENDER_NAME"
+              update={props.update}
+            />
+
+            <Dropdown
+              items={props.featureSet}
+              itemToString={(item) => (item ? item.attributes.offender : '')}
+              itemToKey={(item) => (item ? item.attributes.offender_id : '')}
+              onSelectItem={(item) => {
+                props.update({
+                  type,
+                  meta: {
+                    downshift: true,
+                    field: 'OFFENDER_NAME',
+                  },
+                  payload: item.attribute.offender,
+                });
+              }}
+            />
             <Downshift
               itemToString={(item) => (item ? item : '')}
               onChange={(selectedItem) => publish(selectedItem, 'name')}
