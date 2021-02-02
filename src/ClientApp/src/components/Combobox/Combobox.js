@@ -158,9 +158,20 @@ export function Dropdown({
   titleCaseItem = true,
   itemToString = returnItem,
   itemToKey = returnItem,
-  onSelectItem,
+  reducerDescriptor,
+  dispatch,
 }) {
   const [inputValue, setInputValue] = React.useState('');
+  const onSelectItem = (item) => {
+    dispatch({
+      type: reducerDescriptor.type,
+      meta: {
+        downshift: true,
+        field: reducerDescriptor.field,
+      },
+      payload: itemToString(item),
+    });
+  };
   const getFilteredItems = (filterItems) => {
     return filterItems.filter((item) => {
       const matchesWithInput = itemToString(item).toLowerCase().startsWith(inputValue.toLowerCase());
@@ -186,6 +197,7 @@ export function Dropdown({
       switch (type) {
         case useCombobox.stateChangeTypes.InputChange:
           setInputValue(inputValue);
+
           break;
         case useCombobox.stateChangeTypes.ItemClick:
         case useCombobox.stateChangeTypes.InputBlur:
@@ -210,7 +222,7 @@ export function Dropdown({
 
   return (
     <div {...getComboboxProps()}>
-      <Input {...getInputProps()} />
+      <Input autoComplete="none" {...getInputProps()} />
 
       <div className="downshift__match-dropdown" {...getMenuProps()}>
         <ul className="downshift__matches">
