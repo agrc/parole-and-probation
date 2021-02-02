@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Col, Container, FormGroup, Label } from 'reactstrap';
-import { Dropdown, SelectedItems } from '../../Combobox';
+import { MultiSelect, SelectedItems } from '../../Combobox';
 import '../Filters.css';
 import './FilterAgent.css';
 
@@ -53,7 +53,7 @@ export default function FilterAgent(props) {
         </FormGroup>
         <FormGroup>
           <Label>Agent</Label>
-          <Dropdown
+          <MultiSelect
             items={props.data.agents}
             itemToString={(item) => (item ? item.value : '')}
             itemToKey={(item) => item.id}
@@ -63,7 +63,7 @@ export default function FilterAgent(props) {
         </FormGroup>
         <FormGroup>
           <Label>Supervisor</Label>
-          <Dropdown
+          <MultiSelect
             items={props.data.supervisors}
             itemToString={(item) => (item ? item.value : '')}
             itemToKey={(item) => item.value}
