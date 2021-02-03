@@ -94,7 +94,7 @@ const IdentifyContainer = (props) => {
   );
 };
 
-const IdentifyFetch = async (offender, oidc, cancellationToken) => {
+const IdentifyFetch = async (offender, cancellationToken) => {
   if (!offender) {
     return null;
   }
