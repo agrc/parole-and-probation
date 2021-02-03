@@ -1,29 +1,31 @@
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import produce from 'immer';
 import * as React from 'react';
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardBody,
-  Col,
-  Container,
-  FormGroup,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  Label,
-} from 'reactstrap';
-import MultiDownshift from '../../MultiDownshift';
+import { Button, ButtonGroup, Col, Container, FormGroup, Label } from 'reactstrap';
+import { MultiSelect, SelectedItems } from '../../Combobox';
 import { mainGangs, offenseTypes, supervisionItems } from '../lookupData';
 import './FilterOther.css';
 
 const type = 'UPDATE_OTHER';
 
 const itemToString = (item) => (item ? item.name : '');
+const itemToKey = (item) => (item ? item.id : '');
 
 export default function FilterOther(props) {
+  const update = (meta, value, add) => {
+    if (!value) {
+      return;
+    }
+
+    props.update({
+      type,
+      meta,
+      payload: {
+        value,
+        add,
+      },
+    });
+  };
+
   return (
     <Container fluid className="filter-other">
       <Col>
@@ -84,458 +86,66 @@ export default function FilterOther(props) {
       </Col>
       <Col>
         <FormGroup>
-          <MultiDownshift
-            type={type}
-            field="supervision"
-            update={props.update}
-            selectedItems={props.criteria.supervision}
+          <Label>Special Supervision</Label>
+          <MultiSelect
+            items={supervisionItems}
+            currentSelectedItems={props.criteria.supervision}
             itemToString={itemToString}
-          >
-            {({
-              closeMenu,
-              clearSelection,
-              getInputProps,
-              getItemProps,
-              getMenuProps,
-              getRemoveButtonProps,
-              getToggleButtonProps,
-              highlightedIndex,
-              inputValue,
-              isOpen,
-              selectedItem,
-              setState,
-            }) => (
-              <div>
-                <Label>Special Supervision</Label>
-                {props.criteria.supervision.length > 0 ? (
-                  <Card className="mb-3 p-3">
-                    <CardBody className="filter-other__items-container p-0">
-                      {props.criteria.supervision.map((item) => (
-                        <Button
-                          className="mb-1"
-                          color="secondary"
-                          size="sm"
-                          outline
-                          key={item.id}
-                          {...getRemoveButtonProps({ item })}
-                        >
-                          {item.name}
-                        </Button>
-                      ))}
-                    </CardBody>
-                  </Card>
-                ) : null}
-                <InputGroup>
-                  <Input
-                    {...getInputProps({
-                      onBlur: closeMenu,
-                      onKeyDown: (event) => {
-                        switch (event.key) {
-                          case 'Tab': {
-                            highlightedIndex = highlightedIndex || 0;
-
-                            const alreadySelected = props.criteria.supervision.map((item) => item.name);
-
-                            const value = supervisionItems.filter(
-                              (item) =>
-                                inputValue &&
-                                !alreadySelected.includes(item.name) &&
-                                item.name.toLowerCase().includes(inputValue.toLowerCase())
-                            )[highlightedIndex];
-
-                            if (value) {
-                              setState({
-                                inputValue: value.name,
-                                isOpen: false,
-                                type: '__autocomplete_tab_selection__',
-                              });
-
-                              event.preventDefault();
-                            }
-
-                            break;
-                          }
-                          case 'Enter': {
-                            console.log(`Downshift:onKeyDown ${event.key}`);
-
-                            if (selectedItem) {
-                              clearSelection();
-
-                              break;
-                            }
-
-                            highlightedIndex = highlightedIndex || 0;
-
-                            const alreadySelected = props.criteria.supervision.map((item) => item.name);
-
-                            const value = supervisionItems.filter(
-                              (item) =>
-                                inputValue &&
-                                !alreadySelected.includes(item.name) &&
-                                item.name.toLowerCase().includes(inputValue.toLowerCase())
-                            )[highlightedIndex];
-
-                            if (value && inputValue === value.name) {
-                              setState({
-                                selectedItem: value,
-                                isOpen: false,
-                                type: '__autocomplete_keydown_enter__',
-                              });
-                            }
-
-                            break;
-                          }
-                          default:
-                            break;
-                        }
-                      },
-                    })}
-                  />
-                  <InputGroupAddon addonType="append">
-                    <Button {...getToggleButtonProps()}>
-                      {isOpen ? (
-                        <FontAwesomeIcon icon={faChevronUp} size="xs" />
-                      ) : (
-                        <FontAwesomeIcon icon={faChevronUp} size="xs" flip="vertical" />
-                      )}
-                    </Button>
-                  </InputGroupAddon>
-                </InputGroup>
-                {!isOpen ? null : (
-                  <div className="downshift__match-dropdown" {...getMenuProps()}>
-                    <ul className="downshift__matches">
-                      {supervisionItems
-                        .filter(
-                          (item) =>
-                            (!inputValue && !props.criteria.supervision.includes(item)) ||
-                            (inputValue &&
-                              !props.criteria.supervision.includes(item) &&
-                              item.name.toLowerCase().includes(inputValue.toLowerCase()))
-                        )
-                        .map((item, index) => (
-                          <li
-                            key={index}
-                            {...getItemProps({
-                              item,
-                              index,
-                              className:
-                                'downshift__match-item' +
-                                (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
-                            })}
-                          >
-                            {item.name}
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-          </MultiDownshift>
+            itemToKey={itemToKey}
+            titleCaseItem={false}
+            onSelectItem={(item) => update('supervision', itemToKey(item), true)}
+          />
         </FormGroup>
+        {props.criteria.supervision.length > 0 ? (
+          <FormGroup>
+            <SelectedItems
+              titleCaseItem={false}
+              items={props.criteria.supervision}
+              clickHandler={(event) => update('supervision', event.target.id, false)}
+            />
+          </FormGroup>
+        ) : null}
       </Col>
       <Col>
         <FormGroup>
-          <MultiDownshift
-            type={type}
-            field="gang"
-            update={props.update}
-            selectedItems={props.criteria.gang}
+          <Label>Gang Name</Label>
+          <MultiSelect
+            items={mainGangs}
+            currentSelectedItems={props.criteria.gang}
             itemToString={itemToString}
-          >
-            {({
-              closeMenu,
-              clearSelection,
-              getInputProps,
-              getItemProps,
-              getMenuProps,
-              getRemoveButtonProps,
-              getToggleButtonProps,
-              highlightedIndex,
-              inputValue,
-              isOpen,
-              selectedItem,
-              setState,
-            }) => (
-              <div>
-                <Label>Gang Name</Label>
-                {props.criteria.gang.length > 0 ? (
-                  <Card className="mb-3 p-3">
-                    <CardBody className="filter-other__items-container p-0">
-                      {props.criteria.gang.map((item) => (
-                        <Button
-                          className="mb-1"
-                          color="secondary"
-                          size="sm"
-                          outline
-                          key={item.id}
-                          {...getRemoveButtonProps({ item })}
-                        >
-                          {item.name}
-                        </Button>
-                      ))}
-                    </CardBody>
-                  </Card>
-                ) : null}
-                <InputGroup>
-                  <Input
-                    {...getInputProps({
-                      onBlur: closeMenu,
-                      onKeyDown: (event) => {
-                        switch (event.key) {
-                          case 'Tab': {
-                            highlightedIndex = highlightedIndex || 0;
-
-                            const alreadySelected = props.criteria.gang.map((item) => item.name);
-
-                            const value = mainGangs.filter(
-                              (item) =>
-                                inputValue &&
-                                !alreadySelected.includes(item.name) &&
-                                item.name.toLowerCase().includes(inputValue.toLowerCase())
-                            )[highlightedIndex];
-
-                            if (value) {
-                              setState({
-                                inputValue: value.name,
-                                isOpen: false,
-                                type: '__autocomplete_tab_selection__',
-                              });
-
-                              event.preventDefault();
-                            }
-
-                            break;
-                          }
-                          case 'Enter': {
-                            console.log(`Downshift:onKeyDown ${event.key}`);
-
-                            if (selectedItem) {
-                              clearSelection();
-
-                              break;
-                            }
-
-                            highlightedIndex = highlightedIndex || 0;
-
-                            const alreadySelected = props.criteria.gang.map((item) => item.name);
-
-                            const value = mainGangs.filter(
-                              (item) =>
-                                inputValue &&
-                                !alreadySelected.includes(item.name) &&
-                                item.name.toLowerCase().includes(inputValue.toLowerCase())
-                            )[highlightedIndex];
-
-                            if (value && inputValue === value.name) {
-                              setState({
-                                selectedItem: value,
-                                isOpen: false,
-                                type: '__autocomplete_keydown_enter__',
-                              });
-                            }
-
-                            break;
-                          }
-                          default:
-                            break;
-                        }
-                      },
-                    })}
-                  />
-                  <InputGroupAddon addonType="append">
-                    <Button {...getToggleButtonProps()}>
-                      {isOpen ? (
-                        <FontAwesomeIcon icon={faChevronUp} size="xs" />
-                      ) : (
-                        <FontAwesomeIcon icon={faChevronUp} size="xs" flip="vertical" />
-                      )}
-                    </Button>
-                  </InputGroupAddon>
-                </InputGroup>
-                {!isOpen ? null : (
-                  <div className="downshift__match-dropdown" {...getMenuProps()}>
-                    <ul className="downshift__matches">
-                      {mainGangs
-                        .filter(
-                          (item) =>
-                            (!inputValue && !props.criteria.gang.includes(item)) ||
-                            (inputValue &&
-                              !props.criteria.gang.includes(item) &&
-                              item.name.toLowerCase().includes(inputValue.toLowerCase()))
-                        )
-                        .map((item, index) => (
-                          <li
-                            key={index}
-                            {...getItemProps({
-                              item,
-                              index,
-                              className:
-                                'downshift__match-item' +
-                                (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
-                            })}
-                          >
-                            {item.name}
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-          </MultiDownshift>
+            itemToKey={itemToKey}
+            onSelectItem={(item) => update('gang', itemToKey(item), true)}
+          />
         </FormGroup>
+        {props.criteria.gang.length > 0 ? (
+          <FormGroup>
+            <SelectedItems
+              items={props.criteria.gang}
+              clickHandler={(event) => update('gang', event.target.id, false)}
+            />
+          </FormGroup>
+        ) : null}
       </Col>
       <Col>
         <FormGroup>
-          <MultiDownshift
-            type={type}
-            field="offense"
-            update={props.update}
-            selectedItems={props.criteria.offense}
+          <Label>Offense Type</Label>
+          <MultiSelect
+            items={offenseTypes}
+            currentSelectedItems={props.criteria.offense}
             itemToString={itemToString}
-          >
-            {({
-              closeMenu,
-              clearSelection,
-              getInputProps,
-              getItemProps,
-              getMenuProps,
-              getRemoveButtonProps,
-              getToggleButtonProps,
-              highlightedIndex,
-              inputValue,
-              isOpen,
-              selectedItem,
-              setState,
-            }) => (
-              <div>
-                <Label>Offense Type</Label>
-                {props.criteria.offense.length > 0 ? (
-                  <Card className="mb-3 p-3">
-                    <CardBody className="filter-other__items-container p-0">
-                      {props.criteria.offense.map((item) => (
-                        <Button
-                          className="mb-1"
-                          color="secondary"
-                          size="sm"
-                          outline
-                          key={item.id}
-                          {...getRemoveButtonProps({ item })}
-                        >
-                          {item.name}
-                        </Button>
-                      ))}
-                    </CardBody>
-                  </Card>
-                ) : null}
-                <InputGroup>
-                  <Input
-                    {...getInputProps({
-                      onBlur: closeMenu,
-                      onKeyDown: (event) => {
-                        switch (event.key) {
-                          case 'Tab': {
-                            highlightedIndex = highlightedIndex || 0;
-
-                            const alreadySelected = props.criteria.offense.map((item) => item.name);
-
-                            const value = offenseTypes.filter(
-                              (item) =>
-                                inputValue &&
-                                !alreadySelected.includes(item.name) &&
-                                item.name.toLowerCase().includes(inputValue.toLowerCase())
-                            )[highlightedIndex];
-
-                            if (value) {
-                              setState({
-                                inputValue: value.name,
-                                isOpen: false,
-                                type: '__autocomplete_tab_selection__',
-                              });
-
-                              event.preventDefault();
-                            }
-
-                            break;
-                          }
-                          case 'Enter': {
-                            console.log(`Downshift:onKeyDown ${event.key}`);
-
-                            if (selectedItem) {
-                              clearSelection();
-
-                              break;
-                            }
-
-                            highlightedIndex = highlightedIndex || 0;
-
-                            const alreadySelected = props.criteria.offense.map((item) => item.name);
-
-                            const value = offenseTypes.filter(
-                              (item) =>
-                                inputValue &&
-                                !alreadySelected.includes(item.name) &&
-                                item.name.toLowerCase().includes(inputValue.toLowerCase())
-                            )[highlightedIndex];
-
-                            if (value && inputValue === value.name) {
-                              setState({
-                                selectedItem: value,
-                                isOpen: false,
-                                type: '__autocomplete_keydown_enter__',
-                              });
-                            }
-
-                            break;
-                          }
-                          default:
-                            break;
-                        }
-                      },
-                    })}
-                  />
-                  <InputGroupAddon addonType="append">
-                    <Button {...getToggleButtonProps()}>
-                      {isOpen ? (
-                        <FontAwesomeIcon icon={faChevronUp} size="xs" />
-                      ) : (
-                        <FontAwesomeIcon icon={faChevronUp} size="xs" flip="vertical" />
-                      )}
-                    </Button>
-                  </InputGroupAddon>
-                </InputGroup>
-                {!isOpen ? null : (
-                  <div className="downshift__match-dropdown" {...getMenuProps()}>
-                    <ul className="downshift__matches">
-                      {offenseTypes
-                        .filter(
-                          (item) =>
-                            (!inputValue && !props.criteria.offense.includes(item)) ||
-                            (inputValue &&
-                              !props.criteria.offense.includes(item) &&
-                              item.name.toLowerCase().includes(inputValue.toLowerCase()))
-                        )
-                        .map((item, index) => (
-                          <li
-                            key={index}
-                            {...getItemProps({
-                              item,
-                              index,
-                              className:
-                                'downshift__match-item' +
-                                (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
-                            })}
-                          >
-                            {item.name}
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-          </MultiDownshift>
+            itemToKey={itemToKey}
+            titleCaseItem={false}
+            onSelectItem={(item) => update('offense', itemToKey(item), true)}
+          />
+          {props.criteria.offense.length > 0 ? (
+            <FormGroup>
+              <SelectedItems
+                items={props.criteria.offense}
+                titleCaseItem={false}
+                clickHandler={(event) => update('offense', event.target.id, false)}
+              />
+            </FormGroup>
+          ) : null}
         </FormGroup>
       </Col>
       <Col>
