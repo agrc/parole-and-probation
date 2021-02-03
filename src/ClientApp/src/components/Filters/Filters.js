@@ -231,7 +231,13 @@ const filterReducer = (draft, action) => {
       return;
     }
     case 'UPDATE_OTHER': {
-      draft.other[action.meta] = action.payload;
+      const removable = ['supervision', 'gang', 'sos'];
+
+      if (removable.includes(action.meta)) {
+        draft.other[action.meta] = addOrRemove(draft.other[action.meta], action.payload.value, action.payload.add);
+      } else {
+        draft.other[action.meta] = action.payload;
+      }
 
       return;
     }
