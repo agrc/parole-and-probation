@@ -652,6 +652,7 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
       className="col"
     >
       <div
+        autoComplete="off"
         className="form-group"
       >
         <label
@@ -662,14 +663,12 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-labelledby="downshift-7-label"
-          aria-owns={null}
+          aria-owns="downshift-7-menu"
           role="combobox"
         >
           <input
-            aria-activedescendant={null}
             aria-autocomplete="list"
-            aria-controls={null}
+            aria-controls="downshift-7-menu"
             aria-labelledby="downshift-7-label"
             autoComplete="off"
             className="form-control"
@@ -680,6 +679,17 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
             type="text"
             value=""
           />
+          <div
+            aria-labelledby="downshift-7-label"
+            className="downshift__match-dropdown"
+            id="downshift-7-menu"
+            onMouseLeave={[Function]}
+            role="listbox"
+          >
+            <ul
+              className="downshift__matches"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -697,14 +707,12 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-labelledby="downshift-8-label"
-          aria-owns={null}
+          aria-owns="downshift-8-menu"
           role="combobox"
         >
           <input
-            aria-activedescendant={null}
             aria-autocomplete="list"
-            aria-controls={null}
+            aria-controls="downshift-8-menu"
             aria-labelledby="downshift-8-label"
             autoComplete="off"
             className="form-control"
@@ -712,9 +720,20 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
-            type="number"
+            type="text"
             value=""
           />
+          <div
+            aria-labelledby="downshift-8-label"
+            className="downshift__match-dropdown"
+            id="downshift-8-menu"
+            onMouseLeave={[Function]}
+            role="listbox"
+          >
+            <ul
+              className="downshift__matches"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -770,14 +789,12 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-labelledby="downshift-9-label"
-          aria-owns={null}
+          aria-owns="downshift-9-menu"
           role="combobox"
         >
           <input
-            aria-activedescendant={null}
             aria-autocomplete="list"
-            aria-controls={null}
+            aria-controls="downshift-9-menu"
             aria-labelledby="downshift-9-label"
             autoComplete="off"
             className="form-control"
@@ -785,9 +802,20 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
-            type="tel"
+            type="text"
             value=""
           />
+          <div
+            aria-labelledby="downshift-9-label"
+            className="downshift__match-dropdown"
+            id="downshift-9-menu"
+            onMouseLeave={[Function]}
+            role="listbox"
+          >
+            <ul
+              className="downshift__matches"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -805,14 +833,12 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-labelledby="downshift-10-label"
-          aria-owns={null}
+          aria-owns="downshift-10-menu"
           role="combobox"
         >
           <input
-            aria-activedescendant={null}
             aria-autocomplete="list"
-            aria-controls={null}
+            aria-controls="downshift-10-menu"
             aria-labelledby="downshift-10-label"
             autoComplete="off"
             className="form-control"
@@ -823,6 +849,17 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
             type="text"
             value=""
           />
+          <div
+            aria-labelledby="downshift-10-label"
+            className="downshift__match-dropdown"
+            id="downshift-10-menu"
+            onMouseLeave={[Function]}
+            role="listbox"
+          >
+            <ul
+              className="downshift__matches"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -830,7 +867,7 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
 </div>
 `;
 
-exports[`Storyshots Filters/Other Filter Normal 1`] = `
+exports[`Storyshots Filters/Other Filter Empty 1`] = `
 <div
   className="filter-other container-fluid"
 >
@@ -862,7 +899,7 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
           </button>
           <button
             aria-label={null}
-            className="btn btn-warning btn-sm"
+            className="btn btn-secondary btn-sm"
             onClick={[Function]}
             type="button"
           >
@@ -900,7 +937,7 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
           </button>
           <button
             aria-label={null}
-            className="btn btn-warning btn-sm"
+            className="btn btn-secondary btn-sm"
             onClick={[Function]}
             type="button"
           >
@@ -940,41 +977,23 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
     <div
       className="form-group"
     >
+      <label
+        className=""
+      >
+        Special Supervision
+      </label>
       <div
         aria-expanded={false}
         aria-haspopup="listbox"
-        aria-labelledby="downshift-11-label"
-        aria-owns={null}
+        aria-owns="downshift-11-menu"
         role="combobox"
       >
-        <label
-          className=""
-        >
-          Special Supervision
-        </label>
-        <div
-          className="mb-3 p-3 card"
-        >
-          <div
-            className="filter-other__items-container p-0 card-body"
-          >
-            <button
-              aria-label={null}
-              className="mb-1 btn btn-outline-secondary btn-sm"
-              onClick={[Function]}
-              type="button"
-            >
-              ccc
-            </button>
-          </div>
-        </div>
         <div
           className="input-group"
         >
           <input
-            aria-activedescendant={null}
             aria-autocomplete="list"
-            aria-controls={null}
+            aria-controls="downshift-11-menu"
             aria-labelledby="downshift-11-label"
             autoComplete="off"
             className="form-control"
@@ -982,6 +1001,7 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
+            onKeyUp={[Function]}
             type="text"
             value=""
           />
@@ -989,36 +1009,25 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
             className="input-group-append"
           >
             <button
-              aria-haspopup={true}
-              aria-label="open menu"
+              aria-label={null}
               className="btn btn-secondary"
-              data-toggle={true}
-              onBlur={[Function]}
               onClick={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              role="button"
               type="button"
             >
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-chevron-up fa-w-14 fa-flip-vertical fa-xs "
-                data-icon="chevron-up"
-                data-prefix="fas"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 448 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
+              Add
             </button>
           </div>
+        </div>
+        <div
+          aria-labelledby="downshift-11-label"
+          className="downshift__match-dropdown"
+          id="downshift-11-menu"
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
         </div>
       </div>
     </div>
@@ -1029,49 +1038,23 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
     <div
       className="form-group"
     >
+      <label
+        className=""
+      >
+        Gang Name
+      </label>
       <div
         aria-expanded={false}
         aria-haspopup="listbox"
-        aria-labelledby="downshift-12-label"
-        aria-owns={null}
+        aria-owns="downshift-12-menu"
         role="combobox"
       >
-        <label
-          className=""
-        >
-          Gang Name
-        </label>
-        <div
-          className="mb-3 p-3 card"
-        >
-          <div
-            className="filter-other__items-container p-0 card-body"
-          >
-            <button
-              aria-label={null}
-              className="mb-1 btn btn-outline-secondary btn-sm"
-              onClick={[Function]}
-              type="button"
-            >
-              sureno
-            </button>
-            <button
-              aria-label={null}
-              className="mb-1 btn btn-outline-secondary btn-sm"
-              onClick={[Function]}
-              type="button"
-            >
-              crip
-            </button>
-          </div>
-        </div>
         <div
           className="input-group"
         >
           <input
-            aria-activedescendant={null}
             aria-autocomplete="list"
-            aria-controls={null}
+            aria-controls="downshift-12-menu"
             aria-labelledby="downshift-12-label"
             autoComplete="off"
             className="form-control"
@@ -1079,6 +1062,7 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
+            onKeyUp={[Function]}
             type="text"
             value=""
           />
@@ -1086,36 +1070,25 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
             className="input-group-append"
           >
             <button
-              aria-haspopup={true}
-              aria-label="open menu"
+              aria-label={null}
               className="btn btn-secondary"
-              data-toggle={true}
-              onBlur={[Function]}
               onClick={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              role="button"
               type="button"
             >
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-chevron-up fa-w-14 fa-flip-vertical fa-xs "
-                data-icon="chevron-up"
-                data-prefix="fas"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 448 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
+              Add
             </button>
           </div>
+        </div>
+        <div
+          aria-labelledby="downshift-12-label"
+          className="downshift__match-dropdown"
+          id="downshift-12-menu"
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
         </div>
       </div>
     </div>
@@ -1126,41 +1099,23 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
     <div
       className="form-group"
     >
+      <label
+        className=""
+      >
+        Offense Type
+      </label>
       <div
         aria-expanded={false}
         aria-haspopup="listbox"
-        aria-labelledby="downshift-13-label"
-        aria-owns={null}
+        aria-owns="downshift-13-menu"
         role="combobox"
       >
-        <label
-          className=""
-        >
-          Offense Type
-        </label>
-        <div
-          className="mb-3 p-3 card"
-        >
-          <div
-            className="filter-other__items-container p-0 card-body"
-          >
-            <button
-              aria-label={null}
-              className="mb-1 btn btn-outline-secondary btn-sm"
-              onClick={[Function]}
-              type="button"
-            >
-              murder
-            </button>
-          </div>
-        </div>
         <div
           className="input-group"
         >
           <input
-            aria-activedescendant={null}
             aria-autocomplete="list"
-            aria-controls={null}
+            aria-controls="downshift-13-menu"
             aria-labelledby="downshift-13-label"
             autoComplete="off"
             className="form-control"
@@ -1168,6 +1123,7 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
+            onKeyUp={[Function]}
             type="text"
             value=""
           />
@@ -1175,36 +1131,25 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
             className="input-group-append"
           >
             <button
-              aria-haspopup={true}
-              aria-label="open menu"
+              aria-label={null}
               className="btn btn-secondary"
-              data-toggle={true}
-              onBlur={[Function]}
               onClick={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              role="button"
               type="button"
             >
-              <svg
-                aria-hidden="true"
-                className="svg-inline--fa fa-chevron-up fa-w-14 fa-flip-vertical fa-xs "
-                data-icon="chevron-up"
-                data-prefix="fas"
-                focusable="false"
-                role="img"
-                style={Object {}}
-                viewBox="0 0 448 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"
-                  fill="currentColor"
-                  style={Object {}}
-                />
-              </svg>
+              Add
             </button>
           </div>
+        </div>
+        <div
+          aria-labelledby="downshift-13-label"
+          className="downshift__match-dropdown"
+          id="downshift-13-menu"
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
         </div>
       </div>
     </div>
@@ -1229,7 +1174,7 @@ exports[`Storyshots Filters/Other Filter Normal 1`] = `
         >
           <button
             aria-label={null}
-            className="btn btn-warning btn-sm"
+            className="btn btn-secondary btn-sm"
             onClick={[Function]}
             type="button"
           >
@@ -2068,346 +2013,134 @@ exports[`Storyshots Identify/Gang Information Null Gang 1`] = `null`;
 
 exports[`Storyshots Identify/Integration First Of Multiple 1`] = `
 <div
-  className="identify__container side-bar side-bar--with-border side-bar--open"
+  className="identify pt-4 container"
 >
-  <button
-    aria-label="Close"
-    className="close-button identify__close"
-    onClick={[Function]}
-    type="button"
+  <nav
+    aria-label="pagination"
+    className=""
   >
-    <span
-      aria-hidden="true"
+    <ul
+      className="justify-content-center pagination"
     >
-      ×
-    </span>
-  </button>
+      <li
+        className="justify-content-center page-item disabled"
+      >
+        <button
+          aria-label="First"
+          className="page-link"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            «
+          </span>
+          <span
+            className="sr-only"
+          >
+            First
+          </span>
+        </button>
+      </li>
+      <li
+        className="page-item disabled"
+      >
+        <button
+          aria-label="Previous"
+          className="page-link"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            ‹
+          </span>
+          <span
+            className="sr-only"
+          >
+            Previous
+          </span>
+        </button>
+      </li>
+      <li
+        className="page-item disabled"
+      >
+        <button
+          className="page-link"
+          disabled={true}
+        >
+          1 of 6
+        </button>
+      </li>
+      <li
+        className="page-item"
+      >
+        <button
+          aria-label="Next"
+          className="page-link"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            ›
+          </span>
+          <span
+            className="sr-only"
+          >
+            Next
+          </span>
+        </button>
+      </li>
+      <li
+        className="page-item"
+      >
+        <button
+          aria-label="Last"
+          className="page-link"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            »
+          </span>
+          <span
+            className="sr-only"
+          >
+            Last
+          </span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+  <h4>
+    BRAVO, MIKE SMITH
+  </h4>
   <div
-    className="identify pt-4 container"
+    className="border-bottom mb-2 pb-2 identify__row"
   >
-    <nav
-      aria-label="pagination"
-      className=""
-    >
-      <ul
-        className="justify-content-center pagination"
-      >
-        <li
-          className="justify-content-center page-item disabled"
-        >
-          <button
-            aria-label="First"
-            className="page-link"
-            disabled={true}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              «
-            </span>
-            <span
-              className="sr-only"
-            >
-              First
-            </span>
-          </button>
-        </li>
-        <li
-          className="page-item disabled"
-        >
-          <button
-            aria-label="Previous"
-            className="page-link"
-            disabled={true}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              ‹
-            </span>
-            <span
-              className="sr-only"
-            >
-              Previous
-            </span>
-          </button>
-        </li>
-        <li
-          className="page-item disabled"
-        >
-          <button
-            className="page-link"
-            disabled={true}
-          >
-            1 of 6
-          </button>
-        </li>
-        <li
-          className="page-item"
-        >
-          <button
-            aria-label="Next"
-            className="page-link"
-            disabled={false}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              ›
-            </span>
-            <span
-              className="sr-only"
-            >
-              Next
-            </span>
-          </button>
-        </li>
-        <li
-          className="page-item"
-        >
-          <button
-            aria-label="Last"
-            className="page-link"
-            disabled={false}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              »
-            </span>
-            <span
-              className="sr-only"
-            >
-              Last
-            </span>
-          </button>
-        </li>
-      </ul>
-    </nav>
-    <h4>
-      BRAVO, MIKE SMITH
-    </h4>
     <div
-      className="border-bottom mb-2 pb-2 identify__row"
-    >
-      <div
-        className="d-grid identify-grid--label-text"
-      >
-        <label
-          className="identify-grid--label-text__label font-weight-bolder text-right"
-        >
-          Number
-        </label>
-        <label
-          className="identify-grid--label-text__text"
-        >
-          10
-        </label>
-        <label
-          className="identify-grid--label-text__label font-weight-bolder text-right"
-        >
-          Agent
-        </label>
-        <label
-          className="identify-grid--label-text__text"
-        >
-          -
-        </label>
-      </div>
-      <div
-        className="d-grid identify-addon__subgrid px-3"
-      >
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          M
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          MOD
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          probation
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          no active warrant
-        </div>
-      </div>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Recent Contact
-      <small
-        className="text-muted"
-        style={
-          Object {
-            "fontSize": "1rem",
-          }
-        }
-      >
-         
-        (days since)
-      </small>
-    </h5>
-    <div
-      className="d-grid identify-grid--contacts identify__row border-bottom"
-    >
-      <div
-        className="identify-grid--contacts__item"
-      >
-        <label
-          className="font-weight-bolder"
-        >
-          Successful
-        </label>
-        <label
-          className="d-block"
-        >
-          322
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Attempted
-        </label>
-        <label
-          className="d-block"
-        >
-          10
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Office
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Contact Information
-    </h5>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
+      className="d-grid identify-grid--label-text"
     >
       <label
         className="identify-grid--label-text__label font-weight-bolder text-right"
       >
-        <a
-          href="tel: 867-5309"
-        >
-          Phone
-        </a>
+        Number
       </label>
       <label
         className="identify-grid--label-text__text"
       >
-        867-5309
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        <a
-          href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Address
-        </a>
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        OGDEN
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Since
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        unknown
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Employer
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        MUSCLE MAN
-      </label>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Primary Offense
-    </h5>
-    <div
-      className="identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--contacts__item"
-      >
-         (F3)
-      </label>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      STG
-    </h5>
-    <div
-      className="d-grid identify-grid--label-text identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Gang
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        NORTENOS
+        10
       </label>
       <label
         className="identify-grid--label-text__label font-weight-bolder text-right"
       >
-        Set
+        Agent
       </label>
       <label
         className="identify-grid--label-text__text"
@@ -2416,1040 +2149,375 @@ exports[`Storyshots Identify/Integration First Of Multiple 1`] = `
       </label>
     </div>
     <div
-      className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+      className="d-grid identify-addon__subgrid px-3"
     >
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Supervision Start
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          ECC Date
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-    </div>
-    <div
-      className="identify__row text-center pt-5 pb-3"
-    >
-      <button
-        aria-label={null}
-        className="btn btn-primary"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="d-flex identify__addon-item pl-1"
       >
-        Close
-      </button>
+        M
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        MOD
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        probation
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        no active warrant
+      </div>
     </div>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Recent Contact
+    <small
+      className="text-muted"
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+    >
+       
+      (days since)
+    </small>
+  </h5>
+  <div
+    className="d-grid identify-grid--contacts identify__row border-bottom"
+  >
+    <div
+      className="identify-grid--contacts__item"
+    >
+      <label
+        className="font-weight-bolder"
+      >
+        Successful
+      </label>
+      <label
+        className="d-block"
+      >
+        322
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Attempted
+      </label>
+      <label
+        className="d-block"
+      >
+        10
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Office
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 867-5309"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      867-5309
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      OGDEN
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unknown
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      MUSCLE MAN
+    </label>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Primary Offense
+  </h5>
+  <div
+    className="identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--contacts__item"
+    >
+       (F3)
+    </label>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    STG
+  </h5>
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Gang
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      NORTENOS
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Set
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      -
+    </label>
+  </div>
+  <div
+    className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+  >
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Supervision Start
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        ECC Date
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+  </div>
+  <div
+    className="identify__row text-center pt-5 pb-3"
+  >
+    <button
+      aria-label={null}
+      className="btn btn-primary"
+      onClick={[Function]}
+      type="button"
+    >
+      Close
+    </button>
   </div>
 </div>
 `;
 
 exports[`Storyshots Identify/Integration Last Of Multiple 1`] = `
 <div
-  className="identify__container side-bar side-bar--with-border side-bar--open"
+  className="identify pt-4 container"
 >
-  <button
-    aria-label="Close"
-    className="close-button identify__close"
-    onClick={[Function]}
-    type="button"
+  <nav
+    aria-label="pagination"
+    className=""
   >
-    <span
-      aria-hidden="true"
+    <ul
+      className="justify-content-center pagination"
     >
-      ×
-    </span>
-  </button>
+      <li
+        className="justify-content-center page-item"
+      >
+        <button
+          aria-label="First"
+          className="page-link"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            «
+          </span>
+          <span
+            className="sr-only"
+          >
+            First
+          </span>
+        </button>
+      </li>
+      <li
+        className="page-item"
+      >
+        <button
+          aria-label="Previous"
+          className="page-link"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            ‹
+          </span>
+          <span
+            className="sr-only"
+          >
+            Previous
+          </span>
+        </button>
+      </li>
+      <li
+        className="page-item disabled"
+      >
+        <button
+          className="page-link"
+          disabled={true}
+        >
+          6 of 6
+        </button>
+      </li>
+      <li
+        className="page-item disabled"
+      >
+        <button
+          aria-label="Next"
+          className="page-link"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            ›
+          </span>
+          <span
+            className="sr-only"
+          >
+            Next
+          </span>
+        </button>
+      </li>
+      <li
+        className="page-item disabled"
+      >
+        <button
+          aria-label="Last"
+          className="page-link"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            »
+          </span>
+          <span
+            className="sr-only"
+          >
+            Last
+          </span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+  <h4>
+    ALPHA, SUSAN SMITH
+  </h4>
   <div
-    className="identify pt-4 container"
+    className="border-bottom mb-2 pb-2 identify__row"
   >
-    <nav
-      aria-label="pagination"
-      className=""
-    >
-      <ul
-        className="justify-content-center pagination"
-      >
-        <li
-          className="justify-content-center page-item"
-        >
-          <button
-            aria-label="First"
-            className="page-link"
-            disabled={false}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              «
-            </span>
-            <span
-              className="sr-only"
-            >
-              First
-            </span>
-          </button>
-        </li>
-        <li
-          className="page-item"
-        >
-          <button
-            aria-label="Previous"
-            className="page-link"
-            disabled={false}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              ‹
-            </span>
-            <span
-              className="sr-only"
-            >
-              Previous
-            </span>
-          </button>
-        </li>
-        <li
-          className="page-item disabled"
-        >
-          <button
-            className="page-link"
-            disabled={true}
-          >
-            6 of 6
-          </button>
-        </li>
-        <li
-          className="page-item disabled"
-        >
-          <button
-            aria-label="Next"
-            className="page-link"
-            disabled={true}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              ›
-            </span>
-            <span
-              className="sr-only"
-            >
-              Next
-            </span>
-          </button>
-        </li>
-        <li
-          className="page-item disabled"
-        >
-          <button
-            aria-label="Last"
-            className="page-link"
-            disabled={true}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              »
-            </span>
-            <span
-              className="sr-only"
-            >
-              Last
-            </span>
-          </button>
-        </li>
-      </ul>
-    </nav>
-    <h4>
-      ALPHA, SUSAN SMITH
-    </h4>
     <div
-      className="border-bottom mb-2 pb-2 identify__row"
-    >
-      <div
-        className="d-grid identify-grid--label-text"
-      >
-        <label
-          className="identify-grid--label-text__label font-weight-bolder text-right"
-        >
-          Number
-        </label>
-        <label
-          className="identify-grid--label-text__text"
-        >
-          15
-        </label>
-        <label
-          className="identify-grid--label-text__label font-weight-bolder text-right"
-        >
-          Agent
-        </label>
-        <label
-          className="identify-grid--label-text__text"
-        >
-          -
-        </label>
-      </div>
-      <div
-        className="d-grid identify-addon__subgrid px-3"
-      >
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          M
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          MOD
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          probation
-        </div>
-        <div
-          className="identify__addon-item--danger d-flex identify__addon-item pl-1"
-        >
-          active warrant
-        </div>
-      </div>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Recent Contact
-      <small
-        className="text-muted"
-        style={
-          Object {
-            "fontSize": "1rem",
-          }
-        }
-      >
-         
-        (days since)
-      </small>
-    </h5>
-    <div
-      className="d-grid identify-grid--contacts identify__row border-bottom"
-    >
-      <div
-        className="identify-grid--contacts__item"
-      >
-        <label
-          className="font-weight-bolder"
-        >
-          Successful
-        </label>
-        <label
-          className="d-block"
-        >
-          25
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Attempted
-        </label>
-        <label
-          className="d-block"
-        >
-          10
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Office
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Contact Information
-    </h5>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
+      className="d-grid identify-grid--label-text"
     >
       <label
         className="identify-grid--label-text__label font-weight-bolder text-right"
       >
-        <a
-          href="tel: 867-5309"
-        >
-          Phone
-        </a>
+        Number
       </label>
       <label
         className="identify-grid--label-text__text"
       >
-        867-5309
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        <a
-          href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Address
-        </a>
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        OGDEN
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Since
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        unknown
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Employer
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        unemployed or unknown
-      </label>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Primary Offense
-    </h5>
-    <div
-      className="identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--contacts__item"
-      >
-         (F3)
-      </label>
-    </div>
-    <div
-      className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
-    >
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Supervision Start
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          ECC Date
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-    </div>
-    <div
-      className="identify__row text-center pt-5 pb-3"
-    >
-      <button
-        aria-label={null}
-        className="btn btn-primary"
-        onClick={[Function]}
-        type="button"
-      >
-        Close
-      </button>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Identify/Integration Middle Of Multiple 1`] = `
-<div
-  className="identify__container side-bar side-bar--with-border side-bar--open"
->
-  <button
-    aria-label="Close"
-    className="close-button identify__close"
-    onClick={[Function]}
-    type="button"
-  >
-    <span
-      aria-hidden="true"
-    >
-      ×
-    </span>
-  </button>
-  <div
-    className="identify pt-4 container"
-  >
-    <nav
-      aria-label="pagination"
-      className=""
-    >
-      <ul
-        className="justify-content-center pagination"
-      >
-        <li
-          className="justify-content-center page-item"
-        >
-          <button
-            aria-label="First"
-            className="page-link"
-            disabled={false}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              «
-            </span>
-            <span
-              className="sr-only"
-            >
-              First
-            </span>
-          </button>
-        </li>
-        <li
-          className="page-item"
-        >
-          <button
-            aria-label="Previous"
-            className="page-link"
-            disabled={false}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              ‹
-            </span>
-            <span
-              className="sr-only"
-            >
-              Previous
-            </span>
-          </button>
-        </li>
-        <li
-          className="page-item disabled"
-        >
-          <button
-            className="page-link"
-            disabled={true}
-          >
-            4 of 6
-          </button>
-        </li>
-        <li
-          className="page-item"
-        >
-          <button
-            aria-label="Next"
-            className="page-link"
-            disabled={false}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              ›
-            </span>
-            <span
-              className="sr-only"
-            >
-              Next
-            </span>
-          </button>
-        </li>
-        <li
-          className="page-item"
-        >
-          <button
-            aria-label="Last"
-            className="page-link"
-            disabled={false}
-            onClick={[Function]}
-          >
-            <span
-              aria-hidden="true"
-            >
-              »
-            </span>
-            <span
-              className="sr-only"
-            >
-              Last
-            </span>
-          </button>
-        </li>
-      </ul>
-    </nav>
-    <h4>
-      ALPHA, SUSAN SMITH
-    </h4>
-    <div
-      className="border-bottom mb-2 pb-2 identify__row"
-    >
-      <div
-        className="d-grid identify-grid--label-text"
-      >
-        <label
-          className="identify-grid--label-text__label font-weight-bolder text-right"
-        >
-          Number
-        </label>
-        <label
-          className="identify-grid--label-text__text"
-        >
-          13
-        </label>
-        <label
-          className="identify-grid--label-text__label font-weight-bolder text-right"
-        >
-          Agent
-        </label>
-        <label
-          className="identify-grid--label-text__text"
-        >
-          -
-        </label>
-      </div>
-      <div
-        className="d-grid identify-addon__subgrid px-3"
-      >
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          M
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          MOD
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          probation
-        </div>
-        <div
-          className="identify__addon-item--danger d-flex identify__addon-item pl-1"
-        >
-          active warrant
-        </div>
-      </div>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Recent Contact
-      <small
-        className="text-muted"
-        style={
-          Object {
-            "fontSize": "1rem",
-          }
-        }
-      >
-         
-        (days since)
-      </small>
-    </h5>
-    <div
-      className="d-grid identify-grid--contacts identify__row border-bottom"
-    >
-      <div
-        className="identify-grid--contacts__item"
-      >
-        <label
-          className="font-weight-bolder"
-        >
-          Successful
-        </label>
-        <label
-          className="d-block"
-        >
-          25
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Attempted
-        </label>
-        <label
-          className="d-block"
-        >
-          10
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Office
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Contact Information
-    </h5>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        <a
-          href="tel: 867-5309"
-        >
-          Phone
-        </a>
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        867-5309
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        <a
-          href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Address
-        </a>
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        OGDEN
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Since
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        unknown
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Employer
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        unemployed or unknown
-      </label>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Primary Offense
-    </h5>
-    <div
-      className="identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--contacts__item"
-      >
-         (F3)
-      </label>
-    </div>
-    <div
-      className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
-    >
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Supervision Start
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          ECC Date
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-    </div>
-    <div
-      className="identify__row text-center pt-5 pb-3"
-    >
-      <button
-        aria-label={null}
-        className="btn btn-primary"
-        onClick={[Function]}
-        type="button"
-      >
-        Close
-      </button>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Identify/Integration No Features 1`] = `
-<div
-  className="identify__container side-bar side-bar--with-border side-bar--open"
->
-  <button
-    aria-label="Close"
-    className="close-button identify__close"
-    onClick={[Function]}
-    type="button"
-  >
-    <span
-      aria-hidden="true"
-    >
-      ×
-    </span>
-  </button>
-  <div
-    className="identify pt-4 container"
-  >
-    No offenders at click location
-  </div>
-</div>
-`;
-
-exports[`Storyshots Identify/Integration Single Feature 1`] = `
-<div
-  className="identify__container side-bar side-bar--with-border side-bar--open"
->
-  <button
-    aria-label="Close"
-    className="close-button identify__close"
-    onClick={[Function]}
-    type="button"
-  >
-    <span
-      aria-hidden="true"
-    >
-      ×
-    </span>
-  </button>
-  <div
-    className="identify pt-4 container"
-  >
-    <h4>
-      BRAVO, MIKE SMITH
-    </h4>
-    <div
-      className="border-bottom mb-2 pb-2 identify__row"
-    >
-      <div
-        className="d-grid identify-grid--label-text"
-      >
-        <label
-          className="identify-grid--label-text__label font-weight-bolder text-right"
-        >
-          Number
-        </label>
-        <label
-          className="identify-grid--label-text__text"
-        >
-          10
-        </label>
-        <label
-          className="identify-grid--label-text__label font-weight-bolder text-right"
-        >
-          Agent
-        </label>
-        <label
-          className="identify-grid--label-text__text"
-        >
-          -
-        </label>
-      </div>
-      <div
-        className="d-grid identify-addon__subgrid px-3"
-      >
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          M
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          MOD
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          probation
-        </div>
-        <div
-          className="d-flex identify__addon-item pl-1"
-        >
-          no active warrant
-        </div>
-      </div>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Recent Contact
-      <small
-        className="text-muted"
-        style={
-          Object {
-            "fontSize": "1rem",
-          }
-        }
-      >
-         
-        (days since)
-      </small>
-    </h5>
-    <div
-      className="d-grid identify-grid--contacts identify__row border-bottom"
-    >
-      <div
-        className="identify-grid--contacts__item"
-      >
-        <label
-          className="font-weight-bolder"
-        >
-          Successful
-        </label>
-        <label
-          className="d-block"
-        >
-          322
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Attempted
-        </label>
-        <label
-          className="d-block"
-        >
-          10
-        </label>
-      </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Office
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
-      </div>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Contact Information
-    </h5>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        <a
-          href="tel: 867-5309"
-        >
-          Phone
-        </a>
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        867-5309
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        <a
-          href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Address
-        </a>
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        OGDEN
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Since
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        unknown
-      </label>
-    </div>
-    <div
-      className="d-grid identify-grid--label-text identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Employer
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        MUSCLE MAN
-      </label>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      Primary Offense
-    </h5>
-    <div
-      className="identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--contacts__item"
-      >
-         (F3)
-      </label>
-    </div>
-    <h5
-      className="mt-2"
-    >
-      STG
-    </h5>
-    <div
-      className="d-grid identify-grid--label-text identify__row border-bottom"
-    >
-      <label
-        className="identify-grid--label-text__label font-weight-bolder text-right"
-      >
-        Gang
-      </label>
-      <label
-        className="identify-grid--label-text__text"
-      >
-        NORTENOS
+        15
       </label>
       <label
         className="identify-grid--label-text__label font-weight-bolder text-right"
       >
-        Set
+        Agent
       </label>
       <label
         className="identify-grid--label-text__text"
@@ -3458,45 +2526,842 @@ exports[`Storyshots Identify/Integration Single Feature 1`] = `
       </label>
     </div>
     <div
-      className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+      className="d-grid identify-addon__subgrid px-3"
     >
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          Supervision Start
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        M
       </div>
-      <div>
-        <label
-          className="font-weight-bolder"
-        >
-          ECC Date
-        </label>
-        <label
-          className="d-block"
-        >
-          -
-        </label>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        MOD
       </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        probation
+      </div>
+      <div
+        className="identify__addon-item--danger d-flex identify__addon-item pl-1"
+      >
+        active warrant
+      </div>
+    </div>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Recent Contact
+    <small
+      className="text-muted"
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+    >
+       
+      (days since)
+    </small>
+  </h5>
+  <div
+    className="d-grid identify-grid--contacts identify__row border-bottom"
+  >
+    <div
+      className="identify-grid--contacts__item"
+    >
+      <label
+        className="font-weight-bolder"
+      >
+        Successful
+      </label>
+      <label
+        className="d-block"
+      >
+        25
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Attempted
+      </label>
+      <label
+        className="d-block"
+      >
+        10
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Office
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 867-5309"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      867-5309
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      OGDEN
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unknown
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unemployed or unknown
+    </label>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Primary Offense
+  </h5>
+  <div
+    className="identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--contacts__item"
+    >
+       (F3)
+    </label>
+  </div>
+  <div
+    className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+  >
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Supervision Start
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        ECC Date
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+  </div>
+  <div
+    className="identify__row text-center pt-5 pb-3"
+  >
+    <button
+      aria-label={null}
+      className="btn btn-primary"
+      onClick={[Function]}
+      type="button"
+    >
+      Close
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Integration Middle Of Multiple 1`] = `
+<div
+  className="identify pt-4 container"
+>
+  <nav
+    aria-label="pagination"
+    className=""
+  >
+    <ul
+      className="justify-content-center pagination"
+    >
+      <li
+        className="justify-content-center page-item"
+      >
+        <button
+          aria-label="First"
+          className="page-link"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            «
+          </span>
+          <span
+            className="sr-only"
+          >
+            First
+          </span>
+        </button>
+      </li>
+      <li
+        className="page-item"
+      >
+        <button
+          aria-label="Previous"
+          className="page-link"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            ‹
+          </span>
+          <span
+            className="sr-only"
+          >
+            Previous
+          </span>
+        </button>
+      </li>
+      <li
+        className="page-item disabled"
+      >
+        <button
+          className="page-link"
+          disabled={true}
+        >
+          4 of 6
+        </button>
+      </li>
+      <li
+        className="page-item"
+      >
+        <button
+          aria-label="Next"
+          className="page-link"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            ›
+          </span>
+          <span
+            className="sr-only"
+          >
+            Next
+          </span>
+        </button>
+      </li>
+      <li
+        className="page-item"
+      >
+        <button
+          aria-label="Last"
+          className="page-link"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden="true"
+          >
+            »
+          </span>
+          <span
+            className="sr-only"
+          >
+            Last
+          </span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+  <h4>
+    ALPHA, SUSAN SMITH
+  </h4>
+  <div
+    className="border-bottom mb-2 pb-2 identify__row"
+  >
+    <div
+      className="d-grid identify-grid--label-text"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Number
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        13
+      </label>
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Agent
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        -
+      </label>
     </div>
     <div
-      className="identify__row text-center pt-5 pb-3"
+      className="d-grid identify-addon__subgrid px-3"
     >
-      <button
-        aria-label={null}
-        className="btn btn-primary"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="d-flex identify__addon-item pl-1"
       >
-        Close
-      </button>
+        M
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        MOD
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        probation
+      </div>
+      <div
+        className="identify__addon-item--danger d-flex identify__addon-item pl-1"
+      >
+        active warrant
+      </div>
     </div>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Recent Contact
+    <small
+      className="text-muted"
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+    >
+       
+      (days since)
+    </small>
+  </h5>
+  <div
+    className="d-grid identify-grid--contacts identify__row border-bottom"
+  >
+    <div
+      className="identify-grid--contacts__item"
+    >
+      <label
+        className="font-weight-bolder"
+      >
+        Successful
+      </label>
+      <label
+        className="d-block"
+      >
+        25
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Attempted
+      </label>
+      <label
+        className="d-block"
+      >
+        10
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Office
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 867-5309"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      867-5309
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      OGDEN
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unknown
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unemployed or unknown
+    </label>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Primary Offense
+  </h5>
+  <div
+    className="identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--contacts__item"
+    >
+       (F3)
+    </label>
+  </div>
+  <div
+    className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+  >
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Supervision Start
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        ECC Date
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+  </div>
+  <div
+    className="identify__row text-center pt-5 pb-3"
+  >
+    <button
+      aria-label={null}
+      className="btn btn-primary"
+      onClick={[Function]}
+      type="button"
+    >
+      Close
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Identify/Integration No Features 1`] = `
+<div
+  className="identify pt-4 container"
+>
+  No offenders at click location
+</div>
+`;
+
+exports[`Storyshots Identify/Integration Single Feature 1`] = `
+<div
+  className="identify pt-4 container"
+>
+  <h4>
+    BRAVO, MIKE SMITH
+  </h4>
+  <div
+    className="border-bottom mb-2 pb-2 identify__row"
+  >
+    <div
+      className="d-grid identify-grid--label-text"
+    >
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Number
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        10
+      </label>
+      <label
+        className="identify-grid--label-text__label font-weight-bolder text-right"
+      >
+        Agent
+      </label>
+      <label
+        className="identify-grid--label-text__text"
+      >
+        -
+      </label>
+    </div>
+    <div
+      className="d-grid identify-addon__subgrid px-3"
+    >
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        M
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        MOD
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        probation
+      </div>
+      <div
+        className="d-flex identify__addon-item pl-1"
+      >
+        no active warrant
+      </div>
+    </div>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Recent Contact
+    <small
+      className="text-muted"
+      style={
+        Object {
+          "fontSize": "1rem",
+        }
+      }
+    >
+       
+      (days since)
+    </small>
+  </h5>
+  <div
+    className="d-grid identify-grid--contacts identify__row border-bottom"
+  >
+    <div
+      className="identify-grid--contacts__item"
+    >
+      <label
+        className="font-weight-bolder"
+      >
+        Successful
+      </label>
+      <label
+        className="d-block"
+      >
+        322
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Attempted
+      </label>
+      <label
+        className="d-block"
+      >
+        10
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Office
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Contact Information
+  </h5>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="tel: 867-5309"
+      >
+        Phone
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      867-5309
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      <a
+        href="https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=OGDEN"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Address
+      </a>
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      OGDEN
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Since
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      unknown
+    </label>
+  </div>
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Employer
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      MUSCLE MAN
+    </label>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    Primary Offense
+  </h5>
+  <div
+    className="identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--contacts__item"
+    >
+       (F3)
+    </label>
+  </div>
+  <h5
+    className="mt-2"
+  >
+    STG
+  </h5>
+  <div
+    className="d-grid identify-grid--label-text identify__row border-bottom"
+  >
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Gang
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      NORTENOS
+    </label>
+    <label
+      className="identify-grid--label-text__label font-weight-bolder text-right"
+    >
+      Set
+    </label>
+    <label
+      className="identify-grid--label-text__text"
+    >
+      -
+    </label>
+  </div>
+  <div
+    className="identify-grid--contacts identify__row identify__items-container px-3 mt-3"
+  >
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        Supervision Start
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+    <div>
+      <label
+        className="font-weight-bolder"
+      >
+        ECC Date
+      </label>
+      <label
+        className="d-block"
+      >
+        -
+      </label>
+    </div>
+  </div>
+  <div
+    className="identify__row text-center pt-5 pb-3"
+  >
+    <button
+      aria-label={null}
+      className="btn btn-primary"
+      onClick={[Function]}
+      type="button"
+    >
+      Close
+    </button>
   </div>
 </div>
 `;
