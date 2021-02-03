@@ -233,21 +233,53 @@ const filterReducer = (draft, action) => {
       return;
     }
     case 'UPDATE_OTHER': {
-      const removable = ['supervision', 'gang', 'offense'];
+      switch (action.meta) {
+        case 'supervision':
+        case 'gang':
+        case 'offense': {
+          draft.other[action.meta] = addOrRemove(draft.other[action.meta], action.payload.value, action.payload.add);
 
-      if (removable.includes(action.meta)) {
-        draft.other[action.meta] = addOrRemove(draft.other[action.meta], action.payload.value, action.payload.add);
-      } else {
-        draft.other[action.meta] = action.payload;
+          break;
+        }
+        case 'sos': {
+          let add = true;
+          if (draft.other.sos.includes(action.payload)) {
+            add = false;
+          }
+
+          draft.other.sos = addOrRemove(draft.other.sos, action.payload, add);
+
+          break;
+        }
+        default: {
+          draft.other[action.meta] = action.payload;
+        }
       }
 
       return;
     }
     case 'UPDATE_LOCATION': {
-      if (action.meta === 'counties') {
-        draft.location[action.meta] = addOrRemove(draft.location[action.meta], action.payload.item, action.payload.add);
-      } else {
-        draft.location[action.meta] = action.payload;
+      switch (action.meta) {
+        case 'counties': {
+          draft.location[action.meta] = addOrRemove(
+            draft.location[action.meta],
+            action.payload.item,
+            action.payload.add
+          );
+          break;
+        }
+        case 'region': {
+          let add = true;
+          if (draft.location.region.includes(action.payload)) {
+            add = false;
+          }
+
+          draft.location.region = addOrRemove(draft.location.region, action.payload, add);
+          break;
+        }
+        default: {
+          draft.location[action.meta] = action.payload;
+        }
       }
 
       return;
