@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { AuthenticatorContext } from '../api-authorization/AuthorizeRoute';
 import { IdentifyInformation } from './Identify';
 
 const features = [
@@ -31,17 +30,6 @@ const features = [
 it('renders without crashing', () => {
   const div = document.createElement('div');
 
-  ReactDOM.render(
-    <AuthenticatorContext.Provider
-      value={{
-        user: {
-          access_token: 'testing',
-        },
-      }}
-    >
-      <IdentifyInformation features={features} offender={features[0]} />
-    </AuthenticatorContext.Provider>,
-    div
-  );
+  ReactDOM.render(<IdentifyInformation features={features} offender={features[0]} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
