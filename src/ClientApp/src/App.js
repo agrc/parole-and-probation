@@ -1,7 +1,9 @@
 import isEqual from 'lodash.isequal';
 import * as React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useImmerReducer } from 'use-immer';
 import './App.css';
+import { FallbackComponent } from './components/ErrorBoundary';
 import MapView from './components/esrijs/MapView';
 import { Filters } from './components/Filters';
 import Header from './components/Header';
@@ -188,15 +190,17 @@ export default function App() {
         ) : null}
         <Sidebar {...sidebarOptions}>
           {user ? (
-            <Filters
-              mapDispatcher={dispatcher}
-              loggedInUser={{
-                value: user.name,
-                id: parseInt(user.id),
-              }}
-              appliedFilter={app.appliedFilter}
-              featureSet={app.featureSet}
-            />
+            <ErrorBoundary FallbackComponent={FallbackComponent}>
+              <Filters
+                mapDispatcher={dispatcher}
+                loggedInUser={{
+                  value: user.name,
+                  id: parseInt(user.id),
+                }}
+                appliedFilter={app.appliedFilter}
+                featureSet={app.featureSet}
+              />
+            </ErrorBoundary>
           ) : null}
         </Sidebar>
         <MapLens {...sidebarOptions}>
