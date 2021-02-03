@@ -1,5 +1,5 @@
 import { useCombobox } from 'downshift';
-import { startCase } from 'lodash/string';
+import { capitalize } from 'lodash/string';
 import * as React from 'react';
 import { Button, Card, CardBody, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
@@ -9,7 +9,8 @@ const defaultItemToString = (item, titleCaseItem, itemToString) => {
   }
 
   if (titleCaseItem) {
-    return startCase(itemToString(item).toLowerCase());
+    // startCase removed symbols like commas...
+    return itemToString(item).toLowerCase().replace(/\w+/g, capitalize);
   }
 
   return itemToString(item);
@@ -153,32 +154,72 @@ export function MultiSelect({
   );
 }
 
-export function Dropdown({
+export function InputTypeAhead({
   featureSet,
   titleCaseItem = true,
   itemToString = returnItem,
+  itemToSortValue = returnItem,
   itemToKey = returnItem,
   reducerDescriptor,
   dispatch,
 }) {
   const [inputValue, setInputValue] = React.useState('');
+  const [sortedItems, setSortedItems] = React.useState(featureSet?.features);
+
   const onSelectItem = (item) => {
     dispatch({
       type: reducerDescriptor.type,
-      meta: {
-        downshift: true,
-        field: reducerDescriptor.field,
-      },
+      meta: reducerDescriptor.field,
       payload: itemToString(item),
     });
   };
-  const getFilteredItems = (filterItems) => {
-    return filterItems.filter((item) => {
-      const matchesWithInput = itemToString(item).toLowerCase().startsWith(inputValue.toLowerCase());
 
-      return matchesWithInput;
-    });
+  const getFilteredItems = (inputItems) => {
+    const items = [];
+    const uniques = new Set();
+
+    if (inputValue.trim().length === 0) {
+      return items;
+    }
+
+    for (let i = 0; i < inputItems.length; i++) {
+      const item = inputItems[i];
+      const value = itemToString(item);
+
+      if (value.toLowerCase().startsWith(inputValue.toLowerCase())) {
+        if (!uniques.has(value)) {
+          items.push(item);
+        }
+        uniques.add(value);
+      }
+
+      if (items.length === 15) {
+        return items;
+      }
+    }
+
+    return items;
   };
+
+  const sortFunction = React.useCallback(
+    (itemA, itemB) => {
+      const a = itemToSortValue(itemA);
+      const b = itemToSortValue(itemB);
+
+      if (a > b) {
+        return 1;
+      } else if (a < b) {
+        return -1;
+      }
+
+      return 0;
+    },
+    [itemToSortValue]
+  );
+
+  React.useEffect(() => {
+    setSortedItems(featureSet?.features?.sort(sortFunction));
+  }, [featureSet, sortFunction]);
 
   const {
     isOpen,
@@ -190,22 +231,21 @@ export function Dropdown({
     selectItem,
   } = useCombobox({
     inputValue,
-    items: getFilteredItems(featureSet.features),
+    items: getFilteredItems(sortedItems),
     itemToString: itemToString,
     defaultHighlightedIndex: 0,
-    onStateChange: ({ inputValue, type, selectedItem }) => {
+    onStateChange: ({ inputValue: newInputValue, type, selectedItem }) => {
       switch (type) {
         case useCombobox.stateChangeTypes.InputChange:
-          setInputValue(inputValue);
-
-          break;
-        case useCombobox.stateChangeTypes.ItemClick:
-        case useCombobox.stateChangeTypes.InputBlur:
-          if (selectedItem) {
-            setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
+          setInputValue(newInputValue);
+          if (newInputValue.trim().length === 0) {
+            onSelectItem(null);
+            selectItem(null);
           }
 
           break;
+        case useCombobox.stateChangeTypes.InputBlur:
+        case useCombobox.stateChangeTypes.ItemClick:
         case useCombobox.stateChangeTypes.InputKeyDownEnter:
           if (selectedItem) {
             setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
@@ -227,7 +267,7 @@ export function Dropdown({
       <div className="downshift__match-dropdown" {...getMenuProps()}>
         <ul className="downshift__matches">
           {isOpen &&
-            getFilteredItems(featureSet.features).map((item, index) => (
+            getFilteredItems(sortedItems).map((item, index) => (
               <li
                 {...getItemProps({
                   item,
