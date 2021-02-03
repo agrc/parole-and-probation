@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useImmerReducer } from 'use-immer';
 import AccordionPane from '../AccordionPane';
+import { FallbackComponent } from '../ErrorBoundary';
 import FilterActions from './FilterActions';
 import FilterAgent from './FilterAgent';
 import FilterDate from './FilterDate';
@@ -364,24 +366,34 @@ const Filters = (props) => {
   return (
     <>
       <AccordionPane title={countActiveFilters('Agent', criteria.agent)} open className="mb-1">
-        <FilterAgent data={{ agents, supervisors }} criteria={criteria.agent} update={dispatcher} />
+        <ErrorBoundary FallbackComponent={FallbackComponent}>
+          <FilterAgent data={{ agents, supervisors }} criteria={criteria.agent} update={dispatcher} />
+        </ErrorBoundary>
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Offender', criteria.offender)} className="mb-1">
-        <FilterOffender
-          featureSet={props.featureSet}
-          downshift={criteria.downshift}
-          criteria={criteria.offender}
-          update={dispatcher}
-        />
+        <ErrorBoundary FallbackComponent={FallbackComponent}>
+          <FilterOffender
+            featureSet={props.featureSet}
+            downshift={criteria.downshift}
+            criteria={criteria.offender}
+            update={dispatcher}
+          />
+        </ErrorBoundary>
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
-        <FilterLocation criteria={criteria.location} update={dispatcher} />
+        <ErrorBoundary FallbackComponent={FallbackComponent}>
+          <FilterLocation criteria={criteria.location} update={dispatcher} />
+        </ErrorBoundary>
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Supervision Contact', criteria.date)} className="mb-1">
-        <FilterDate criteria={criteria.date} update={dispatcher} />
+        <ErrorBoundary FallbackComponent={FallbackComponent}>
+          <FilterDate criteria={criteria.date} update={dispatcher} />
+        </ErrorBoundary>
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Other', criteria.other)}>
-        <FilterOther criteria={criteria.other} update={dispatcher} />
+        <ErrorBoundary FallbackComponent={FallbackComponent}>
+          <FilterOther criteria={criteria.other} update={dispatcher} />
+        </ErrorBoundary>
       </AccordionPane>
       <FilterActions reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })} />
     </>
