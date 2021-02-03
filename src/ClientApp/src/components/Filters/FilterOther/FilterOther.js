@@ -137,16 +137,16 @@ export default function FilterOther(props) {
             titleCaseItem={false}
             onSelectItem={(item) => update('offense', itemToKey(item), true)}
           />
-          {props.criteria.offense.length > 0 ? (
-            <FormGroup>
-              <SelectedItems
-                items={props.criteria.offense}
-                titleCaseItem={false}
-                clickHandler={(event) => update('offense', event.target.id, false)}
-              />
-            </FormGroup>
-          ) : null}
         </FormGroup>
+        {props.criteria.offense.length > 0 ? (
+          <FormGroup>
+            <SelectedItems
+              items={props.criteria.offense}
+              titleCaseItem={false}
+              clickHandler={(event) => update('offense', event.target.id, false)}
+            />
+          </FormGroup>
+        ) : null}
       </Col>
       <Col>
         <FormGroup>
