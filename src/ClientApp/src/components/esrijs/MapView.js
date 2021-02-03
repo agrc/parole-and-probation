@@ -121,6 +121,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
       console.log(`MapView::identify callback`);
 
+      // don't continue if this is a stand-alone graphic
+      // e.g. from dart-board
       const test = await view.hitTest(where);
 
       if (test.results.length) {
