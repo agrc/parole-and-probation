@@ -1,4 +1,3 @@
-import produce from 'immer';
 import * as React from 'react';
 import { Button, ButtonGroup, Col, Container, FormGroup, Label } from 'reactstrap';
 import { MultiSelect, SelectedItems } from '../../Combobox';
@@ -63,19 +62,7 @@ export default function FilterOther(props) {
                   key={index}
                   size="sm"
                   color={props.criteria.sos.indexOf(sos) > -1 ? 'warning' : 'secondary'}
-                  onClick={() => {
-                    const payload = produce(props.criteria.sos, (draft) => {
-                      const index = draft.indexOf(sos);
-
-                      if (index === -1) {
-                        draft.splice(0, 0, sos);
-                      } else {
-                        draft.splice(index, 1);
-                      }
-                    });
-
-                    props.update({ type, payload, meta: 'sos' });
-                  }}
+                  onClick={() => props.update({ type, payload: sos, meta: 'sos' })}
                 >
                   {sos}
                 </Button>
