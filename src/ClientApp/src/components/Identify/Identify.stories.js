@@ -1,8 +1,7 @@
 import fetchMock from 'fetch-mock';
 import * as React from 'react';
-import { AuthenticatorContext } from '../api-authorization/AuthorizeRoute';
 import '../Sidebar/Sidebar.css';
-import { IdentifyContainer, IdentifyInformation } from './Identify';
+import { IdentifyInformation } from './Identify';
 
 const features = [
   {
@@ -193,21 +192,7 @@ fetchMock.mock('path:/mapserver/0/query', {
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Identify/Integration',
-  decorators: [
-    (Story) => (
-      <IdentifyContainer>
-        <AuthenticatorContext.Provider
-          value={{
-            user: {
-              access_token: 'testing',
-            },
-          }}
-        >
-          {Story()}
-        </AuthenticatorContext.Provider>
-      </IdentifyContainer>
-    ),
-  ],
+  component: IdentifyInformation,
 };
 
 export const NoFeatures = () => (
