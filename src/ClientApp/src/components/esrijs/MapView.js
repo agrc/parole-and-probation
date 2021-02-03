@@ -15,6 +15,7 @@ import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import { saveAs } from 'file-saver';
 import * as React from 'react';
 import { fields } from '../../config';
+import useViewLoading from '../../useViewLoading';
 import CsvDownload from '../CsvDownload';
 import HomeButton from '../DefaultExtent';
 import Geolocation from '../Geolocation';
@@ -59,6 +60,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   const [appliedFilter, setAppliedFilter] = React.useState('');
   const [offenders, setOffenders] = React.useState(null);
   const clickEvent = React.useRef(null);
+  const offenderLayerView = React.useRef(null);
+  const mapIsLoading = useViewLoading(view);
 
   const setFilters = React.useCallback(
     async (where, isFilter) => {
@@ -86,7 +89,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       // give the layerView a chance to start updating...
       whenTrueOnce(layerView, 'updating', () => {
         whenFalseOnce(layerView, 'updating', async () => {
-          const result = await offenders.queryExtent();
+          const result = await layerView.queryExtent();
 
           console.log('MapView:setFilters setting map extent', result);
 
@@ -217,7 +220,27 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     setOffenders(offenderLayer);
 
     localSetView(mapView);
+
+    mapView.whenLayerView(offenderLayer).then((layerView) => {
+      offenderLayerView.current = layerView;
+    });
   }, [mapDispatcher]);
+
+  React.useEffect(() => {
+    const getFeatureSet = async () => {
+      const featureSet = await offenderLayerView.current.queryFeatures();
+
+      mapDispatcher({
+        type: 'SET_FEATURE_SET',
+        payload: featureSet,
+      });
+    };
+
+    if (!mapIsLoading && offenderLayerView.current) {
+      getFeatureSet();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapIsLoading]);
 
   // apply filters to map view effect
   React.useEffect(() => {

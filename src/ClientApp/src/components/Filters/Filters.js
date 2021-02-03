@@ -18,14 +18,14 @@ const vanityCheck = (agentList, loggedInUser) => {
   return agents.some((item) => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
 };
 
-const addOrRemove = (list, item, add) => {
+const addOrRemove = (list, value, add) => {
   if (add) {
-    list.push(item);
+    list.push(value);
   } else {
-    const index = list.indexOf(item);
+    const index = list.indexOf(value);
 
     if (index === -1) {
-      throw Error(`The item ${item} was not found in the list: ${list}`);
+      throw Error(`The item ${value} was not found in the list: ${list}`);
     }
 
     list.splice(index, 1);
@@ -95,7 +95,7 @@ const sqlMap = {
   offender: {
     gender: (data) => `gender='${data.slice(0, 1)}'`,
     name: (data) => `offender='${escapeQuotes(data.toUpperCase())}'`,
-    number: (data) => `offender_id=${data}`,
+    number: (data) => `offender_id=${parseInt(data)}`,
     tel: (data) => `offender_phone='${data}'`,
     employer: (data) => `employer='${escapeQuotes(data.toUpperCase())}'`,
   },
@@ -221,33 +221,6 @@ const filterReducer = (draft, action) => {
       return;
     }
     case 'UPDATE_OFFENDER': {
-      if (action.meta.hasOwnProperty('downshift')) {
-        switch (action.meta.field) {
-          case 'OFFENDER_NAME': {
-            draft.downshift.offenderName = action.payload;
-
-            return;
-          }
-          case 'OFFENDER_NUMBER': {
-            draft.downshift.offenderNumber = action.payload;
-
-            return;
-          }
-          case 'OFFENDER_TEL': {
-            draft.downshift.offenderTelephone = action.payload;
-
-            return;
-          }
-          case 'OFFENDER_EMPLOYER': {
-            draft.downshift.offenderEmployer = action.payload;
-
-            return;
-          }
-          default:
-            throw new Error();
-        }
-      }
-
       draft.offender[action.meta] = action.payload;
 
       return;
@@ -389,10 +362,10 @@ const Filters = (props) => {
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Offender', criteria.offender)} className="mb-1">
         <FilterOffender
+          featureSet={props.featureSet}
           downshift={criteria.downshift}
           criteria={criteria.offender}
           update={dispatcher}
-          currentFilter={props.appliedFilter}
         />
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
