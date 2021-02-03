@@ -1,4 +1,3 @@
-import produce from 'immer';
 import * as React from 'react';
 import { Button, ButtonGroup, Col, Container, FormGroup, Input, Label } from 'reactstrap';
 import { MultiSelect, SelectedItems } from '../../Combobox';
@@ -69,19 +68,7 @@ export default function FilterLocation(props) {
                     value={region}
                     size="sm"
                     color={props.criteria.region.indexOf(region) > -1 ? 'warning' : 'secondary'}
-                    onClick={() => {
-                      const payload = produce(props.criteria.region, (draft) => {
-                        const index = draft.indexOf(region);
-
-                        if (index === -1) {
-                          draft.splice(0, 0, region);
-                        } else {
-                          draft.splice(index, 1);
-                        }
-                      });
-
-                      props.update({ type, payload, meta: 'region' });
-                    }}
+                    onClick={() => props.update({ type, payload: region, meta: 'region' })}
                   >
                     {region}
                   </Button>
