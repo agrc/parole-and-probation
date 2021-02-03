@@ -114,7 +114,7 @@ export default function FilterOther(props) {
             currentSelectedItems={props.criteria.gang}
             itemToString={itemToString}
             itemToKey={itemToKey}
-            onSelectItem={(item) => update('gang', itemToKey(item), true)}
+            onSelectItem={(item) => update('gang', itemToString(item), true)}
           />
         </FormGroup>
         {props.criteria.gang.length > 0 ? (
