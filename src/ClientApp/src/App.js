@@ -108,6 +108,11 @@ const reducer = (draft, action) => {
 
       return draft;
     }
+    case 'SET_FEATURE_SET': {
+      draft.featureSet = action.payload;
+
+      break;
+    }
     default:
       throw new Error();
   }
@@ -147,6 +152,7 @@ export default function App() {
     filter: [],
     appliedFilter: `agent_id in (${user?.id})`,
     definitionExpression: [`agent_id in (${user?.id})`],
+    featureSet: null,
   });
 
   const mapOptions = {
@@ -189,6 +195,7 @@ export default function App() {
                 id: parseInt(user.id),
               }}
               appliedFilter={app.appliedFilter}
+              featureSet={app.featureSet}
             />
           ) : null}
         </Sidebar>
