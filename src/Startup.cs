@@ -109,7 +109,6 @@ namespace parole {
             services.AddSingleton<TokenService>();
             services.AddSingleton<OpenIdConfigurationProvider>();
             services.AddSingleton<ExportService>();
-            services.AddSingleton<TypeAheadService>();
             services.AddSingleton<IArcGISCredential>(values);
             services.AddSingleton(emailValues);
             services.AddSingleton(Configuration);
@@ -155,36 +154,6 @@ namespace parole {
                         { "id", context.User.Claims.First(x=> x.Type == "public:WorkforceID").Value },
                         { "name", context.User.Claims.First(x=> x.Type == "public:FullName").Value }
                     })
-                ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
-
-                endpoints.MapGet("api/data/{input}/{value}", async context => {
-                    var typeAheadProvider = endpoints.ServiceProvider.GetService<TypeAheadService>();
-
-                    var input = context.Request.RouteValues["input"].ToString();
-                    var value = context.Request.RouteValues["value"].ToString();
-                    var limit = 25;
-                    int? requestId = null;
-                    string filter = null;
-
-                    if (context.Request.Query.TryGetValue("filters", out var filtersQuery) &&
-                        !string.IsNullOrEmpty(filtersQuery)) {
-                        filter = filtersQuery.ToString();
-                    }
-                    if (context.Request.Query.TryGetValue("requestId", out var requestIdQuery) &&
-                        int.TryParse(requestIdQuery, out var newRequestId)) {
-                        requestId = newRequestId;
-                    }
-                    if (context.Request.Query.TryGetValue("limit", out var limitQuery) &&
-                        int.TryParse(limitQuery, out var newLimit)) {
-                        limit = newLimit;
-                    }
-
-                    var descriptor = new TypeAheadDescriptor(input, value, filter, requestId, limit);
-
-                    var data = await typeAheadProvider.Find(descriptor).ConfigureAwait(false);
-
-                    await context.Response.WriteAsJsonAsync(data).ConfigureAwait(false);
-                }
                 ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
 
                 endpoints.MapPost("api/download", async context => {
