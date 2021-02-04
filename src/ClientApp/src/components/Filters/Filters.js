@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useImmerReducer } from 'use-immer';
@@ -386,6 +387,7 @@ const Filters = (props) => {
   const [criteria, dispatcher] = useImmerReducer(filterReducer, initialState);
 
   const payload = sqlMapper(criteria);
+  const classes = clsx({ 'd-none': !props.visible });
 
   React.useEffect(() => {
     console.log('Filters:useEffect dispatching map filters');
@@ -396,7 +398,7 @@ const Filters = (props) => {
   }, [payload]);
 
   return (
-    <>
+    <section className={classes}>
       <AccordionPane title={countActiveFilters('Agent', criteria.agent)} open className="mb-1">
         <ErrorBoundary FallbackComponent={FallbackComponent}>
           <FilterAgent data={{ agents, supervisors }} criteria={criteria.agent} update={dispatcher} />
@@ -427,8 +429,11 @@ const Filters = (props) => {
           <FilterOther criteria={criteria.other} update={dispatcher} />
         </ErrorBoundary>
       </AccordionPane>
-      <FilterActions reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })} />
-    </>
+      <FilterActions
+        reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })}
+        show={() => props.mapDispatcher({ type: 'TOGGLE_SIDEBAR', payload: true })}
+      />
+    </section>
   );
 };
 

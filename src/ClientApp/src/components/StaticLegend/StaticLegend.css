@@ -5,7 +5,7 @@
   bottom: 0;
   border: 0;
   opacity: 0.6;
-  z-index: 100;
+  z-index: 5;
 }
 
 .static-legend__item {
