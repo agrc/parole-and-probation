@@ -8,11 +8,7 @@ import StaticLegend from '../StaticLegend';
 import './MapLens.css';
 
 export default function MapLens(props) {
-  const classes = classNames(
-    'map-lens',
-    'map-lens--with-border',
-    props.showSidebar ? 'map-lens--side-bar-open' : false
-  );
+  const classes = classNames('map-lens', 'map-lens--with-border', !props.showSidebar ? 'map-lens--full-screen' : false);
 
   const buttonClasses = classNames(
     { 'map-lens__toggle--mobile-open': props.showSidebar },

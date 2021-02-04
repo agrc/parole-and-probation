@@ -1,3 +1,13 @@
+/*
+1. map opens both elements visible
+2. toggling button shifts map to take full width
+3. toggling again gives you state of 1
+4. identifying replaces the filters
+5. identifying with close sidebar opens it
+6. small screen open defaults to closed sidebar
+7. identify then toggle identify should still be visible until closed
+*/
+
 .map-lens {
   height: 100vh;
   display: inline-grid;
@@ -24,8 +34,8 @@
   z-index: 1;
 }
 
-.map-lens--side-bar-open {
-  /* grid-area: map; */
+.map-lens--full-screen {
+  grid-area: map/side/map/4;
 }
 
 .map-lens--with-border {

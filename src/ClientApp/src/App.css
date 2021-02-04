@@ -10,14 +10,14 @@
 }
 
 @media screen and (max-width: 624px) {
-  .app .map-lens, .side-bar {
+  .app .map-lens, .app .side-bar {
     grid-area: header/side/map/map;
     width: 100vw;
   }
-  .side-bar, .app__header {
+  .app__header {
     --duration: 3s;
     --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1);
-     position: sticky;
+    position: sticky;
     top: 0;
     max-height: 100vh;
     overflow-x: hidden;
@@ -54,3 +54,5 @@
 .j-around {
   justify-content: space-around;
 }
+
+
