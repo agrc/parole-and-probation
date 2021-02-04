@@ -1,16 +1,10 @@
 .app__header {
-  grid-area:  header/side/map/header;
+  grid-area: header/side;
   margin-top: 5px;
   margin-left: 5px;
   margin-right: 5px;
   padding: 8px;
 }
-
-/* @media screen and (max-width: 624px) {
-  .app__header {
-    visibility: hidden;
-  }
-} */
 
 .header__heading {
   font-family: Arial, sans-serif;

@@ -192,21 +192,19 @@ export default function App() {
         <Sidebar {...sidebarOptions}>
           {user ? (
             <ErrorBoundary FallbackComponent={FallbackComponent}>
-              {app.identify.show ? (
-                <IdentifyContainer show={(value) => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: value })}>
-                  <IdentifyInformation {...identifyOptions} />
-                </IdentifyContainer>
-              ) : (
-                <Filters
-                  mapDispatcher={dispatcher}
-                  loggedInUser={{
-                    value: user.name,
-                    id: parseInt(user.id),
-                  }}
-                  appliedFilter={app.appliedFilter}
-                  featureSet={app.featureSet}
-                />
-              )}
+              <IdentifyContainer visible={app.identify.show} show={identifyOptions.show}>
+                <IdentifyInformation {...identifyOptions} />
+              </IdentifyContainer>
+              <Filters
+                mapDispatcher={dispatcher}
+                loggedInUser={{
+                  value: user.name,
+                  id: parseInt(user.id),
+                }}
+                visible={!app.identify.show}
+                appliedFilter={app.appliedFilter}
+                featureSet={app.featureSet}
+              />
             </ErrorBoundary>
           ) : null}
         </Sidebar>

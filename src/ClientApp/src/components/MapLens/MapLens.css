@@ -9,33 +9,32 @@
 */
 
 .map-lens {
-  height: 100vh;
   display: inline-grid;
   position: relative;
   flex-direction: column;
   overflow: hidden;
   background-color: white;
   z-index: 3;
-  grid-area: map/map;
+  grid-area: map;
 }
 
-/* @media screen and (max-width: 624px) {
-  .map-lens--side-bar-open {
-    grid-area: map;
-  }
+@media screen and (max-width: 624px) {
   .map-lens__toggle--mobile-open {
-    right: 0;
+    top: 0;
+    left: 320px;
   }
-} */
+  .app .map-lens--with-border {
+    border: none;
+  }
+}
 
 .map-lens__toggle {
   position: absolute;
   border-radius: unset;
-  z-index: 1;
 }
 
 .map-lens--full-screen {
-  grid-area: map/side/map/4;
+  grid-area: map/side/3/3;
 }
 
 .map-lens--with-border {

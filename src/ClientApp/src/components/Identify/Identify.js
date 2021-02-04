@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Alert, Button, Container } from 'reactstrap';
@@ -121,9 +122,11 @@ const IdentifyInformation = (props) => {
 };
 
 const IdentifyContainer = (props) => {
+  const classes = clsx('identify__container', { 'd-none': !props.visible });
+
   return (
-    <div className="identify__container side-bar side-bar--with-border side-bar--open">
-      <CloseButton className="identify__close" onClick={() => props.show(false)} />
+    <div className={classes}>
+      <CloseButton onClick={() => props.show(false)} />
       {props.children}
     </div>
   );
