@@ -1,32 +1,40 @@
+/*
+1. map opens both elements visible
+2. toggling button shifts map to take full width
+3. toggling again gives you state of 1
+4. identifying replaces the filters
+5. identifying with close sidebar opens it
+6. small screen open defaults to closed sidebar
+7. identify then toggle identify should still be visible until closed
+*/
+
 .map-lens {
-  display: flex;
+  display: inline-grid;
   position: relative;
   flex-direction: column;
   overflow: hidden;
   background-color: white;
   z-index: 3;
-  grid-column: 1 / span 2;
-  grid-row: 2;
+  grid-area: map;
 }
 
 @media screen and (max-width: 624px) {
-  .map-lens--side-bar-open {
-    grid-column: 1 / span 2 !important;
-  }
   .map-lens__toggle--mobile-open {
-    right: 0;
+    top: 0;
+    left: 320px;
+  }
+  .app .map-lens--with-border {
+    border: none;
   }
 }
 
 .map-lens__toggle {
   position: absolute;
   border-radius: unset;
-  z-index: 1;
 }
 
-.map-lens--side-bar-open {
-  grid-column: 2;
-  grid-row: 2;
+.map-lens--full-screen {
+  grid-area: map/side/3/3;
 }
 
 .map-lens--with-border {
