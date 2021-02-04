@@ -127,6 +127,7 @@ const reducer = (draft, action) => {
 
 export default function App() {
   const [user, setUser] = React.useState(null);
+
   React.useEffect(() => {
     const getUser = async () => {
       let response = await fetch('api/configuration');
@@ -186,32 +187,33 @@ export default function App() {
 
   return (
     <UserContext.Provider value={user}>
-      <div className="app">
+      <main className="app">
         <Header title="AP&P Field Map" version={process.env.REACT_APP_VERSION} />
-        {app.identify.show ? (
-          <IdentifyContainer show={(value) => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: value })}>
-            <IdentifyInformation {...identifyOptions} />
-          </IdentifyContainer>
-        ) : null}
         <Sidebar {...sidebarOptions}>
           {user ? (
             <ErrorBoundary FallbackComponent={FallbackComponent}>
-              <Filters
-                mapDispatcher={dispatcher}
-                loggedInUser={{
-                  value: user.name,
-                  id: parseInt(user.id),
-                }}
-                appliedFilter={app.appliedFilter}
-                featureSet={app.featureSet}
-              />
+              {app.identify.show ? (
+                <IdentifyContainer show={(value) => dispatcher({ type: 'TOGGLE_IDENTIFY', payload: value })}>
+                  <IdentifyInformation {...identifyOptions} />
+                </IdentifyContainer>
+              ) : (
+                <Filters
+                  mapDispatcher={dispatcher}
+                  loggedInUser={{
+                    value: user.name,
+                    id: parseInt(user.id),
+                  }}
+                  appliedFilter={app.appliedFilter}
+                  featureSet={app.featureSet}
+                />
+              )}
             </ErrorBoundary>
           ) : null}
         </Sidebar>
         <MapLens {...sidebarOptions} mapView={app.mapView}>
           <MapView {...mapOptions} />
         </MapLens>
-      </div>
+      </main>
     </UserContext.Provider>
   );
 }

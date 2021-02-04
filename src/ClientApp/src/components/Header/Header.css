@@ -1,19 +1,16 @@
 .app__header {
-  grid-column: 1 / span 2;
-  grid-row: 1;
+  grid-area:  header/side/map/header;
   margin-top: 5px;
   margin-left: 5px;
   margin-right: 5px;
   padding: 8px;
 }
 
-@media screen and (max-width: 624px) {
+/* @media screen and (max-width: 624px) {
   .app__header {
-    display: none;
-    margin: 0;
-    padding: 0;
+    visibility: hidden;
   }
-}
+} */
 
 .header__heading {
   font-family: Arial, sans-serif;

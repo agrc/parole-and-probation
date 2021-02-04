@@ -10,8 +10,8 @@ export default function Sidebar(props) {
   );
 
   return (
-    <div id="sideBar" className={classes}>
+    <aside id="sideBar" className={classes}>
       {props.children}
-    </div>
+    </aside>
   );
 }

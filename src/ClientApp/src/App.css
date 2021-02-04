@@ -1,10 +1,7 @@
-body,
-html,
 .app {
   display: grid;
-  grid-template-columns: 325px 1fr;
-  grid-template-rows: 75px 1fr;
-  grid-column-gap: 7px;
+  grid: [header] 75px [map] 1fr / [side] 325px [map] 1fr;
+  column-gap: 7px;
   width: calc(100vw - 10px);
   height: calc(100vh - 5px);
   margin: auto;
@@ -12,15 +9,30 @@ html,
   color: #444;
 }
 
-.app .esri-ui-top-left {
-  top: 30px;
+@media screen and (max-width: 624px) {
+  .app .map-lens, .side-bar {
+    grid-area: header/side/map/map;
+    width: 100vw;
+  }
+  .side-bar, .app__header {
+    --duration: 3s;
+    --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1);
+     position: sticky;
+    top: 0;
+    max-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow: hidden auto;
+    overscroll-behavior: contain;
+    visibility: hidden;
+    transform: translateX(-110vw);
+    will-change: transform;
+    transition: transform var(--duration) var(--easeOutExpo), visibility 0s linear var(--duration)
+  }
 }
 
-@media screen and (max-width: 624px) {
-  .app {
-    grid-template-columns: 325px 1fr;
-    grid-template-rows: 0px 1fr;
-  }
+.app .esri-ui-top-left {
+  top: 30px;
 }
 
 .f-column {

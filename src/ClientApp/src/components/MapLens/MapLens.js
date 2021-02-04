@@ -22,7 +22,7 @@ export default function MapLens(props) {
   );
 
   return (
-    <div className={classes}>
+    <article className={classes}>
       {props.children}
       <Button color="info" className={buttonClasses} onClick={props.toggleSidebar}>
         {props.showSidebar ? (
@@ -51,6 +51,6 @@ export default function MapLens(props) {
         ]}
       />
       <MapLoadingIndicator view={props.mapView} />
-    </div>
+    </article>
   );
 }
