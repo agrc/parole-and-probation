@@ -15,7 +15,7 @@ const generateDirectionsUrl = (address) => {
 };
 
 export function GoogleDirectionsLink(props) {
-  if (!props.address) {
+  if (!props.address || props?.address === 'offline' || props?.address.startsWith('offline')) {
     return props.children;
   }
 
@@ -27,7 +27,7 @@ export function GoogleDirectionsLink(props) {
 }
 
 export function TelephoneLink(props) {
-  if (!props.phone) {
+  if (!props.phone || props?.phone === 'offline') {
     return props.children;
   }
 
