@@ -4,6 +4,10 @@ import * as React from 'react';
 const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
 
 const calculateAge = (dob) => {
+  if (dob === 'offline') {
+    return dob;
+  }
+
   if (!dob) {
     return '';
   }
@@ -18,15 +22,19 @@ const calculateAge = (dob) => {
 const getValue = (props) => {
   let value = props.children || props.value;
 
+  if (value === 'offline') {
+    return 'offline';
+  }
+
   if (props.age && value) {
     value = `${calculateAge(props.age)} ${value}`;
   }
 
-  if (props.lower && value) {
+  if (props.lower && props.lower !== 'offline' && value) {
     value = value.toLowerCase();
   }
 
-  if (props.date && value) {
+  if (props.date && props.date !== 'offline' && value) {
     value = dateFormatter.format(value);
   }
 

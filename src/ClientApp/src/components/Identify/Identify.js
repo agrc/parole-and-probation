@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { Alert, Button, Container } from 'reactstrap';
 import { fields } from '../../config';
 import CloseButton from '../CloseButton';
+import { FallbackComponent } from '../ErrorBoundary/ErrorBoundary';
 import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
 import './Identify.css';
 import { GridLabelGroup, IdentifyAddon, LabelGroup } from './Labels';
@@ -13,6 +15,7 @@ let signal = controller.signal;
 
 const IdentifyInformation = (props) => {
   const [extra, setExtra] = React.useState({});
+  const [offline, setOffline] = React.useState(false);
 
   React.useEffect(() => {
     if (props.offender.offender_id in identifyCache) {
@@ -24,56 +27,88 @@ const IdentifyInformation = (props) => {
     console.log('IdentifyInformation::effect fetching');
 
     setExtra({});
+    setOffline(false);
 
-    IdentifyFetch(props.offender, signal).then((result) => {
-      console.log('IdentifyFetch::Promise Resolution::adding extra identify params');
+    identifyFetch(props.offender, signal).then(
+      (result) => {
+        console.log('IdentifyFetch::Promise Resolution::adding extra identify params');
 
-      identifyCache[props.offender.offender_id] = result;
+        identifyCache[props.offender.offender_id] = result;
 
-      setExtra(result);
-    });
+        setExtra(result);
+      },
+      () => setOffline(true)
+    );
   }, [props.offender, props.index]);
+
+  const wrapWithOffline = (value) => {
+    if (offline) {
+      return 'offline';
+    }
+
+    return value;
+  };
 
   return props.offender && Object.keys(props.offender).length > 0 ? (
     <Container className="identify pt-4">
       <Pager features={props.features} index={props.index} update={props.update}></Pager>
-      <OffenderQuickLook
-        age={extra.date_of_birth}
-        gender={props.offender.gender}
-        standard_of_supervision={props.offender.standard_of_supervision}
-        legal_status={props.offender.legal_status}
-        active_warrant={props.offender.active_warrant}
-        offender={props.offender.offender}
-        race={extra.race}
-        id={props.offender.offender_id}
-        agent={extra.agent_name}
-      />
-      <OffenderAlerts cautions={extra.cautions} alerts={extra.alerts} />
-      <RecentVisitation
-        office={props.offender.last_office_contacts}
-        successful={props.offender.last_successful_field_contact}
-        attempted={props.offender.last_attempted_field_contact}
-      />
-      <OffenderContactInfo
-        phone={props.offender.offender_phone}
-        address={extra.address}
-        unit={extra.unit}
-        city={props.offender.city}
-        zip={props.offender.zip}
-        type={extra.address_type}
-        since={extra.address_start_date}
-        employer={props.offender.employer}
-        employer_address={extra.employer_address}
-        employer_phone={extra.employer_phone}
-      />
-      <SpecialSupervision>{extra}</SpecialSupervision>
-      <PrimaryOffense
-        primary_offense={extra.primary_offense}
-        degree={props.offender.crime_degree}
-        description={extra.offense_description}
-      />
-      <GangInformation gang={props.offender.gang_type} set={extra.gang_name} />
-      <OtherInformation supervision_start_date={extra.supervision_start_date} ecc={extra.earned_compliance_credit} />
+      {offline ? <p>You do not appear to have internet connectivity. The results displayed are incomplete.</p> : null}
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <OffenderQuickLook
+          age={wrapWithOffline(extra.date_of_birth)}
+          gender={props.offender.gender}
+          standard_of_supervision={props.offender.standard_of_supervision}
+          legal_status={props.offender.legal_status}
+          active_warrant={props.offender.active_warrant}
+          offender={props.offender.offender}
+          race={wrapWithOffline(extra.race)}
+          id={props.offender.offender_id}
+          agent={wrapWithOffline(extra.agent_name)}
+        />
+      </ErrorBoundary>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <OffenderAlerts cautions={wrapWithOffline(extra.cautions)} alerts={wrapWithOffline(extra.alerts)} />
+      </ErrorBoundary>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <RecentVisitation
+          office={props.offender.last_office_contacts}
+          successful={props.offender.last_successful_field_contact}
+          attempted={props.offender.last_attempted_field_contact}
+        />
+      </ErrorBoundary>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <OffenderContactInfo
+          phone={props.offender.offender_phone}
+          address={wrapWithOffline(extra.address)}
+          unit={wrapWithOffline(extra.unit)}
+          city={props.offender.city}
+          zip={props.offender.zip}
+          type={wrapWithOffline(extra.address_type)}
+          since={wrapWithOffline(extra.address_start_date)}
+          employer={props.offender.employer}
+          employer_address={wrapWithOffline(extra.employer_address)}
+          employer_phone={wrapWithOffline(extra.employer_phone)}
+        />
+      </ErrorBoundary>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <SpecialSupervision>{extra}</SpecialSupervision>
+      </ErrorBoundary>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <PrimaryOffense
+          primary_offense={wrapWithOffline(extra.primary_offense)}
+          degree={props.offender.crime_degree}
+          description={wrapWithOffline(extra.offense_description)}
+        />
+      </ErrorBoundary>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <GangInformation gang={props.offender.gang_type} set={wrapWithOffline(extra.gang_name)} />
+      </ErrorBoundary>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <OtherInformation
+          supervision_start_date={wrapWithOffline(extra.supervision_start_date)}
+          ecc={wrapWithOffline(extra.earned_compliance_credit)}
+        />
+      </ErrorBoundary>
       <div className="identify__row text-center pt-5 pb-3">
         <Button color="primary" onClick={() => props.show(false)}>
           Close
@@ -94,7 +129,7 @@ const IdentifyContainer = (props) => {
   );
 };
 
-const IdentifyFetch = async (offender, cancellationToken) => {
+const identifyFetch = async (offender, cancellationToken) => {
   if (!offender) {
     return null;
   }
@@ -115,7 +150,7 @@ const IdentifyFetch = async (offender, cancellationToken) => {
     ['returnGeometry', false],
   ]);
 
-  console.log('IdentifyFetch::querying extra offender data');
+  console.log('identifyFetch::querying extra offender data');
 
   const response = await fetch(url, {
     signal: cancellationToken,
@@ -149,17 +184,28 @@ const IdentifyFetch = async (offender, cancellationToken) => {
 };
 
 const OffenderQuickLook = (props) => {
+  let race = null;
+  if (typeof props.race === 'string') {
+    if (props.race.toLowerCase() !== 'unknown') {
+      race = props.race.toLowerCase();
+    }
+  } else {
+    race = props.race;
+  }
+
+  if (race) {
+    race = (
+      <small className="text-muted d-block" style={{ fontSize: '1rem' }}>
+        {race}
+      </small>
+    );
+  }
+
   return (
     <>
       <h4>
         {props.offender}
-        {props.race ? (
-          props.race.toLowerCase() === 'unknown' ? null : (
-            <small className="text-muted d-block" style={{ fontSize: '1rem' }}>
-              {props.race.toLowerCase()}
-            </small>
-          )
-        ) : null}
+        {race}
       </h4>
       <div className="border-bottom mb-2 pb-2 identify__row">
         <div className="d-grid identify-grid--label-text">
