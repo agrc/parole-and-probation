@@ -115,6 +115,11 @@ const reducer = (draft, action) => {
 
       break;
     }
+    case 'SET_MAPVIEW': {
+      draft.mapView = action.payload;
+
+      break;
+    }
     default:
       throw new Error();
   }
@@ -203,7 +208,7 @@ export default function App() {
             </ErrorBoundary>
           ) : null}
         </Sidebar>
-        <MapLens {...sidebarOptions}>
+        <MapLens {...sidebarOptions} mapView={app.mapView}>
           <MapView {...mapOptions} />
         </MapLens>
       </div>

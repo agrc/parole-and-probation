@@ -208,6 +208,11 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       },
     });
 
+    mapDispatcher({
+      type: 'SET_MAPVIEW',
+      payload: mapView,
+    });
+
     setSelectorOptions({
       view: mapView,
       quadWord: process.env.REACT_APP_DISCOVER,

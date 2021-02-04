@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'clsx';
 import * as React from 'react';
 import { Button } from 'reactstrap';
+import MapLoadingIndicator from '../MapLoadingIndicator';
 import StaticLegend from '../StaticLegend';
 import './MapLens.css';
 
@@ -49,6 +50,7 @@ export default function MapLens(props) {
           },
         ]}
       />
+      <MapLoadingIndicator view={props.mapView} />
     </div>
   );
 }
