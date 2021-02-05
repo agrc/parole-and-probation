@@ -186,6 +186,49 @@ const identifyFetch = async (offender, cancellationToken) => {
   };
 };
 
+const OffenderImage = ({ offenderId }) => {
+  const [image, setImage] = React.useState(null);
+  const [showError, setShowError] = React.useState(false);
+
+  React.useEffect(() => {
+    const getImage = async () => {
+      try {
+        const response = await fetch(`${process.env.PUBLIC_URL}/mugshot/${offenderId}`);
+
+        if (!response.ok) {
+          setShowError(true);
+
+          return;
+        }
+
+        const blob = await response.blob();
+
+        setImage(URL.createObjectURL(blob));
+      } catch (error) {
+        console.error(error);
+        setShowError(true);
+      }
+    };
+
+    setImage(null);
+    setShowError(false);
+
+    if (offenderId) {
+      getImage();
+    }
+  }, [offenderId]);
+
+  if (showError) {
+    return <span>offline</span>;
+  }
+
+  if (!image) {
+    return <span>loading image...</span>;
+  }
+
+  return <img src={image} alt="offender" />;
+};
+
 const OffenderQuickLook = (props) => {
   let race = null;
   if (typeof props.race === 'string') {
@@ -211,7 +254,7 @@ const OffenderQuickLook = (props) => {
         {race}
       </h4>
       <div className="d-flex justify-content-center identify__row mb-2">
-        <img src={`${process.env.PUBLIC_URL}/mugshot/${props.id}`} alt="offender" />
+        <OffenderImage offenderId={props.id} />
       </div>
       <div className="border-bottom mb-2 pb-2 identify__row">
         <div className="d-grid identify-grid--label-text">
