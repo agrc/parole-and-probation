@@ -8,13 +8,14 @@ A module that handles the forklifting for the project
 from pathlib import Path
 
 import pandas as pd
+import pyproj
 import requests
 import sqlalchemy
+from models import schema
 from vault import api, database
 from xxhash import xxh64
 
 from forklift.models import Pallet
-from models import schema
 
 
 class CorrectionPallet(Pallet):
@@ -91,6 +92,9 @@ class CorrectionPallet(Pallet):
 
     def process(self):
         success = True
+        lat_long = pyproj.CRS.from_epsg(4326)
+        web_mercator = pyproj.CRS.from_epsg(3857)
+        transformer = pyproj.Transformer.from_crs(lat_long, web_mercator)
 
         def convert_special_supervision(code):
             return code.casefold().replace('-', '').replace(' ', '')
@@ -109,6 +113,8 @@ class CorrectionPallet(Pallet):
                      ] = frame.special_supervision.apply(lambda value: special_supervision in value)
 
             frame.drop(columns=['special_supervision'], inplace=True)
+
+            frame[['x', 'y']] = frame[['x', 'y']].apply(lambda df: pd.Series(transformer.transform(df[0], df[1])))
 
             cwd = Path(__file__).parent
 
