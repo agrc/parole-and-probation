@@ -406,17 +406,12 @@ const Filters = (props) => {
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Offender', criteria.offender)} className="mb-1">
         <ErrorBoundary FallbackComponent={FallbackComponent}>
-          <FilterOffender
-            featureSet={props.featureSet}
-            downshift={criteria.downshift}
-            criteria={criteria.offender}
-            update={dispatcher}
-          />
+          <FilterOffender featureSet={props.featureSet} criteria={criteria.offender} update={dispatcher} />
         </ErrorBoundary>
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
         <ErrorBoundary FallbackComponent={FallbackComponent}>
-          <FilterLocation criteria={criteria.location} update={dispatcher} />
+          <FilterLocation criteria={criteria.location} update={dispatcher} featureSet={props.featureSet} />
         </ErrorBoundary>
       </AccordionPane>
       <AccordionPane title={countActiveFilters('Supervision Contact', criteria.date)} className="mb-1">
