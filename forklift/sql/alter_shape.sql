@@ -3,4 +3,4 @@ IF NOT EXISTS (
   FROM sys.columns
   WHERE object_id = OBJECT_ID('[offenders]') AND name = 'shape'
 )
-  ALTER TABLE [offenders] ADD [shape] geography
+  ALTER TABLE [offenders] ADD [shape] geometry
