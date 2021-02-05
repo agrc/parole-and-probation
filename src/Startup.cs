@@ -218,8 +218,9 @@ namespace parole {
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {
                         var request = context.Request;
-                        request.QueryString = request.QueryString.Add("token", await tokenService.GetToken().ConfigureAwait(false));
-
+                        if (request.Path.StartsWithSegments(new PathString("/mapserver"))) {
+                            request.QueryString = request.QueryString.Add("token", await tokenService.GetToken().ConfigureAwait(false));
+                        }
                         await next().ConfigureAwait(false);
                     });
                 });
