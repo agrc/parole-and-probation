@@ -178,7 +178,7 @@ export function InputTypeAhead({
     const items = [];
     const uniques = new Set();
 
-    if (inputValue.trim().length === 0) {
+    if (inputValue.trim().length === 0 || !inputItems) {
       return items;
     }
 
