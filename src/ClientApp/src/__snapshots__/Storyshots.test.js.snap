@@ -2122,6 +2122,13 @@ exports[`Storyshots Identify/Integration First Of Multiple 1`] = `
     BRAVO, MIKE SMITH
   </h4>
   <div
+    className="d-flex justify-content-center identify__row mb-2"
+  >
+    <span>
+      loading image...
+    </span>
+  </div>
+  <div
     className="border-bottom mb-2 pb-2 identify__row"
   >
     <div
@@ -2499,6 +2506,13 @@ exports[`Storyshots Identify/Integration Last Of Multiple 1`] = `
     ALPHA, SUSAN SMITH
   </h4>
   <div
+    className="d-flex justify-content-center identify__row mb-2"
+  >
+    <span>
+      loading image...
+    </span>
+  </div>
+  <div
     className="border-bottom mb-2 pb-2 identify__row"
   >
     <div
@@ -2847,6 +2861,13 @@ exports[`Storyshots Identify/Integration Middle Of Multiple 1`] = `
     ALPHA, SUSAN SMITH
   </h4>
   <div
+    className="d-flex justify-content-center identify__row mb-2"
+  >
+    <span>
+      loading image...
+    </span>
+  </div>
+  <div
     className="border-bottom mb-2 pb-2 identify__row"
   >
     <div
@@ -3099,6 +3120,13 @@ exports[`Storyshots Identify/Integration Single Feature 1`] = `
   <h4>
     BRAVO, MIKE SMITH
   </h4>
+  <div
+    className="d-flex justify-content-center identify__row mb-2"
+  >
+    <span>
+      loading image...
+    </span>
+  </div>
   <div
     className="border-bottom mb-2 pb-2 identify__row"
   >
@@ -3449,6 +3477,13 @@ Array [
     Last name, middle first
   </h4>,
   <div
+    className="d-flex justify-content-center identify__row mb-2"
+  >
+    <span>
+      loading image...
+    </span>
+  </div>,
+  <div
     className="border-bottom mb-2 pb-2 identify__row"
   >
     <div
@@ -3508,6 +3543,13 @@ Array [
   <h4>
     Last name, middle first
   </h4>,
+  <div
+    className="d-flex justify-content-center identify__row mb-2"
+  >
+    <span>
+      loading image...
+    </span>
+  </div>,
   <div
     className="border-bottom mb-2 pb-2 identify__row"
   >
@@ -3578,6 +3620,13 @@ Array [
       white
     </small>
   </h4>,
+  <div
+    className="d-flex justify-content-center identify__row mb-2"
+  >
+    <span>
+      loading image...
+    </span>
+  </div>,
   <div
     className="border-bottom mb-2 pb-2 identify__row"
   >
