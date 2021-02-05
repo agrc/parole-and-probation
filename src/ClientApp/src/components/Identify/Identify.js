@@ -210,6 +210,9 @@ const OffenderQuickLook = (props) => {
         {props.offender}
         {race}
       </h4>
+      <div className="d-flex justify-content-center identify__row mb-2">
+        <img src={`${process.env.PUBLIC_URL}/mugshot/${props.id}`} alt="offender" />
+      </div>
       <div className="border-bottom mb-2 pb-2 identify__row">
         <div className="d-grid identify-grid--label-text">
           <GridLabelGroup label="Number">{props.id}</GridLabelGroup>

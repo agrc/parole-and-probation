@@ -59,3 +59,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.identify__container img {
+  max-width: 100%;
+  max-height: 200px;
+  border: 1px solid gray;
+}
