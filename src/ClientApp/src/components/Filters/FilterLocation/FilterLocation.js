@@ -1,15 +1,12 @@
 import * as React from 'react';
-import { Button, ButtonGroup, Col, Container, FormGroup, Input, Label } from 'reactstrap';
-import { MultiSelect, SelectedItems } from '../../Combobox';
+import { Button, ButtonGroup, Col, Container, FormGroup, Label } from 'reactstrap';
+import { InputTypeAhead, MultiSelect, SelectedItems } from '../../Combobox';
 import { counties } from '../lookupData';
-import useFilterReducer from '../useFilterReducer';
 import './FilterLocation.css';
 
 const type = 'UPDATE_LOCATION';
 
 export default function FilterLocation(props) {
-  const [zip, setZip] = useFilterReducer(props, type, 'zip');
-  const [city, setCity] = useFilterReducer(props, type, 'city');
   const updateCounties = (item, add) => {
     if (!item) {
       return;
@@ -22,19 +19,33 @@ export default function FilterLocation(props) {
     });
   };
 
+  const defaultItemToKey = (item) => item?.attributes?.offender_id || '';
+
   return (
     <Container fluid className="filter-location">
       <form autoComplete="off">
         <Col>
           <FormGroup>
             <Label>City</Label>
-            <Input type="text" value={city} onChange={setCity} />
+            <InputTypeAhead
+              featureSet={props.featureSet}
+              itemToString={(item) => item?.attributes?.city || ''}
+              itemToKey={defaultItemToKey}
+              reducerDescriptor={{ type, field: 'city' }}
+              dispatch={props.update}
+            />
           </FormGroup>
         </Col>
         <Col>
           <FormGroup>
             <Label>Zip</Label>
-            <Input type="number" value={zip} onChange={setZip} />
+            <InputTypeAhead
+              featureSet={props.featureSet}
+              itemToString={(item) => item?.attributes?.zip.toString() || ''}
+              itemToKey={defaultItemToKey}
+              reducerDescriptor={{ type, field: 'zip' }}
+              dispatch={props.update}
+            />
           </FormGroup>
         </Col>
         <Col>
