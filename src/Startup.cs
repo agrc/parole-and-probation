@@ -161,12 +161,12 @@ namespace parole {
                     try {
                         model = await context.Request.ReadFromJsonAsync<CsvDownload>(new JsonSerializerOptions {
                             PropertyNameCaseInsensitive = true
-                        }).ConfigureAwait(false);
+                        });
                     } catch (JsonException) {
                         context.Response.StatusCode = 400;
                         await context.Response.WriteAsJsonAsync(new {
                             message = "Invalid Request"
-                        }).ConfigureAwait(false);
+                        });
 
                         return;
                     }
@@ -175,19 +175,19 @@ namespace parole {
                         context.Response.StatusCode = 400;
                         await context.Response.WriteAsJsonAsync(new {
                             message = "Invalid Request"
-                        }).ConfigureAwait(false);
+                        });
 
                         return;
                     }
 
                     var exportService = endpoints.ServiceProvider.GetService<ExportService>();
 
-                    var records = await exportService.GetRecords(model).ConfigureAwait(false);
+                    var records = await exportService.GetRecords(model);
                     if (!records.Any()) {
                         context.Response.StatusCode = 200;
                         await context.Response.WriteAsJsonAsync(new {
                             message = "Skipping empty export"
-                        }).ConfigureAwait(false);
+                        });
 
                         return;
                     }
@@ -202,16 +202,16 @@ namespace parole {
                     using var csv = new CsvWriter(writer, CultureInfo.CurrentCulture);
 
                     csv.WriteRecords(records);
-                    await writer.FlushAsync().ConfigureAwait(false);
+                    await writer.FlushAsync();
 
                     stream.Position = 0;
-                    await stream.CopyToAsync(context.Response.Body).ConfigureAwait(false);
+                    await stream.CopyToAsync(context.Response.Body);
                     stream.Position = 0;
 
                     var emailConfig = endpoints.ServiceProvider.GetService<EmailConfig>();
                     var emailer = new EmailSender(emailConfig, logger);
 
-                    await emailer.SendAsync(new[] { model.Agent }, stream).ConfigureAwait(false);
+                    await emailer.SendAsync(new[] { model.Agent }, stream);
                 }
                 ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
 
@@ -219,9 +219,9 @@ namespace parole {
                     proxyPipeline.Use(async (context, next) => {
                         var request = context.Request;
                         if (request.Path.StartsWithSegments(new PathString("/mapserver"))) {
-                            request.QueryString = request.QueryString.Add("token", await tokenService.GetToken().ConfigureAwait(false));
+                            request.QueryString = request.QueryString.Add("token", await tokenService.GetToken());
                         }
-                        await next().ConfigureAwait(false);
+                        await next();
                     });
                 });
             });
@@ -230,12 +230,12 @@ namespace parole {
                 if (context.User.Identity.IsAuthenticated) {
                     var appClaim = context.User.Claims.FirstOrDefault(x => x.Type == "DOCFieldMap:AccessGranted");
                     if (appClaim?.Value == "true") {
-                        await next().ConfigureAwait(false);
+                        await next();
                     } else {
-                        await context.Response.WriteAsync("Access denied").ConfigureAwait(false);
+                        await context.Response.WriteAsync("Access denied");
                     }
                 } else {
-                    await context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme).ConfigureAwait(false);
+                    await context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme);
                 }
             });
 

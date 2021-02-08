@@ -29,7 +29,7 @@ namespace parole.Features {
 
             var records = await session.QueryAsync<Schema>("SELECT * FROM DOCOAdmin.offenders WHERE id IN @ids", new {
                 ids = model.Offenders
-            }).ConfigureAwait(false);
+            });
 
             _log.Debug("Converting to csv {records}", records);
 
