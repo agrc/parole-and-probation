@@ -107,7 +107,6 @@ namespace parole {
               .AddPolicyHandler(timeoutPolicy);
 
             services.AddSingleton<TokenService>();
-            services.AddSingleton<OpenIdConfigurationProvider>();
             services.AddSingleton<ExportService>();
             services.AddSingleton<IArcGISCredential>(values);
             services.AddSingleton(emailValues);
@@ -148,7 +147,6 @@ namespace parole {
             app.UseEndpoints(endpoints => {
                 var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
-                var openIdConfigurationProvider = endpoints.ServiceProvider.GetService<OpenIdConfigurationProvider>();
 
                 endpoints.MapGet("api/configuration", context => context.Response.WriteAsJsonAsync(new Dictionary<string, string>{
                         { "id", context.User.Claims.First(x=> x.Type == "public:WorkforceID").Value },
