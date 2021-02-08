@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.18.0](https://github.com/agrc/parole-and-probation/compare/v1.17.5...v1.18.0) (2021-02-08)
+
+
+### Features
+
+* **app:** create map loading indicator ([7d68af9](https://github.com/agrc/parole-and-probation/commit/7d68af9d3ff3971815e0a33c45029b090bcc8413))
+* **app:** implement simple map loading indicator ([caddec9](https://github.com/agrc/parole-and-probation/commit/caddec986ffc378796b913ce71bf5e250b2e3e81)), closes [#129](https://github.com/agrc/parole-and-probation/issues/129)
+* **app:** use esrijs esm and agrc npm packages ([74a27ae](https://github.com/agrc/parole-and-probation/commit/74a27aeb7f01bf8857abed5a12e60774e6c3502f)), closes [#115](https://github.com/agrc/parole-and-probation/issues/115)
+* **filters:** add typeahead to city and zip ([9973577](https://github.com/agrc/parole-and-probation/commit/99735775ce4ac60a5f29e837145231e77ade5e23))
+* **identify:** add offender photos ([fc71773](https://github.com/agrc/parole-and-probation/commit/fc71773d95d60f495365f632a39501395cd90083)), closes [#125](https://github.com/agrc/parole-and-probation/issues/125)
+* **identify:** add offline messages to identify ([7a2dd72](https://github.com/agrc/parole-and-probation/commit/7a2dd7224480d970fd828dc9953354e4f07fcec6))
+* **identify:** handle image loading ([596ccd6](https://github.com/agrc/parole-and-probation/commit/596ccd6fe0a406b1932dcc42fffc4b320fa51ab9))
+* **pallet:** project data to web mercator ([d66e329](https://github.com/agrc/parole-and-probation/commit/d66e3296877daa0844adb77fd204f10f60567e90)), closes [#121](https://github.com/agrc/parole-and-probation/issues/121)
+
+
+### Bug Fixes
+
+* **api:** create pickup directory if it doesnt exist ([37ab135](https://github.com/agrc/parole-and-probation/commit/37ab135945e3eccadbe19df081efc09654bbb35c))
+* **api:** fix openid redirect url creation behind load balancer ([b951075](https://github.com/agrc/parole-and-probation/commit/b951075bfc9c27e88eb6ff5c86520126aa95ff5e))
+* **app:** add "add" button back and update state change events ([9e956d5](https://github.com/agrc/parole-and-probation/commit/9e956d57c7766ffaa1bc733a0433aa53c5ac4508))
+* **app:** better input data for vanity story ([2b70f6d](https://github.com/agrc/parole-and-probation/commit/2b70f6da4bae03041b169831751d2c7073cb392c)), closes [#127](https://github.com/agrc/parole-and-probation/issues/127)
+* **app:** don't display empty formgroup ([4513e93](https://github.com/agrc/parole-and-probation/commit/4513e93f49d2cc5791b853cc275edf1ef78761ca))
+* **app:** fix linting errors ([07b8f1a](https://github.com/agrc/parole-and-probation/commit/07b8f1a0609260ea3b2cfb58e5fd47807c6898c9))
+* **app:** fix map extent zoom after altering agent filter ([6415337](https://github.com/agrc/parole-and-probation/commit/641533752f535936d833e2c6ddb7324e7e1f1b54)), closes [#127](https://github.com/agrc/parole-and-probation/issues/127)
+* **app:** give the county controls more space ([7d61067](https://github.com/agrc/parole-and-probation/commit/7d6106723bece0d6be44963bf4d6c0270a215624))
+* **app:** make CI ignore build warnings ([0f2ed28](https://github.com/agrc/parole-and-probation/commit/0f2ed2805bde0d623f0b39fd644b5aeb4ddf126e))
+* **app:** make input match menu value on selection ([c3a4e59](https://github.com/agrc/parole-and-probation/commit/c3a4e599857d394dba4e48abdec050346573e92f))
+* **app:** make offender story work like the app ([b270296](https://github.com/agrc/parole-and-probation/commit/b2702963a8917cc92ef25665cb68765fde95aba7))
+* **app:** make vanity user id numeric ([997f39c](https://github.com/agrc/parole-and-probation/commit/997f39ccc5c01a808a8042f0b2144bcbeba79ce7)), closes [#127](https://github.com/agrc/parole-and-probation/issues/127)
+* **app:** pass the correct data when removing counties ([a67a545](https://github.com/agrc/parole-and-probation/commit/a67a545c37420ea0a60214543988e12c34952a1a))
+* **app:** remove duplicate lookup data values ([4e24236](https://github.com/agrc/parole-and-probation/commit/4e24236d329e1e5205e7042ee137a5e807a364f7))
+* **app:** simplify and refine combobox ([615ea1a](https://github.com/agrc/parole-and-probation/commit/615ea1a432711961e7a6b7c53d57c4014972065c))
+* **app:** throw error if no item is found ([106e4b7](https://github.com/agrc/parole-and-probation/commit/106e4b71eb65714a0d3e757d73074a7a70bb843f))
+* **app:** update homepage so npm start opens right path ([2d6e0fa](https://github.com/agrc/parole-and-probation/commit/2d6e0fad33fbd8f5a002471e8b894b6970acd974))
+* **combobox:** event.value is null unless set ([2883f8f](https://github.com/agrc/parole-and-probation/commit/2883f8faf75c1cfae0ba939acbcfc0375865cdc6))
+* **filter-agent:** when an item is selected itemToString receives null ([c14002a](https://github.com/agrc/parole-and-probation/commit/c14002a6d03349ed5fae67f2de8a943452b8a349))
+* **filters:** surround sos filter with parentheses ([3780730](https://github.com/agrc/parole-and-probation/commit/3780730ccdeda8c1d240f3ca2cd2991ab8618edb))
+* **inputtypeahead:** handle null input items ([0802da9](https://github.com/agrc/parole-and-probation/commit/0802da9b666a8adc5e6d8e4a94f593bf9b51beb3))
+
 ### [1.17.5](https://github.com/agrc/parole-and-probation/compare/v1.17.3...v1.17.5) (2020-12-30)
 
 
