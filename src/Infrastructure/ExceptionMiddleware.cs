@@ -17,7 +17,7 @@ namespace app.Infrastructure {
 
         public async Task Invoke(HttpContext context) {
             try {
-                await next(context).ConfigureAwait(false);
+                await next(context);
             } catch (Exception ex) {
                 _log.Error(ex, "Unhandled exception");
             }

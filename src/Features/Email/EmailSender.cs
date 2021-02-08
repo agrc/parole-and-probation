@@ -52,13 +52,13 @@ namespace parole.Features {
 
             using var client = new SmtpClient();
             _log.Debug("Connecting to smtp server");
-            await client.ConnectAsync(_config.Smtp, 25, MailKit.Security.SecureSocketOptions.None).ConfigureAwait(false);
+            await client.ConnectAsync(_config.Smtp, 25, MailKit.Security.SecureSocketOptions.None);
             _log.Debug("Connected to smtp server");
 
-            await client.SendAsync(message).ConfigureAwait(false);
+            await client.SendAsync(message);
             _log.Information("Email sent");
 
-            await client.DisconnectAsync(true).ConfigureAwait(false);
+            await client.DisconnectAsync(true);
         }
 
         private static void SendToPickupDirectory(MimeMessage message, string pickupDirectory) {
