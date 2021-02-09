@@ -2,5 +2,5 @@ pandas
 sqlalchemy
 pyodbc
 requests
-xxhash
 pyproj
+xxhash

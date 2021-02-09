@@ -1,2 +1,2 @@
 UPDATE [offenders]
-SET [offenders].[shape] = geometry::STGeomFromText('POINT(' + CONVERT(varchar, [offenders].[x]) + ' ' + CONVERT(varchar, [offenders].[y]) + ')', 3857)
+SET [offenders].[shape] = geometry::STGeomFromText('POINT(' + CONVERT(varchar, [offenders].[web_x]) + ' ' + CONVERT(varchar, [offenders].[web_y]) + ')', 3857)

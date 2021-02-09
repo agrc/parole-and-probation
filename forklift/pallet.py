@@ -11,11 +11,11 @@ import pandas as pd
 import pyproj
 import requests
 import sqlalchemy
-from models import schema
 from vault import api, database
 from xxhash import xxh64
 
 from forklift.models import Pallet
+from models import schema
 
 
 class CorrectionPallet(Pallet):
@@ -31,7 +31,7 @@ class CorrectionPallet(Pallet):
         self.db = database.CONNECTION_AT
 
         if configuration == 'Dev':
-            self.api = api.ENDPOINT_AT
+            self.api = api.ENDPOINT
             self.db = database.CONNECTION_LOCAL
 
         if configuration == 'Staging':
@@ -94,7 +94,7 @@ class CorrectionPallet(Pallet):
         success = True
         lat_long = pyproj.CRS.from_epsg(4326)
         web_mercator = pyproj.CRS.from_epsg(3857)
-        transformer = pyproj.Transformer.from_crs(lat_long, web_mercator)
+        transformer = pyproj.Transformer.from_crs(lat_long, web_mercator, always_xy=True)
 
         def convert_special_supervision(code):
             return code.casefold().replace('-', '').replace(' ', '')
@@ -107,14 +107,15 @@ class CorrectionPallet(Pallet):
                 dtype=schema.DATA_TYPES,
                 convert_dates=True,
             )
-
             for special_supervision in schema.SPECIAL_SUPERVISION:
                 frame[convert_special_supervision(special_supervision)
                      ] = frame.special_supervision.apply(lambda value: special_supervision in value)
 
             frame.drop(columns=['special_supervision'], inplace=True)
 
-            frame[['x', 'y']] = frame[['x', 'y']].apply(lambda df: pd.Series(transformer.transform(df[0], df[1])))
+            frame[['web_x',
+                   'web_y']] = frame[['x',
+                                      'y']].apply(lambda df: pd.Series(transformer.transform(df[0], df[1])), axis=1)
 
             cwd = Path(__file__).parent
 
