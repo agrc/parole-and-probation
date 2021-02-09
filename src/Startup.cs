@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using parole.Features;
+using parole.Infrastructure;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Timeout;
@@ -143,6 +144,8 @@ namespace parole {
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseEndpoints(endpoints => {
                 var tokenService = endpoints.ServiceProvider.GetService<TokenService>();

@@ -1,11 +1,10 @@
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Serilog;
 
-namespace app.Infrastructure {
+namespace parole.Infrastructure {
     public class ExceptionHandlingMiddleware {
         private readonly RequestDelegate next;
         private readonly ILogger _log;
