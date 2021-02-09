@@ -45,7 +45,7 @@ namespace parole.Features {
                 _log.Verbose("The time is {Now} and the token expires at {Expires}", utcNow, _expiresIn);
 
                 if (utcNow < _expiresIn) {
-                    _log.Debug("The current token is still valid.");
+                    _log.Verbose("The current token is still valid.");
 
                     return _currentToken;
                 }
@@ -72,7 +72,7 @@ namespace parole.Features {
                     return null;
                 }
 
-                _log.Debug("Token service response {@Response}", tokenResponse);
+                _log.Verbose("Token service response {@Response}", tokenResponse);
 
                 var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                 _expiresIn = epoch.AddMilliseconds(tokenResponse.Expires - TenMinuteBufferInMilliSeconds);

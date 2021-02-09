@@ -182,8 +182,8 @@ namespace parole {
                     }
 
                     var exportService = endpoints.ServiceProvider.GetService<ExportService>();
-
                     var records = await exportService.GetRecords(model);
+
                     if (!records.Any()) {
                         context.Response.StatusCode = 200;
                         await context.Response.WriteAsJsonAsync(new {

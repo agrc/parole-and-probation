@@ -24,6 +24,8 @@ namespace parole.Features {
             try {
                 session.Open();
             } catch (SqlException) {
+                _log.Warning("Sql Exception connecting to the database");
+
                 return Array.Empty<Schema>();
             }
 
@@ -31,7 +33,7 @@ namespace parole.Features {
                 ids = model.Offenders
             });
 
-            _log.Debug("Converting to csv {records}", records);
+            _log.Debug("Converting records to csv");
 
             return records;
         }

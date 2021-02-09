@@ -16,7 +16,7 @@ namespace parole.Features {
             _config = config;
             _log = log;
 
-            _log.Debug("Email settings: {@settings}", config);
+            _log.Verbose("Email settings: {@settings}", config);
         }
 
         public async Task SendAsync(IReadOnlyCollection<string> recipients, Stream stream) {
@@ -30,7 +30,7 @@ namespace parole.Features {
             message.Subject = "AP&P Field Map: Offender Export";
 
             var body = new TextPart("plain") {
-                Text = "Attached is your export. This will open well in all spreadsheet applications including Google Sheets."
+                Text = "Attached is your export. This will open in all spreadsheet applications including Google Sheets."
             };
 
             var attachment = new MimePart("application/csv") {
@@ -51,9 +51,9 @@ namespace parole.Features {
             }
 
             using var client = new SmtpClient();
-            _log.Debug("Connecting to smtp server");
+            _log.Verbose("Connecting to smtp server");
             await client.ConnectAsync(_config.Smtp, 25, MailKit.Security.SecureSocketOptions.None);
-            _log.Debug("Connected to smtp server");
+            _log.Verbose("Connected to smtp server");
 
             await client.SendAsync(message);
             _log.Information("Email sent");
