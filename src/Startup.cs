@@ -209,7 +209,7 @@ namespace parole {
                     var emailConfig = endpoints.ServiceProvider.GetService<EmailConfig>();
                     var emailer = new EmailSender(emailConfig, logger);
 
-                    await emailer.SendAsync(new[] { model.Agent }, stream);
+                    await emailer.SendAsync(new[] { context.User.Claims.FirstOrDefault(x => x.Type == "public:Email").Value }, stream);
                 }
                 ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
 

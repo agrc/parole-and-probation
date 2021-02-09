@@ -352,8 +352,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       mode: 'cors',
       body: JSON.stringify({
         offenders: ids,
-        // TODO: get this from the cookie claims
-        agent: null,
       }),
       headers: {
         'Content-Type': 'application/json',
