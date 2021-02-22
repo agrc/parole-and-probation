@@ -33,6 +33,7 @@
   "python.testing.unittestEnabled": false,
   "cSpell.words": [
     "HSTS",
+    "MAPVIEW",
     "agrc",
     "appsettings",
     "arcgis",
@@ -48,7 +49,6 @@
     "downshift",
     "dtype",
     "dtypes",
-    "esrijs",
     "fontawesome",
     "fortawesome",
     "geolocate",
