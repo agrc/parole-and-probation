@@ -5,6 +5,7 @@ using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace parole.Features {
     public class ExportService {
@@ -30,7 +31,13 @@ namespace parole.Features {
                 return Array.Empty<Schema>();
             }
 
-            var records = await session.QueryAsync<Schema>($"SELECT * FROM DOCOAdmin.offenders WHERE {whereClause}");
+            var records = Enumerable.Empty<Schema>();
+
+            try {
+                records = await session.QueryAsync<Schema>($"SELECT * FROM DOCOAdmin.offenders WHERE {whereClause}");
+            } catch (Exception ex) {
+                _log.Fatal(ex, "query failure");
+            }
 
             _log.Debug("Converting records to csv");
 
@@ -51,7 +58,7 @@ namespace parole.Features {
 
     public class Schema {
         public int offender_id { get; set; }
-        public char gender { get; set; }
+        public string gender { get; set; }
         public int region { get; set; }
         public string agency { get; set; }
         public string supervisor_id { get; set; }
@@ -61,7 +68,7 @@ namespace parole.Features {
         public DateTime date_of_birth { get; set; }
         public string race { get; set; }
         public string legal_status { get; set; }
-        public char legal_status_code { get; set; }
+        public string legal_status_code { get; set; }
         public string legal_status_description { get; set; }
         public DateTime supervision_start_date { get; set; }
         public string offender_location { get; set; }
@@ -71,7 +78,7 @@ namespace parole.Features {
         public string city { get; set; }
         public string state { get; set; }
         public int zip { get; set; }
-        public char address_type_code { get; set; }
+        public string address_type_code { get; set; }
         public string address_type { get; set; }
         public decimal x { get; set; }
         public decimal y { get; set; }
