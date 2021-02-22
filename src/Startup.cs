@@ -158,24 +158,15 @@ namespace parole {
                 ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
 
                 endpoints.MapPost("api/download", async context => {
-                    CsvDownload model;
+                    MapFilterState model;
                     try {
-                        model = await context.Request.ReadFromJsonAsync<CsvDownload>(new JsonSerializerOptions {
+                        model = await context.Request.ReadFromJsonAsync<MapFilterState>(new JsonSerializerOptions {
                             PropertyNameCaseInsensitive = true
                         });
-                    } catch (JsonException) {
+                    } catch (JsonException ex) {
                         context.Response.StatusCode = 400;
                         await context.Response.WriteAsJsonAsync(new {
-                            message = "Invalid Request"
-                        });
-
-                        return;
-                    }
-
-                    if (model?.Offenders?.Count == 0) {
-                        context.Response.StatusCode = 400;
-                        await context.Response.WriteAsJsonAsync(new {
-                            message = "Invalid Request"
+                            message = "Invalid Request " + ex
                         });
 
                         return;

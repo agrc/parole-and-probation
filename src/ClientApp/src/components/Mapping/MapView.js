@@ -173,6 +173,47 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     [offenders, view, appliedFilter, mapDispatcher]
   );
 
+  const download = React.useCallback(async () => {
+    const base = `${window.location.protocol}//${window.location.hostname}${
+      window.location.port ? `:${window.location.port}` : ''
+    }`;
+    const url = new URL(`${process.env.PUBLIC_URL}/api/download`, base);
+
+    const response = await fetch(url, {
+      signal: signal,
+      method: 'POST',
+      credentials: 'include',
+      mode: 'cors',
+      body: JSON.stringify({
+        ...filterCriteria,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status !== 201) {
+      //TODO: toast an error
+      return;
+    }
+
+    const data = await response.text();
+
+    if (data.length === 0) {
+      return;
+    }
+
+    try {
+      var blob = new Blob([data], {
+        type: 'application/csv',
+      });
+
+      saveAs(blob, 'export.csv');
+    } catch (e) {
+      console.error('unable to create local download');
+    }
+  }, [filterCriteria, offenders?.definitionExpression]);
+
   // set up map effect
   React.useEffect(() => {
     if (!mapDiv.current) {
@@ -324,48 +365,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       clickEvent.current = view.on('click', (event) => identify(event));
     }
   }, [clickEvent, view, identify]);
-
-  const download = async () => {
-    const base = `${window.location.protocol}//${window.location.hostname}${
-      window.location.port ? `:${window.location.port}` : ''
-    }`;
-    const url = new URL(`${process.env.PUBLIC_URL}/api/download`, base);
-
-    const response = await fetch(url, {
-      signal: signal,
-      method: 'POST',
-      credentials: 'include',
-      mode: 'cors',
-      body: JSON.stringify({
-        filterCriteria,
-        definitionExpression: offenders.definitionExpression,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.status !== 201) {
-      //TODO: toast an error
-      return;
-    }
-
-    const data = await response.text();
-
-    if (data.length === 0) {
-      return;
-    }
-
-    try {
-      var blob = new Blob([data], {
-        type: 'application/csv',
-      });
-
-      saveAs(blob, 'export.csv');
-    } catch (e) {
-      console.error('unable to create local download');
-    }
-  };
 
   return (
     <div ref={mapDiv} style={{ height: '100%', width: '100%' }}>
