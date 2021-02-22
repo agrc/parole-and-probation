@@ -16,10 +16,10 @@ import { saveAs } from 'file-saver';
 import * as React from 'react';
 import { fields } from '../../config';
 import useViewLoading from '../../useViewLoading';
-import CsvDownload from '../CsvDownload';
-import HomeButton from '../DefaultExtent';
-import Geolocation from '../Geolocation';
-import MapToolPanel from '../MapToolPanel';
+import CsvDownload from '../CsvDownload/CsvDownload';
+import HomeButton from '../DefaultExtent/DefaultExtent';
+import Geolocation from '../Geolocation/Geolocation';
+import MapToolPanel from '../MapToolPanel/MapToolPanel';
 
 config.assetsPath = `${process.env.PUBLIC_URL}/assets`;
 
@@ -52,7 +52,7 @@ const defaultExtent = new Extent({
 const controller = new AbortController();
 let signal = controller.signal;
 
-const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpression }) => {
+const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpression, filterCriteria }) => {
   const mapDiv = React.useRef(null);
   const displayedZoomGraphic = React.useRef(null);
   const [selectorOptions, setSelectorOptions] = React.useState(null);
@@ -326,20 +326,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   }, [clickEvent, view, identify]);
 
   const download = async () => {
-    const layerView = await view.whenLayerView(offenders);
-
-    const ids = await layerView.queryObjectIds({
-      where: appliedFilter,
-      geometry: view.extent,
-      returnGeometry: false,
-    });
-
-    console.log(`there are ${ids.length} features to download`);
-
-    if (ids.length === 0) {
-      return;
-    }
-
     const base = `${window.location.protocol}//${window.location.hostname}${
       window.location.port ? `:${window.location.port}` : ''
     }`;
@@ -351,7 +337,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       credentials: 'include',
       mode: 'cors',
       body: JSON.stringify({
-        offenders: ids,
+        filterCriteria,
+        definitionExpression: offenders.definitionExpression,
       }),
       headers: {
         'Content-Type': 'application/json',
