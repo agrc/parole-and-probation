@@ -378,8 +378,10 @@ const emptyState = {
 };
 
 const Filters = (props) => {
-  initialState.agent.loggedInUser = props.loggedInUser;
-  initialState.agent.agentList = [props.loggedInUser];
+  if (initialState.agent?.loggedInUser === null) {
+    initialState.agent.loggedInUser = props.loggedInUser;
+    initialState.agent.agentList = [props.loggedInUser];
+  }
 
   emptyState.agent.loggedInUser = props.loggedInUser;
   emptyState.agent.agentList = [props.loggedInUser];
@@ -391,11 +393,23 @@ const Filters = (props) => {
 
   React.useEffect(() => {
     console.log('Filters:useEffect dispatching map filters');
-    props.mapDispatcher({ type: 'SET_FILTERS', payload: payload });
+    props.mapDispatcher({
+      type: 'SET_FILTERS',
+      payload: {
+        filters: payload,
+        criteria: {
+          agents: criteria.agent.agentList.map((item) => item.id),
+          offender: { ...criteria.offender },
+          location: { ...criteria.location },
+          date: { ...criteria.date },
+          other: { ...criteria.other },
+        },
+      },
+    });
     // React guarantees that dispatch function identity is stable and won’t change on re-renders.
     // This is why it’s safe to omit from the useEffect or useCallback dependency list.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [payload]);
+  }, [payload, criteria]);
 
   return (
     <section className={classes}>

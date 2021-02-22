@@ -75,8 +75,8 @@ const reducer = (draft, action) => {
       return draft;
     }
     case 'SET_FILTERS': {
-      let filter = action.payload.filter;
-      let definitionExpression = action.payload.definitionExpression;
+      let filter = action.payload.filters.filter;
+      let definitionExpression = action.payload.filters.definitionExpression;
 
       let tempFilter = [];
       if (filter?.length > 0) {
@@ -106,6 +106,7 @@ const reducer = (draft, action) => {
         // useful for queries/identifying outside of the feature layer
         // where the queries need to match
         draft.appliedFilter = newFilters;
+        draft.filterCriteria = action.payload.criteria;
       }
 
       return draft;
@@ -158,6 +159,7 @@ export default function App() {
     },
     showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
     filter: [],
+    filterCriteria: {},
     appliedFilter: `agent_id in (${user?.id})`,
     definitionExpression: [`agent_id in (${user?.id})`],
     featureSet: null,
@@ -169,6 +171,7 @@ export default function App() {
     zoomToGraphic: app.zoomToGraphic,
     definitionExpression: app.definitionExpression,
     filter: app.filter,
+    filterCriteria: app.filterCriteria,
   };
 
   const sidebarOptions = {
