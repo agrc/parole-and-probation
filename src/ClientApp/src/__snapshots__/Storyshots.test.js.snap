@@ -1877,26 +1877,25 @@ exports[`Storyshots Filters/Location Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-owns="downshift-6-menu"
+          aria-owns="downshift-18-menu"
           role="combobox"
         >
           <input
             aria-autocomplete="list"
-            aria-controls="downshift-6-menu"
-            aria-labelledby="downshift-6-label"
+            aria-controls="downshift-18-menu"
+            aria-labelledby="downshift-18-label"
             autoComplete="off"
             className="form-control"
-            id="downshift-6-input"
+            id="downshift-18-input"
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
             type="text"
-            value=""
           />
           <div
-            aria-labelledby="downshift-6-label"
+            aria-labelledby="downshift-18-label"
             className="downshift__match-dropdown"
-            id="downshift-6-menu"
+            id="downshift-18-menu"
             onMouseLeave={[Function]}
             role="listbox"
           >
@@ -1921,26 +1920,25 @@ exports[`Storyshots Filters/Location Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-owns="downshift-7-menu"
+          aria-owns="downshift-19-menu"
           role="combobox"
         >
           <input
             aria-autocomplete="list"
-            aria-controls="downshift-7-menu"
-            aria-labelledby="downshift-7-label"
+            aria-controls="downshift-19-menu"
+            aria-labelledby="downshift-19-label"
             autoComplete="off"
             className="form-control"
-            id="downshift-7-input"
+            id="downshift-19-input"
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
             type="text"
-            value=""
           />
           <div
-            aria-labelledby="downshift-7-label"
+            aria-labelledby="downshift-19-label"
             className="downshift__match-dropdown"
-            id="downshift-7-menu"
+            id="downshift-19-menu"
             onMouseLeave={[Function]}
             role="listbox"
           >
@@ -1965,7 +1963,7 @@ exports[`Storyshots Filters/Location Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-owns="downshift-8-menu"
+          aria-owns="downshift-20-menu"
           role="combobox"
         >
           <div
@@ -1973,11 +1971,11 @@ exports[`Storyshots Filters/Location Filter Normal 1`] = `
           >
             <input
               aria-autocomplete="list"
-              aria-controls="downshift-8-menu"
-              aria-labelledby="downshift-8-label"
+              aria-controls="downshift-20-menu"
+              aria-labelledby="downshift-20-label"
               autoComplete="off"
               className="form-control"
-              id="downshift-8-input"
+              id="downshift-20-input"
               onBlur={[Function]}
               onChange={[Function]}
               onKeyDown={[Function]}
@@ -1999,9 +1997,9 @@ exports[`Storyshots Filters/Location Filter Normal 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="downshift-8-label"
+            aria-labelledby="downshift-20-label"
             className="downshift__match-dropdown"
-            id="downshift-8-menu"
+            id="downshift-20-menu"
             onMouseLeave={[Function]}
             role="listbox"
           >
@@ -2105,16 +2103,16 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-owns="downshift-19-menu"
+          aria-owns="downshift-21-menu"
           role="combobox"
         >
           <input
             aria-autocomplete="list"
-            aria-controls="downshift-19-menu"
-            aria-labelledby="downshift-19-label"
+            aria-controls="downshift-21-menu"
+            aria-labelledby="downshift-21-label"
             autoComplete="off"
             className="form-control"
-            id="downshift-19-input"
+            id="downshift-21-input"
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
@@ -2122,9 +2120,9 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
             value=""
           />
           <div
-            aria-labelledby="downshift-19-label"
+            aria-labelledby="downshift-21-label"
             className="downshift__match-dropdown"
-            id="downshift-19-menu"
+            id="downshift-21-menu"
             onMouseLeave={[Function]}
             role="listbox"
           >
@@ -2149,16 +2147,16 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-owns="downshift-20-menu"
+          aria-owns="downshift-22-menu"
           role="combobox"
         >
           <input
             aria-autocomplete="list"
-            aria-controls="downshift-20-menu"
-            aria-labelledby="downshift-20-label"
+            aria-controls="downshift-22-menu"
+            aria-labelledby="downshift-22-label"
             autoComplete="off"
             className="form-control"
-            id="downshift-20-input"
+            id="downshift-22-input"
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
@@ -2166,9 +2164,9 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
             value=""
           />
           <div
-            aria-labelledby="downshift-20-label"
+            aria-labelledby="downshift-22-label"
             className="downshift__match-dropdown"
-            id="downshift-20-menu"
+            id="downshift-22-menu"
             onMouseLeave={[Function]}
             role="listbox"
           >
@@ -2231,16 +2229,16 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-owns="downshift-21-menu"
+          aria-owns="downshift-23-menu"
           role="combobox"
         >
           <input
             aria-autocomplete="list"
-            aria-controls="downshift-21-menu"
-            aria-labelledby="downshift-21-label"
+            aria-controls="downshift-23-menu"
+            aria-labelledby="downshift-23-label"
             autoComplete="off"
             className="form-control"
-            id="downshift-21-input"
+            id="downshift-23-input"
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
@@ -2248,9 +2246,9 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
             value=""
           />
           <div
-            aria-labelledby="downshift-21-label"
+            aria-labelledby="downshift-23-label"
             className="downshift__match-dropdown"
-            id="downshift-21-menu"
+            id="downshift-23-menu"
             onMouseLeave={[Function]}
             role="listbox"
           >
@@ -2275,16 +2273,16 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
         <div
           aria-expanded={false}
           aria-haspopup="listbox"
-          aria-owns="downshift-22-menu"
+          aria-owns="downshift-24-menu"
           role="combobox"
         >
           <input
             aria-autocomplete="list"
-            aria-controls="downshift-22-menu"
-            aria-labelledby="downshift-22-label"
+            aria-controls="downshift-24-menu"
+            aria-labelledby="downshift-24-label"
             autoComplete="off"
             className="form-control"
-            id="downshift-22-input"
+            id="downshift-24-input"
             onBlur={[Function]}
             onChange={[Function]}
             onKeyDown={[Function]}
@@ -2292,9 +2290,9 @@ exports[`Storyshots Filters/Offender Filter Normal 1`] = `
             value=""
           />
           <div
-            aria-labelledby="downshift-22-label"
+            aria-labelledby="downshift-24-label"
             className="downshift__match-dropdown"
-            id="downshift-22-menu"
+            id="downshift-24-menu"
             onMouseLeave={[Function]}
             role="listbox"
           >
@@ -2427,128 +2425,6 @@ exports[`Storyshots Filters/Other Filter Empty 1`] = `
       <div
         aria-expanded={false}
         aria-haspopup="listbox"
-        aria-owns="downshift-23-menu"
-        role="combobox"
-      >
-        <div
-          className="input-group"
-        >
-          <input
-            aria-autocomplete="list"
-            aria-controls="downshift-23-menu"
-            aria-labelledby="downshift-23-label"
-            autoComplete="off"
-            className="form-control"
-            id="downshift-23-input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            type="text"
-            value=""
-          />
-          <div
-            className="input-group-append"
-          >
-            <button
-              aria-label={null}
-              className="btn btn-secondary"
-              onClick={[Function]}
-              type="button"
-            >
-              Add
-            </button>
-          </div>
-        </div>
-        <div
-          aria-labelledby="downshift-23-label"
-          className="downshift__match-dropdown"
-          id="downshift-23-menu"
-          onMouseLeave={[Function]}
-          role="listbox"
-        >
-          <ul
-            className="downshift__matches"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="col"
-  >
-    <div
-      className="form-group"
-    >
-      <label
-        className=""
-      >
-        Gang Name
-      </label>
-      <div
-        aria-expanded={false}
-        aria-haspopup="listbox"
-        aria-owns="downshift-24-menu"
-        role="combobox"
-      >
-        <div
-          className="input-group"
-        >
-          <input
-            aria-autocomplete="list"
-            aria-controls="downshift-24-menu"
-            aria-labelledby="downshift-24-label"
-            autoComplete="off"
-            className="form-control"
-            id="downshift-24-input"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            type="text"
-            value=""
-          />
-          <div
-            className="input-group-append"
-          >
-            <button
-              aria-label={null}
-              className="btn btn-secondary"
-              onClick={[Function]}
-              type="button"
-            >
-              Add
-            </button>
-          </div>
-        </div>
-        <div
-          aria-labelledby="downshift-24-label"
-          className="downshift__match-dropdown"
-          id="downshift-24-menu"
-          onMouseLeave={[Function]}
-          role="listbox"
-        >
-          <ul
-            className="downshift__matches"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="col"
-  >
-    <div
-      className="form-group"
-    >
-      <label
-        className=""
-      >
-        Offense Type
-      </label>
-      <div
-        aria-expanded={false}
-        aria-haspopup="listbox"
         aria-owns="downshift-25-menu"
         role="combobox"
       >
@@ -2586,6 +2462,128 @@ exports[`Storyshots Filters/Other Filter Empty 1`] = `
           aria-labelledby="downshift-25-label"
           className="downshift__match-dropdown"
           id="downshift-25-menu"
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Gang Name
+      </label>
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-owns="downshift-26-menu"
+        role="combobox"
+      >
+        <div
+          className="input-group"
+        >
+          <input
+            aria-autocomplete="list"
+            aria-controls="downshift-26-menu"
+            aria-labelledby="downshift-26-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-26-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-label={null}
+              className="btn btn-secondary"
+              onClick={[Function]}
+              type="button"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+        <div
+          aria-labelledby="downshift-26-label"
+          className="downshift__match-dropdown"
+          id="downshift-26-menu"
+          onMouseLeave={[Function]}
+          role="listbox"
+        >
+          <ul
+            className="downshift__matches"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col"
+  >
+    <div
+      className="form-group"
+    >
+      <label
+        className=""
+      >
+        Offense Type
+      </label>
+      <div
+        aria-expanded={false}
+        aria-haspopup="listbox"
+        aria-owns="downshift-27-menu"
+        role="combobox"
+      >
+        <div
+          className="input-group"
+        >
+          <input
+            aria-autocomplete="list"
+            aria-controls="downshift-27-menu"
+            aria-labelledby="downshift-27-label"
+            autoComplete="off"
+            className="form-control"
+            id="downshift-27-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="input-group-append"
+          >
+            <button
+              aria-label={null}
+              className="btn btn-secondary"
+              onClick={[Function]}
+              type="button"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+        <div
+          aria-labelledby="downshift-27-label"
+          className="downshift__match-dropdown"
+          id="downshift-27-menu"
           onMouseLeave={[Function]}
           role="listbox"
         >
