@@ -63,7 +63,7 @@ namespace parole.Features {
         }
         private static void AddOffender(ref List<string> sqlParts, OffenderRecord data) {
             if (!string.IsNullOrEmpty(data.Gender)) {
-                sqlParts.Add($"gender={data.Gender[0]}");
+                sqlParts.Add($"gender='{data.Gender[0]}'");
             }
             if (!string.IsNullOrEmpty(data.Name)) {
                 sqlParts.Add($"offender='{data.Name}'");
