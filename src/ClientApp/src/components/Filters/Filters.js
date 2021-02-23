@@ -60,7 +60,7 @@ const shortCircuitEmpties = (value) => {
 };
 
 const countActiveFilters = (filter, state) => {
-  const skipKeys = ['loggedInUser', 'vanity', 'buffer', 'extent', 'point'];
+  const skipKeys = ['loggedInUser', 'vanity', 'supervisor', 'supervisorList', 'buffer', 'extent', 'point'];
 
   const allKeys = Object.keys(state);
   const filterKeys = allKeys.filter((filter) => !skipKeys.includes(filter));
