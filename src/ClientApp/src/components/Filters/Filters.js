@@ -293,7 +293,7 @@ const filterReducer = (draft, action) => {
   }
 };
 
-const initialState = {
+const defaultState = {
   agent: {
     loggedInUser: null,
     agentList: [],
@@ -326,12 +326,6 @@ const initialState = {
     supervision: [],
     gang: [],
     offense: [],
-  },
-  downshift: {
-    offenderName: '',
-    offenderNumber: '',
-    offenderTelephone: '',
-    offenderEmployer: '',
   },
 };
 
@@ -369,15 +363,10 @@ const emptyState = {
     gang: [],
     offense: [],
   },
-  downshift: {
-    offenderName: '',
-    offenderNumber: '',
-    offenderTelephone: '',
-    offenderEmployer: '',
-  },
 };
 
 const Filters = (props) => {
+  let initialState = { ...defaultState, ...props.initialState };
   if (initialState.agent?.loggedInUser === null) {
     initialState.agent.loggedInUser = props.loggedInUser;
     initialState.agent.agentList = [props.loggedInUser];

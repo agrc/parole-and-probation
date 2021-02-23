@@ -14,6 +14,7 @@ export default function FilterOffender(props) {
             <Label>Name</Label>
             <InputTypeAhead
               featureSet={props.featureSet}
+              currentValue={props.criteria.name}
               itemToString={(item) => item?.attributes?.offender || ''}
               itemToKey={(item) => item?.attributes?.offender_id || ''}
               reducerDescriptor={{ type, field: 'name' }}
@@ -26,6 +27,7 @@ export default function FilterOffender(props) {
             <Label>Offender Number</Label>
             <InputTypeAhead
               featureSet={props.featureSet}
+              currentValue={props.criteria.number}
               itemToString={(item) => item?.attributes?.offender_id?.toString() || ''}
               itemToKey={(item) => item?.attributes?.offender_id || ''}
               itemToSortValue={(item) => item?.attributes?.offender_id}
@@ -68,6 +70,7 @@ export default function FilterOffender(props) {
             <Label>Phone</Label>
             <InputTypeAhead
               featureSet={props.featureSet}
+              currentValue={props.criteria.tel}
               itemToString={(item) => item?.attributes?.offender_phone || ''}
               itemToKey={(item) => item?.attributes?.offender_id || ''}
               reducerDescriptor={{ type, field: 'tel' }}
@@ -80,6 +83,7 @@ export default function FilterOffender(props) {
             <Label>Employer</Label>
             <InputTypeAhead
               featureSet={props.featureSet}
+              currentValue={props.criteria.employer}
               itemToString={(item) => item?.attributes?.employer || ''}
               itemToKey={(item) => item?.attributes?.offender_id || ''}
               reducerDescriptor={{ type, field: 'employer' }}

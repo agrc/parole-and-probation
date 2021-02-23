@@ -29,6 +29,7 @@ export default function FilterLocation(props) {
             <Label>City</Label>
             <InputTypeAhead
               featureSet={props.featureSet}
+              currentValue={props.criteria.city}
               itemToString={(item) => item?.attributes?.city || ''}
               itemToKey={defaultItemToKey}
               reducerDescriptor={{ type, field: 'city' }}
@@ -41,6 +42,7 @@ export default function FilterLocation(props) {
             <Label>Zip</Label>
             <InputTypeAhead
               featureSet={props.featureSet}
+              currentValue={props.criteria.zip}
               itemToString={(item) => item?.attributes?.zip.toString() || ''}
               itemToKey={defaultItemToKey}
               reducerDescriptor={{ type, field: 'zip' }}
