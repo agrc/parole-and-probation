@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.18.2](https://github.com/agrc/parole-and-probation/compare/v1.18.0...v1.18.2) (2021-02-23)
+
+
+### Bug Fixes
+
+* **api:** change strings to chars ([04f8bd6](https://github.com/agrc/parole-and-probation/commit/04f8bd634e9ac2f9279270514cad1742f30cf1c9)), closes [#135](https://github.com/agrc/parole-and-probation/issues/135)
+* **api:** fix gender query ([a8a5bdb](https://github.com/agrc/parole-and-probation/commit/a8a5bdb0321045ed838adf588c6ebaa3f70bfead)), closes [#135](https://github.com/agrc/parole-and-probation/issues/135)
+* **app:** get user email from claims ([18368b5](https://github.com/agrc/parole-and-probation/commit/18368b50fb5b625c3dae368a1eefa899ff14df6d))
+* **app:** type ahead filters search entire string value instead of beginning ([fd8bb45](https://github.com/agrc/parole-and-probation/commit/fd8bb45e11314a50cce9374658ee5a66db603661))
+* **filters:** ignore properties that do not count towards active filters ([0bd50da](https://github.com/agrc/parole-and-probation/commit/0bd50da0e7afb1e7acc9c469730713546b1a2ea6))
+* **filters:** manage state in app for all inputs ([c2315a5](https://github.com/agrc/parole-and-probation/commit/c2315a5c74d1c080035f00614517421597562a08)), closes [#136](https://github.com/agrc/parole-and-probation/issues/136)
+* **pallet:** swap coordinates and supply axis ([d1a479b](https://github.com/agrc/parole-and-probation/commit/d1a479be616f301046aba86a76e55437aa5b13ad))
+
 ### [1.18.1](https://github.com/agrc/parole-and-probation/compare/v1.18.0...v1.18.1) (2021-02-23)
 
 
