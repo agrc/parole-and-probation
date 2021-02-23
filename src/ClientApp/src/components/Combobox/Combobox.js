@@ -57,7 +57,7 @@ export function MultiSelect({
   const [inputValue, setInputValue] = React.useState('');
   const getFilteredItems = (filterItems) => {
     return filterItems.filter((item) => {
-      const matchesWithInput = itemToString(item).toLowerCase().startsWith(inputValue.toLowerCase());
+      const matchesWithInput = itemToString(item).toLowerCase().includes(inputValue.toLowerCase());
 
       if (!currentSelectedItems || !Array.isArray(currentSelectedItems)) {
         return matchesWithInput;
@@ -187,7 +187,7 @@ export function InputTypeAhead({
       const item = inputItems[i];
       const value = itemToString(item);
 
-      if (value.toLowerCase().startsWith(inputValue.toLowerCase())) {
+      if (value.toLowerCase().includes(inputValue.toLowerCase())) {
         if (!uniques.has(value)) {
           items.push(item);
         }
