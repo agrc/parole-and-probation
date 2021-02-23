@@ -156,6 +156,7 @@ export function MultiSelect({
 
 export function InputTypeAhead({
   featureSet,
+  currentValue,
   titleCaseItem = true,
   itemToString = returnItem,
   itemToSortValue = returnItem,
@@ -163,7 +164,7 @@ export function InputTypeAhead({
   reducerDescriptor,
   dispatch,
 }) {
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = React.useState(currentValue);
   const [sortedItems, setSortedItems] = React.useState(featureSet?.features);
 
   const onSelectItem = (item) => {
@@ -220,6 +221,14 @@ export function InputTypeAhead({
   React.useEffect(() => {
     setSortedItems(featureSet?.features?.sort(sortFunction));
   }, [featureSet, sortFunction]);
+
+  React.useEffect(() => {
+    if (currentValue) {
+      return;
+    }
+
+    setInputValue(currentValue);
+  }, [currentValue]);
 
   const {
     isOpen,
