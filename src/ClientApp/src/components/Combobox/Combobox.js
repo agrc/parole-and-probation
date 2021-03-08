@@ -56,15 +56,36 @@ export function MultiSelect({
 }) {
   const [inputValue, setInputValue] = React.useState('');
   const getFilteredItems = (filterItems) => {
-    return filterItems.filter((item) => {
-      const matchesWithInput = itemToString(item).toLowerCase().includes(inputValue.toLowerCase());
+    const items = [];
+
+    if (inputValue?.trim().length === 0 || !filterItems) {
+      return items;
+    }
+
+    for (let i = 0; i < filterItems.length; i++) {
+      const item = filterItems[i];
+      const value = itemToString(item);
+
+      const matchesWithInput = value.toLowerCase().includes(inputValue.toLowerCase());
 
       if (!currentSelectedItems || !Array.isArray(currentSelectedItems)) {
-        return matchesWithInput;
+        items.push(item);
+
+        if (items.length === 15) {
+          return items;
+        }
+
+        continue;
       }
 
-      return matchesWithInput && !currentSelectedItems.some((someItem) => itemToKey(someItem) === itemToKey(item));
-    });
+      if (matchesWithInput && !currentSelectedItems.some((someItem) => itemToKey(someItem) === itemToKey(item))) {
+        items.push(item);
+      }
+
+      if (items.length === 15) {
+        return items;
+      }
+    }
   };
 
   const {
