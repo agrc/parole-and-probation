@@ -151,6 +151,11 @@ namespace parole {
                 var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
 
+                endpoints.MapGet("api/logout", async context => {
+                    await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    context.Response.Redirect("/");
+                });
+
                 endpoints.MapGet("api/configuration", context => context.Response.WriteAsJsonAsync(new Dictionary<string, string>{
                         { "id", context.User.Claims.First(x=> x.Type == "public:WorkforceID").Value },
                         { "name", context.User.Claims.First(x=> x.Type == "public:FullName").Value }
