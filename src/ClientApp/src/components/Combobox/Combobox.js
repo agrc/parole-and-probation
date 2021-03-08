@@ -86,6 +86,8 @@ export function MultiSelect({
         return items;
       }
     }
+
+    return items;
   };
 
   const {
