@@ -152,6 +152,12 @@ namespace parole {
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
 
                 endpoints.MapGet("api/logout", async context => {
+                    logger
+                    .ForContext("user", context.User?.Identity)
+                    .ForContext("claims", context.User?.Claims)
+                    .ForContext("cookies", context.Request?.Cookies)
+                    .Information("authentication issue link clicked", context.User);
+
                     await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                     context.Response.Redirect("/");
                 });
