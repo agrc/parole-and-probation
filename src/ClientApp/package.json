@@ -15,7 +15,7 @@
   "dependencies": {
     "@agrc/dart-board": "^3.3.0",
     "@agrc/layer-selector": "^4.0.4",
-    "@arcgis/core": "^4.18.1",
+    "@arcgis/core": "^4.19.0-next.20210309",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
