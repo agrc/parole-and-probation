@@ -2,7 +2,7 @@ import DartBoard from '@agrc/dart-board';
 import LayerSelector from '@agrc/layer-selector';
 import Basemap from '@arcgis/core/Basemap';
 import config from '@arcgis/core/config';
-import { once, whenFalseOnce, whenTrueOnce } from '@arcgis/core/core/watchUtils';
+import { once, pausable, whenFalseOnce, whenTrueOnce } from '@arcgis/core/core/watchUtils';
 import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
@@ -15,7 +15,6 @@ import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import { saveAs } from 'file-saver';
 import * as React from 'react';
 import { fields } from '../../config';
-import useViewLoading from '../../useViewLoading';
 import CsvDownload from '../CsvDownload/CsvDownload';
 import HomeButton from '../DefaultExtent/DefaultExtent';
 import Geolocation from '../Geolocation/Geolocation';
@@ -54,64 +53,58 @@ let signal = controller.signal;
 
 const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpression, filterCriteria }) => {
   const mapDiv = React.useRef(null);
+  const view = React.useRef(null);
+  const offenders = React.useRef(null);
   const displayedZoomGraphic = React.useRef(null);
   const [selectorOptions, setSelectorOptions] = React.useState(null);
-  const [view, localSetView] = React.useState(null);
   const [appliedFilter, setAppliedFilter] = React.useState('');
-  const [offenders, setOffenders] = React.useState(null);
-  const clickEvent = React.useRef(null);
-  const offenderLayerView = React.useRef(null);
-  const mapIsLoading = useViewLoading(view);
 
-  const setFilters = React.useCallback(
-    async (where, isFilter) => {
-      if (!offenders || !view.ready) {
-        return;
-      }
+  const setFilters = React.useCallback(async (where, isFilter) => {
+    if (!offenders.current || !view.current.ready) {
+      return;
+    }
 
-      const filter = where.join(' AND ');
+    const filter = where.join(' AND ');
 
-      const layerView = await view.whenLayerView(offenders);
-      if (isFilter) {
-        console.log(`MapView:setFilters ${filter}`);
+    const layerView = await view.current.whenLayerView(offenders.current);
+    if (isFilter) {
+      console.log(`MapView:setFilters ${filter}`);
 
-        layerView.filter = {
-          where: filter,
-        };
+      layerView.filter = {
+        where: filter,
+      };
 
-        setAppliedFilter(filter);
-      } else {
-        offenders.definitionExpression = filter;
+      setAppliedFilter(filter);
+    } else {
+      offenders.current.definitionExpression = filter;
 
-        console.log('MapView:setFilters setting map extent');
-      }
+      console.log('MapView:setFilters setting map extent');
+    }
 
-      // give the layerView a chance to start updating...
-      whenTrueOnce(layerView, 'updating', () => {
-        whenFalseOnce(layerView, 'updating', async () => {
-          const result = await layerView.queryExtent();
+    // give the layerView a chance to start updating...
+    whenTrueOnce(layerView, 'updating', () => {
+      whenFalseOnce(layerView, 'updating', async () => {
+        const result = await layerView.queryExtent();
 
-          console.log('MapView:setFilters setting map extent', result);
+        console.log('MapView:setFilters setting map extent', result);
 
-          // this is in case there is a point way outside of the state...
-          if (result.count === 0 || result.extent.contains(defaultExtent)) {
-            return view.goTo(defaultExtent);
-          }
+        // this is in case there is a point way outside of the state...
+        if (result.count === 0 || result.extent.contains(defaultExtent)) {
+          return view.current.goTo(defaultExtent);
+        }
 
-          let extent = result.extent;
-          if (result.count === 1) {
-            extent = {
-              target: result.extent,
-              scale: 16000,
-            };
-          }
+        let extent = result.extent;
+        if (result.count === 1) {
+          extent = {
+            target: result.extent,
+            scale: 16000,
+          };
+        }
 
-          return view.goTo(extent);
-        });
+        return view.current.goTo(extent);
       });
-    },
-    [offenders, view]
-  );
+    });
+  }, []);
 
   const identify = React.useCallback(
     async (where) => {
@@ -123,7 +116,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
       // don't continue if this is a stand-alone graphic
       // e.g. from dart-board
-      const test = await view.hitTest(where);
+      const test = await view.current.hitTest(where);
 
       if (test.results.length) {
         const graphic = test.results[0].graphic;
@@ -139,7 +132,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         const query = {
           where: appliedFilter,
           geometry: opts.mapPoint,
-          distance: view.resolution * 7,
+          distance: view.current.resolution * 7,
           spatialRelationship: 'intersects',
           outFields: layerView.availableFields,
           orderByFields: 'offender ASC',
@@ -156,7 +149,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         });
       };
 
-      const layerView = await view.whenLayerView(offenders);
+      const layerView = await view.current.whenLayerView(offenders.current);
       if (layerView.updating) {
         const handle = layerView.watch('updating', (stillUpdating) => {
           if (stillUpdating) {
@@ -170,7 +163,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         queryFeatures(where);
       }
     },
-    [offenders, view, appliedFilter, mapDispatcher]
+    [appliedFilter, mapDispatcher]
   );
 
   const download = React.useCallback(async () => {
@@ -212,7 +205,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     } catch (e) {
       console.error('unable to create local download');
     }
-  }, [filterCriteria, offenders?.definitionExpression]);
+  }, [filterCriteria]);
 
   // set up map effect
   React.useEffect(() => {
@@ -222,14 +215,14 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     console.log('MapView::set up map effect');
 
-    const offenderLayer = new FeatureLayer({
+    offenders.current = new FeatureLayer({
       url: `${process.env.PUBLIC_URL}/mapserver`,
       outFields: Object.keys(fields).filter((key) => fields[key].filter === true),
       definitionExpression: '1=2',
     });
 
     const map = new EsriMap();
-    const mapView = new MapView({
+    view.current = new MapView({
       map,
       container: mapDiv.current,
       extent: defaultExtent,
@@ -251,11 +244,11 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     mapDispatcher({
       type: 'SET_MAPVIEW',
-      payload: mapView,
+      payload: view.current,
     });
 
     setSelectorOptions({
-      view: mapView,
+      view: view.current,
       quadWord: process.env.REACT_APP_DISCOVER,
       baseLayers: ['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR'],
       overlays: [regions],
@@ -263,32 +256,33 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       position: 'top-right',
     });
 
-    map.add(offenderLayer);
+    map.add(offenders.current);
 
-    setOffenders(offenderLayer);
+    const clickEvent = view.current.on('click', (event) => identify(event));
 
-    localSetView(mapView);
+    const loadingEvent = pausable(view.current, 'updating', () => {
+      whenFalseOnce(view.current, 'updating', () => {
+        loadingEvent.pause();
 
-    mapView.whenLayerView(offenderLayer).then((layerView) => {
-      offenderLayerView.current = layerView;
-    });
-  }, [mapDispatcher]);
+        whenTrueOnce(view.current, 'stationary', async () => {
+          const layerView = await view.current.whenLayerView(offenders.current);
+          const featureSet = await layerView.queryFeatures();
 
-  React.useEffect(() => {
-    const getFeatureSet = async () => {
-      const featureSet = await offenderLayerView.current.queryFeatures();
+          mapDispatcher({
+            type: 'SET_FEATURE_SET',
+            payload: featureSet,
+          });
 
-      mapDispatcher({
-        type: 'SET_FEATURE_SET',
-        payload: featureSet,
+          loadingEvent.resume();
+        });
       });
-    };
+    });
 
-    if (!mapIsLoading && offenderLayerView.current) {
-      getFeatureSet();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapIsLoading]);
+    return () => {
+      loadingEvent?.remove();
+      clickEvent?.remove();
+    };
+  }, [identify, mapDispatcher]);
 
   // apply filters to map view effect
   React.useEffect(() => {
@@ -328,7 +322,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       if (zoomMeta.graphic.every((graphic) => graphic?.geometry?.type === 'point')) {
         zoom = {
           target: zoomMeta.graphic,
-          zoom: view.map.basemap.baseLayers.items[0].tileInfo.lods.length - 5,
+          zoom: view.current.map.basemap.baseLayers.items[0].tileInfo.lods.length - 5,
         };
       } else {
         zoom = {
@@ -338,16 +332,16 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     }
 
     if (displayedZoomGraphic.current) {
-      view.graphics.removeMany(displayedZoomGraphic.current);
+      view.current.graphics.removeMany(displayedZoomGraphic.current);
     }
 
     displayedZoomGraphic.current = zoom.target;
 
-    view?.graphics.addMany(zoom.target);
+    view.current?.graphics.addMany(zoom.target);
     let timeout;
-    view?.goTo(zoom).then(() => {
+    view.current?.goTo(zoom).then(() => {
       once(view, 'extent', () => {
-        timeout = setTimeout(() => view.graphics.removeAll(), 500);
+        timeout = setTimeout(() => view.current.graphics.removeAll(), 500);
       });
     });
 
@@ -356,21 +350,13 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         clearTimeout(timeout);
       }
     };
-  }, [zoomToGraphic, view]);
-
-  React.useEffect(() => {
-    if (view) {
-      console.log('MapView::identify click effect');
-      clickEvent.current?.remove();
-      clickEvent.current = view.on('click', (event) => identify(event));
-    }
-  }, [clickEvent, view, identify]);
+  }, [zoomToGraphic]);
 
   return (
     <div ref={mapDiv} style={{ height: '100%', width: '100%' }}>
-      <HomeButton view={view} position="top-left" extent={defaultExtent} />
-      <Geolocation dispatcher={mapDispatcher} view={view} position="top-left" />
-      <MapToolPanel icon={faMapMarkedAlt} view={view} position="top-left">
+      <HomeButton view={view.current} position="top-left" extent={defaultExtent} />
+      <Geolocation dispatcher={mapDispatcher} view={view.current} position="top-left" />
+      <MapToolPanel icon={faMapMarkedAlt} view={view.current} position="top-left">
         <DartBoard
           className="pt-2 px-3"
           apiKey={process.env.REACT_APP_WEB_API}
@@ -386,7 +372,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
           }}
         />
       </MapToolPanel>
-      <CsvDownload download={download} view={view} position="top-left" />
+      <CsvDownload download={download} view={view.current} position="top-left" />
       {selectorOptions ? <LayerSelector {...selectorOptions}></LayerSelector> : null}
     </div>
   );
