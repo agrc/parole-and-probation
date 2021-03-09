@@ -2,7 +2,7 @@ import DartBoard from '@agrc/dart-board';
 import LayerSelector from '@agrc/layer-selector';
 import Basemap from '@arcgis/core/Basemap';
 import config from '@arcgis/core/config';
-import { once, pausable, whenFalseOnce, whenTrueOnce } from '@arcgis/core/core/watchUtils';
+import { pausable, whenFalseOnce, whenTrueOnce } from '@arcgis/core/core/watchUtils';
 import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
@@ -54,6 +54,7 @@ let signal = controller.signal;
 const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpression, filterCriteria }) => {
   const mapDiv = React.useRef(null);
   const view = React.useRef(null);
+  const clickEvent = React.useRef(null);
   const offenders = React.useRef(null);
   const displayedZoomGraphic = React.useRef(null);
   const [selectorOptions, setSelectorOptions] = React.useState(null);
@@ -163,7 +164,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         queryFeatures(where);
       }
     },
-    [appliedFilter, mapDispatcher]
+    [appliedFilter]
   );
 
   const download = React.useCallback(async () => {
@@ -258,8 +259,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     map.add(offenders.current);
 
-    const clickEvent = view.current.on('click', (event) => identify(event));
-
     const loadingEvent = pausable(view.current, 'updating', () => {
       whenFalseOnce(view.current, 'updating', () => {
         loadingEvent.pause();
@@ -280,9 +279,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     return () => {
       loadingEvent?.remove();
-      clickEvent?.remove();
     };
-  }, [identify, mapDispatcher]);
+  }, []);
 
   // apply filters to map view effect
   React.useEffect(() => {
@@ -340,8 +338,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     view.current?.graphics.addMany(zoom.target);
     let timeout;
     view.current?.goTo(zoom).then(() => {
-      once(view, 'extent', () => {
-        timeout = setTimeout(() => view.current.graphics.removeAll(), 500);
+      whenTrueOnce(view.current, 'stationary', () => {
+        timeout = setTimeout(() => view.current.graphics.removeAll(), 1500);
       });
     });
 
@@ -351,6 +349,12 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       }
     };
   }, [zoomToGraphic]);
+
+  // set up view click events
+  React.useEffect(() => {
+    clickEvent.current?.remove();
+    clickEvent.current = view.current?.on('click', (event) => identify(event));
+  }, [identify]);
 
   return (
     <div ref={mapDiv} style={{ height: '100%', width: '100%' }}>
