@@ -54,6 +54,7 @@ let signal = controller.signal;
 const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpression, filterCriteria }) => {
   const mapDiv = React.useRef(null);
   const view = React.useRef(null);
+  const layerView = React.useRef(null);
   const clickEvent = React.useRef(null);
   const offenders = React.useRef(null);
   const displayedZoomGraphic = React.useRef(null);
@@ -67,11 +68,11 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     const filter = where.join(' AND ');
 
-    const layerView = await view.current.whenLayerView(offenders.current);
+    // const layerView = await view.current.whenLayerView(offenders.current);
     if (isFilter) {
       console.log(`MapView:setFilters ${filter}`);
 
-      layerView.filter = {
+      layerView.current.filter = {
         where: filter,
       };
 
@@ -83,9 +84,9 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     }
 
     // give the layerView a chance to start updating...
-    whenTrueOnce(layerView, 'updating', () => {
-      whenFalseOnce(layerView, 'updating', async () => {
-        const result = await layerView.queryExtent();
+    whenTrueOnce(layerView?.current, 'updating', () => {
+      whenFalseOnce(layerView?.current, 'updating', async () => {
+        const result = await layerView.current.queryExtent();
 
         console.log('MapView:setFilters setting map extent', result);
 
@@ -135,12 +136,12 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
           geometry: opts.mapPoint,
           distance: view.current.resolution * 7,
           spatialRelationship: 'intersects',
-          outFields: layerView.availableFields,
+          outFields: layerView.current.availableFields,
           orderByFields: 'offender ASC',
           returnGeometry: false,
         };
 
-        const featureSet = await layerView.queryFeatures(query);
+        const featureSet = await layerView.current.queryFeatures(query);
         mapDispatcher({
           type: 'MAP_CLICK',
           payload: {
@@ -150,9 +151,9 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         });
       };
 
-      const layerView = await view.current.whenLayerView(offenders.current);
-      if (layerView.updating) {
-        const handle = layerView.watch('updating', (stillUpdating) => {
+      // const layerView = await view.current.whenLayerView(offenders.current);
+      if (layerView.current.updating) {
+        const handle = layerView.current.watch('updating', (stillUpdating) => {
           if (stillUpdating) {
             return;
           }
@@ -264,8 +265,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         loadingEvent.pause();
 
         whenTrueOnce(view.current, 'stationary', async () => {
-          const layerView = await view.current.whenLayerView(offenders.current);
-          const featureSet = await layerView.queryFeatures();
+          // const layerView = await view.current.whenLayerView(offenders.current);
+          const featureSet = await layerView.current.queryFeatures();
 
           mapDispatcher({
             type: 'SET_FEATURE_SET',
@@ -275,6 +276,10 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
           loadingEvent.resume();
         });
       });
+    });
+
+    view.current.whenLayerView(offenders.current).then((view) => {
+      layerView.current = view;
     });
 
     return () => {
