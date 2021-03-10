@@ -68,7 +68,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     const filter = where.join(' AND ');
 
-    // const layerView = await view.current.whenLayerView(offenders.current);
     if (isFilter) {
       console.log(`MapView:setFilters ${filter}`);
 
@@ -151,7 +150,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         });
       };
 
-      // const layerView = await view.current.whenLayerView(offenders.current);
       if (layerView.current.updating) {
         const handle = layerView.current.watch('updating', (stillUpdating) => {
           if (stillUpdating) {
@@ -265,7 +263,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         loadingEvent.pause();
 
         whenTrueOnce(view.current, 'stationary', async () => {
-          // const layerView = await view.current.whenLayerView(offenders.current);
           const featureSet = await layerView.current.queryFeatures();
 
           mapDispatcher({
