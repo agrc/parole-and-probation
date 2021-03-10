@@ -238,7 +238,14 @@ namespace parole {
                         await context.Response.WriteAsync("Access denied");
                     }
                 } else {
-                    await context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme);
+                    var redirectUri = "/";
+                    if (env.IsStaging()) {
+                        redirectUri = "/app";
+                    }
+                    await context.ChallengeAsync(
+                        OpenIdConnectDefaults.AuthenticationScheme,
+                        new AuthenticationProperties { RedirectUri = redirectUri, }
+                    );
                 }
             });
 
