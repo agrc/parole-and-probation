@@ -213,7 +213,7 @@ export default function App() {
             <div className="text-center" style={{ gridArea: 'map/side', marginTop: '3em' }}>
               <p>Authentication Error</p>
               <p>
-                <a href="/api/logout">Try again</a>
+                <a href="api/logout">Try again</a>
               </p>
             </div>
           )}
