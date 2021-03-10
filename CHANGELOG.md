@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.1](https://github.com/agrc/parole-and-probation/compare/v1.19.0...v1.19.1) (2021-03-10)
+
+
+### Bug Fixes
+
+* **app:** correct filtering logic for supervisor and all multi-selects ([fa4c93c](https://github.com/agrc/parole-and-probation/commit/fa4c93cc0d55085f36bba1f00e4b63b554535bed)), closes [#140](https://github.com/agrc/parole-and-probation/issues/140)
+* **app:** correct url link generation for try again link ([738b6fc](https://github.com/agrc/parole-and-probation/commit/738b6fc5163c7083f43f4e908c576f1e54bec44b)), closes [#141](https://github.com/agrc/parole-and-probation/issues/141)
+
 ## [1.19.0](https://github.com/agrc/parole-and-probation/compare/v1.18.2...v1.19.0) (2021-03-10)
 
 
