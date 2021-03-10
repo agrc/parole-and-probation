@@ -83,28 +83,30 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     }
 
     // give the layerView a chance to start updating...
-    whenTrueOnce(layerView?.current, 'updating', () => {
-      whenFalseOnce(layerView?.current, 'updating', async () => {
-        const result = await layerView.current?.queryExtent();
+    if (layerView?.current) {
+      whenTrueOnce(layerView.current, 'updating', () => {
+        whenFalseOnce(layerView.current, 'updating', async () => {
+          const result = await layerView.current.queryExtent();
 
-        console.log('MapView:setFilters setting map extent', result);
+          console.log('MapView:setFilters setting map extent', result);
 
-        // this is in case there is a point way outside of the state...
-        if (result.count === 0 || result.extent.contains(defaultExtent)) {
-          return view.current.goTo(defaultExtent);
-        }
+          // this is in case there is a point way outside of the state...
+          if (result.count === 0 || result.extent.contains(defaultExtent)) {
+            return view.current.goTo(defaultExtent);
+          }
 
-        let extent = result.extent;
-        if (result.count === 1) {
-          extent = {
-            target: result.extent,
-            scale: 16000,
-          };
-        }
+          let extent = result.extent;
+          if (result.count === 1) {
+            extent = {
+              target: result.extent,
+              scale: 16000,
+            };
+          }
 
-        return view.current.goTo(extent);
+          return view.current.goTo(extent);
+        });
       });
-    });
+    }
   }, []);
 
   const identify = React.useCallback(
