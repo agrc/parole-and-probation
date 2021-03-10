@@ -25,13 +25,16 @@ const addOrRemove = (list, value, add) => {
   if (add) {
     list.push(value);
   } else {
-    const index = list.indexOf(value);
+    if (typeof list[0] === 'string' || list[0] instanceof String) {
+      const index = list.indexOf(value);
+      if (index === -1) {
+        throw Error(`The item ${value} was not found in the list: ${list}`);
+      }
 
-    if (index === -1) {
-      throw Error(`The item ${value} was not found in the list: ${list}`);
+      list.splice(index, 1);
+    } else {
+      list = list.filter((item) => item.id !== value);
     }
-
-    list.splice(index, 1);
   }
 
   return list;
@@ -116,9 +119,9 @@ const sqlMap = {
 
       return `(${query.join(' OR ')})`;
     },
-    supervision: (data) => data.map((item) => `${item}=1`).join(' AND '),
-    gang: (data) => `gang_type in (${data.map((item) => `'${item.toUpperCase()}'`).join()})`,
-    offense: (data) => `offense_code in (${data.map((item) => `'${item}'`).join()})`,
+    supervision: (data) => data.map((item) => `${item.id}=1`).join(' AND '),
+    gang: (data) => `gang_type in (${data.map((item) => `'${item.id.toUpperCase()}'`).join()})`,
+    offense: (data) => `offense_code in (${data.map((item) => `'${item.id}'`).join()})`,
   },
 };
 

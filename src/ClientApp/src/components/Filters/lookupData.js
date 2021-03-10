@@ -80,55 +80,55 @@ const supervisionItems = [
 const mainGangs = [
   {
     name: 'sureno',
-    id: 1,
+    id: 'sureno',
   },
   {
     name: 'nortenos',
-    id: 2,
+    id: 'nortenos',
   },
   {
     name: 'omg - outlaw motorcycl',
-    id: 3,
+    id: 'omg',
   },
   {
     name: 'white supremacist',
-    id: 4,
+    id: 'ws',
   },
   {
     name: 'crip',
-    id: 5,
+    id: 'crip',
   },
   {
     name: 'bloods',
-    id: 6,
+    id: 'blood',
   },
   {
     name: 'people nation',
-    id: 7,
+    id: 'pn',
   },
   {
     name: 'folk nation',
-    id: 8,
+    id: 'fn',
   },
   {
     name: 'others',
-    id: 9,
+    id: 'o',
   },
   {
     name: 'no type specified',
-    id: 10,
+    id: 'none',
   },
   {
     name: 'vlt',
-    id: 11,
+    id: 'vlt',
   },
   {
     name: 'o13',
-    id: 12,
+    id: '13',
   },
   {
     name: 'qvo',
-    id: 13,
+    id: 'qvo',
   },
 ];
 

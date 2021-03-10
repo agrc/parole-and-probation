@@ -80,13 +80,15 @@ export default function FilterOther(props) {
             itemToString={itemToString}
             itemToKey={itemToKey}
             titleCaseItem={false}
-            onSelectItem={(item) => update('supervision', itemToKey(item), true)}
+            onSelectItem={(item) => update('supervision', item, true)}
           />
         </FormGroup>
         {props.criteria.supervision.length > 0 ? (
           <FormGroup>
             <SelectedItems
               titleCaseItem={false}
+              itemToKey={itemToKey}
+              itemToString={itemToString}
               items={props.criteria.supervision}
               clickHandler={(event) => update('supervision', event.target.id, false)}
             />
@@ -101,13 +103,15 @@ export default function FilterOther(props) {
             currentSelectedItems={props.criteria.gang}
             itemToString={itemToString}
             itemToKey={itemToKey}
-            onSelectItem={(item) => update('gang', itemToString(item), true)}
+            onSelectItem={(item) => update('gang', item, true)}
           />
         </FormGroup>
         {props.criteria.gang.length > 0 ? (
           <FormGroup>
             <SelectedItems
               items={props.criteria.gang}
+              itemToKey={itemToKey}
+              itemToString={itemToString}
               clickHandler={(event) => update('gang', event.target.id, false)}
             />
           </FormGroup>
@@ -122,7 +126,7 @@ export default function FilterOther(props) {
             itemToString={itemToString}
             itemToKey={itemToKey}
             titleCaseItem={false}
-            onSelectItem={(item) => update('offense', itemToKey(item), true)}
+            onSelectItem={(item) => update('offense', item, true)}
           />
         </FormGroup>
         {props.criteria.offense.length > 0 ? (
@@ -130,6 +134,8 @@ export default function FilterOther(props) {
             <SelectedItems
               items={props.criteria.offense}
               titleCaseItem={false}
+              itemToKey={itemToKey}
+              itemToString={itemToString}
               clickHandler={(event) => update('offense', event.target.id, false)}
             />
           </FormGroup>

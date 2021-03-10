@@ -68,17 +68,7 @@ export function MultiSelect({
 
       const matchesWithInput = value.toLowerCase().includes(inputValue.toLowerCase());
 
-      if (!currentSelectedItems || !Array.isArray(currentSelectedItems)) {
-        items.push(item);
-
-        if (items.length === 15) {
-          return items;
-        }
-
-        continue;
-      }
-
-      if (matchesWithInput && !currentSelectedItems.some((someItem) => itemToKey(someItem) === itemToKey(item))) {
+      if (matchesWithInput && !currentSelectedItems?.some((someItem) => itemToKey(someItem) === itemToKey(item))) {
         items.push(item);
       }
 

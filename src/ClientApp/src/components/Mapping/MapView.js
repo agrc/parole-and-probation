@@ -85,7 +85,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     // give the layerView a chance to start updating...
     whenTrueOnce(layerView?.current, 'updating', () => {
       whenFalseOnce(layerView?.current, 'updating', async () => {
-        const result = await layerView.current.queryExtent();
+        const result = await layerView.current?.queryExtent();
 
         console.log('MapView:setFilters setting map extent', result);
 
@@ -263,7 +263,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         loadingEvent.pause();
 
         whenTrueOnce(view.current, 'stationary', async () => {
-          const featureSet = await layerView.current.queryFeatures();
+          const featureSet = await layerView.current?.queryFeatures();
 
           mapDispatcher({
             type: 'SET_FEATURE_SET',
