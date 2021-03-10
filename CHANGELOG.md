@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.19.0](https://github.com/agrc/parole-and-probation/compare/v1.18.2...v1.19.0) (2021-03-10)
+
+
+### Features
+
+* **app:** show message on auth failure to restart login process ([a6536b5](https://github.com/agrc/parole-and-probation/commit/a6536b5c9880c1f2e9a41326920b13ef41140894)), closes [#141](https://github.com/agrc/parole-and-probation/issues/141)
+
+
+### Bug Fixes
+
+* **app:** limit multiselect results to 15 ([62c55f2](https://github.com/agrc/parole-and-probation/commit/62c55f23f39b9773fc2c95567a3f64a4dbb81663)), closes [#140](https://github.com/agrc/parole-and-probation/issues/140)
+* **app:** return items when the count is less than the limit ([826b8f0](https://github.com/agrc/parole-and-probation/commit/826b8f03225a36224e931dc2aedc0b754585cd18)), closes [#140](https://github.com/agrc/parole-and-probation/issues/140)
+
 ### [1.18.2](https://github.com/agrc/parole-and-probation/compare/v1.18.0...v1.18.2) (2021-02-23)
 
 
