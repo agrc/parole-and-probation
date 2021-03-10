@@ -188,6 +188,15 @@ fetchMock.mock('path:/mapserver/0/query', {
     },
   ],
 });
+fetchMock.mock({
+  name: 'mugshot',
+  matcher: 'express:/mugshot/:id',
+  method: 'GET',
+  response: {
+    status: 200,
+    body: new Blob(),
+  },
+});
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {

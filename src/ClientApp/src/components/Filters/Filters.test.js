@@ -197,9 +197,12 @@ describe('sqlMapper', () => {
           warrant: 'Yes',
           status: 'probation',
           sos: ['mod', 'no std'],
-          supervision: ['EM', 'GPS'],
-          gang: ['omg'],
-          offense: ['E'],
+          supervision: [
+            { name: 'something', id: 'EM' },
+            { name: 'something else', id: 'GPS' },
+          ],
+          gang: [{ name: 'omg nazi', id: 'omg' }],
+          offense: [{ name: 'murderer', id: 'E' }],
         },
       });
 

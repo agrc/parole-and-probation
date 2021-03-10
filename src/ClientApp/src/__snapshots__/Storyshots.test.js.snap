@@ -1603,7 +1603,7 @@ exports[`Storyshots Filters/FilterActions Reset 1`] = `
                     onClick={[Function]}
                     type="button"
                   >
-                    ccc
+                    CCC
                   </button>
                   <button
                     aria-label={null}
@@ -1612,7 +1612,7 @@ exports[`Storyshots Filters/FilterActions Reset 1`] = `
                     onClick={[Function]}
                     type="button"
                   >
-                    so
+                    SO
                   </button>
                 </div>
               </div>
@@ -1694,7 +1694,7 @@ exports[`Storyshots Filters/FilterActions Reset 1`] = `
                     onClick={[Function]}
                     type="button"
                   >
-                    Crip
+                    Crips
                   </button>
                 </div>
               </div>
@@ -1776,7 +1776,7 @@ exports[`Storyshots Filters/FilterActions Reset 1`] = `
                     onClick={[Function]}
                     type="button"
                   >
-                    A
+                    Jerk
                   </button>
                   <button
                     aria-label={null}
@@ -1785,7 +1785,7 @@ exports[`Storyshots Filters/FilterActions Reset 1`] = `
                     onClick={[Function]}
                     type="button"
                   >
-                    D
+                    Drunk
                   </button>
                 </div>
               </div>

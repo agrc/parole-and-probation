@@ -31,6 +31,7 @@
     "react-scripts": "4.0.3",
     "reactstrap": "^8.9.0",
     "use-immer": "^0.4.2",
+    "web-vitals": "^1.1.0",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
     "workbox-cacheable-response": "^5.1.4",
@@ -42,8 +43,7 @@
     "workbox-range-requests": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
-    "workbox-streams": "^5.1.4",
-    "web-vitals": "^1.1.0"
+    "workbox-streams": "^5.1.4"
   },
   "scripts": {
     "build-react:stage": "env-cmd --environments stage react-scripts build",

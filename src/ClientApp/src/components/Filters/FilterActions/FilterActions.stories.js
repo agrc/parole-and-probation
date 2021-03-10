@@ -43,15 +43,15 @@ export const Reset = () => (
         warrant: 'Yes',
         status: 'probation',
         sos: ['hi', 'mod'],
-        supervision: ['ccc', 'so'],
-        gang: ['crip'],
-        offense: ['A', 'D'],
-      },
-      downshift: {
-        offenderName: '',
-        offenderNumber: '',
-        offenderTelephone: '',
-        offenderEmployer: '',
+        supervision: [
+          { name: 'CCC', id: 'ccc' },
+          { name: 'SO', id: 'so' },
+        ],
+        gang: [{ name: 'Crips', id: 'crip' }],
+        offense: [
+          { name: 'Jerk', id: 'A' },
+          { name: 'Drunk', id: 'D' },
+        ],
       },
     }}
     mapDispatcher={() => {}}
