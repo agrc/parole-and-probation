@@ -14,6 +14,7 @@ import MapView from '@arcgis/core/views/MapView';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import { saveAs } from 'file-saver';
 import * as React from 'react';
+import { useNavigatorStatus } from 'react-navigator-status';
 import { fields } from '../../config';
 import CsvDownload from '../CsvDownload/CsvDownload';
 import HomeButton from '../DefaultExtent/DefaultExtent';
@@ -57,9 +58,11 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   const layerView = React.useRef(null);
   const clickEvent = React.useRef(null);
   const offenders = React.useRef(null);
+  const mirror = React.useRef(null);
   const displayedZoomGraphic = React.useRef(null);
   const [selectorOptions, setSelectorOptions] = React.useState(null);
   const [appliedFilter, setAppliedFilter] = React.useState('');
+  const withService = useNavigatorStatus();
 
   const setFilters = React.useCallback(async (where, isFilter) => {
     if (!offenders.current || !view.current.ready) {
@@ -115,6 +118,32 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         return;
       }
 
+      if (!withService) {
+        console.log('offline identify');
+
+        const query = {
+          where: appliedFilter,
+          geometry: where.mapPoint,
+          distance: view.current.resolution * 7,
+          spatialRelationship: 'intersects',
+          outFields: Object.keys(fields).filter((key) => fields[key].filter === true),
+          orderByFields: 'offender ASC',
+          returnGeometry: false,
+        };
+
+        const featureSet = await mirror.current.queryFeatures(query);
+
+        mapDispatcher({
+          type: 'MAP_CLICK',
+          payload: {
+            point: where.mapPoint,
+            features: featureSet.features,
+          },
+        });
+
+        return;
+      }
+
       console.log(`MapView::identify callback`);
 
       // don't continue if this is a stand-alone graphic
@@ -165,7 +194,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         queryFeatures(where);
       }
     },
-    [appliedFilter]
+    [appliedFilter, withService]
   );
 
   const download = React.useCallback(async () => {
@@ -209,6 +238,15 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     }
   }, [filterCriteria]);
 
+  React.useEffect(() => {
+    console.log(`swapping layers online: ${withService}`);
+
+    if (offenders.current) {
+      offenders.current.visible = withService;
+      mirror.current.visible = !withService;
+    }
+  }, [withService]);
+
   // set up map effect
   React.useEffect(() => {
     if (!mapDiv.current) {
@@ -221,6 +259,35 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       url: `${process.env.PUBLIC_URL}/mapserver`,
       outFields: Object.keys(fields).filter((key) => fields[key].filter === true),
       definitionExpression: '1=2',
+    });
+
+    mirror.current = new FeatureLayer({
+      source: [],
+      renderer: {
+        type: 'simple', // autocasts as new SimpleRenderer()
+        symbol: {
+          type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+          size: 6,
+          color: 'black',
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            width: 0.5,
+            color: 'white',
+          },
+        },
+      },
+      title: 'mirror',
+      fields: Object.keys(fields)
+        .filter((key) => fields[key].filter === true)
+        .map((field) => {
+          return { name: field, type: fields[field].type };
+        }),
+      objectIdField: 'offender_id',
+      geometryType: 'point',
+      spatialReference: {
+        wkid: 3857,
+      },
+      visible: false,
     });
 
     const map = new EsriMap();
@@ -259,32 +326,53 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     });
 
     map.add(offenders.current);
-
-    const loadingEvent = pausable(view.current, 'updating', () => {
-      whenFalseOnce(view.current, 'updating', () => {
-        loadingEvent.pause();
-
-        whenTrueOnce(view.current, 'stationary', async () => {
-          const featureSet = await layerView.current?.queryFeatures();
-
-          mapDispatcher({
-            type: 'SET_FEATURE_SET',
-            payload: featureSet,
-          });
-
-          loadingEvent.resume();
-        });
-      });
-    });
+    map.add(mirror.current);
 
     view.current.whenLayerView(offenders.current).then((view) => {
       layerView.current = view;
+    });
+  }, []);
+
+  React.useEffect(() => {
+    const loadingEvent = pausable(view.current, 'updating', () => {
+      loadingEvent.pause();
+      whenTrueOnce(view.current, 'updating', () => {
+        whenFalseOnce(view.current, 'updating', async () => {
+          const featureSet = await layerView.current?.queryFeatures();
+
+          if (withService) {
+            mapDispatcher({
+              type: 'SET_FEATURE_SET',
+              payload: featureSet,
+            });
+
+            const edits = {};
+
+            if (featureSet.features?.length > 0) {
+              edits.addFeatures = featureSet.features;
+            }
+
+            const currentData = await mirror.current.queryObjectIds();
+            if (currentData?.length > 0) {
+              edits.deleteFeatures = currentData;
+            }
+
+            if (Object.keys(edits).length > 0) {
+              mirror.current.applyEdits(edits);
+            }
+          }
+
+          whenTrueOnce(view.current, 'updating', () => {
+            loadingEvent.resume();
+          });
+        });
+      });
     });
 
     return () => {
       loadingEvent?.remove();
     };
-  }, []);
+  }, [withService]);
 
   // apply filters to map view effect
   React.useEffect(() => {

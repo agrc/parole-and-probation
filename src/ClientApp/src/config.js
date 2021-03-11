@@ -7,14 +7,17 @@ module.exports = {
     offender_id: {
       identify: false,
       filter: true,
+      type: 'oid',
     },
     gender: {
       identify: false,
       filter: true,
+      type: 'string',
     },
     region: {
       identify: false,
       filter: true,
+      type: 'integer',
     },
     agency: {
       identify: false,
@@ -35,6 +38,7 @@ module.exports = {
     offender: {
       identify: false,
       filter: true,
+      type: 'string',
     },
     date_of_birth: {
       identify: true,
@@ -47,6 +51,7 @@ module.exports = {
     legal_status: {
       identify: false,
       filter: true,
+      type: 'string',
     },
     legal_status_code: {
       identify: false,
@@ -79,6 +84,7 @@ module.exports = {
     city: {
       identify: false,
       filter: true,
+      type: 'string',
     },
     state: {
       identify: true,
@@ -87,6 +93,7 @@ module.exports = {
     zip: {
       identify: false,
       filter: true,
+      type: 'integer',
     },
     address_type_code: {
       identify: false,
@@ -111,10 +118,12 @@ module.exports = {
     offender_phone: {
       identify: false,
       filter: true,
+      type: 'string',
     },
     standard_of_supervision: {
       identify: false,
       filter: true,
+      type: 'string',
     },
     ccc: {
       identify: true,
@@ -214,10 +223,12 @@ module.exports = {
     last_office_contact: {
       identify: false,
       filter: true,
+      type: 'integer',
     },
     last_successful_field_contact: {
       identify: false,
       filter: true,
+      type: 'integer',
     },
     last_field_contact: {
       identify: false,
@@ -238,6 +249,7 @@ module.exports = {
     crime_degree: {
       identify: false,
       filter: true,
+      type: 'string',
     },
     offense_description: {
       identify: true,
@@ -250,6 +262,7 @@ module.exports = {
     active_warrant: {
       identify: false,
       filter: true,
+      type: 'integer',
     },
     gang_id: {
       identify: true,
@@ -266,6 +279,7 @@ module.exports = {
     gang_type: {
       identify: false,
       filter: true,
+      type: 'string',
     },
     agent_id: {
       identify: false,
@@ -274,10 +288,12 @@ module.exports = {
     last_attempted_field_contact: {
       identify: false,
       filter: true,
+      type: 'integer',
     },
     in_compliance: {
       identify: false,
       filter: true,
+      type: 'integer',
     },
     alerts: {
       identify: true,
@@ -290,6 +306,7 @@ module.exports = {
     employer: {
       identify: false,
       filter: true,
+      type: 'string',
     },
     employer_address: {
       identify: true,
@@ -302,6 +319,7 @@ module.exports = {
     county: {
       identify: false,
       filter: true,
+      type: 'string',
     },
   },
 };
