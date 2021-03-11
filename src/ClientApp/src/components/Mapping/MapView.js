@@ -349,7 +349,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
             const currentData = await mirror.current.queryObjectIds();
             if (currentData?.length > 0) {
-              edits.deleteFeatures = currentData;
+              edits.deleteFeatures = currentData.map((id) => ({ objectId: id }));
             }
 
             if (Object.keys(edits).length > 0) {
