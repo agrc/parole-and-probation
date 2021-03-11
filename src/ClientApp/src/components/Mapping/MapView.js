@@ -241,9 +241,15 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   React.useEffect(() => {
     console.log(`swapping layers online: ${withService}`);
 
-    if (offenders.current) {
+    if (offenders.current && mirror.current) {
       offenders.current.visible = withService;
       mirror.current.visible = !withService;
+
+      if (!withService) {
+        view.current.whenLayerView(mirror.current).then((lv) => (layerView.current = lv));
+      } else {
+        view.current.whenLayerView(offenders.current).then((lv) => (layerView.current = lv));
+      }
     }
   }, [withService]);
 
