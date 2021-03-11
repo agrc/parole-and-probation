@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.20.1](https://github.com/agrc/parole-and-probation/compare/v1.20.0...v1.20.1) (2021-03-11)
+
+
+### Bug Fixes
+
+* **app:** update precache manifest to include esri bundles ([bf5f6f1](https://github.com/agrc/parole-and-probation/commit/bf5f6f10d00a14a31c538bd732060046d45fbc04)), closes [#142](https://github.com/agrc/parole-and-probation/issues/142)
+
 ## [1.20.0](https://github.com/agrc/parole-and-probation/compare/v1.19.1...v1.20.0) (2021-03-11)
 
 
