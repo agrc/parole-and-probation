@@ -261,35 +261,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       definitionExpression: '1=2',
     });
 
-    mirror.current = new FeatureLayer({
-      source: [],
-      renderer: {
-        type: 'simple', // autocasts as new SimpleRenderer()
-        symbol: {
-          type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-          size: 6,
-          color: 'black',
-          outline: {
-            // autocasts as new SimpleLineSymbol()
-            width: 0.5,
-            color: 'white',
-          },
-        },
-      },
-      title: 'mirror',
-      fields: Object.keys(fields)
-        .filter((key) => fields[key].filter === true)
-        .map((field) => {
-          return { name: field, type: fields[field].type };
-        }),
-      objectIdField: 'offender_id',
-      geometryType: 'point',
-      spatialReference: {
-        wkid: 3857,
-      },
-      visible: false,
-    });
-
     const map = new EsriMap();
     view.current = new MapView({
       map,
@@ -326,10 +297,34 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     });
 
     map.add(offenders.current);
-    map.add(mirror.current);
 
     view.current.whenLayerView(offenders.current).then((view) => {
       layerView.current = view;
+
+      mirror.current = new FeatureLayer({
+        source: [],
+        // renderer: offenders.current.renderer.clone(),
+        renderer: {
+          type: 'simple', // autocasts as new SimpleRenderer()
+          symbol: {
+            type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+            size: 6,
+            color: 'black',
+            outline: {
+              // autocasts as new SimpleLineSymbol()
+              width: 0.5,
+              color: 'white',
+            },
+          },
+        },
+        title: 'mirror',
+        fields: offenders.current.fields.map((x) => x.clone()),
+        geometryType: offenders.current.geometryType,
+        spatialReference: offenders.current.spatialReference.clone(),
+        visible: false,
+      });
+
+      map.add(mirror.current);
     });
   }, []);
 
