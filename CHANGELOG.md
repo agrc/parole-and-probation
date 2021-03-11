@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](https://github.com/agrc/parole-and-probation/compare/v1.19.1...v1.20.0) (2021-03-11)
+
+
+### Features
+
+* **app:** persist points in clientside feature layer for offline ([c5335a5](https://github.com/agrc/parole-and-probation/commit/c5335a581bf04681bb1583c9e897ae4f57ec2b56)), closes [#142](https://github.com/agrc/parole-and-probation/issues/142)
+
+
+### Bug Fixes
+
+* **api:** update challenge redirect location ([33ce6b7](https://github.com/agrc/parole-and-probation/commit/33ce6b70d38c9905dea3e45b71f2ada10a485cbf)), closes [#143](https://github.com/agrc/parole-and-probation/issues/143)
+
 ### [1.19.1](https://github.com/agrc/parole-and-probation/compare/v1.19.0...v1.19.1) (2021-03-10)
 
 
