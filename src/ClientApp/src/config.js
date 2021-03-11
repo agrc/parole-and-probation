@@ -88,9 +88,11 @@ module.exports = {
       identify: false,
       filter: true,
     },
+    address_type_code: {
       identify: false,
       filter: false,
     },
+    address_type: {
       identify: true,
       filter: false,
     },
@@ -257,9 +259,11 @@ module.exports = {
       identify: true,
       filter: false,
     },
+    gang_type_id: {
       identify: true,
       filter: false,
     },
+    gang_type: {
       identify: false,
       filter: true,
     },
