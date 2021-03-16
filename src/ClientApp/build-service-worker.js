@@ -18,7 +18,7 @@ workboxBuild
     skipWaiting: true,
     clientsClaim: true,
     globDirectory: './build',
-    globPatterns: ['static/**/*.{js,css,png,svg}', 'assets/esri/core/workers/chunks/*.js'],
+    globPatterns: ['assets/esri/core/workers/chunks/*.js', 'static/**/*.{js,css,png,svg}'],
     globStrict: true,
     globIgnores: ['*.LICENSE.txt', '*.map', 'CalciteWebCoreIcons*.svg'],
     modifyURLPrefix: {
@@ -27,6 +27,7 @@ workboxBuild
     },
     maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
     dontCacheBustURLsMatching: /\.?[0-9a-f]{8}\.?/,
+    inlineWorkboxRuntime: true,
     sourcemap: false,
   })
   .then(({ count, size }) => {
