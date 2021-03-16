@@ -246,9 +246,15 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       mirror.current.visible = !withService;
 
       if (!withService) {
-        view.current.whenLayerView(mirror.current).then((lv) => (layerView.current = lv));
+        view.current.whenLayerView(mirror.current).then((lv) => {
+          lv.filter = layerView.current.filter;
+          layerView.current = lv;
+        });
       } else {
-        view.current.whenLayerView(offenders.current).then((lv) => (layerView.current = lv));
+        view.current.whenLayerView(offenders.current).then((lv) => {
+          lv.filter = layerView.current.filter;
+          layerView.current = lv;
+        });
       }
     }
   }, [withService]);
