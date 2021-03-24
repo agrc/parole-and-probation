@@ -2,7 +2,7 @@ import DartBoard from '@agrc/dart-board';
 import LayerSelector from '@agrc/layer-selector';
 import Basemap from '@arcgis/core/Basemap';
 import config from '@arcgis/core/config';
-import { pausable, whenFalseOnce, whenTrueOnce } from '@arcgis/core/core/watchUtils';
+import { whenFalse, whenFalseOnce, whenTrueOnce } from '@arcgis/core/core/watchUtils';
 import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
@@ -12,15 +12,17 @@ import WebTileLayer from '@arcgis/core/layers/WebTileLayer';
 import EsriMap from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import clsx from 'clsx';
 import { saveAs } from 'file-saver';
 import * as React from 'react';
 import { useNavigatorStatus } from 'react-navigator-status';
 import { fields } from '../../config';
+// import useViewUiPosition from '../../useViewUiPosition';
 import CsvDownload from '../CsvDownload/CsvDownload';
 import HomeButton from '../DefaultExtent/DefaultExtent';
 import Geolocation from '../Geolocation/Geolocation';
 import MapToolPanel from '../MapToolPanel/MapToolPanel';
-
 config.assetsPath = `${process.env.PUBLIC_URL}/assets`;
 
 const regionLabels = new LabelClass({
@@ -57,43 +59,28 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   const view = React.useRef(null);
   const layerView = React.useRef(null);
   const clickEvent = React.useRef(null);
+  const loadingEvent = React.useRef(null);
   const offenders = React.useRef(null);
   const mirror = React.useRef(null);
   const displayedZoomGraphic = React.useRef(null);
   const [selectorOptions, setSelectorOptions] = React.useState(null);
   const [appliedFilter, setAppliedFilter] = React.useState('');
   const withService = useNavigatorStatus();
+  // const [withService, setWithService] = React.useState(true);
 
   const setFilters = React.useCallback(async (where, isFilter) => {
     if (!offenders.current || !view.current.ready) {
       return;
     }
 
-    const filter = where.join(' AND ');
-
-    if (isFilter) {
-      console.log(`MapView:setFilters ${filter}`);
-
-      layerView.current.filter = {
-        where: filter,
-      };
-
-      setAppliedFilter(filter);
-    } else {
-      offenders.current.definitionExpression = filter;
-
-      console.log('MapView:setFilters setting map extent');
-    }
-
-    // give the layerView a chance to start updating...
+    // zoom to filtered data
     if (layerView?.current) {
       whenTrueOnce(layerView.current, 'updating', () => {
         whenFalseOnce(layerView.current, 'updating', async () => {
           const result = await layerView.current.queryExtent();
+          console.log(`MapView:setting map extent containing ${result} graphics`);
 
-          console.log('MapView:setFilters setting map extent', result);
-
-          // this is in case there is a point way outside of the state...
+          // this is in case there is a point outside of the state...
           if (result.count === 0 || result.extent.contains(defaultExtent)) {
             return view.current.goTo(defaultExtent);
           }
@@ -106,9 +93,25 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
             };
           }
 
-          return view.current.goTo(extent);
+          view.current.goTo(extent);
         });
       });
+    }
+
+    const filter = where.join(' AND ');
+
+    if (isFilter) {
+      console.log(`MapView:updating layerview filter ${filter}`);
+
+      layerView.current.filter = {
+        where: filter,
+      };
+
+      setAppliedFilter(filter);
+    } else {
+      offenders.current.definitionExpression = filter;
+
+      console.log(`MapView:updating feature layer definition expression ${filter}`);
     }
   }, []);
 
@@ -119,7 +122,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       }
 
       if (!withService) {
-        console.log('offline identify');
+        console.log('MapView:offline identify');
 
         const query = {
           where: appliedFilter,
@@ -144,8 +147,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         return;
       }
 
-      console.log(`MapView::identify callback`);
-
       // don't continue if this is a stand-alone graphic
       // e.g. from dart-board
       const test = await view.current.hitTest(where);
@@ -159,7 +160,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       }
 
       const queryFeatures = async (opts) => {
-        console.log(`MapView::queryFeatures:query ${appliedFilter}`);
+        console.log(`MapView:queryFeatures with filter: '${appliedFilter}'`);
 
         const query = {
           where: appliedFilter,
@@ -234,24 +235,27 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
       saveAs(blob, 'export.csv');
     } catch (e) {
-      console.error('unable to create local download');
+      console.error('MapView:unable to create local download');
     }
   }, [filterCriteria]);
 
+  // swap feature layer views when offline
   React.useEffect(() => {
-    console.log(`swapping layers online: ${withService}`);
-
     if (offenders.current && mirror.current) {
       offenders.current.visible = withService;
       mirror.current.visible = !withService;
 
       if (!withService) {
         view.current.whenLayerView(mirror.current).then((lv) => {
+          console.log('MapView:showing view with static data');
+
           lv.filter = layerView.current.filter;
           layerView.current = lv;
         });
       } else {
         view.current.whenLayerView(offenders.current).then((lv) => {
+          console.log('MapView:showing view with live data');
+
           lv.filter = layerView.current.filter;
           layerView.current = lv;
         });
@@ -264,8 +268,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     if (!mapDiv.current) {
       return;
     }
-
-    console.log('MapView::set up map effect');
 
     offenders.current = new FeatureLayer({
       url: `${process.env.PUBLIC_URL}/mapserver`,
@@ -310,27 +312,26 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     map.add(offenders.current);
 
-    view.current.whenLayerView(offenders.current).then((view) => {
-      layerView.current = view;
+    view.current.whenLayerView(offenders.current).then((lv) => {
+      layerView.current = lv;
 
       mirror.current = new FeatureLayer({
         source: [],
         // renderer: offenders.current.renderer.clone(),
         renderer: {
-          type: 'simple', // autocasts as new SimpleRenderer()
+          type: 'simple',
           symbol: {
-            type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+            type: 'simple-marker',
             size: 6,
             color: 'black',
             outline: {
-              // autocasts as new SimpleLineSymbol()
               width: 0.5,
               color: 'white',
             },
           },
         },
         title: 'mirror',
-        fields: offenders.current.fields.map((x) => x.clone()),
+        fields: offenders.current.fields.map((field) => field.clone()),
         geometryType: offenders.current.geometryType,
         spatialReference: offenders.current.spatialReference.clone(),
         visible: false,
@@ -340,51 +341,41 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     });
   }, []);
 
+  // synchronize feature layers
   React.useEffect(() => {
-    const loadingEvent = pausable(view.current, 'updating', () => {
-      loadingEvent.pause();
-      whenTrueOnce(view.current, 'updating', () => {
-        whenFalseOnce(view.current, 'updating', async () => {
-          const featureSet = await layerView.current?.queryFeatures();
+    view.current.whenLayerView(offenders.current).then((lv) => {
+      loadingEvent.current?.remove();
+      loadingEvent.current = whenFalse(lv, 'updating', async () => {
+        const featureSet = await layerView.current?.queryFeatures();
 
-          if (withService) {
-            mapDispatcher({
-              type: 'SET_FEATURE_SET',
-              payload: featureSet,
-            });
+        if (withService) {
+          mapDispatcher({
+            type: 'SET_FEATURE_SET',
+            payload: featureSet,
+          });
 
-            const edits = {};
-
-            if (featureSet.features?.length > 0) {
-              edits.addFeatures = featureSet.features;
-            }
-
-            const currentData = await mirror.current.queryObjectIds();
-            if (currentData?.length > 0) {
-              edits.deleteFeatures = currentData.map((id) => ({ objectId: id }));
-            }
-
-            if (Object.keys(edits).length > 0) {
-              mirror.current.applyEdits(edits);
-            }
+          const edits = {};
+          if (featureSet.features?.length > 0) {
+            edits.addFeatures = featureSet.features;
           }
 
-          whenTrueOnce(view.current, 'updating', () => {
-            loadingEvent.resume();
-          });
-        });
+          const currentData = await mirror.current.queryObjectIds();
+
+          if (currentData?.length > 0) {
+            edits.deleteFeatures = currentData.map((id) => ({ objectId: id }));
+          }
+
+          if (Object.keys(edits).length > 0) {
+            mirror.current.applyEdits(edits);
+          }
+        }
       });
     });
-
-    return () => {
-      loadingEvent?.remove();
-    };
   }, [withService]);
 
   // apply filters to map view effect
   React.useEffect(() => {
     if (Array.isArray(filter)) {
-      console.log('MapView::apply filter effect', filter);
       setFilters(filter, true);
     }
   }, [filter, setFilters]);
@@ -392,7 +383,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   // update definition expression effect
   React.useEffect(() => {
     if (Array.isArray(definitionExpression)) {
-      console.log('MapView::apply definition expression effect', definitionExpression);
       setFilters(definitionExpression, false);
     }
   }, [definitionExpression, setFilters]);
@@ -403,7 +393,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       return;
     }
 
-    console.log('MapView::zoom to graphic effect');
+    console.log('MapView:zooming to graphic');
 
     let zoomMeta = zoomToGraphic;
 
@@ -476,9 +466,31 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         />
       </MapToolPanel>
       <CsvDownload download={download} view={view.current} position="top-left" />
+      {/* <Toggle view={view.current} withService={withService} setWithService={setWithService} /> */}
       {selectorOptions ? <LayerSelector {...selectorOptions}></LayerSelector> : null}
     </div>
   );
 };
+
+// const Toggle = ({ view, withService, setWithService }) => {
+//   const me = useViewUiPosition(view, 'top-left');
+
+//   const classes = clsx('esri-widget--button', 'esri-widget', 'esri-component');
+
+//   return (
+//     <div
+//       ref={me}
+//       className={classes}
+//       role="button"
+//       aria-label="Export features to CSV"
+//       title="Export features to CSV"
+//       onClick={() => {
+//         setWithService(!withService);
+//       }}
+//     >
+//       <FontAwesomeIcon icon={faCloudDownloadAlt} className="esri-icon" />
+//     </div>
+//   );
+// };
 
 export default ReactMapView;
