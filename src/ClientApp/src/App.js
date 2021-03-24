@@ -14,7 +14,7 @@ import { mappingConfig } from './config';
 import UserContext from './UserContext';
 
 const reducer = (draft, action) => {
-  console.log(`App:reducing state for ${action.type}`, action);
+  console.log(`App:reducing state ${action.type}`, action);
 
   switch (action.type) {
     case 'ZOOM_TO_GRAPHIC': {

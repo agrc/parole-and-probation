@@ -5,7 +5,7 @@ export default function useViewLoading(view) {
 
   React.useEffect(() => {
     const init = () => {
-      console.log('initializing use view loading...');
+      console.log('useViewLoading:initializing');
       view.watch('updating', (updating) => setIsLoading(updating));
     };
 

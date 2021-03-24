@@ -14,7 +14,7 @@ import './Filters.css';
 import { agents, supervisors } from './lookupData';
 
 const vanityCheck = (agentList, loggedInUser) => {
-  console.log(`vanity check for ${loggedInUser.value}`);
+  console.log(`Filters:vanity check for ${loggedInUser.value}`);
 
   const agents = Array.from(agentList);
 
@@ -126,20 +126,16 @@ const sqlMap = {
 };
 
 const sqlMapper = (data) => {
-  console.log(`Filters:sqlMapper`, data);
+  console.log(`Filters:generating sql`, data);
 
   let filterParts = [];
   let definitionExpressionParts = [];
 
   // agent/data/location/offender/other
   Object.keys(data).forEach((key) => {
-    if (key === 'downshift') {
-      return;
-    }
-
     const metaKeys = Object.keys(sqlMap[key]);
-
     const criteria = Object.entries(data[key]);
+
     const sql = criteria
       .map(([subKey, value]) => {
         if (shortCircuitEmpties(value)) {
@@ -171,7 +167,7 @@ const sqlMapper = (data) => {
 };
 
 const filterReducer = (draft, action) => {
-  console.log(`Filter:reducing state for ${action.type}`, action);
+  console.log(`Filter:reducing state ${action.type}`, action);
 
   switch (action.type) {
     case 'UPDATE_AGENT_LIST': {
@@ -368,7 +364,7 @@ const emptyState = {
   },
 };
 
-const Filters = (props) => {
+const Filters = ({ mapDispatcher, ...props }) => {
   let initialState = { ...defaultState, ...props.initialState };
   if (initialState.agent?.loggedInUser === null) {
     initialState.agent.loggedInUser = props.loggedInUser;
@@ -384,8 +380,7 @@ const Filters = (props) => {
   const classes = clsx({ 'd-none': !props.visible });
 
   React.useEffect(() => {
-    console.log('Filters:useEffect dispatching map filters');
-    props.mapDispatcher({
+    mapDispatcher({
       type: 'SET_FILTERS',
       payload: {
         filters: payload,
@@ -400,7 +395,6 @@ const Filters = (props) => {
     });
     // React guarantees that dispatch function identity is stable and won’t change on re-renders.
     // This is why it’s safe to omit from the useEffect or useCallback dependency list.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payload, criteria]);
 
   return (

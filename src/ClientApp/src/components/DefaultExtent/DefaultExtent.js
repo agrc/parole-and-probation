@@ -4,7 +4,7 @@ import * as React from 'react';
 import useViewUiPosition from '../../useViewUiPosition';
 
 const goHome = (view, extent) => {
-  console.log('zooming to default extent');
+  console.log('DefaultExtent:zooming to default extent');
 
   return view.goTo(extent);
 };

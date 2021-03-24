@@ -88,7 +88,7 @@ export default function Geolocation(props) {
     }
 
     const timeout = setTimeout(() => {
-      console.log('resetting geolocation');
+      console.log('Geolocation:resetting geolocation');
       setStatus(undefined);
     }, 5000);
 

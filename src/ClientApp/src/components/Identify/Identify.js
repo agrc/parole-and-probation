@@ -19,20 +19,22 @@ const IdentifyInformation = (props) => {
   const [offline, setOffline] = React.useState(false);
 
   React.useEffect(() => {
+    if (!props.offender.offender_id) {
+      return;
+    }
+
     if (props.offender.offender_id in identifyCache) {
       setExtra(identifyCache[props.offender.offender_id]);
 
       return;
     }
 
-    console.log('IdentifyInformation::effect fetching');
-
     setExtra({});
     setOffline(false);
 
     identifyFetch(props.offender, signal).then(
       (result) => {
-        console.log('IdentifyFetch::Promise Resolution::adding extra identify params');
+        console.log('IdentifyFetch:loading extra identify information');
 
         identifyCache[props.offender.offender_id] = result;
 
@@ -133,7 +135,7 @@ const IdentifyContainer = (props) => {
 };
 
 const identifyFetch = async (offender, cancellationToken) => {
-  if (!offender) {
+  if (!offender.offender_id) {
     return null;
   }
 
@@ -153,7 +155,7 @@ const identifyFetch = async (offender, cancellationToken) => {
     ['returnGeometry', false],
   ]);
 
-  console.log('identifyFetch::querying extra offender data');
+  console.log(`identifyFetch:querying extra offender data ${offender.offender_id}`);
 
   const response = await fetch(url, {
     signal: cancellationToken,
@@ -174,7 +176,7 @@ const identifyFetch = async (offender, cancellationToken) => {
     return offender;
   }
 
-  console.log(`found ${data.features.length} offenders`);
+  console.log(`identifyFetch:found ${data.features.length} offenders`);
 
   if (data.features.length !== 1) {
     return offender;

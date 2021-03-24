@@ -15,7 +15,7 @@ export default function CsvDownload(props) {
     }
 
     const timeout = setTimeout(() => {
-      console.log('resetting button');
+      console.log('CsvDownload:resetting button');
       setStatus(undefined);
     }, 10000);
 

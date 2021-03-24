@@ -10,13 +10,11 @@ const getAgent = (id, agents) => {
 
 export default function FilterAgent(props) {
   const updateAgents = (item, add) => {
-    console.info('Filters/FilterAgent:updateAgents');
-
     if (!item || !item.value) {
       return;
     }
 
-    console.log(`${add ? 'adding' : 'removing'} agent list for ${item.value}`);
+    console.log(`Filters/FilterAgent:${add ? 'adding' : 'removing'} agent list for ${item.value}`);
 
     props.update({
       type: 'UPDATE_AGENT_LIST',
