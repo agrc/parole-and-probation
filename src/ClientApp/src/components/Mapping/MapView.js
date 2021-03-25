@@ -78,7 +78,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       whenTrueOnce(layerView.current, 'updating', () => {
         whenFalseOnce(layerView.current, 'updating', async () => {
           const result = await layerView.current.queryExtent();
-          console.log(`MapView:setting map extent containing ${result} graphics`);
+          console.log(`MapView:setting map extent containing ${result.count} graphics`);
 
           // this is in case there is a point outside of the state...
           if (result.count === 0 || result.extent.contains(defaultExtent)) {
@@ -332,6 +332,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         },
         title: 'mirror',
         fields: offenders.current.fields.map((field) => field.clone()),
+        outFields: lv.availableFields,
         geometryType: offenders.current.geometryType,
         spatialReference: offenders.current.spatialReference.clone(),
         visible: false,
@@ -345,15 +346,15 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   React.useEffect(() => {
     view.current.whenLayerView(offenders.current).then((lv) => {
       loadingEvent.current?.remove();
-      loadingEvent.current = whenFalse(lv, 'updating', async () => {
+      loadingEvent.current = whenFalse(layerView.current, 'updating', async () => {
         const featureSet = await layerView.current?.queryFeatures();
 
-        if (withService) {
-          mapDispatcher({
-            type: 'SET_FEATURE_SET',
-            payload: featureSet,
-          });
+        mapDispatcher({
+          type: 'SET_FEATURE_SET',
+          payload: featureSet,
+        });
 
+        if (withService) {
           const edits = {};
           if (featureSet.features?.length > 0) {
             edits.addFeatures = featureSet.features;
@@ -451,7 +452,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       <Geolocation dispatcher={mapDispatcher} view={view.current} position="top-left" />
       <MapToolPanel icon={faMapMarkedAlt} view={view.current} position="top-left">
         <DartBoard
-          className="pt-2 px-3"
+          className="px-3 pt-2"
           apiKey={process.env.REACT_APP_WEB_API}
           events={{
             success: (result) => mapDispatcher({ type: 'ZOOM_TO_GRAPHIC', payload: result }),
@@ -488,7 +489,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 //         setWithService(!withService);
 //       }}
 //     >
-//       <FontAwesomeIcon icon={faCloudDownloadAlt} className="esri-icon" />
+//       <FontAwesomeIcon icon={faMapMarkedAlt} className="esri-icon" />
 //     </div>
 //   );
 // };
