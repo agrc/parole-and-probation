@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.20.2](https://github.com/agrc/parole-and-probation/compare/v1.20.1...v1.20.2) (2021-03-25)
+
+
+### Bug Fixes
+
+* **app:** sync type aheads with offline layer data ([ca1f471](https://github.com/agrc/parole-and-probation/commit/ca1f471295157c7c36f7c68a38ee10254f1ff0f1))
+* **app:** synchronize filters between offline and online layers ([c8363eb](https://github.com/agrc/parole-and-probation/commit/c8363ebeb2f71d4e8504a0dcc0d002dc099f5dc8))
+
 ### [1.20.1](https://github.com/agrc/parole-and-probation/compare/v1.20.0...v1.20.1) (2021-03-11)
 
 
