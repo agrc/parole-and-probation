@@ -426,7 +426,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
       </AccordionPane>
       <FilterActions
         reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })}
-        show={() => props.mapDispatcher({ type: 'TOGGLE_SIDEBAR', payload: true })}
+        show={() => mapDispatcher({ type: 'TOGGLE_SIDEBAR', payload: true })}
       />
     </section>
   );
