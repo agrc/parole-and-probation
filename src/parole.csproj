@@ -14,6 +14,7 @@
 
   <PropertyGroup>
     <LangVersion>Latest</LangVersion>
+    <CodeAnalysisRuleSet>./aspnetcore.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
