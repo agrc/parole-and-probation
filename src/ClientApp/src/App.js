@@ -131,7 +131,7 @@ export default function App() {
 
   React.useEffect(() => {
     const getUser = async () => {
-      let response = await fetch('api/configuration');
+      const response = await fetch('api/configuration');
       if (!response.ok) {
         throw new Error('Could not load settings');
       }
