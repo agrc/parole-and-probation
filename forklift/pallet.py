@@ -11,11 +11,11 @@ import pandas as pd
 import pyproj
 import requests
 import sqlalchemy
+from models import schema
 from vault import api, database
 from xxhash import xxh64
 
 from forklift.models import Pallet
-from models import schema
 
 
 class CorrectionPallet(Pallet):
@@ -60,7 +60,7 @@ class CorrectionPallet(Pallet):
 
     def get_data(self):
         self.log.info('requesting api data')
-        response = requests.get(self.api, headers=api.AUTHORIZATION_HEADER, stream=True)
+        response = requests.get(f'{self.api}/offenders', headers=api.AUTHORIZATION_HEADER, stream=True)
 
         try:
             response.raise_for_status()
@@ -165,6 +165,44 @@ class CorrectionPallet(Pallet):
     def update_hash(self, hash_value):
         hash_file = self.corrections / 'hash'
         hash_file.write_text(hash_value)
+
+
+class SupplementaryPallet(Pallet):
+
+    def build(self, configuration='Production'):
+        self.api = api.ENDPOINT
+        self.db = database.CONNECTION_AT
+
+        if configuration == 'Dev':
+            self.api = api.ENDPOINT
+            self.db = database.CONNECTION_LOCAL
+
+        if configuration == 'Staging':
+            self.api = api.ENDPOINT_AT
+            self.db = database.CONNECTION_AT
+
+    def requires_processing(self):
+        return True
+
+    def get_data(self):
+        self.log.info('requesting api data')
+        response = requests.get(self.api, headers=api.AUTHORIZATION_HEADER, stream=True)
+
+        try:
+            response.raise_for_status()
+        except Exception as e:
+            self.success = (False, 'API failure')
+            self.log.fatal(e)
+
+            return False
+
+        self.log.debug('streaming data')
+
+        content_hash = xxh64()
+        with (self.corrections / 'offenders.json').open(mode='wb') as cursor:
+            for chunk in response.iter_content(chunk_size=128):
+                cursor.write(chunk)
+                content_hash.update(chunk)
 
 
 if __name__ == '__main__':
