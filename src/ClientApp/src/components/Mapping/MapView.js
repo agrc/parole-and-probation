@@ -165,7 +165,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         const query = {
           where: appliedFilter,
           geometry: opts.mapPoint,
-          distance: view.current.resolution * 7,
+          distance: view.current.resolution * 10,
           spatialRelationship: 'intersects',
           outFields: layerView.current.availableFields,
           orderByFields: 'offender ASC',
