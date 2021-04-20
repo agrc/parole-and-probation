@@ -26,12 +26,12 @@ export default function FilterAgent(props) {
     });
   };
 
-  const addAgentsForSupervisor = (supervisorName) => {
+  const addAgentsForSupervisor = (item) => {
     props.update({
       type: 'UPDATE_AGENT_LIST',
       meta: 'supervisor',
       payload: {
-        supervisorName,
+        supervisor: item,
       },
     });
   };
@@ -64,9 +64,9 @@ export default function FilterAgent(props) {
           <MultiSelect
             items={props.data.supervisors}
             itemToString={(item) => (item ? item.value : '')}
-            itemToKey={(item) => item.value}
+            itemToKey={(item) => item.id}
             currentSelectedItems={props.criteria.supervisor}
-            onSelectItem={(item) => addAgentsForSupervisor(item.value)}
+            onSelectItem={(item) => addAgentsForSupervisor(item)}
           />
         </FormGroup>
       </Col>
