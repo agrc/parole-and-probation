@@ -17,7 +17,7 @@ export const Reset = () => (
       agent: {
         loggedInUser: null,
         agentList: [],
-        supervisor: null,
+        supervisor: [],
         vanity: true,
       },
       date: {

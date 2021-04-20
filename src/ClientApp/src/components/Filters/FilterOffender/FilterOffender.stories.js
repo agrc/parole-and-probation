@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
 import FilterOffender from '../FilterOffender';
-import { filterReducer } from '../Filters';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -132,15 +131,30 @@ const featureSet = {
 };
 
 export const Normal = (args) => {
-  const [criteria, dispatcher] = useImmerReducer(filterReducer, {
-    offender: {
-      gender: '',
-      name: '',
-      number: '',
-      tel: '',
-      employer: '',
+  const [criteria, dispatcher] = useImmerReducer(
+    (draft, action) => {
+      console.log(`Filter:reducing state ${action.type}`, action);
+
+      switch (action.type) {
+        case 'UPDATE_OFFENDER': {
+          draft.offender[action.meta] = action.payload;
+
+          return;
+        }
+        default:
+          throw new Error();
+      }
     },
-  });
+    {
+      offender: {
+        gender: '',
+        name: '',
+        number: '',
+        tel: '',
+        employer: '',
+      },
+    }
+  );
 
   return (
     <FilterOffender
