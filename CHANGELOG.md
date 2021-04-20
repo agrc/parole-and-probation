@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.0](https://github.com/agrc/parole-and-probation/compare/v1.20.2...v1.21.0) (2021-04-20)
+
+
+### Features
+
+* **app:** use new endpoints ([95e714d](https://github.com/agrc/parole-and-probation/commit/95e714deafd7835dd9a92979742ece8eed50aaa2)), closes [#126](https://github.com/agrc/parole-and-probation/issues/126)
+
+
+### Bug Fixes
+
+* **app:** allow multiple selections of supervisors ([221ae68](https://github.com/agrc/parole-and-probation/commit/221ae682e5423905d4e78918fc14647445f68a88))
+* **app:** fix filter close button action ([fd7284a](https://github.com/agrc/parole-and-probation/commit/fd7284a1999ffcf0014948b28d5aa7fe60dce4d5)), closes [#145](https://github.com/agrc/parole-and-probation/issues/145)
+* **app:** increase click distance by 3x ([608970b](https://github.com/agrc/parole-and-probation/commit/608970b4932ae80ab6694a6c8645ba06219b583c)), closes [#147](https://github.com/agrc/parole-and-probation/issues/147)
+
 ### [1.20.2](https://github.com/agrc/parole-and-probation/compare/v1.20.1...v1.20.2) (2021-03-25)
 
 
