@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # * coding: utf8 *
-'''
+"""
 schema.py
 A module that holds the schema for the dat file
-'''
+"""
 
 from collections import OrderedDict
 
@@ -88,3 +88,11 @@ SPECIAL_SUPERVISION = [
     'SO-B',
     'SO-C',
 ]
+
+AGENT_SQL_TYPES = {
+    'id': INTEGER(),
+    'value': VARCHAR(128),
+    'agent_id': VARCHAR(64),
+    'supervisor_id': VARCHAR(64),
+    'supervisor_name': VARCHAR(128),
+}
