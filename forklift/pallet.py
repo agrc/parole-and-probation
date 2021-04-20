@@ -12,11 +12,11 @@ import pandas as pd
 import pyproj
 import requests
 import sqlalchemy
+from models import schema
 from vault import api, database
 from xxhash import xxh64
 
 from forklift.models import Pallet
-from models import schema
 
 
 class CorrectionsBase(Pallet):
@@ -271,7 +271,8 @@ class CorrectionSupplementaryPallet(CorrectionsBase):
 
             self.log.info('reading supervisor data')
             supervisor_frame = pd.read_json(self.supervisor_data, orient='records')
-            supervisor_frame.sort_values(by=['supervisor_name'], inplace=True)
+            supervisor_frame.rename(columns={'supervisor_name': 'supervisor'}, inplace=True)
+            supervisor_frame.sort_values(by=['supervisor'], inplace=True)
         except Exception as error:
             self.log.fatal(error)
             self.success = (False, 'unable to read agent and supervisor data')
