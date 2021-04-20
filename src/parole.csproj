@@ -15,6 +15,7 @@
   <PropertyGroup>
     <LangVersion>Latest</LangVersion>
     <CodeAnalysisRuleSet>./aspnetcore.ruleset</CodeAnalysisRuleSet>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

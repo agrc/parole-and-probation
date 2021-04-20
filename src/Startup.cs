@@ -154,7 +154,7 @@ namespace parole {
                 var auth = new[] { CookieAuthenticationDefaults.AuthenticationScheme };
 
                 endpoints.MapGet("api/logout", async context => {
-                    logger
+                    logger?
                     .ForContext("user", context.User?.Identity)
                     .ForContext("claims", context.User?.Claims)
                     .ForContext("cookies", context.Request?.Cookies)
@@ -172,11 +172,18 @@ namespace parole {
 
                 endpoints.MapGet("api/lookups", async context => {
                     var lookupService = endpoints.ServiceProvider.GetService<LookupService>();
+                    if (lookupService is null) {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync("invalid server configuration");
+
+                        return;
+                    }
+
                     context.Response.StatusCode = 200;
                     await context.Response.WriteAsJsonAsync(await lookupService.GetAgentsAsync());
                 }).RequireAuthorization(auth);
                 endpoints.MapPost("api/download", async context => {
-                    MapFilterState model;
+                    MapFilterState? model;
                     try {
                         model = await context.Request.ReadFromJsonAsync<MapFilterState>(new JsonSerializerOptions {
                             PropertyNameCaseInsensitive = true
@@ -191,7 +198,17 @@ namespace parole {
                     }
 
                     var exportService = endpoints.ServiceProvider.GetService<ExportService>();
-                    var records = await exportService.GetRecords(model);
+
+                    if (exportService is null) {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsJsonAsync(new {
+                            message = "invalid server configuration"
+                        });
+
+                        return;
+                    }
+
+                    var records = await exportService.GetRecordsAsync(model);
 
                     if (!records.Any()) {
                         context.Response.StatusCode = 200;
@@ -219,25 +236,37 @@ namespace parole {
                     stream.Position = 0;
 
                     var emailConfig = endpoints.ServiceProvider.GetService<EmailConfig>();
-                    var emailer = new EmailSender(emailConfig, logger);
+                    if (emailConfig is null) {
+                        logger?.Warning("email configuration is null");
 
-                    await emailer.SendAsync(new[] { context.User.Claims.FirstOrDefault(x => x.Type == "public:Email").Value }, stream);
+                        return;
+                    }
+
+                    var emailer = new EmailSender(emailConfig, logger);
+                    var emailClaim = context.User.Claims.FirstOrDefault(x => x.Type == "public:Email");
+
+                    if (emailClaim is null) {
+                        return;
+                    }
+
+                    await emailer.SendAsync(new[] { emailClaim.Value }, stream);
                 }
                 ).RequireAuthorization(auth);
 
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {
                         var request = context.Request;
-                        if (request.Path.StartsWithSegments(new PathString("/mapserver"))) {
-                            request.QueryString = request.QueryString.Add("token", await tokenService.GetToken());
+                        if (request.Path.StartsWithSegments(new PathString("/mapserver")) && tokenService is not null) {
+                            request.QueryString = request.QueryString.Add("token", await tokenService.GetTokenAsync());
                         }
+
                         await next();
                     });
                 });
             });
 
             app.Use(async (context, next) => {
-                if (context.User.Identity.IsAuthenticated) {
+                if (context.User.Identity?.IsAuthenticated == true) {
                     var appClaim = context.User.Claims.FirstOrDefault(x => x.Type == "DOCFieldMap:AccessGranted");
                     if (appClaim?.Value == "true") {
                         await next();
