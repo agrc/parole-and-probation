@@ -11,14 +11,14 @@ import FilterLocation from './FilterLocation';
 import FilterOffender from './FilterOffender';
 import FilterOther from './FilterOther';
 import './Filters.css';
-import { agents, supervisors } from './lookupData';
+import { agentLookup, supervisorLookup } from './lookupData';
 
 const vanityCheck = (agentList, loggedInUser) => {
   console.log(`Filters:vanity check for ${loggedInUser.value}`);
 
-  const agents = Array.from(agentList);
+  const agentArray = Array.from(agentList);
 
-  return agents.some((item) => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
+  return agentArray.some((item) => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
 };
 
 const addOrRemove = (list, value, add) => {
@@ -166,137 +166,11 @@ const sqlMapper = (data) => {
   return { definitionExpression: definitionExpressionParts, filter: filterParts };
 };
 
-const filterReducer = (draft, action) => {
-  console.log(`Filter:reducing state ${action.type}`, action);
-
-  switch (action.type) {
-    case 'UPDATE_AGENT_LIST': {
-      if (action.meta === 'agent') {
-        if (action.payload.add) {
-          if (
-            draft.agent.agentList.some((item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase())
-          ) {
-            return;
-          }
-
-          draft.agent.agentList = [action.payload.item].concat(draft.agent.agentList);
-        } else {
-          draft.agent.supervisorList = [];
-          draft.agent.agentList = draft.agent.agentList.filter(
-            (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
-          );
-        }
-      } else if (action.meta === 'supervisor') {
-        if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
-          draft.agent.agentList = agents.some(
-            (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
-          );
-        }
-
-        if (!action.payload.supervisorName) {
-          draft.agent.agentList = [];
-
-          if (draft.agent.vanity) {
-            draft.agent.agentList = agents.some(
-              (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
-            );
-          }
-        } else {
-          draft.agent.agentList = [];
-          draft.agent.supervisor = null;
-
-          if (draft.agent.vanity) {
-            draft.agent.agentList.push(draft.agent.loggedInUser);
-          }
-
-          const agentsForSupervisor = agents.filter(
-            (agent) => agent.supervisor.toLowerCase() === action.payload.supervisorName.toLowerCase()
-          );
-
-          draft.agent.supervisor = action.payload.supervisorName;
-          draft.agent.agentList = draft.agent.agentList.concat(agentsForSupervisor);
-        }
-      }
-
-      draft.agent.vanity = vanityCheck(draft.agent.agentList, draft.agent.loggedInUser);
-
-      return;
-    }
-    case 'UPDATE_OFFENDER': {
-      draft.offender[action.meta] = action.payload;
-
-      return;
-    }
-    case 'UPDATE_DATE': {
-      draft.date[action.meta] = action.payload;
-
-      return;
-    }
-    case 'UPDATE_OTHER': {
-      switch (action.meta) {
-        case 'supervision':
-        case 'gang':
-        case 'offense': {
-          draft.other[action.meta] = addOrRemove(draft.other[action.meta], action.payload.value, action.payload.add);
-
-          break;
-        }
-        case 'sos': {
-          let add = true;
-          if (draft.other.sos.includes(action.payload)) {
-            add = false;
-          }
-
-          draft.other.sos = addOrRemove(draft.other.sos, action.payload, add);
-
-          break;
-        }
-        default: {
-          draft.other[action.meta] = action.payload;
-        }
-      }
-
-      return;
-    }
-    case 'UPDATE_LOCATION': {
-      switch (action.meta) {
-        case 'counties': {
-          draft.location[action.meta] = addOrRemove(
-            draft.location[action.meta],
-            action.payload.item,
-            action.payload.add
-          );
-          break;
-        }
-        case 'region': {
-          let add = true;
-          if (draft.location.region.includes(action.payload)) {
-            add = false;
-          }
-
-          draft.location.region = addOrRemove(draft.location.region, action.payload, add);
-          break;
-        }
-        default: {
-          draft.location[action.meta] = action.payload;
-        }
-      }
-
-      return;
-    }
-    case 'RESET': {
-      return JSON.parse(JSON.stringify(emptyState));
-    }
-    default:
-      throw new Error();
-  }
-};
-
 const defaultState = {
   agent: {
     loggedInUser: null,
     agentList: [],
-    supervisor: null,
+    supervisor: [],
     vanity: true,
   },
   date: {
@@ -332,7 +206,7 @@ const emptyState = {
   agent: {
     loggedInUser: null,
     agentList: [],
-    supervisor: null,
+    supervisor: [],
     vanity: true,
   },
   date: {
@@ -374,10 +248,168 @@ const Filters = ({ mapDispatcher, ...props }) => {
   emptyState.agent.loggedInUser = props.loggedInUser;
   emptyState.agent.agentList = [props.loggedInUser];
 
+  const [agents, setAgents] = React.useState(agentLookup);
+  const [supervisors, setSupervisors] = React.useState(supervisorLookup);
+
+  const filterReducer = (draft, action) => {
+    console.log(`Filter:reducing state ${action.type}`, action);
+
+    switch (action.type) {
+      case 'UPDATE_AGENT_LIST': {
+        if (action.meta === 'agent') {
+          if (action.payload.add) {
+            if (
+              draft.agent.agentList.some((item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase())
+            ) {
+              return;
+            }
+
+            draft.agent.agentList = [action.payload.item].concat(draft.agent.agentList);
+          } else {
+            draft.agent.supervisorList = [];
+            draft.agent.agentList = draft.agent.agentList.filter(
+              (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
+            );
+          }
+        } else if (action.meta === 'supervisor') {
+          if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
+            draft.agent.agentList = agents.some(
+              (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+            );
+          }
+
+          if (!action.payload.supervisor) {
+            draft.agent.agentList = [];
+
+            if (draft.agent.vanity) {
+              draft.agent.agentList = agents.some(
+                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+              );
+            }
+          } else {
+            draft.agent.agentList = [];
+            draft.agent.supervisor = [];
+
+            if (draft.agent.vanity) {
+              draft.agent.agentList.push(draft.agent.loggedInUser);
+            }
+
+            const agentsForSupervisor = agents.filter(
+              (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
+            );
+
+            draft.agent.supervisor = [action.payload.supervisor];
+            draft.agent.agentList = draft.agent.agentList.concat(agentsForSupervisor);
+          }
+        }
+
+        draft.agent.vanity = vanityCheck(draft.agent.agentList, draft.agent.loggedInUser);
+
+        return;
+      }
+      case 'UPDATE_OFFENDER': {
+        draft.offender[action.meta] = action.payload;
+
+        return;
+      }
+      case 'UPDATE_DATE': {
+        draft.date[action.meta] = action.payload;
+
+        return;
+      }
+      case 'UPDATE_OTHER': {
+        switch (action.meta) {
+          case 'supervision':
+          case 'gang':
+          case 'offense': {
+            draft.other[action.meta] = addOrRemove(draft.other[action.meta], action.payload.value, action.payload.add);
+
+            break;
+          }
+          case 'sos': {
+            let add = true;
+            if (draft.other.sos.includes(action.payload)) {
+              add = false;
+            }
+
+            draft.other.sos = addOrRemove(draft.other.sos, action.payload, add);
+
+            break;
+          }
+          default: {
+            draft.other[action.meta] = action.payload;
+          }
+        }
+
+        return;
+      }
+      case 'UPDATE_LOCATION': {
+        switch (action.meta) {
+          case 'counties': {
+            draft.location[action.meta] = addOrRemove(
+              draft.location[action.meta],
+              action.payload.item,
+              action.payload.add
+            );
+            break;
+          }
+          case 'region': {
+            let add = true;
+            if (draft.location.region.includes(action.payload)) {
+              add = false;
+            }
+
+            draft.location.region = addOrRemove(draft.location.region, action.payload, add);
+            break;
+          }
+          default: {
+            draft.location[action.meta] = action.payload;
+          }
+        }
+
+        return;
+      }
+      case 'RESET': {
+        return JSON.parse(JSON.stringify(emptyState));
+      }
+      default:
+        throw new Error();
+    }
+  };
+
   const [criteria, dispatcher] = useImmerReducer(filterReducer, initialState);
 
   const payload = sqlMapper(criteria);
   const classes = clsx({ 'd-none': !props.visible });
+
+  React.useEffect(() => {
+    const getAgents = async () => {
+      const response = await fetch('api/lookups');
+      if (!response.ok) {
+        throw new Error('Could not load settings');
+      }
+
+      const data = await response.json();
+      if (data?.length > 0) {
+        setAgents(data);
+
+        const ids = new Set([]);
+        const supers = [];
+
+        data.forEach((item) => {
+          if (!ids.has(item.supervisor_Id)) {
+            ids.add(item.supervisor_Id);
+            supers.push({ value: item.supervisor, id: item.supervisor_Id });
+          }
+        });
+
+        console.log(supers);
+        setSupervisors(supers);
+      }
+    };
+
+    getAgents();
+  }, []);
 
   React.useEffect(() => {
     mapDispatcher({
@@ -432,4 +464,4 @@ const Filters = ({ mapDispatcher, ...props }) => {
   );
 };
 
-export { Filters, sqlMap, sqlMapper, filterReducer };
+export { Filters, sqlMap, sqlMapper };
