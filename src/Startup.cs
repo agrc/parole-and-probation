@@ -109,6 +109,7 @@ namespace parole {
 
             services.AddSingleton<TokenService>();
             services.AddSingleton<ExportService>();
+            services.AddSingleton<LookupService>();
             services.AddSingleton<IArcGISCredential>(values);
             services.AddSingleton(emailValues);
             services.AddSingleton(Configuration);
@@ -150,6 +151,7 @@ namespace parole {
             app.UseEndpoints(endpoints => {
                 var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
+                var auth = new[] { CookieAuthenticationDefaults.AuthenticationScheme };
 
                 endpoints.MapGet("api/logout", async context => {
                     logger
@@ -166,8 +168,13 @@ namespace parole {
                         { "id", context.User.Claims.First(x=> x.Type == "public:WorkforceID").Value },
                         { "name", context.User.Claims.First(x=> x.Type == "public:FullName").Value }
                     })
-                ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
+                ).RequireAuthorization(auth);
 
+                endpoints.MapGet("api/lookups", async context => {
+                    var lookupService = endpoints.ServiceProvider.GetService<LookupService>();
+                    context.Response.StatusCode = 200;
+                    await context.Response.WriteAsJsonAsync(await lookupService.GetAgentsAsync());
+                }).RequireAuthorization(auth);
                 endpoints.MapPost("api/download", async context => {
                     MapFilterState model;
                     try {
@@ -216,7 +223,7 @@ namespace parole {
 
                     await emailer.SendAsync(new[] { context.User.Claims.FirstOrDefault(x => x.Type == "public:Email").Value }, stream);
                 }
-                ).RequireAuthorization(new[] { CookieAuthenticationDefaults.AuthenticationScheme });
+                ).RequireAuthorization(auth);
 
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {
