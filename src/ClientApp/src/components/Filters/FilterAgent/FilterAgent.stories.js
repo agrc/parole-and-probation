@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
-import { filterReducer } from '../Filters';
 import { agents, supervisors } from '../lookupData';
 import FilterAgent from './FilterAgent';
 
@@ -24,13 +23,85 @@ const defaultAgent = {
   vanity: true,
 };
 
+const vanityCheck = (agentList, loggedInUser) => {
+  console.log(`Filters:vanity check for ${loggedInUser.value}`);
+
+  const agentArray = Array.from(agentList);
+
+  return agentArray.some((item) => item.value.toLowerCase() === loggedInUser.value.toLowerCase());
+};
+
 export const Empty = (args) => {
-  const [criteria, dispatcher] = useImmerReducer(filterReducer, {
-    agent: {
-      ...defaultAgent,
-      vanity: false,
+  const [criteria, dispatcher] = useImmerReducer(
+    (draft, action) => {
+      console.log(`Filter:reducing state ${action.type}`, action);
+
+      switch (action.type) {
+        case 'UPDATE_AGENT_LIST': {
+          if (action.meta === 'agent') {
+            if (action.payload.add) {
+              if (
+                draft.agent.agentList.some(
+                  (item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase()
+                )
+              ) {
+                return;
+              }
+
+              draft.agent.agentList = [action.payload.item].concat(draft.agent.agentList);
+            } else {
+              draft.agent.supervisorList = [];
+              draft.agent.agentList = draft.agent.agentList.filter(
+                (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
+              );
+            }
+          } else if (action.meta === 'supervisor') {
+            if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
+              draft.agent.agentList = agents.some(
+                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+              );
+            }
+
+            if (!action.payload.supervisor) {
+              draft.agent.agentList = [];
+
+              if (draft.agent.vanity) {
+                draft.agent.agentList = agents.some(
+                  (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                );
+              }
+            } else {
+              draft.agent.agentList = [];
+              draft.agent.supervisor = [];
+
+              if (draft.agent.vanity) {
+                draft.agent.agentList.push(draft.agent.loggedInUser);
+              }
+
+              const agentsForSupervisor = agents.filter(
+                (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
+              );
+
+              draft.agent.supervisor = [action.payload.supervisor];
+              draft.agent.agentList = draft.agent.agentList.concat(agentsForSupervisor);
+            }
+          }
+
+          draft.agent.vanity = vanityCheck(draft.agent.agentList, draft.agent.loggedInUser);
+
+          return;
+        }
+        default:
+          throw new Error();
+      }
     },
-  });
+    {
+      agent: {
+        ...defaultAgent,
+        vanity: false,
+      },
+    }
+  );
 
   return (
     <FilterAgent
@@ -45,12 +116,76 @@ export const Empty = (args) => {
 };
 
 export const Vanity = (args) => {
-  const [criteria, dispatcher] = useImmerReducer(filterReducer, {
-    agent: {
-      ...defaultAgent,
-      agentList: [vanityUser],
+  const [criteria, dispatcher] = useImmerReducer(
+    (draft, action) => {
+      console.log(`Filter:reducing state ${action.type}`, action);
+
+      switch (action.type) {
+        case 'UPDATE_AGENT_LIST': {
+          if (action.meta === 'agent') {
+            if (action.payload.add) {
+              if (
+                draft.agent.agentList.some(
+                  (item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase()
+                )
+              ) {
+                return;
+              }
+
+              draft.agent.agentList = [action.payload.item].concat(draft.agent.agentList);
+            } else {
+              draft.agent.supervisorList = [];
+              draft.agent.agentList = draft.agent.agentList.filter(
+                (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
+              );
+            }
+          } else if (action.meta === 'supervisor') {
+            if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
+              draft.agent.agentList = agents.some(
+                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+              );
+            }
+
+            if (!action.payload.supervisor) {
+              draft.agent.agentList = [];
+
+              if (draft.agent.vanity) {
+                draft.agent.agentList = agents.some(
+                  (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                );
+              }
+            } else {
+              draft.agent.agentList = [];
+              draft.agent.supervisor = [];
+
+              if (draft.agent.vanity) {
+                draft.agent.agentList.push(draft.agent.loggedInUser);
+              }
+
+              const agentsForSupervisor = agents.filter(
+                (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
+              );
+
+              draft.agent.supervisor = [action.payload.supervisor];
+              draft.agent.agentList = draft.agent.agentList.concat(agentsForSupervisor);
+            }
+          }
+
+          draft.agent.vanity = vanityCheck(draft.agent.agentList, draft.agent.loggedInUser);
+
+          return;
+        }
+        default:
+          throw new Error();
+      }
     },
-  });
+    {
+      agent: {
+        ...defaultAgent,
+        agentList: [vanityUser],
+      },
+    }
+  );
 
   return (
     <FilterAgent
@@ -65,19 +200,83 @@ export const Vanity = (args) => {
 };
 
 export const AgentsSelected = (args) => {
-  const [criteria, dispatcher] = useImmerReducer(filterReducer, {
-    agent: {
-      ...defaultAgent,
-      vanity: false,
-      agentList: [
-        {
-          id: -1,
-          value: 'Storybook',
-          supervisor: 'Airbnb',
-        },
-      ],
+  const [criteria, dispatcher] = useImmerReducer(
+    (draft, action) => {
+      console.log(`Filter:reducing state ${action.type}`, action);
+
+      switch (action.type) {
+        case 'UPDATE_AGENT_LIST': {
+          if (action.meta === 'agent') {
+            if (action.payload.add) {
+              if (
+                draft.agent.agentList.some(
+                  (item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase()
+                )
+              ) {
+                return;
+              }
+
+              draft.agent.agentList = [action.payload.item].concat(draft.agent.agentList);
+            } else {
+              draft.agent.supervisorList = [];
+              draft.agent.agentList = draft.agent.agentList.filter(
+                (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
+              );
+            }
+          } else if (action.meta === 'supervisor') {
+            if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
+              draft.agent.agentList = agents.some(
+                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+              );
+            }
+
+            if (!action.payload.supervisor) {
+              draft.agent.agentList = [];
+
+              if (draft.agent.vanity) {
+                draft.agent.agentList = agents.some(
+                  (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                );
+              }
+            } else {
+              draft.agent.agentList = [];
+              draft.agent.supervisor = [];
+
+              if (draft.agent.vanity) {
+                draft.agent.agentList.push(draft.agent.loggedInUser);
+              }
+
+              const agentsForSupervisor = agents.filter(
+                (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
+              );
+
+              draft.agent.supervisor = [action.payload.supervisor];
+              draft.agent.agentList = draft.agent.agentList.concat(agentsForSupervisor);
+            }
+          }
+
+          draft.agent.vanity = vanityCheck(draft.agent.agentList, draft.agent.loggedInUser);
+
+          return;
+        }
+        default:
+          throw new Error();
+      }
     },
-  });
+    {
+      agent: {
+        ...defaultAgent,
+        vanity: false,
+        agentList: [
+          {
+            id: -1,
+            value: 'Storybook',
+            supervisor: 'Airbnb',
+          },
+        ],
+      },
+    }
+  );
 
   return (
     <FilterAgent
