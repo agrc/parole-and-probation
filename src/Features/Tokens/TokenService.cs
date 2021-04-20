@@ -13,10 +13,10 @@ namespace parole.Features {
         private readonly string _tokenUrl = "/tokens/generateToken";
         private const int TenMinuteBufferInMilliSeconds = 600000;
         private readonly HttpClient _client;
-        private readonly KeyValuePair<string, string>[] FormData;
+        private readonly KeyValuePair<string?, string?>[] FormData = new KeyValuePair<string?, string?>[5];
         private readonly ILogger _log;
         private DateTime _expiresIn = DateTime.UtcNow;
-        private string _currentToken;
+        private string _currentToken = default!;
 
         public TokenService(IHttpClientFactory httpClientFactory, IArcGISCredential credentials, ILogger log) {
             _client = httpClientFactory.CreateClient("default");
@@ -27,16 +27,14 @@ namespace parole.Features {
                 credentials.PathBase,
                 _tokenUrl));
 
-            FormData = new KeyValuePair<string, string>[]{
-                new KeyValuePair<string, string>("username", credentials.Username),
-                new KeyValuePair<string, string>("password", credentials.Password),
-                new KeyValuePair<string, string>("client", "requestip"),
-                new KeyValuePair<string, string>("expiration", "60"),
-                new KeyValuePair<string, string>("f", "json")
-            };
+            FormData[0] = new KeyValuePair<string?, string?>("username", credentials.Username);
+            FormData[1] = new KeyValuePair<string?, string?>("password", credentials.Password);
+            FormData[2] = new KeyValuePair<string?, string?>("client", "requestip");
+            FormData[3] = new KeyValuePair<string?, string?>("expiration", "60");
+            FormData[4] = new KeyValuePair<string?, string?>("f", "json");
         }
 
-        public async Task<string> GetToken() {
+        public async Task<string> GetTokenAsync() {
             _log.Verbose("GetToken");
 
             if (!string.IsNullOrEmpty(_currentToken)) {
@@ -59,20 +57,24 @@ namespace parole.Features {
             try {
                 var response = await _client.PostAsync(TokenUri, formContent);
                 if (!response.IsSuccessStatusCode) {
-                    return null;
+                    return string.Empty;
                 }
 
-                TokenResponse tokenResponse = null;
+                TokenResponse? tokenResponse;
 
                 try {
                     tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
                 } catch (Exception) {
                     _log.Error("problem creating token response: {data}", response.Content.ReadAsStringAsync().Result);
 
-                    return null;
+                    return string.Empty;
                 }
 
                 _log.Verbose("Token service response {@Response}", tokenResponse);
+
+                if (tokenResponse is null) {
+                    return string.Empty;
+                }
 
                 var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                 _expiresIn = epoch.AddMilliseconds(tokenResponse.Expires - TenMinuteBufferInMilliSeconds);
@@ -81,7 +83,7 @@ namespace parole.Features {
             } catch (Exception ex) {
                 _log.Error(ex, "Getting a token from {Url}", TokenUri.AbsoluteUri);
 
-                return null;
+                return string.Empty;
             }
         }
     }

@@ -39,11 +39,12 @@ namespace parole.Features {
         }
     }
 
-    public class AgentItem {
-        public int Id { get; set; }
-        public string Value { get; set; }
-        public string Agent_Id { get; set; }
-        public string Supervisor_Id { get; set; }
-        public string Supervisor_Name { get; set; }
-    }
+    public record AgentItem(int Id, string Value, string Agent_Id, string Supervisor_Id, string Supervisor_Name);
+    // public class AgentItem {
+    //     public int Id { get; set; }
+    //     public string Value { get; set; }
+    //     public string Agent_Id { get; set; }
+    //     public string Supervisor_Id { get; set; }
+    //     public string Supervisor_Name { get; set; }
+    // }
 }

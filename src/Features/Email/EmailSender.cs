@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 namespace parole.Features {
     public class EmailSender {
         private readonly EmailConfig _config;
-        private readonly ILogger _log;
+        private readonly ILogger? _log;
 
-        public EmailSender(EmailConfig config, ILogger log) {
+        public EmailSender(EmailConfig config, ILogger? log) {
             _config = config;
             _log = log;
 
-            _log.Verbose("Email settings: {@settings}", config);
+            _log?.Verbose("Email settings: {@settings}", config);
         }
 
         public async Task SendAsync(IReadOnlyCollection<string> recipients, Stream stream) {
-            _log.Information("Sending email to {people}", recipients);
+            _log?.Information("Sending email to {people}", recipients);
 
             var to = recipients.Select(x => new MailboxAddress(string.Empty, x));
 
@@ -51,12 +51,12 @@ namespace parole.Features {
             }
 
             using var client = new SmtpClient();
-            _log.Verbose("Connecting to smtp server");
+            _log?.Verbose("Connecting to smtp server");
             await client.ConnectAsync(_config.Smtp, 25, MailKit.Security.SecureSocketOptions.None);
-            _log.Verbose("Connected to smtp server");
+            _log?.Verbose("Connected to smtp server");
 
             await client.SendAsync(message);
-            _log.Information("Email sent");
+            _log?.Information("Email sent");
 
             await client.DisconnectAsync(true);
         }

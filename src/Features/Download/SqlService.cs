@@ -15,14 +15,18 @@ namespace parole.Features {
             return string.Join(" AND ", sqlParts);
         }
 
-        private static void AddAgent(ref List<string> sqlParts, IEnumerable<int> data) {
-            if (!data.Any()) {
+        private static void AddAgent(ref List<string> sqlParts, IEnumerable<int>? data) {
+            if (data?.Any() != true) {
                 return;
             }
 
             sqlParts.Add($"agent_id in ({string.Join(',', data)})");
         }
-        private static void AddDate(ref List<string> sqlParts, DateRecord data) {
+        private static void AddDate(ref List<string> sqlParts, DateRecord? data) {
+            if (data is null) {
+                return;
+            }
+
             if (!string.IsNullOrEmpty(data.Compliant)) {
                 var compliance = "0";
                 if (data.Compliant == "in") {
@@ -44,7 +48,11 @@ namespace parole.Features {
                 sqlParts.Add($"last_successful_field_contact>{data.Success.Value}");
             }
         }
-        private static void AddLocation(ref List<string> sqlParts, LocationRecord data) {
+        private static void AddLocation(ref List<string> sqlParts, LocationRecord? data) {
+            if (data is null) {
+                return;
+            }
+
             if (data.Region.Any()) {
                 sqlParts.Add($"region in ({string.Join(',', data.Region)})");
             }
@@ -61,7 +69,11 @@ namespace parole.Features {
                 sqlParts.Add($"county in ({string.Join(',', data.Counties.Select(item => $"'{item.ToUpper()}'"))})");
             }
         }
-        private static void AddOffender(ref List<string> sqlParts, OffenderRecord data) {
+        private static void AddOffender(ref List<string> sqlParts, OffenderRecord? data) {
+            if (data is null) {
+                return;
+            }
+
             if (!string.IsNullOrEmpty(data.Gender)) {
                 sqlParts.Add($"gender='{data.Gender[0]}'");
             }
@@ -78,7 +90,11 @@ namespace parole.Features {
                 sqlParts.Add($"employer='{data.Employer}");
             }
         }
-        private static void AddOther(ref List<string> sqlParts, OtherRecord data) {
+        private static void AddOther(ref List<string> sqlParts, OtherRecord? data) {
+            if (data is null) {
+                return;
+            }
+
             if (!string.IsNullOrEmpty(data.Warrant)) {
                 var warrant = "0";
                 if (data.Warrant == "Yes") {

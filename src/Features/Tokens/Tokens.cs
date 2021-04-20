@@ -11,16 +11,16 @@ namespace parole.Features {
     }
 
     public class Credential : IArcGISCredential {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Host { get; set; }
-        public string Scheme { get; set; }
-        public string PathBase { get; set; }
-        public string PathString { get; set; }
+        public string Username { get; set; } = default!;
+        public string Password { get; set; } = default!;
+        public string Host { get; set; } = default!;
+        public string Scheme { get; set; } = default!;
+        public string PathBase { get; set; } = default!;
+        public string PathString { get; set; } = default!;
     }
 
     public class TokenResponse : Errorable {
-        public string Token { get; set; }
+        public string Token { get; set; } = default!;
         public long Expires { get; set; }
         public bool Ssl { get; set; }
     }
