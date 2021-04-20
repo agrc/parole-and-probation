@@ -39,5 +39,5 @@ namespace parole.Features {
         }
     }
 
-    public record AgentItem(int Id, string Value, string Agent_Id, string Supervisor_Id, string Supervisor_Name);
+    public record AgentItem(int Id, string Value, string Agent_Id, string Supervisor_Id, string Supervisor);
 }
