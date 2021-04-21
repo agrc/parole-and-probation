@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.21.1](https://github.com/agrc/parole-and-probation/compare/v1.21.0...v1.21.1) (2021-04-21)
+
+
+### Bug Fixes
+
+* **app:** allow regions to be unselected ([34746a9](https://github.com/agrc/parole-and-probation/commit/34746a9e7c10c853c909001ce0ca605a1108a98b)), closes [#153](https://github.com/agrc/parole-and-probation/issues/153)
+
 ## [1.21.0](https://github.com/agrc/parole-and-probation/compare/v1.20.2...v1.21.0) (2021-04-20)
 
 
