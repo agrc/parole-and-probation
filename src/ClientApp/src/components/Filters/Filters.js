@@ -25,7 +25,7 @@ const addOrRemove = (list, value, add) => {
   if (add) {
     list.push(value);
   } else {
-    if (typeof list[0] === 'string' || list[0] instanceof String) {
+    if (typeof list[0] === 'string' || list[0] instanceof String || typeof list[0] === 'number') {
       const index = list.indexOf(value);
       if (index === -1) {
         throw Error(`The item ${value} was not found in the list: ${list}`);
