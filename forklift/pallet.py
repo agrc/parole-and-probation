@@ -83,7 +83,7 @@ class CorrectionOffenderPallet(CorrectionsBase):
         self.hash_name = 'offenders'
 
         self.api = api.ENDPOINT
-        self.database = database.CONNECTION_AT
+        self.database = database.CONNECTION
 
     def build(self, configuration='Production'):
         """called when forklift builds the pallet
@@ -211,7 +211,7 @@ class CorrectionSupplementaryPallet(CorrectionsBase):
         self.supervisor_data = self.corrections / 'supervisors.json'
 
         self.api = api.ENDPOINT
-        self.database = database.CONNECTION_AT
+        self.database = database.CONNECTION
 
     def build(self, configuration='Production'):
         """called when forklift builds the pallet
@@ -340,14 +340,14 @@ class CorrectionSupplementaryPallet(CorrectionsBase):
 if __name__ == '__main__':
     import logging
 
-    pallet = CorrectionSupplementaryPallet()
+    pallet = CorrectionOffenderPallet()
 
     logging.basicConfig(
         format='%(levelname)s %(asctime)s %(lineno)s %(message)s', datefmt='%H:%M:%S', level=logging.DEBUG
     )
     pallet.log = logging
 
-    pallet.build('Dev')
+    pallet.build()
 
     if pallet.requires_processing():
         pallet.process()
