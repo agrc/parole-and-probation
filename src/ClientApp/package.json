@@ -47,13 +47,13 @@
     "workbox-streams": "^6.1.5"
   },
   "scripts": {
-    "build-react:stage": "env-cmd --environments stage react-scripts build && env-cmd --environments stage node build-service-worker.js",
+    "build-react:stage": "env-cmd --environments stage           react-scripts build && env-cmd --environments stage node build-service-worker.js",
+    "build-react:production": "env-cmd --environments production react-scripts build && env-cmd --environments production node build-service-worker.js",
     "build-storybook": "build-storybook -s public",
-    "build:prod": "env-cmd --environments production dotnet publish ../parole.csproj -c Release && npm run copy:build",
-    "build:stage": "env-cmd --environments stage dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false && npm run copy:build",
+    "build:production": "env-cmd --environments production   dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false && npm run copy:build",
+    "build:stage": "env-cmd --environments stage             dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false && npm run copy:build",
     "build:development": "env-cmd --environments development dotnet publish ../parole.csproj -c Release -r win10-x64 --self-contained false && npm run copy:build",
     "build:test": "react-scripts build",
-    "build": "env-cmd --environments production react-scripts build",
     "copy:arcgis": "npm run copy:public && npm run copy:build",
     "copy:public": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
     "copy:build": "ncp ./node_modules/@arcgis/core/assets ../bin/Release/net5.0/win10-x64/publish/ClientApp/build/assets",
@@ -66,11 +66,16 @@
     "storybook": "start-storybook -p 9009 -s public",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "test": "react-scripts test",
-    "wonkavise:clean": "wonkavision clean ./build ./../bin ./../../deploy",
-    "wonkavise:extract": "env-cmd --environments stage wonkavision unzip parole deploy.zip --extra-command \"rm app_offline.htm\"",
-    "wonkavise:ship": "env-cmd --environments stage wonkavision ship ./../../deploy/deploy.zip parole && env-cmd --environments stage wonkavision ship ../app_offline.htm parole",
-    "wonkavise:zip": "wonkavision zip ../bin/Release/net5.0/win10-x64/publish ./../../deploy deploy.zip",
-    "wonkavise": "npm run wonkavise:clean && npm run build:stage && npm run wonkavise:zip && npm run wonkavise:ship && npm run wonkavise:extract"
+    "wonkavise:stage:clean": "wonkavision clean ./build ./../bin ./../../deploy",
+    "wonkavise:stage:extract": "env-cmd --environments stage wonkavision unzip parole deploy.zip --extra-command \"rm app_offline.htm\"",
+    "wonkavise:stage:ship": "env-cmd --environments stage wonkavision ship ./../../deploy/deploy.zip parole && env-cmd --environments stage wonkavision ship ../app_offline.htm parole",
+    "wonkavise:stage:zip": "wonkavision zip ../bin/Release/net5.0/win10-x64/publish ./../../deploy deploy.zip",
+    "wonkavise:stage": "npm run wonkavise:stage:clean && npm run build:stage && npm run wonkavise:stage:zip && npm run wonkavise:stage:ship && npm run wonkavise:stage:extract",
+    "wonkavise:production:clean": "wonkavision clean ./build ./../bin ./../../deploy",
+    "wonkavise:production:extract": "env-cmd --environments production wonkavision unzip parole deploy.zip --extra-command \"rm app_offline.htm\"",
+    "wonkavise:production:ship": "env-cmd --environments production wonkavision ship ./../../deploy/deploy.zip parole && env-cmd --environments production wonkavision ship ../app_offline.htm parole",
+    "wonkavise:production:zip": "wonkavision zip ../bin/Release/net5.0/win10-x64/publish ./../../deploy deploy.zip",
+    "wonkavise:production": "npm run wonkavise:production:clean && npm run build:production && npm run wonkavise:production:zip && npm run wonkavise:production:ship && npm run wonkavise:production:extract"
   },
   "eslintConfig": {
     "extends": [

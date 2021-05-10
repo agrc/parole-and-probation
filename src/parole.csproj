@@ -58,6 +58,7 @@
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     <Exec Command="npm run build" Condition=" '$(ASPNETCORE_ENVIRONMENT)' == '' " WorkingDirectory="$(SpaRoot)" />
     <Exec Command="npm run build-react:stage" Condition=" '$(ASPNETCORE_ENVIRONMENT)' == 'Staging' " WorkingDirectory="$(SpaRoot)" />
+    <Exec Command="npm run build-react:production" Condition=" '$(ASPNETCORE_ENVIRONMENT)' == 'Production' " WorkingDirectory="$(SpaRoot)" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
