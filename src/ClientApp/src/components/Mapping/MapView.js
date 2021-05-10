@@ -18,11 +18,13 @@ import { saveAs } from 'file-saver';
 import * as React from 'react';
 import { useNavigatorStatus } from 'react-navigator-status';
 import { fields } from '../../config';
+import Console from '../../Console';
 // import useViewUiPosition from '../../useViewUiPosition';
 import CsvDownload from '../CsvDownload/CsvDownload';
 import HomeButton from '../DefaultExtent/DefaultExtent';
 import Geolocation from '../Geolocation/Geolocation';
 import MapToolPanel from '../MapToolPanel/MapToolPanel';
+
 config.assetsPath = `${process.env.PUBLIC_URL}/assets`;
 
 const regionLabels = new LabelClass({
@@ -78,7 +80,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       whenTrueOnce(layerView.current, 'updating', () => {
         whenFalseOnce(layerView.current, 'updating', async () => {
           const result = await layerView.current.queryExtent();
-          console.log(`MapView:setting map extent containing ${result.count} graphics`);
+          Console(`MapView:setting map extent containing ${result.count} graphics`);
 
           // this is in case there is a point outside of the state...
           if (result.count === 0 || result.extent.contains(defaultExtent)) {
@@ -101,7 +103,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     const filter = where.join(' AND ');
 
     if (isFilter) {
-      console.log(`MapView:updating layerview filter ${filter}`);
+      Console(`MapView:updating layerview filter ${filter}`);
 
       layerView.current.filter = {
         where: filter,
@@ -111,7 +113,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     } else {
       offenders.current.definitionExpression = filter;
 
-      console.log(`MapView:updating feature layer definition expression ${filter}`);
+      Console(`MapView:updating feature layer definition expression ${filter}`);
     }
   }, []);
 
@@ -122,7 +124,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       }
 
       if (!withService) {
-        console.log('MapView:offline identify');
+        Console('MapView:offline identify');
 
         const query = {
           where: appliedFilter,
@@ -160,7 +162,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       }
 
       const queryFeatures = async (opts) => {
-        console.log(`MapView:queryFeatures with filter: '${appliedFilter}'`);
+        Console(`MapView:queryFeatures with filter: '${appliedFilter}'`);
 
         const query = {
           where: appliedFilter,
@@ -247,14 +249,14 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
       if (!withService) {
         view.current.whenLayerView(mirror.current).then((lv) => {
-          console.log('MapView:showing view with static data');
+          Console('MapView:showing view with static data');
 
           lv.filter = layerView.current.filter;
           layerView.current = lv;
         });
       } else {
         view.current.whenLayerView(offenders.current).then((lv) => {
-          console.log('MapView:showing view with live data');
+          Console('MapView:showing view with live data');
 
           lv.filter = layerView.current.filter;
           layerView.current = lv;
@@ -394,7 +396,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       return;
     }
 
-    console.log('MapView:zooming to graphic');
+    Console('MapView:zooming to graphic');
 
     let zoomMeta = zoomToGraphic;
 

@@ -3,6 +3,7 @@ import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'clsx';
 import * as React from 'react';
+import Console from '../../Console';
 import useViewUiPosition from '../../useViewUiPosition';
 
 const supportsGeolocation = () => {
@@ -51,7 +52,6 @@ const geolocate = async (props) => {
     return;
   }
 
-  console.dir(position);
   props.setProgress(false);
   props.setStatus(true);
 
@@ -88,7 +88,7 @@ export default function Geolocation(props) {
     }
 
     const timeout = setTimeout(() => {
-      console.log('Geolocation:resetting geolocation');
+      Console('Geolocation:resetting geolocation');
       setStatus(undefined);
     }, 5000);
 

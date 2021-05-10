@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Alert, Button, Container } from 'reactstrap';
 import { fields } from '../../config';
+import Console from '../../Console';
 import CloseButton from '../CloseButton';
 import { FallbackComponent } from '../ErrorBoundary/ErrorBoundary';
 import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
@@ -34,7 +35,7 @@ const IdentifyInformation = (props) => {
 
     identifyFetch(props.offender, signal).then(
       (result) => {
-        console.log('IdentifyFetch:loading extra identify information');
+        Console('IdentifyFetch:loading extra identify information');
 
         identifyCache[props.offender.offender_id] = result;
 
@@ -155,7 +156,7 @@ const identifyFetch = async (offender, cancellationToken) => {
     ['returnGeometry', false],
   ]);
 
-  console.log(`identifyFetch:querying extra offender data ${offender.offender_id}`);
+  Console(`identifyFetch:querying extra offender data ${offender.offender_id}`);
 
   const response = await fetch(url, {
     signal: cancellationToken,
@@ -176,7 +177,7 @@ const identifyFetch = async (offender, cancellationToken) => {
     return offender;
   }
 
-  console.log(`identifyFetch:found ${data.features.length} offenders`);
+  Console(`identifyFetch:found ${data.features.length} offenders`);
 
   if (data.features.length !== 1) {
     return offender;

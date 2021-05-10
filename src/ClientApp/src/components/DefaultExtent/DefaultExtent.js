@@ -1,10 +1,11 @@
 import { faGlobeAmericas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
+import Console from '../../Console';
 import useViewUiPosition from '../../useViewUiPosition';
 
 const goHome = (view, extent) => {
-  console.log('DefaultExtent:zooming to default extent');
+  Console('DefaultExtent:zooming to default extent');
 
   return view.goTo(extent);
 };

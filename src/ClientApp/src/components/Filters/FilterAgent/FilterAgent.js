@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button, Col, Container, FormGroup, Label } from 'reactstrap';
+import Console from '../../../Console';
 import { MultiSelect, SelectedItems } from '../../Combobox';
 import '../Filters.css';
 import './FilterAgent.css';
@@ -14,7 +15,7 @@ export default function FilterAgent(props) {
       return;
     }
 
-    console.log(`Filters/FilterAgent:${add ? 'adding' : 'removing'} agent list for ${item.value}`);
+    Console(`Filters/FilterAgent:${add ? 'adding' : 'removing'} agent list for ${item.value}`);
 
     props.update({
       type: 'UPDATE_AGENT_LIST',

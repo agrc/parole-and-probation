@@ -2,6 +2,7 @@ import { faCloudDownloadAlt, faPaperPlane } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'clsx';
 import * as React from 'react';
+import Console from '../../Console';
 import useViewUiPosition from '../../useViewUiPosition';
 
 export default function CsvDownload(props) {
@@ -15,7 +16,7 @@ export default function CsvDownload(props) {
     }
 
     const timeout = setTimeout(() => {
-      console.log('CsvDownload:resetting button');
+      Console('CsvDownload:resetting button');
       setStatus(undefined);
     }, 10000);
 

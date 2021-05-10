@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useImmerReducer } from 'use-immer';
+import Console from '../../Console';
 import AccordionPane from '../AccordionPane';
 import { FallbackComponent } from '../ErrorBoundary';
 import FilterActions from './FilterActions';
@@ -14,7 +15,7 @@ import './Filters.css';
 import { agentLookup, supervisorLookup } from './lookupData';
 
 const vanityCheck = (agentList, loggedInUser) => {
-  console.log(`Filters:vanity check for ${loggedInUser.value}`);
+  Console(`Filters:vanity check for ${loggedInUser.value}`);
 
   const agentArray = Array.from(agentList);
 
@@ -126,7 +127,7 @@ const sqlMap = {
 };
 
 const sqlMapper = (data) => {
-  console.log(`Filters:generating sql`, data);
+  Console(`Filters:generating sql`, data);
 
   let filterParts = [];
   let definitionExpressionParts = [];
@@ -252,7 +253,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
   const [supervisors, setSupervisors] = React.useState(supervisorLookup);
 
   const filterReducer = (draft, action) => {
-    console.log(`Filter:reducing state ${action.type}`, action);
+    Console(`Filter:reducing state ${action.type}`, action);
 
     switch (action.type) {
       case 'UPDATE_AGENT_LIST': {
@@ -403,7 +404,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
           }
         });
 
-        console.log(supers);
+        Console(supers);
         setSupervisors(supers);
       }
     };

@@ -11,10 +11,11 @@ import MapLens from './components/MapLens';
 import MapView from './components/Mapping/MapView';
 import Sidebar from './components/Sidebar';
 import { mappingConfig } from './config';
+import Console from './Console';
 import UserContext from './UserContext';
 
 const reducer = (draft, action) => {
-  console.log(`App:reducing state ${action.type}`, action);
+  Console(`App:reducing state ${action.type}`, action);
 
   switch (action.type) {
     case 'ZOOM_TO_GRAPHIC': {
