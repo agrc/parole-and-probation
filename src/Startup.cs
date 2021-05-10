@@ -45,14 +45,10 @@ namespace parole {
             })
             .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options => {
                 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                options.ClientId = Environment.GetEnvironmentVariable("PAROLE_CLIENT_ID_STAGING");
-                options.ClientSecret = Environment.GetEnvironmentVariable("PAROLE_CLIENT_SECRET_STAGING");
 
-                if (environment == Environments.Development) {
-                    IConfigurationSection oidcSection = Configuration.GetSection("Authentication:UtahId");
-                    options.ClientId = oidcSection["ClientId"];
-                    options.ClientSecret = oidcSection["ClientSecret"];
-                }
+                var oidcSection = Configuration.GetSection("Authentication:UtahId");
+                options.ClientId = oidcSection["ClientId"];
+                options.ClientSecret = oidcSection["ClientSecret"];
 
                 options.Authority = authority;
                 options.ResponseType = "code";
