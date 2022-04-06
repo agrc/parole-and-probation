@@ -61,7 +61,7 @@
     "format": "prettier --write src --ignore-path ./.gitignore",
     "lint": "eslint src",
     "release": "standard-version",
-    "start:all": "env-cmd --environments development dotnet run -p ../parole.csproj",
+    "start:all": "env-cmd --environments development dotnet run --project ../parole.csproj",
     "start": "env-cmd --environments development react-scripts start",
     "storybook": "start-storybook -p 9009 -s public",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
