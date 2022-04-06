@@ -243,44 +243,37 @@ export function InputTypeAhead({
     setInputValue(currentValue);
   }, [currentValue]);
 
-  const {
-    isOpen,
-    getMenuProps,
-    getInputProps,
-    getComboboxProps,
-    highlightedIndex,
-    getItemProps,
-    selectItem,
-  } = useCombobox({
-    inputValue,
-    items: getFilteredItems(sortedItems),
-    itemToString: itemToString,
-    defaultHighlightedIndex: 0,
-    onStateChange: ({ inputValue: newInputValue, type, selectedItem }) => {
-      switch (type) {
-        case useCombobox.stateChangeTypes.InputChange:
-          setInputValue(newInputValue);
-          if (newInputValue.trim().length === 0) {
-            onSelectItem(null);
-            selectItem(null);
-          }
+  const { isOpen, getMenuProps, getInputProps, getComboboxProps, highlightedIndex, getItemProps, selectItem } =
+    useCombobox({
+      inputValue,
+      items: getFilteredItems(sortedItems),
+      itemToString: itemToString,
+      defaultHighlightedIndex: 0,
+      onStateChange: ({ inputValue: newInputValue, type, selectedItem }) => {
+        switch (type) {
+          case useCombobox.stateChangeTypes.InputChange:
+            setInputValue(newInputValue);
+            if (newInputValue.trim().length === 0) {
+              onSelectItem(null);
+              selectItem(null);
+            }
 
-          break;
-        case useCombobox.stateChangeTypes.InputBlur:
-        case useCombobox.stateChangeTypes.ItemClick:
-        case useCombobox.stateChangeTypes.InputKeyDownEnter:
-          if (selectedItem) {
-            setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
-            onSelectItem(selectedItem);
-            selectItem(null);
-          }
+            break;
+          case useCombobox.stateChangeTypes.InputBlur:
+          case useCombobox.stateChangeTypes.ItemClick:
+          case useCombobox.stateChangeTypes.InputKeyDownEnter:
+            if (selectedItem) {
+              setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
+              onSelectItem(selectedItem);
+              selectItem(null);
+            }
 
-          break;
-        default:
-          break;
-      }
-    },
-  });
+            break;
+          default:
+            break;
+        }
+      },
+    });
 
   return (
     <div {...getComboboxProps()}>
