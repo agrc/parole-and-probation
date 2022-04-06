@@ -11,35 +11,27 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: src/ClientApp
-    strategy:
-      matrix:
-        node-version: [14.x]
 
     steps:
-      - name: Checkout Code
+      - name: ⬇️ Set up code
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: ⎔ Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: lts/*
+          cache: npm
 
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-            ${{ runner.OS }}-
-
-      - run: npm ci
+      - name: 📥 Download dependencies
+        run: npm ci
         working-directory: ${{env.working-directory}}
 
-      - run: npm run build:test --if-present
+      - name: 🏗 Run build script
+        run: npm run build:test --if-present
         working-directory: ${{env.working-directory}}
         env:
           CI: false
 
-      - run: npm test -- --watchAll=false
+      - name: 🧪 Run tests
+        run: npm test -- --watchAll=false
         working-directory: ${{env.working-directory}}
