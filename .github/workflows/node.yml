@@ -3,8 +3,8 @@ name: Node.js CI
 on:
   push:
     paths:
-      - "src/ClientApp/**"
-      - ".github/workflows/node.yml"
+      - 'src/ClientApp/**'
+      - '.github/workflows/node.yml'
 
 jobs:
   build:
