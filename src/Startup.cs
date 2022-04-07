@@ -74,9 +74,6 @@ namespace parole {
             services.AddReverseProxy()
               .LoadFromConfig(Configuration.GetSection("ReverseProxy"));
 
-            // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build");
-
             var section = Configuration.GetSection("ArcGIS");
             var values = section.Get<Credential>();
 
@@ -135,7 +132,6 @@ namespace parole {
             }
 
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
 
             app.UseRouting();
 
@@ -259,6 +255,8 @@ namespace parole {
                         await next();
                     });
                 });
+
+                endpoints.MapFallbackToFile("index.html");
             });
 
             app.Use(async (context, next) => {
@@ -278,14 +276,6 @@ namespace parole {
                         OpenIdConnectDefaults.AuthenticationScheme,
                         new AuthenticationProperties { RedirectUri = redirectUri, }
                     );
-                }
-            });
-
-            app.UseSpa(spa => {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment()) {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
         }
