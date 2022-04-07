@@ -1,7 +1,7 @@
 import { useCombobox } from 'downshift';
 import { capitalize } from 'lodash/string';
 import * as React from 'react';
-import { Button, Card, CardBody, Input, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Button, Card, CardBody, Input, InputGroup } from 'reactstrap';
 
 const defaultItemToString = (item, titleCaseItem, itemToString) => {
   if (!item) {
@@ -140,9 +140,7 @@ export function MultiSelect({
             },
           })}
         />
-        <InputGroupAddon addonType="append">
-          <Button onClick={addItem}>Add</Button>
-        </InputGroupAddon>
+        <Button onClick={addItem}>Add</Button>
       </InputGroup>
 
       <div className="downshift__match-dropdown" {...getMenuProps()}>
