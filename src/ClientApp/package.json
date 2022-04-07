@@ -29,8 +29,8 @@
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.4",
     "react-navigator-status": "^0.1.2",
-    "react-scripts": "4.0.3",
-    "reactstrap": "^8.10.0",
+    "react-scripts": "^5.0.0",
+    "reactstrap": "^9.0.1",
     "use-immer": "^0.6.0",
     "web-vitals": "^2.1.4",
     "workbox-background-sync": "^6.5.2",
@@ -101,7 +101,6 @@
     "printWidth": 120
   },
   "devDependencies": {
-    "@agrc/wonkavision": "^1.0.2",
     "@storybook/addon-actions": "^6.4.20",
     "@storybook/addon-links": "^6.4.20",
     "@storybook/addon-storyshots": "^6.4.20",
