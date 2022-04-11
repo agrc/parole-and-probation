@@ -6,7 +6,7 @@ AP&amp;P web application
 
 ## Development
 
-_If you are using vscode, download the recommended extensions for this workspace._
+_If you are using vscode, download the recommended extensions from this workspace._
 
 ### website
 
@@ -24,7 +24,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
 
 ### asp.net core mvc
 
-1. Install the [dotnet 5.0.\* SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
+1. Install the [dotnet 6.0.\* SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 1. Create an `appsettings.Development.json` file to overwrite and add properties to the `appsettings.json` file for development
 1. Add an `ArcGIS` property in `appsettings.Development.json` with the following properties filled out
 
