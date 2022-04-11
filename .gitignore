@@ -7,7 +7,7 @@ __pycache__
 
 # arcgis stuff
 /maps/index/
-**/public/assets/esri
+**/public/assets
 
 # dependencies
 **/node_modules
