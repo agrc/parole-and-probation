@@ -23,6 +23,7 @@ using parole.Infrastructure;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Timeout;
+using SendGrid.Extensions.DependencyInjection;
 using Serilog;
 
 namespace parole {
@@ -79,6 +80,8 @@ namespace parole {
 
             var emailSection = Configuration.GetSection("Email");
             var emailValues = emailSection.Get<EmailConfig>();
+
+            services.AddSendGrid(options => options.ApiKey = emailValues.ApiKey);
 
             var retryPolicy = HttpPolicyExtensions
               .HandleTransientHttpError()
@@ -234,7 +237,7 @@ namespace parole {
                         return;
                     }
 
-                    var emailer = new EmailSender(emailConfig, logger);
+                    var emailer = endpoints.ServiceProvider.GetService<EmailSender>();
                     var emailClaim = context.User.Claims.FirstOrDefault(x => x.Type == "public:Email");
 
                     if (emailClaim is null) {

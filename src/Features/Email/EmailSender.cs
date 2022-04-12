@@ -1,48 +1,38 @@
-using MailKit.Net.Smtp;
-using MimeKit;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using Serilog;
 
 namespace parole.Features {
     public class EmailSender {
         private readonly EmailConfig _config;
         private readonly ILogger? _log;
+        private readonly ISendGridClient _client;
 
-        public EmailSender(EmailConfig config, ILogger? log) {
+        public EmailSender(ISendGridClient client, EmailConfig config, ILogger? log) {
             _config = config;
             _log = log;
-
-            _log?.Verbose("Email settings: {@settings}", config);
+            _client = client;
         }
 
         public async Task SendAsync(IReadOnlyCollection<string> recipients, Stream stream) {
             _log?.Information("Sending email to {people}", recipients);
 
-            var to = recipients.Select(x => new MailboxAddress(string.Empty, x));
+            var to = recipients.Select(x => new EmailAddress(string.Empty, x)).ToList();
 
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("No Reply", "no.reply@utah.gov"));
-            message.To.AddRange(to);
-            message.Subject = "AP&P Field Map: Offender Export";
-
-            var body = new TextPart("plain") {
-                Text = "Attached is your export. This will open in all spreadsheet applications including Google Sheets."
+            var message = new SendGridMessage {
+                From = new EmailAddress("No Reply", "no.reply@utah.gov"),
+                Subject = "AP&P Field Map: Offender Export",
             };
 
-            var attachment = new MimePart("application/csv") {
-                Content = new MimeContent(stream),
-                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-                FileName = "export.csv"
-            };
+            message.AddTos(to);
 
-            message.Body = new Multipart("mixed") {
-                body,
-                attachment
-            };
+            message.PlainTextContent = "Attached is your export. This will open in all spreadsheet applications including Google Sheets.";
+            await message.AddAttachmentAsync("export.csv", stream);
 
             if (_config.Testing) {
                 SendToPickupDirectory(message, _config.Pickup);
@@ -50,18 +40,11 @@ namespace parole.Features {
                 return;
             }
 
-            using var client = new SmtpClient();
-            _log?.Verbose("Connecting to smtp server");
-            await client.ConnectAsync(_config.Smtp, 25, MailKit.Security.SecureSocketOptions.None);
-            _log?.Verbose("Connected to smtp server");
-
-            await client.SendAsync(message);
+            await _client.SendEmailAsync(message);
             _log?.Information("Email sent");
-
-            await client.DisconnectAsync(true);
         }
 
-        private static void SendToPickupDirectory(MimeMessage message, string pickupDirectory) {
+        private static void SendToPickupDirectory(SendGridMessage message, string pickupDirectory) {
             while (true) {
                 var path = Path.Combine(pickupDirectory, $"{DateTime.Now:yyyy-MM-dd-hh-mm-ss}.eml");
 
@@ -74,8 +57,7 @@ namespace parole.Features {
                 }
 
                 try {
-                    using var stream = new FileStream(path, FileMode.CreateNew);
-                    message.WriteTo(stream);
+                    File.WriteAllText(path, message.Serialize());
 
                     return;
                 } catch (IOException) {
