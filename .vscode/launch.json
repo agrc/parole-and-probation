@@ -9,13 +9,14 @@
             "request": "launch",
             "name": "Debug",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/bin/Debug/net5.0/parole.dll",
+            "program": "${workspaceFolder}/src/bin/Debug/net6.0/parole.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
             },
             "launchBrowser": {
                 "enabled": true,
