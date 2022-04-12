@@ -2,5 +2,5 @@
   "name": "filters",
   "version": "0.0.0",
   "private": true,
-  "main": "./Filters.js"
+  "main": "./Filters.jsx"
 }

@@ -2,5 +2,5 @@
   "name": "identify",
   "version": "0.0.0",
   "private": true,
-  "main": "./Identify.js"
+  "main": "./Identify.jsx"
 }

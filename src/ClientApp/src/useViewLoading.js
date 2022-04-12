@@ -1,10 +1,10 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Console from './Console';
 
 export default function useViewLoading(view) {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const init = () => {
       Console('useViewLoading:initializing');
       view.watch('updating', (updating) => setIsLoading(updating));

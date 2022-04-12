@@ -2,5 +2,5 @@
   "name": "filter-actions",
   "version": "0.0.0",
   "private": true,
-  "main": "./FilterActions.js"
+  "main": "./FilterActions.jsx"
 }

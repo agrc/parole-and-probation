@@ -2,5 +2,5 @@
   "name": "filter-date",
   "version": "0.0.0",
   "private": true,
-  "main": "./FilterDate.js"
+  "main": "./FilterDate.jsx"
 }
