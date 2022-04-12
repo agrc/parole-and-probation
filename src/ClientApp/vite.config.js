@@ -13,6 +13,13 @@ export default defineConfig({
         protocolRewrite: 'https',
         cookieDomainRewrite: 'localhost:3000',
       },
+      '/api': {
+        target: 'https://localhost:5001/',
+        changeOrigin: true,
+        secure: false,
+        protocolRewrite: 'https',
+        cookieDomainRewrite: 'localhost:3000',
+      },
     },
   },
 });
