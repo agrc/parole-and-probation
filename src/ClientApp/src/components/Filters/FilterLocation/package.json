@@ -2,5 +2,5 @@
   "name": "filter-location",
   "version": "0.0.0",
   "private": true,
-  "main": "./FilterLocation.js"
+  "main": "./FilterLocation.jsx"
 }

@@ -2,5 +2,5 @@
   "name": "closebutton",
   "version": "0.0.0",
   "private": true,
-  "main": "./CloseButton.js"
+  "main": "./CloseButton.jsx"
 }

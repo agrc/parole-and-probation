@@ -2,5 +2,5 @@
   "name": "filter-other",
   "version": "0.0.0",
   "private": true,
-  "main": "./FilterOther.js"
+  "main": "./FilterOther.jsx"
 }

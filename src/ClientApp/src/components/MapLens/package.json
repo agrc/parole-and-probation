@@ -2,5 +2,5 @@
   "name": "maplens",
   "version": "0.0.0",
   "private": true,
-  "main": "./MapLens.js"
+  "main": "./MapLens.jsx"
 }

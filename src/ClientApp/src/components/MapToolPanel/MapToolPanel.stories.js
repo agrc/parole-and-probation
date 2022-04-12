@@ -1,6 +1,5 @@
 import DartBoard from '@agrc/dart-board';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
-import * as React from 'react';
 import MapToolPanel from './MapToolPanel';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
@@ -24,7 +23,7 @@ export const WithComponentChild = () => (
   <MapToolPanel icon={faMapMarkedAlt}>
     <DartBoard
       className="pt-2 px-3"
-      apiKey={process.env.REACT_APP_WEB_API}
+      apiKey={import.meta.env.VITE_WEB_API}
       onFindAddress={(result) => console.log({ type: 'ZOOM_TO_GRAPHIC', payload: result })}
       pointSymbol={{
         type: 'simple-marker',
