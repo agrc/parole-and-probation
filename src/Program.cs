@@ -31,7 +31,7 @@ namespace parole {
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                     .UseStartup<Startup>()
-                    .UseWebRoot("front-end")
+                    .UseWebRoot("ClientApp")
                 );
     }
 }

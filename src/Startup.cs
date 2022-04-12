@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,6 +34,8 @@ namespace parole {
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) {
+            services.AddCors();
+
             const string authority = "https://login.dts.utah.gov:443/sso/oauth2";
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -130,11 +131,12 @@ namespace parole {
                 app.UseForwardedHeaders();
             }
 
-            if (env.IsStaging()) {
-                app.UsePathBase("/app");
-            }
-
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions {
+                OnPrepareResponse = ctx => {
+                    ctx.Context.Response.Headers.Append(
+                         "Cache-Control", $"public, max-age={604800}");
+                }
+            });
 
             app.UseRouting();
 
@@ -240,7 +242,7 @@ namespace parole {
                     var emailer = endpoints.ServiceProvider.GetService<EmailSender>();
                     var emailClaim = context.User.Claims.FirstOrDefault(x => x.Type == "public:Email");
 
-                    if (emailClaim is null) {
+                    if (emailClaim is null || emailer is null) {
                         return;
                     }
 
