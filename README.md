@@ -43,7 +43,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
       "Clusters": {
          "arcgis": {
          "Destinations": {
-            "cluster1/destination1": {
+            "arcgis/destination1": {
                "Address": "https://arcgis/rest/services/the/MapServer"
             }
          }
