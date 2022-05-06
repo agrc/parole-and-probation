@@ -3,35 +3,30 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Events;
 
 namespace parole {
     public class Program {
-        public static void Main(string[] args) {
-            new ConfigurationBuilder()
-              .SetBasePath(Directory.GetCurrentDirectory())
-              .AddJsonFile("appsettings.json")
-              .Build();
-
-            Log.Logger = new LoggerConfiguration()
-                  .MinimumLevel.Debug()
-                  .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                  .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
-                  .Enrich.FromLogContext()
-                  .WriteTo.Console()
-                  .CreateLogger();
-
-            Log.Logger.Information("Starting web host...");
-
+        public static void Main(string[] args) =>
             CreateHostBuilder(args).Build().Run();
-        }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog()
+                .UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration))
+                .ConfigureAppConfiguration((hostingContext, config) => {
+                    var path = Path.DirectorySeparatorChar.ToString();
+                    var env = hostingContext.HostingEnvironment.EnvironmentName;
+
+                    if (env != "Development") {
+                        config.AddJsonFile(
+                            Path.Combine(path, "secrets", "dotnet", $"appsettings.{env}.json"),
+                            optional: false,
+                            reloadOnChange: true
+                        );
+                    }
+                })
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                     .UseStartup<Startup>()
-                    .UseWebRoot("ClientApp")
+                    .UseWebRoot("ClientApp/dist")
                 );
     }
 }
