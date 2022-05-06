@@ -63,7 +63,7 @@ jobs:
         with:
           builder: ${{ steps.builder.outputs.name }}
           tags: ${{ steps.meta.outputs.tags }}
-          file: ./src/api/Api.Dockerfile
+          file: ./src/Dockerfile
           context: .
           build-args: |
             VITE_DISCOVER=${{ secrets.UGRC_DISCOVER_KEY }}
