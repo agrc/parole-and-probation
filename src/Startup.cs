@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading.Tasks;
+using api.Infrastructure;
 using CsvHelper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -36,33 +38,8 @@ namespace parole {
         public void ConfigureServices(IServiceCollection services) {
             services.AddCors();
 
-            const string authority = "https://login.dts.utah.gov:443/sso/oauth2";
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => {
-                options.ForwardChallenge = OpenIdConnectDefaults.AuthenticationScheme;
-                options.LoginPath = "/authentication/login";
-                options.LogoutPath = "/";
-                options.AccessDeniedPath = "/authentication/access-denied";
-            })
-            .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options => {
-                var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-                var oidcSection = Configuration.GetSection("Authentication:UtahId");
-                options.ClientId = oidcSection["ClientId"];
-                options.ClientSecret = oidcSection["ClientSecret"];
-
-                options.Authority = authority;
-                options.ResponseType = "code";
-                options.UsePkce = true;
-
-                options.GetClaimsFromUserInfoEndpoint = true;
-
-                options.Scope.Clear();
-                options.Scope.Add("openid");
-                options.Scope.Add("app:public");
-                options.Scope.Add("app:DOCFieldMap");
-            });
+            var utahId = Configuration.GetSection("UtahId").Get<OAuthOptions>();
+            services.AddUtahIdAuthentication(utahId, new[] { "openid", "app:public", "app:DOCFieldMap", });
 
             services.AddAuthorization(options => {
                 options.AddPolicy(CookieAuthenticationDefaults.AuthenticationScheme, policy => {
@@ -95,6 +72,7 @@ namespace parole {
             services.AddHttpClient("default", client => client.Timeout = new TimeSpan(0, 0, 15))
               .ConfigurePrimaryHttpMessageHandler(() => {
                   var handler = new HttpClientHandler();
+
                   if (handler.SupportsAutomaticDecompression) {
                       handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
                   }
@@ -122,33 +100,81 @@ namespace parole {
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger logger) {
+            var redirectUri = "https://fieldmap.udc.utah.gov/signin-oidc";
+
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseSerilogRequestLogging();
+                redirectUri = "http://localhost:3000";
             } else {
                 app.UseExceptionHandler("/Error");
                 app.UseForwardedHeaders();
             }
-
-            app.UseStaticFiles(new StaticFileOptions {
-                OnPrepareResponse = ctx => {
-                    ctx.Context.Response.Headers.Append(
-                         "Cache-Control", $"public, max-age={604800}");
-                }
-            });
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.Use(async (context, next) => {
+                logger.Debug("Request received: {Request} auth: {IsAuthenticated}", context.Request.Path, context.User.Identity?.IsAuthenticated);
+                if (!context.User.Identity?.IsAuthenticated ?? false && context.Request.Path != "/signin-oidc") {
+                    logger.Debug("challenging: {path}", context.Request.Path);
+                    await context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme);
+                }
+
+                if (context.User.Identity?.IsAuthenticated == true) {
+                    logger.Debug("User: {IsAuthenticated}", context.User.Identity?.IsAuthenticated);
+
+                    var claims = context.User.Claims.ToList();
+                    logger.Debug("claim count: {Claims}", claims.Count);
+                    logger.Verbose("claims: {Claims}", claims.Select(c => $"{c.Type}={c.Value}"));
+
+                    var appClaim = claims.Find(x => x.Type == "DOCFieldMap:AccessGranted");
+                    if (appClaim?.Value == "true") {
+                        logger.Debug("has claim awaiting next()");
+                        await next();
+                    } else {
+                        logger.Debug("missing claim writing access denied");
+                        await context.Response.WriteAsync("Access denied");
+                    }
+                } else {
+                    var redirectUri = "http://localhost:3000";
+                    if (env.IsStaging()) {
+                        redirectUri = "/app";
+                    }
+
+                    logger.Debug("challenging request {request} directing back to {redirect}", context.Request.Path, redirectUri);
+                    // await context.Response.WriteAsJsonAsync(new { path = context.Request.Path, user = context.User.Identity?.IsAuthenticated });
+                    await context.ChallengeAsync(
+                        OpenIdConnectDefaults.AuthenticationScheme,
+                        new AuthenticationProperties { RedirectUri = redirectUri, }
+                    );
+                }
+            });
+
+            app.UseStaticFiles();
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseEndpoints(endpoints => {
                 var tokenService = endpoints.ServiceProvider.GetService<TokenService>();
                 var logger = endpoints.ServiceProvider.GetService<ILogger>();
                 var auth = new[] { CookieAuthenticationDefaults.AuthenticationScheme };
+
+                if (env.IsDevelopment()) {
+                    // mimic server getting first response for authentication
+                    // instead of vite development server
+                    endpoints.MapGet("development", context => {
+                        context.Response.Redirect("/");
+                        return Task.CompletedTask;
+                    }).RequireAuthorization(CookieAuthenticationDefaults.AuthenticationScheme);
+                }
+
+                endpoints.MapGet("api/login", context => {
+                    context.Response.Redirect(redirectUri);
+                    return Task.CompletedTask;
+                }).RequireAuthorization(OpenIdConnectDefaults.AuthenticationScheme);
 
                 endpoints.MapGet("api/logout", async context => {
                     logger?
@@ -162,10 +188,10 @@ namespace parole {
                 });
 
                 endpoints.MapGet("api/configuration", context => context.Response.WriteAsJsonAsync(new Dictionary<string, string>{
-                        { "id", context.User.Claims.First(x=> x.Type == "public:WorkforceID").Value },
-                        { "name", context.User.Claims.First(x=> x.Type == "public:FullName").Value }
+                        { "id", context.User.Claims.FirstOrDefault(x=> x.Type == "public:WorkforceID")?.Value ?? string.Empty},
+                        { "name", context.User.Claims.FirstOrDefault(x=> x.Type == "public:FullName")?.Value ?? string.Empty}
                     })
-                ).RequireAuthorization(auth);
+                ).RequireAuthorization(CookieAuthenticationDefaults.AuthenticationScheme);
 
                 endpoints.MapGet("api/lookups", async context => {
                     var lookupService = endpoints.ServiceProvider.GetService<LookupService>();
@@ -179,6 +205,7 @@ namespace parole {
                     context.Response.StatusCode = 200;
                     await context.Response.WriteAsJsonAsync(await lookupService.GetAgentsAsync());
                 }).RequireAuthorization(auth);
+
                 endpoints.MapPost("api/download", async context => {
                     MapFilterState? model;
                     try {
@@ -247,41 +274,23 @@ namespace parole {
                     }
 
                     await emailer.SendAsync(new[] { emailClaim.Value }, stream);
-                }
-                ).RequireAuthorization(auth);
+                }).RequireAuthorization(auth);
 
                 endpoints.MapReverseProxy(proxyPipeline => {
                     proxyPipeline.Use(async (context, next) => {
                         var request = context.Request;
+
                         if (request.Path.StartsWithSegments(new PathString("/mapserver")) && tokenService is not null) {
                             request.QueryString = request.QueryString.Add("token", await tokenService.GetTokenAsync());
                         }
 
                         await next();
                     });
+
+                    proxyPipeline.UsePassiveHealthChecks();
                 });
 
                 endpoints.MapFallbackToFile("index.html");
-            });
-
-            app.Use(async (context, next) => {
-                if (context.User.Identity?.IsAuthenticated == true) {
-                    var appClaim = context.User.Claims.FirstOrDefault(x => x.Type == "DOCFieldMap:AccessGranted");
-                    if (appClaim?.Value == "true") {
-                        await next();
-                    } else {
-                        await context.Response.WriteAsync("Access denied");
-                    }
-                } else {
-                    var redirectUri = "/";
-                    if (env.IsStaging()) {
-                        redirectUri = "/app";
-                    }
-                    await context.ChallengeAsync(
-                        OpenIdConnectDefaults.AuthenticationScheme,
-                        new AuthenticationProperties { RedirectUri = redirectUri, }
-                    );
-                }
             });
         }
     }
