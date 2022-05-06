@@ -196,7 +196,7 @@ const OffenderImage = ({ offenderId }) => {
   useEffect(() => {
     const getImage = async () => {
       try {
-        const response = await fetch('/mugshot/${offenderId}');
+        const response = await fetch(`/mugshot/${offenderId}`);
 
         if (!response.ok) {
           setShowError(true);
