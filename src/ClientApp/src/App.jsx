@@ -1,3 +1,4 @@
+import '@arcgis/core/assets/esri/themes/light/main.css';
 import isEqual from 'lodash.isequal';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
