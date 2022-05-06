@@ -20,6 +20,27 @@ export default defineConfig({
         protocolRewrite: 'https',
         cookieDomainRewrite: 'localhost:3000',
       },
+      '/mugshot': {
+        target: 'https://localhost:5001/',
+        changeOrigin: true,
+        secure: false,
+        protocolRewrite: 'https',
+        cookieDomainRewrite: 'localhost:3000',
+      },
+      '/otrackws': {
+        target: 'https://localhost:5001/',
+        changeOrigin: true,
+        secure: false,
+        protocolRewrite: 'https',
+        cookieDomainRewrite: 'localhost:3000',
+      },
+      '/development': {
+        target: 'https://localhost:5001/',
+        changeOrigin: true,
+        secure: false,
+        protocolRewrite: 'https',
+        cookieDomainRewrite: 'localhost:3000',
+      },
     },
   },
 });
