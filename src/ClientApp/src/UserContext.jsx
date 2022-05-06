@@ -13,7 +13,16 @@ const Provider = AuthContext.Provider;
 
 export function AuthProvider({ children }) {
   const { status, error, data } = useQuery('auth', () =>
-    ky.get('/api/configuration', { timeout: 5000, redirect: 'manual', throwHttpErrors: false }).json()
+    ky
+      .get('/api/configuration', {
+        timeout: 5000,
+        redirect: 'error',
+        throwHttpErrors: false,
+        retry: {
+          limit: 0,
+        },
+      })
+      .json()
   );
   const [authInfo, setAuthInfo] = useState({
     id: null,
