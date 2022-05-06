@@ -1,11 +1,10 @@
-import '@arcgis/core/assets/esri/themes/light/main.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import AppRoutes from './Routes';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { AuthProvider } from './UserContext';
 
@@ -23,7 +22,7 @@ ReactDOM.render(
       }
     >
       <AuthProvider>
-        <App />
+        <AppRoutes />
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>,
