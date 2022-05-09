@@ -1,4 +1,4 @@
-FROM node:16-alpine AS nodejs
+FROM node:lts-alpine AS nodejs
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS dotnet
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS dotnet-sdk
 
@@ -7,24 +7,25 @@ WORKDIR /build
 
 RUN npm install --global npm
 
-COPY ./ClientApp .
+COPY ./src/ClientApp .
 
 ARG NODE_OPTIONS=--max_old_space_size=4096
 
 RUN npm clean-install
-RUN npm run build-react:stage
+RUN npm run build
 
 FROM dotnet-sdk as back-end-build
 
 COPY . ./build
-WORKDIR /build
+WORKDIR /build/src
 
-RUN dotnet publish -c Release -o /app -r linux-x64 -p:PublishSingleFile=true --no-self-contained -p:DebugType=embedded -p:PublishReadyToRun=true
+RUN dotnet publish parole.csproj -c Release -o /app -r linux-x64 -p:PublishSingleFile=true --no-self-contained -p:DebugType=embedded -p:PublishReadyToRun=true
 
 FROM dotnet AS server-app
+
 WORKDIR /app
 
 COPY --from=back-end-build /app .
-COPY --from=front-end-build /build/build ./front-end
+COPY --from=front-end-build /build/dist ./front-end
 
 ENTRYPOINT ["dotnet", "parole.dll"]
