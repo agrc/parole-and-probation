@@ -21,8 +21,7 @@ jobs:
         with:
           node-version: lts/*
           cache: npm
-          cache-dependency-path: |
-            src/ClientApp/package-lock.json
+          cache-dependency-path: src/ClientApp/package-lock.json
 
       - name: 📥 Download dependencies
         run: npm ci
@@ -35,5 +34,5 @@ jobs:
           CI: false
 
       - name: 🧪 Run tests
-        run: npm test -- --watchAll=false
+        run: npm run test:ci
         working-directory: ${{env.working-directory}}

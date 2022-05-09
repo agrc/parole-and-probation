@@ -1,4 +1,11 @@
 module.exports = {
+  addons: ['@storybook/addon-essentials'],
   stories: ['../src/**/*/*.stories.js'],
-  addons: ['@storybook/preset-create-react-app', '@storybook/addon-actions', '@storybook/addon-links'],
-};
+  features: {
+    storyStoreV7: true,
+  },
+  framework: '@storybook/react',
+  core: {
+    builder: '@storybook/builder-vite',
+  },
+}

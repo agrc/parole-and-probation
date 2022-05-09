@@ -25,7 +25,9 @@
     "release": "standard-version",
     "start:all": "env-cmd --environments development dotnet run --project ../parole.csproj",
     "start": "vite",
-    "storybook": "start-storybook -p 9009 -s public"
+    "storybook": "start-storybook -p 9009 -s public",
+    "test:watch": "vitest",
+    "test": "vitest run"
   },
   "eslintConfig": {
     "parserOptions": {
@@ -113,9 +115,9 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-links": "^6.4.22",
-    "@storybook/addon-storyshots": "^6.4.22",
-    "@storybook/addons": "^6.4.22",
+    "@storybook/builder-vite": "^0.1.33",
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.22",
     "@testing-library/jest-dom": "^5.16.4",
@@ -130,7 +132,8 @@
     "prettier": "^2.6.2",
     "query-string": "^7.1.1",
     "standard-version": "^9.3.2",
-    "vite": "^2.9.8"
+    "vite": "^2.9.8",
+    "vitest": "^0.12.2"
   },
   "config": {
     "commitizen": {
