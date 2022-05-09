@@ -246,19 +246,19 @@ const LayerSelector = (props) => {
       },
       Topo: {
         urlPattern: `https://discover.agrc.utah.gov/login/path/${props.quadWord}/tiles/topo_basemap/{level}/{col}/{row}`,
-        copyright: 'AGRC',
+        copyright: 'UGRC',
       },
       Terrain: {
         urlPattern: `https://discover.agrc.utah.gov/login/path/${props.quadWord}/tiles/terrain_basemap/{level}/{col}/{row}`,
-        copyright: 'AGRC',
+        copyright: 'UGRC',
       },
       Lite: {
         urlPattern: `https://discover.agrc.utah.gov/login/path/${props.quadWord}/tiles/lite_basemap/{level}/{col}/{row}`,
-        copyright: 'AGRC',
+        copyright: 'UGRC',
       },
       'Color IR': {
         urlPattern: `https://discover.agrc.utah.gov/login/path/${props.quadWord}/tiles/naip_2018_nrg/{level}/{col}/{row}`,
-        copyright: 'AGRC',
+        copyright: 'UGRC',
       },
       Hybrid: {
         urlPattern: `https://discover.agrc.utah.gov/login/path/${props.quadWord}/tiles/utah/{level}/{col}/{row}`,
