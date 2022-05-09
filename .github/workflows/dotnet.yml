@@ -1,4 +1,4 @@
-name: Back End
+name: Back End Workflow
 
 on:
   push:
@@ -19,6 +19,7 @@ permissions:
 
 jobs:
   deploy:
+    name: Deployment Job
     runs-on: ubuntu-latest
     environment:
       name: dev

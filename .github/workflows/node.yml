@@ -1,4 +1,4 @@
-name: Front End
+name: Front End Workflow
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: Unit Testing Job
     runs-on: ubuntu-latest
     env:
       working-directory: src/ClientApp
