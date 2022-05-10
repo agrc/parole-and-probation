@@ -17,7 +17,7 @@
     "build-storybook": "build-storybook -s public",
     "build": "vite build",
     "copy:arcgis": "npm run copy:public && npm run copy:build",
-    "copy:public": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
+    "copy:public": "ncp ./node_modules/@arcgis/core/assets ./dist/assets",
     "copy:build": "ncp ./dist ../bin/Development/net6.0/osx-x64/publish/ClientApp/dist",
     "dev": "vite",
     "format": "prettier --write src --ignore-path ./.gitignore",
