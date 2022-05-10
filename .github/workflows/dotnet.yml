@@ -80,7 +80,7 @@ jobs:
         with:
           service: app
           image: gcr.io/${{ secrets.PROJECT_ID }}/app
-          region: us-west3
+          region: us-central1
           flags: |
             --service-account=cloud-run-sa@${{ secrets.PROJECT_ID }}.iam.gserviceaccount.com
             --max-instances=5
