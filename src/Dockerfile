@@ -13,6 +13,7 @@ ARG NODE_OPTIONS=--max_old_space_size=4096
 
 RUN npm clean-install
 RUN npm run build
+RUN npx ncp ./node_modules/@arcgis/core/assets ./dist/assets
 
 FROM dotnet-sdk as back-end-build
 
