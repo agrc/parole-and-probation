@@ -32,4 +32,4 @@ WORKDIR /app
 COPY --from=back-end-release-build /app .
 COPY --from=front-end-build /build/dist ./front-end
 
-ENTRYPOINT ["dotnet", "parole.dll"]
+ENTRYPOINT ["dotnet", "app.dll"]

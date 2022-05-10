@@ -6,7 +6,6 @@
     <Deterministic>true</Deterministic>
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release;Staging</Configurations>
-    <EnableMSDeployAppOffline>true</EnableMSDeployAppOffline>
   </PropertyGroup>
 
   <PropertyGroup>
