@@ -19,13 +19,17 @@ FROM dotnet-sdk as back-end-build
 COPY . ./build
 WORKDIR /build/src
 
-RUN dotnet publish parole.csproj -c Release -o /app -r linux-x64 -p:PublishSingleFile=true --no-self-contained -p:DebugType=embedded -p:PublishReadyToRun=true
+RUN dotnet build -c Release -o /app
+
+FROM back-end-build as back-end-release-build
+
+RUN dotnet publish -c Release -o /app -r linux-x64 -p:PublishSingleFile=true --no-self-contained -p:DebugType=embedded -p:PublishReadyToRun=true
 
 FROM dotnet AS server-app
 
 WORKDIR /app
 
-COPY --from=back-end-build /app .
+COPY --from=back-end-release-build /app .
 COPY --from=front-end-build /build/dist ./front-end
 
 ENTRYPOINT ["dotnet", "parole.dll"]
