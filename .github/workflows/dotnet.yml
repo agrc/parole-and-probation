@@ -83,6 +83,8 @@ jobs:
           region: us-central1
           flags: |
             --service-account=cloud-run-sa@${{ secrets.PROJECT_ID }}.iam.gserviceaccount.com
+            --vpc-connector=${{ secrets.VPC }}
+            --vpc-egress=private-ranges-only
             --max-instances=5
             --concurrency=250
             --cpu=1
