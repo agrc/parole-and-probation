@@ -52,7 +52,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: gcr.io/${{ secrets.PROJECT_ID }}/api
+          images: gcr.io/${{ secrets.PROJECT_ID }}/app
           tags: |
             type=ref,suffix=-{{sha}},event=branch
             type=ref,prefix=pr-,suffix=-{{sha}},event=pr
@@ -78,9 +78,9 @@ jobs:
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0.9.0
         with:
-          service: uic-inventory-api
-          image: gcr.io/${{ secrets.PROJECT_ID }}/api
-          region: us-central1
+          service: app
+          image: gcr.io/${{ secrets.PROJECT_ID }}/app
+          region: us-west3
           flags: |
             --service-account=cloud-run-sa@${{ secrets.PROJECT_ID }}.iam.gserviceaccount.com
             --vpc-connector=${{ secrets.VPC }}
