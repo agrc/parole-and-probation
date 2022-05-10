@@ -30,6 +30,6 @@ FROM dotnet AS server-app
 WORKDIR /app
 
 COPY --from=back-end-release-build /app .
-COPY --from=front-end-build /build/dist ./front-end
+COPY --from=front-end-build /build/dist ./ClientApp/dist
 
 ENTRYPOINT ["dotnet", "app.dll"]
