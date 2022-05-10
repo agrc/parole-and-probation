@@ -140,9 +140,9 @@ namespace parole {
                         await context.Response.WriteAsync("Access denied");
                     }
                 } else {
-                    var redirectUri = "http://localhost:3000";
-                    if (env.IsStaging()) {
-                        redirectUri = "/app";
+                    var redirectUri = "/";
+                    if (env.IsDevelopment()) {
+                        redirectUri = "http://localhost:3000";
                     }
 
                     logger.Debug("challenging request {request} directing back to {redirect}", context.Request.Path, redirectUri);
