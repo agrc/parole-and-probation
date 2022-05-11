@@ -33,6 +33,10 @@ namespace parole.Features {
             // FormData[2] = new KeyValuePair<string?, string?>("referer", "http://localhost");
             FormData[3] = new KeyValuePair<string?, string?>("expiration", "60");
             FormData[4] = new KeyValuePair<string?, string?>("f", "json");
+
+            _log.ForContext("user", credentials.Username)
+                .ForContext("url", TokenUri)
+                .Information("TokenService created");
         }
 
         public async Task<string> GetTokenAsync() {
@@ -66,7 +70,8 @@ namespace parole.Features {
                 try {
                     tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
                 } catch (Exception) {
-                    _log.Error("problem creating token response: {data}", response.Content.ReadAsStringAsync().Result);
+                    _log.ForContext("url", TokenUri)
+                        .Error("problem creating token response: {data}", response.Content.ReadAsStringAsync().Result);
 
                     return string.Empty;
                 }

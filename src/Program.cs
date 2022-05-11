@@ -13,12 +13,9 @@ namespace parole {
             Host.CreateDefaultBuilder(args)
                 .UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration))
                 .ConfigureAppConfiguration((hostingContext, config) => {
-                    var path = Path.DirectorySeparatorChar.ToString();
-                    var env = hostingContext.HostingEnvironment.EnvironmentName;
-
-                    if (env != "Development") {
+                    if (hostingContext.HostingEnvironment.IsProduction()) {
                         config.AddJsonFile(
-                            Path.Combine(path, "secrets", "dotnet", $"appsettings.{env}.json"),
+                            Path.Combine(Path.DirectorySeparatorChar.ToString(), "secrets", "dotnet", "appsettings.Production.json"),
                             optional: false,
                             reloadOnChange: true
                         );
