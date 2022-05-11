@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using Serilog;
 
 namespace parole.Features {
     public class TokenService {
@@ -30,6 +30,7 @@ namespace parole.Features {
             FormData[0] = new KeyValuePair<string?, string?>("username", credentials.Username);
             FormData[1] = new KeyValuePair<string?, string?>("password", credentials.Password);
             FormData[2] = new KeyValuePair<string?, string?>("client", "requestip");
+            // FormData[2] = new KeyValuePair<string?, string?>("referer", "http://localhost");
             FormData[3] = new KeyValuePair<string?, string?>("expiration", "60");
             FormData[4] = new KeyValuePair<string?, string?>("f", "json");
         }
