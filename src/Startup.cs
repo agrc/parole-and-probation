@@ -286,8 +286,6 @@ namespace parole {
 
                         await next();
                     });
-
-                    proxyPipeline.UsePassiveHealthChecks();
                 });
 
                 endpoints.MapFallbackToFile("index.html");
