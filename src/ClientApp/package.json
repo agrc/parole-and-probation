@@ -25,6 +25,7 @@
     "release": "standard-version",
     "start:all": "env-cmd --environments development dotnet run --project ../parole.csproj",
     "start": "vite",
+    "sw": "node build-service-worker.js",
     "storybook": "start-storybook -p 9009 -s public",
     "test:watch": "vitest",
     "test": "vitest run"

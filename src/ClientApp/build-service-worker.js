@@ -14,10 +14,10 @@ const publicUrlOrPath = getPublicUrlOrPath(
 
 workboxBuild
   .generateSW({
-    swDest: './build/service-worker.js',
+    swDest: './dist/service-worker.js',
     skipWaiting: true,
     clientsClaim: true,
-    globDirectory: './build',
+    globDirectory: './dist',
     globPatterns: ['assets/esri/core/workers/chunks/*.js', 'static/**/*.{js,css,png,svg}'],
     globStrict: true,
     globIgnores: ['*.LICENSE.txt', '*.map', 'CalciteWebCoreIcons*.svg'],
