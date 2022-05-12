@@ -11,7 +11,6 @@ namespace parole {
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration))
                 .ConfigureAppConfiguration((hostingContext, config) => {
                     if (hostingContext.HostingEnvironment.IsProduction()) {
                         config.AddJsonFile(
@@ -21,6 +20,7 @@ namespace parole {
                         );
                     }
                 })
+                .UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration))
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                     .UseStartup<Startup>()
                     .UseWebRoot("ClientApp/dist")
