@@ -33,8 +33,7 @@ namespace parole.Features {
             FormData[3] = new KeyValuePair<string?, string?>("expiration", "60");
             FormData[4] = new KeyValuePair<string?, string?>("f", "json");
 
-            _log.ForContext("user", credentials.Username)
-                .ForContext("url", TokenUri)
+            _log.ForContext("url", TokenUri)
                 .Information("TokenService created");
         }
 
