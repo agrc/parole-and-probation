@@ -22,7 +22,7 @@ namespace parole.Features {
             try {
                 session.Open();
             } catch (SqlException ex) {
-                _log.Fatal("Sql Exception connecting to the database", ex);
+                _log.Fatal(ex, "Sql Exception connecting to the database");
 
                 return Array.Empty<AgentItem>();
             }

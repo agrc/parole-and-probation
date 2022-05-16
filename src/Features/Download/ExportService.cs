@@ -1,11 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using Microsoft.Data.SqlClient;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
-using System.Linq;
 
 namespace parole.Features {
     public class ExportService {
@@ -29,8 +29,8 @@ namespace parole.Features {
             using var session = new SqlConnection(connectionString);
             try {
                 session.Open();
-            } catch (SqlException) {
-                _log.Warning("Sql Exception connecting to the database");
+            } catch (SqlException ex) {
+                _log.Fatal(ex, "Sql Exception connecting to the database");
 
                 return Array.Empty<Schema>();
             }
