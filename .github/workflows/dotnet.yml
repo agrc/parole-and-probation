@@ -84,7 +84,7 @@ jobs:
           flags: |
             --service-account=cloud-run-sa@${{ secrets.PROJECT_ID }}.iam.gserviceaccount.com
             --vpc-connector=${{ secrets.VPC }}
-            --vpc-egress=private-ranges-only
+            --vpc-egress=all-traffic
             --max-instances=5
             --concurrency=250
             --cpu=1
