@@ -21,8 +21,8 @@ namespace parole.Features {
             using var session = new SqlConnection(connectionString);
             try {
                 session.Open();
-            } catch (SqlException) {
-                _log.Warning("Sql Exception connecting to the database");
+            } catch (SqlException ex) {
+                _log.Fatal("Sql Exception connecting to the database", ex);
 
                 return Array.Empty<AgentItem>();
             }
