@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/mapserver': {
+      '/secure': {
         target: 'https://localhost:5001/',
         changeOrigin: true,
         secure: false,

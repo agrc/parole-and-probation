@@ -143,7 +143,7 @@ const identifyFetch = async (offender, cancellationToken) => {
   const base = `${window.location.protocol}//${window.location.hostname}${
     window.location.port ? `:${window.location.port}` : ''
   }`;
-  const url = new URL('/mapserver/0/query', base);
+  const url = new URL('/secure/0/query', base);
   url.search = new URLSearchParams([
     ['f', 'json'],
     [

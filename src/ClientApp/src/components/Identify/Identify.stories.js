@@ -1,5 +1,4 @@
 import fetchMock from 'fetch-mock';
-import * as React from 'react';
 import '../Sidebar/Sidebar.css';
 import { IdentifyInformation } from './Identify';
 
@@ -139,7 +138,7 @@ const features = [
 ];
 
 fetchMock.config.overwriteRoutes = true;
-fetchMock.mock('path:/mapserver/0/query', {
+fetchMock.mock('path:/secure/0/query', {
   features: [
     {
       attributes: {

@@ -272,7 +272,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     }
 
     offenders.current = new FeatureLayer({
-      url: `/mapserver`,
+      url: `/secure`,
       outFields: Object.keys(fields).filter((key) => fields[key].filter === true),
       definitionExpression: '1=2',
     });
