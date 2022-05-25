@@ -56,7 +56,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
 
    ```json
    "ConnectionStrings": {
-      "DefaultConnection": "Server=;Database=;UID=;PWD=;Timeout=5;"
+      "DefaultConnection": "Server=;Database=;UID=;PWD=;Timeout=5;Encrypt=True;"
    },
    ```
 
