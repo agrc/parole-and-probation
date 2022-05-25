@@ -280,7 +280,7 @@ namespace parole {
                     proxyPipeline.Use(async (context, next) => {
                         var request = context.Request;
 
-                        if (request.Path.StartsWithSegments(new PathString("/mapserver")) && tokenService is not null) {
+                        if (request.Path.StartsWithSegments(new PathString("/secure")) && tokenService is not null) {
                             request.QueryString = request.QueryString.Add("token", await tokenService.GetTokenAsync());
                         }
 
