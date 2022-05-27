@@ -12,11 +12,11 @@ import pandas as pd
 import pyproj
 import requests
 import sqlalchemy
-from models import schema
 from vault import api, database
 from xxhash import xxh64
 
 from forklift.models import Pallet
+from models import schema
 
 
 class CorrectionsBase(Pallet):
@@ -149,6 +149,8 @@ class CorrectionOffenderPallet(CorrectionsBase):
             frame[['web_x',
                    'web_y']] = frame[['x',
                                       'y']].apply(lambda df: pd.Series(transformer.transform(df[0], df[1])), axis=1)
+
+            frame['county'].fillna(value='', inplace=True)
 
             cwd = Path(__file__).parent
 
