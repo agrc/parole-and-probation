@@ -38,6 +38,9 @@ namespace parole {
         public void ConfigureServices(IServiceCollection services) {
             services.AddCors();
 
+            var redis = Configuration.GetSection("Redis").Get<RedisOptions>();
+            services.AddDistributedAuthentication(redis);
+
             var utahId = Configuration.GetSection("UtahId").Get<OAuthOptions>();
             services.AddUtahIdAuthentication(utahId, new[] { "openid", "app:public", "app:DOCFieldMap", });
 
@@ -146,7 +149,7 @@ namespace parole {
                     }
 
                     logger.Debug("challenging request {request} directing back to {redirect}", context.Request.Path, redirectUri);
-                    // await context.Response.WriteAsJsonAsync(new { path = context.Request.Path, user = context.User.Identity?.IsAuthenticated });
+
                     await context.ChallengeAsync(
                         OpenIdConnectDefaults.AuthenticationScheme,
                         new AuthenticationProperties { RedirectUri = redirectUri, }
