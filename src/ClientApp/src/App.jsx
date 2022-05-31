@@ -2,6 +2,8 @@ import '@arcgis/core/assets/esri/themes/light/main.css';
 import isEqual from 'lodash.isequal';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import { useImmerReducer } from 'use-immer';
 import './App.css';
 import { FallbackComponent } from './components/ErrorBoundary/ErrorBoundary';
@@ -130,15 +132,19 @@ const reducer = (draft, action) => {
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [userState, setUserState] = useState('empty');
 
   useEffect(() => {
     const getUser = async () => {
+      setUserState('loading');
       const response = await fetch('api/configuration');
       if (!response.ok) {
+        setUserState('error');
         throw new Error('Could not load settings');
       }
 
       setUser(await response.json());
+      setUserState('success');
     };
 
     if (!user) {
@@ -195,30 +201,13 @@ export default function App() {
       <main className="app">
         <Header title="AP&P Field Map" version={import.meta.env.VITE_APP_VERSION} />
         <Sidebar {...sidebarOptions}>
-          {user ? (
-            <ErrorBoundary FallbackComponent={FallbackComponent}>
-              <IdentifyContainer visible={app.identify.show} show={identifyOptions.show}>
-                <IdentifyInformation {...identifyOptions} />
-              </IdentifyContainer>
-              <Filters
-                mapDispatcher={dispatcher}
-                loggedInUser={{
-                  value: user.name,
-                  id: parseInt(user.id),
-                }}
-                visible={!app.identify.show}
-                appliedFilter={app.appliedFilter}
-                featureSet={app.featureSet}
-              />
-            </ErrorBoundary>
-          ) : (
-            <div className="text-center" style={{ gridArea: 'map/side', marginTop: '3em' }}>
-              <p>Authentication Error</p>
-              <p>
-                <a href="api/logout">Try again</a>
-              </p>
-            </div>
-          )}
+          <SideBarStatus
+            status={userState}
+            app={app}
+            user={user}
+            identifyOptions={identifyOptions}
+            dispatcher={dispatcher}
+          />
         </Sidebar>
         <MapLens {...sidebarOptions} mapView={app.mapView}>
           <MapView {...mapOptions} />
@@ -227,3 +216,37 @@ export default function App() {
     </UserContext.Provider>
   );
 }
+
+const SideBarStatus = ({ status, dispatcher, app, user, identifyOptions }) => {
+  if (status === 'loading' || status === 'empty') {
+    return (
+      <Skeleton count={15} containerClassName="container-fluid accordion-pane mb-1 card" style={{ height: '50px' }} />
+    );
+  }
+
+  if (status === 'error') {
+    return <div className="text-center">Error</div>;
+  }
+
+  if (status === 'success') {
+    return (
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <IdentifyContainer visible={app.identify.show} show={identifyOptions.show}>
+          <IdentifyInformation {...identifyOptions} />
+        </IdentifyContainer>
+        <Filters
+          mapDispatcher={dispatcher}
+          loggedInUser={{
+            value: user.name,
+            id: parseInt(user.id),
+          }}
+          visible={!app.identify.show}
+          appliedFilter={app.appliedFilter}
+          featureSet={app.featureSet}
+        />
+      </ErrorBoundary>
+    );
+  }
+
+  return null;
+};
