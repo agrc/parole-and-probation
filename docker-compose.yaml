@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  api:
+    image: parole/api
+    build:
+      context: .
+      dockerfile: ./src/Dockerfile
+    volumes:
+      - ${HOME}/.aspnet/https:/https/
+
+  cache:
+    image: redis:6
