@@ -48,3 +48,4 @@ scripts/tool/vault.py
 **/appsettings.*.json
 forklift/vault/api.py
 src/ClientApp/.eslintcache
+docker-compose.override.yaml
