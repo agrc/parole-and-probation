@@ -18,7 +18,7 @@ workboxBuild
     skipWaiting: true,
     clientsClaim: true,
     globDirectory: './dist',
-    globPatterns: ['assets/esri/core/workers/chunks/*.js', 'static/**/*.{js,css,png,svg}'],
+    globPatterns: ['assets/esri/core/workers/chunks/*.js', 'assets/*.{js,css,png,jpg,gif,svg}'],
     globStrict: true,
     globIgnores: ['*.LICENSE.txt', '*.map', 'CalciteWebCoreIcons*.svg'],
     modifyURLPrefix: {
