@@ -122,7 +122,7 @@ namespace parole {
 
             app.Use(async (context, next) => {
                 logger.Debug("Request received: {Request} auth: {IsAuthenticated}", context.Request.Path, context.User.Identity?.IsAuthenticated);
-                if (!context.User.Identity?.IsAuthenticated ?? false && context.Request.Path != "/signin-oidc") {
+                if (!context.User.Identity?.IsAuthenticated ?? false && (context.Request.Path != "/signin-oidc" || context.Request.Path != "/app.webmanifest")) {
                     logger.Debug("challenging: {path}", context.Request.Path);
                     await context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme);
                 }
