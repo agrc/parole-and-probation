@@ -8,15 +8,13 @@ WORKDIR /build
 RUN npm install --global npm
 
 COPY ./src/ClientApp .
-
-ARG NODE_OPTIONS=--max_old_space_size=4096
 ARG VITE_DISCOVER $VITE_DISCOVER
 ARG VITE_WEB_API $VITE_WEB_API
 ARG VITE_PRINT_PROXY $VITE_PRINT_PROXY
 
 RUN npm clean-install
+RUN npm run copy:arcgis
 RUN npm run build
-RUN npx ncp ./node_modules/@arcgis/core/assets ./dist/assets
 RUN npm run sw
 
 FROM dotnet-sdk as back-end-build
