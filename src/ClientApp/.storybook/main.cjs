@@ -1,7 +1,6 @@
 module.exports = {
   addons: ['@storybook/addon-essentials'],
-  stories: ['../src/**/*/*.stories.js'],
-  staticDirs: ['../public'],
+  stories: ['../src/**/*/*.stories.{js,jsx}'],
   features: {
     storyStoreV7: true,
   },
