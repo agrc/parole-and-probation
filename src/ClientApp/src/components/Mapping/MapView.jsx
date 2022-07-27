@@ -1,6 +1,6 @@
 import Basemap from '@arcgis/core/Basemap';
 import config from '@arcgis/core/config';
-import { whenFalse, whenFalseOnce, whenTrueOnce } from '@arcgis/core/core/watchUtils';
+import { when, whenOnce } from '@arcgis/core/core/reactiveUtils';
 import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
@@ -78,27 +78,33 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     // zoom to filtered data
     if (layerView?.current) {
-      whenTrueOnce(layerView.current, 'updating', () => {
-        whenFalseOnce(layerView.current, 'updating', async () => {
-          const result = await layerView.current.queryExtent();
-          Console(`MapView:setting map extent containing ${result.count} graphics`);
+      whenOnce(
+        () => layerView.current.updating,
+        () => {
+          whenOnce(
+            () => !layerView.current.updating,
+            async () => {
+              const result = await layerView.current.queryExtent();
+              Console(`MapView:setting map extent containing ${result.count} graphics`);
 
-          // this is in case there is a point outside of the state...
-          if (result.count === 0 || result.extent.contains(defaultExtent)) {
-            return view.current.goTo(defaultExtent);
-          }
+              // this is in case there is a point outside of the state...
+              if (result.count === 0 || result.extent.contains(defaultExtent)) {
+                return view.current.goTo(defaultExtent);
+              }
 
-          let extent = result.extent;
-          if (result.count === 1) {
-            extent = {
-              target: result.extent,
-              scale: 16000,
-            };
-          }
+              let extent = result.extent;
+              if (result.count === 1) {
+                extent = {
+                  target: result.extent,
+                  scale: 16000,
+                };
+              }
 
-          view.current.goTo(extent);
-        });
-      });
+              view.current.goTo(extent);
+            }
+          );
+        }
+      );
     }
 
     const filter = where.join(' AND ');
@@ -349,31 +355,34 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   useEffect(() => {
     view.current.whenLayerView(offenders.current).then((lv) => {
       loadingEvent.current?.remove();
-      loadingEvent.current = whenFalse(layerView.current, 'updating', async () => {
-        const featureSet = await layerView.current?.queryFeatures();
+      loadingEvent.current = when(
+        () => !layerView.current.updating,
+        async () => {
+          const featureSet = await layerView.current?.queryFeatures();
 
-        mapDispatcher({
-          type: 'SET_FEATURE_SET',
-          payload: featureSet,
-        });
+          mapDispatcher({
+            type: 'SET_FEATURE_SET',
+            payload: featureSet,
+          });
 
-        if (withService) {
-          const edits = {};
-          if (featureSet.features?.length > 0) {
-            edits.addFeatures = featureSet.features;
-          }
+          if (withService) {
+            const edits = {};
+            if (featureSet.features?.length > 0) {
+              edits.addFeatures = featureSet.features;
+            }
 
-          const currentData = await mirror.current.queryObjectIds();
+            const currentData = await mirror.current.queryObjectIds();
 
-          if (currentData?.length > 0) {
-            edits.deleteFeatures = currentData.map((id) => ({ objectId: id }));
-          }
+            if (currentData?.length > 0) {
+              edits.deleteFeatures = currentData.map((id) => ({ objectId: id }));
+            }
 
-          if (Object.keys(edits).length > 0) {
-            mirror.current.applyEdits(edits);
+            if (Object.keys(edits).length > 0) {
+              mirror.current.applyEdits(edits);
+            }
           }
         }
-      });
+      );
     });
   }, [withService]);
 
@@ -431,9 +440,12 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     view.current?.graphics.addMany(zoom.target);
     let timeout;
     view.current?.goTo(zoom).then(() => {
-      whenTrueOnce(view.current, 'stationary', () => {
-        timeout = setTimeout(() => view.current.graphics.removeAll(), 1500);
-      });
+      whenOnce(
+        () => view.current.stationary,
+        () => {
+          timeout = setTimeout(() => view.current.graphics.removeAll(), 1500);
+        }
+      );
     });
 
     return () => {
@@ -455,7 +467,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       <Geolocation dispatcher={mapDispatcher} view={view.current} position="top-left" />
       <MapToolPanel icon={faMapMarkedAlt} view={view.current} position="top-left">
         <BootstrapDartboard
-          className="px-3 pt-2"
+          className="px-3 py-2"
           apiKey={import.meta.env.VITE_WEB_API}
           events={{
             success: (result) => mapDispatcher({ type: 'ZOOM_TO_GRAPHIC', payload: result }),
@@ -470,31 +482,9 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         />
       </MapToolPanel>
       <CsvDownload download={download} view={view.current} position="top-left" />
-      {/* <Toggle view={view.current} withService={withService} setWithService={setWithService} /> */}
       {selectorOptions ? <LayerSelector {...selectorOptions}></LayerSelector> : null}
     </div>
   );
 };
-
-// const Toggle = ({ view, withService, setWithService }) => {
-//   const me = useViewUiPosition(view, 'top-left');
-
-//   const classes = clsx('esri-widget--button', 'esri-widget', 'esri-component');
-
-//   return (
-//     <div
-//       ref={me}
-//       className={classes}
-//       role="button"
-//       aria-label="Export features to CSV"
-//       title="Export features to CSV"
-//       onClick={() => {
-//         setWithService(!withService);
-//       }}
-//     >
-//       <FontAwesomeIcon icon={faMapMarkedAlt} className="esri-icon" />
-//     </div>
-//   );
-// };
 
 export default ReactMapView;
