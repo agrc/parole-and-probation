@@ -1,4 +1,4 @@
-import useViewLoading from '../../useViewLoading';
+import { useViewLoading } from '@ugrc/utilities/hooks';
 import './MapLoadingIndicator.css';
 
 export default function MapLoadingIndicator({ view }) {

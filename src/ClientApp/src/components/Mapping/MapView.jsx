@@ -18,11 +18,12 @@ import { useNavigatorStatus } from 'react-navigator-status';
 import { fields } from '../../config';
 import Console from '../../Console';
 // import useViewUiPosition from '../../useViewUiPosition';
+import { BootstrapDartboard } from '@ugrc/dart-board';
+import LayerSelector from '@ugrc/layer-selector';
+import '@ugrc/layer-selector/src/LayerSelector.css';
 import CsvDownload from '../CsvDownload/CsvDownload';
-import { BootstrapDartboard } from '../Dartboard/Dartboard';
 import HomeButton from '../DefaultExtent/DefaultExtent';
 import Geolocation from '../Geolocation/Geolocation';
-import LayerSelector from '../LayerSelector/LayerSelector';
 import MapToolPanel from '../MapToolPanel/MapToolPanel';
 
 config.assetsPath = `/assets`;

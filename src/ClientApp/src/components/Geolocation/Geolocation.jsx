@@ -1,10 +1,10 @@
 import Graphic from '@arcgis/core/Graphic';
 import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useViewUiPosition } from '@ugrc/utilities/hooks';
 import classNames from 'clsx';
 import { useEffect, useState } from 'react';
 import Console from '../../Console';
-import useViewUiPosition from '../../useViewUiPosition';
 
 const supportsGeolocation = () => {
   if (!navigator.geolocation) {

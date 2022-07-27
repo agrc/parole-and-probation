@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useViewUiPosition } from '@ugrc/utilities/hooks';
 import classNames from 'clsx';
 import { useState } from 'react';
-import useViewUiPosition from '../../useViewUiPosition';
 import CloseButton from '../CloseButton/CloseButton';
 import './MapToolPanel.css';
 
