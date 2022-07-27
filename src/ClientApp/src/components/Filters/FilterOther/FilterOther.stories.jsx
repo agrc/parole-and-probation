@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
-import FilterOther from '../FilterOther';
+import FilterOther from './FilterOther';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
