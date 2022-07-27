@@ -52,8 +52,8 @@ const LabelGroup = (props) => {
 
   return (
     <>
-      <label className="font-weight-bolder">{props.label}</label>
-      <label className="d-block">{value}</label>
+      <label className="form-label fw-bolder">{props.label}</label>
+      <label className="form-label d-block">{value}</label>
     </>
   );
 };
@@ -82,8 +82,8 @@ const GridLabelGroup = (props) => {
 
   return (
     <>
-      <label className="identify-grid--label-text__label font-weight-bolder text-right">{label}</label>
-      <label className="identify-grid--label-text__text">{value}</label>
+      <label className="form-label identify-grid--label-text__label fw-bolder text-end">{label}</label>
+      <label className="form-label identify-grid--label-text__text">{value}</label>
     </>
   );
 };

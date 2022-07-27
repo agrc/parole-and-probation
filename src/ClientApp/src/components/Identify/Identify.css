@@ -7,14 +7,8 @@
   height: 100%;
 }
 
-.identify__row {
-  margin-right: -15px;
-  margin-left: -15px;
-}
-
 .identify-grid--label-text {
   grid-template-columns: 1fr 2.5fr;
-  grid-gap: 0 16px;
 }
 
 .identify-grid--label-text__label {
@@ -29,10 +23,6 @@
   flex: auto;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 16px;
-}
-
-.identify-grid--contacts__item {
-  padding-left: 15px;
 }
 
 .identify-addon__subgrid {
