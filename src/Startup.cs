@@ -109,7 +109,7 @@ namespace parole {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseSerilogRequestLogging();
-                redirectUri = "http://localhost:3000";
+                redirectUri = "http://localhost:5173/signin-oidc";
             } else {
                 app.UseExceptionHandler("/Error");
                 app.UseForwardedHeaders();
@@ -145,7 +145,7 @@ namespace parole {
                 } else {
                     var redirectUri = "/";
                     if (env.IsDevelopment()) {
-                        redirectUri = "http://localhost:3000";
+                        redirectUri = "http://localhost:5173";
                     }
 
                     logger.Debug("challenging request {request} directing back to {redirect}", context.Request.Path, redirectUri);
