@@ -6,7 +6,6 @@
     "name": "Steve Gourley",
     "email": "sgourley@utah.gov"
   },
-  "type": "module",
   "homepage": "https://fieldmap.udc.utah.gov/",
   "repository": {
     "type": "git",
