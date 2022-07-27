@@ -260,11 +260,11 @@ const OffenderQuickLook = (props) => {
         <OffenderImage offenderId={props.id} />
       </div>
       <div className="border-bottom mb-2 pb-2 identify__row">
-        <div className="d-grid identify-grid--label-text">
+        <div className="d-grid gap-2 identify-grid--label-text">
           <GridLabelGroup label="Number">{props.id}</GridLabelGroup>
           <GridLabelGroup label="Agent">{props.agent}</GridLabelGroup>
         </div>
-        <div className="d-grid identify-addon__subgrid px-3">
+        <div className="d-grid gap-2 identify-addon__subgrid px-3">
           <IdentifyAddon age={props.age}>{props.gender}</IdentifyAddon>
           <IdentifyAddon defaultValue="No STD">{props.standard_of_supervision}</IdentifyAddon>
           <IdentifyAddon defaultValue="unknown" lower>
@@ -317,7 +317,7 @@ const RecentVisitation = (props) => {
         </small>
       </h5>
       <div className="d-grid identify-grid--contacts identify__row border-bottom">
-        <div className="identify-grid--contacts__item">
+        <div>
           <LabelGroup label="Successful">{props.successful}</LabelGroup>
         </div>
         <div>
@@ -361,28 +361,28 @@ const OffenderContactInfo = (props) => {
     <>
       <h5 className="mt-2">Contact Information</h5>
       {props.phone ? (
-        <div className="d-grid identify-grid--label-text identify__row">
+        <div className="d-grid gap-2 identify-grid--label-text identify__row">
           <GridLabelGroup label={<TelephoneLink phone={props.phone}>Phone</TelephoneLink>}>
             {props.phone}
           </GridLabelGroup>
         </div>
       ) : null}
-      <div className="d-grid identify-grid--label-text identify__row">
+      <div className="d-grid gap-2 identify-grid--label-text identify__row">
         <GridLabelGroup label={<GoogleDirectionsLink address={fullAddress}>Address</GoogleDirectionsLink>}>
           {fullAddress}
         </GridLabelGroup>
       </div>
       {props.type ? (
-        <div className="d-grid identify-grid--label-text identify__row">
+        <div className="d-grid gap-2 identify-grid--label-text identify__row">
           <GridLabelGroup label="Type">{props.type}</GridLabelGroup>
         </div>
       ) : null}
-      <div className="d-grid identify-grid--label-text identify__row">
+      <div className="d-grid gap-2 identify-grid--label-text identify__row">
         <GridLabelGroup date label="Since" defaultValue="unknown">
           {props.since}
         </GridLabelGroup>
       </div>
-      <div className="d-grid identify-grid--label-text identify__row border-bottom">
+      <div className="d-grid gap-2 identify-grid--label-text identify__row border-bottom">
         <GridLabelGroup label="Employer" defaultValue="unemployed or unknown">
           {props.employer}
         </GridLabelGroup>
@@ -418,9 +418,11 @@ const SpecialSupervision = (props) => {
   return (
     <>
       <h5 className="mt-2">Special Supervisions</h5>
-      <div className="identify-grid--contacts identify__row identify__items-container px-3 border-bottom">
+      <div className="identify-grid--contacts identify__row identify__items-container border-bottom">
         {actives.map((item, i) => (
-          <label key={item + i}>{item.toLocaleUpperCase()}</label>
+          <label className="form-label" key={item + i}>
+            {item.toLocaleUpperCase()}
+          </label>
         ))}
       </div>
     </>
@@ -441,7 +443,7 @@ const PrimaryOffense = (props) => {
     <>
       <h5 className="mt-2">Primary Offense</h5>
       <div className="identify__row border-bottom">
-        {value ? <label className="identify-grid--contacts__item">{value}</label> : null}
+        {value ? <label className="form-label">{value}</label> : null}
         {props.description ? <p className="pl-3">{props.description}</p> : null}
       </div>
     </>
@@ -456,7 +458,7 @@ const GangInformation = (props) => {
   return (
     <>
       <h5 className="mt-2">STG</h5>
-      <div className="d-grid identify-grid--label-text identify__row border-bottom">
+      <div className="d-grid gap-2 identify-grid--label-text identify__row border-bottom">
         <GridLabelGroup label="Gang">{props.gang}</GridLabelGroup>
         <GridLabelGroup label="Set">{props.set}</GridLabelGroup>
       </div>
@@ -466,7 +468,7 @@ const GangInformation = (props) => {
 
 const OtherInformation = (props) => {
   return (
-    <div className="identify-grid--contacts identify__row identify__items-container px-3 mt-3">
+    <div className="identify-grid--contacts identify__row identify__items-container mt-3">
       <div>
         <LabelGroup date label="Supervision Start">
           {props.supervision_start_date}
