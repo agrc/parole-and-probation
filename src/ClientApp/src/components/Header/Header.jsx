@@ -15,7 +15,7 @@ export default function Header(props) {
           {props.version}
         </a>
       </h1>
-      <img src={logo} className="heading__img" alt="agrc logo" />
+      <img src={logo} className="heading__img" alt="corrections logo" />
     </div>
   );
 }
