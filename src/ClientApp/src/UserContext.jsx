@@ -12,7 +12,7 @@ export const AuthContext = createContext();
 const Provider = AuthContext.Provider;
 
 export function AuthProvider({ children }) {
-  const { status, error, data } = useQuery('auth', () =>
+  const { status, error, data } = useQuery(['auth'], () =>
     ky
       .get('/api/configuration', {
         timeout: 5000,
