@@ -1,8 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import ky from 'ky';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useQuery } from 'react-query';
 import { useImmerReducer } from 'use-immer';
 import Console from '../../Console';
 import AccordionPane from '../AccordionPane/AccordionPane';
