@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import ky from 'ky';
 import { createContext, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
 
 const UserContext = createContext({
   user: null,
