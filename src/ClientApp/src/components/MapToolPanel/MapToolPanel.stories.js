@@ -1,5 +1,5 @@
-import DartBoard from '@agrc/dart-board';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+import DartBoard from '@ugrc/dart-board';
 import MapToolPanel from './MapToolPanel';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */

@@ -1,7 +1,7 @@
 import { faGlobeAmericas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useViewUiPosition } from '@ugrc/utilities/hooks';
 import Console from '../../Console';
-import useViewUiPosition from '../../useViewUiPosition';
 
 const goHome = (view, extent) => {
   Console('DefaultExtent:zooming to default extent');
