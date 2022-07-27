@@ -1,4 +1,6 @@
 import '@arcgis/core/assets/esri/themes/light/main.css';
+import { useQuery } from '@tanstack/react-query';
+import ky from 'ky';
 import isEqual from 'lodash.isequal';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -133,24 +135,30 @@ const reducer = (draft, action) => {
 export default function App() {
   const [user, setUser] = useState(null);
   const [userState, setUserState] = useState('empty');
+  const { status, error, data } = useQuery(['auth'], () =>
+    ky
+      .get('/api/configuration', {
+        timeout: 5000,
+        redirect: 'error',
+        throwHttpErrors: false,
+        retry: {
+          limit: 0,
+        },
+      })
+      .json()
+  );
 
   useEffect(() => {
-    const getUser = async () => {
-      setUserState('loading');
-      const response = await fetch('api/configuration');
-      if (!response.ok) {
-        setUserState('error');
-        throw new Error('Could not load settings');
-      }
+    setUserState(status);
 
-      setUser(await response.json());
-      setUserState('success');
-    };
-
-    if (!user) {
-      getUser();
+    if (status === 'error') {
+      throw new Error('Could not load settings');
     }
-  }, [user]);
+
+    if (status === 'success') {
+      setUser(data);
+    }
+  }, [data, status, error, setUserState, setUser]);
 
   const [app, dispatcher] = useImmerReducer(reducer, {
     zoomToGraphic: {
