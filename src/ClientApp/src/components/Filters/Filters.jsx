@@ -1,6 +1,8 @@
 import clsx from 'clsx';
+import ky from 'ky';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useQuery } from 'react-query';
 import { useImmerReducer } from 'use-immer';
 import Console from '../../Console';
 import AccordionPane from '../AccordionPane/AccordionPane';
@@ -379,18 +381,24 @@ const Filters = ({ mapDispatcher, ...props }) => {
   };
 
   const [criteria, dispatcher] = useImmerReducer(filterReducer, initialState);
+  const { status, error, data } = useQuery(['lookups'], () =>
+    ky
+      .get('/api/lookups', {
+        timeout: 5000,
+        redirect: 'error',
+        throwHttpErrors: false,
+        retry: {
+          limit: 0,
+        },
+      })
+      .json()
+  );
 
   const payload = sqlMapper(criteria);
   const classes = clsx({ 'd-none': !props.visible });
 
   useEffect(() => {
-    const getAgents = async () => {
-      const response = await fetch('api/lookups');
-      if (!response.ok) {
-        throw new Error('Could not load settings');
-      }
-
-      const data = await response.json();
+    if (status === 'success') {
       if (data?.length > 0) {
         setAgents(data);
 
@@ -407,10 +415,8 @@ const Filters = ({ mapDispatcher, ...props }) => {
         Console(supers);
         setSupervisors(supers);
       }
-    };
-
-    getAgents();
-  }, []);
+    }
+  }, [data, status]);
 
   useEffect(() => {
     mapDispatcher({
