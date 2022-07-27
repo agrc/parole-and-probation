@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AppRoutes from './Routes';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { AuthProvider } from './UserContext';
 
 ReactDOM.render(
@@ -29,5 +28,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-serviceWorkerRegistration.register();
 reportWebVitals(console.log);

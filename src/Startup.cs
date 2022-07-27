@@ -117,12 +117,17 @@ namespace parole {
 
             app.UseRouting();
 
+            var options = new DefaultFilesOptions();
+            options.DefaultFileNames.Clear();
+            options.DefaultFileNames.Add("manifest.webmanifest");
+            app.UseDefaultFiles(options);
+
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.Use(async (context, next) => {
                 logger.Debug("Request received: {Request} auth: {IsAuthenticated}", context.Request.Path, context.User.Identity?.IsAuthenticated);
-                if (!context.User.Identity?.IsAuthenticated ?? false && (context.Request.Path != "/signin-oidc" || context.Request.Path != "/app.webmanifest")) {
+                if (!context.User.Identity?.IsAuthenticated ?? false && context.Request.Path != "/signin-oidc") {
                     logger.Debug("challenging: {path}", context.Request.Path);
                     await context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme);
                 }
