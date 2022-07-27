@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
-import { agents, supervisors } from '../lookupData';
+import { agentLookup, supervisorLookup } from '../lookupData';
 import FilterAgent from './FilterAgent';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
@@ -57,7 +57,7 @@ export const Empty = (args) => {
             }
           } else if (action.meta === 'supervisor') {
             if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
-              draft.agent.agentList = agents.some(
+              draft.agent.agentList = agentLookup.some(
                 (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
               );
             }
@@ -66,7 +66,7 @@ export const Empty = (args) => {
               draft.agent.agentList = [];
 
               if (draft.agent.vanity) {
-                draft.agent.agentList = agents.some(
+                draft.agent.agentList = agentLookup.some(
                   (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
                 );
               }
@@ -78,7 +78,7 @@ export const Empty = (args) => {
                 draft.agent.agentList.push(draft.agent.loggedInUser);
               }
 
-              const agentsForSupervisor = agents.filter(
+              const agentsForSupervisor = agentLookup.filter(
                 (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
               );
 
@@ -105,7 +105,7 @@ export const Empty = (args) => {
 
   return (
     <FilterAgent
-      data={{ agents, supervisors }}
+      data={{ agentLookup, supervisorLookup }}
       criteria={criteria.agent}
       update={(action) => {
         dispatcher(action);
@@ -141,7 +141,7 @@ export const Vanity = (args) => {
             }
           } else if (action.meta === 'supervisor') {
             if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
-              draft.agent.agentList = agents.some(
+              draft.agent.agentList = agentLookup.some(
                 (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
               );
             }
@@ -150,7 +150,7 @@ export const Vanity = (args) => {
               draft.agent.agentList = [];
 
               if (draft.agent.vanity) {
-                draft.agent.agentList = agents.some(
+                draft.agent.agentList = agentLookup.some(
                   (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
                 );
               }
@@ -162,7 +162,7 @@ export const Vanity = (args) => {
                 draft.agent.agentList.push(draft.agent.loggedInUser);
               }
 
-              const agentsForSupervisor = agents.filter(
+              const agentsForSupervisor = agentLookup.filter(
                 (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
               );
 
@@ -189,7 +189,7 @@ export const Vanity = (args) => {
 
   return (
     <FilterAgent
-      data={{ agents, supervisors }}
+      data={{ agentLookup, supervisorLookup }}
       criteria={criteria.agent}
       update={(action) => {
         dispatcher(action);
@@ -225,7 +225,7 @@ export const AgentsSelected = (args) => {
             }
           } else if (action.meta === 'supervisor') {
             if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
-              draft.agent.agentList = agents.some(
+              draft.agent.agentList = agentLookup.some(
                 (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
               );
             }
@@ -234,7 +234,7 @@ export const AgentsSelected = (args) => {
               draft.agent.agentList = [];
 
               if (draft.agent.vanity) {
-                draft.agent.agentList = agents.some(
+                draft.agent.agentList = agentLookup.some(
                   (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
                 );
               }
@@ -246,7 +246,7 @@ export const AgentsSelected = (args) => {
                 draft.agent.agentList.push(draft.agent.loggedInUser);
               }
 
-              const agentsForSupervisor = agents.filter(
+              const agentsForSupervisor = agentLookup.filter(
                 (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
               );
 
@@ -280,7 +280,7 @@ export const AgentsSelected = (args) => {
 
   return (
     <FilterAgent
-      data={{ agents, supervisors }}
+      data={{ agentLookup, supervisorLookup }}
       criteria={criteria.agent}
       update={(action) => {
         dispatcher(action);
