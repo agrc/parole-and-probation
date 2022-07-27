@@ -15,7 +15,6 @@ ARG VITE_PRINT_PROXY $VITE_PRINT_PROXY
 RUN npm clean-install
 RUN npm run copy:arcgis
 RUN npm run build
-RUN npm run sw
 
 FROM dotnet-sdk as back-end-build
 
