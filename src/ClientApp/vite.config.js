@@ -10,7 +10,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globStrict: true,
-        globDirectory: './dist',
+        globDirectory: './wwwroot',
         globPatterns: ['assets/esri/core/workers/chunks/*.js', 'assets/*.{js,css,png,jpg,gif,svg}'],
         globIgnores: ['*.LICENSE.txt', '*.map', 'CalciteWebCoreIcons*.svg'],
       },
@@ -20,6 +20,8 @@ export default defineConfig({
         description: 'The AP&P Field Map for keeping track of probation parolees',
         theme_color: '#000000',
         start_url: 'https://fieldmap.dev.utah.gov',
+        background_color: '#000000',
+        id: '/',
         icons: [
           {
             src: 'favicon.ico',
@@ -71,5 +73,8 @@ export default defineConfig({
   },
   test: {
     environment: 'happy-dom',
+  },
+  build: {
+    outDir: 'wwwroot',
   },
 });

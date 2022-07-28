@@ -16,9 +16,10 @@ __pycache__
 /coverage
 
 # production
-/build
-/deploy
-**/dist
+build/
+deploy/
+dist/
+wwwroot/
 
 # secrets
 secrets.json
