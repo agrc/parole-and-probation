@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using parole.Features;
 using parole.Infrastructure;
@@ -117,10 +118,7 @@ namespace parole {
 
             app.UseRouting();
 
-            var options = new DefaultFilesOptions();
-            options.DefaultFileNames.Clear();
-            options.DefaultFileNames.Add("manifest.webmanifest");
-            app.UseDefaultFiles(options);
+            app.UseStaticFiles();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -162,7 +160,10 @@ namespace parole {
                 }
             });
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "ClientApp", "dist", "assets")),
+                RequestPath = "/assets"
+            });
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseEndpoints(endpoints => {
