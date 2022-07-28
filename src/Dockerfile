@@ -15,8 +15,6 @@ ARG VITE_PRINT_PROXY $VITE_PRINT_PROXY
 RUN npm clean-install
 RUN npm run copy:arcgis
 RUN npm run build
-RUN mkdir dist
-RUN mv wwwroot/assets dist/assets
 
 FROM dotnet-sdk as back-end-build
 
@@ -35,6 +33,5 @@ WORKDIR /app
 
 COPY --from=back-end-release-build /app .
 COPY --from=front-end-build /build/dist ./ClientApp/dist
-COPY --from=front-end-build /build/wwwroot ./ClientApp/wwwroot
 
 ENTRYPOINT ["dotnet", "app.dll"]
