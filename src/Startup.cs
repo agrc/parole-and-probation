@@ -160,10 +160,6 @@ namespace parole {
                 }
             });
 
-            app.UseStaticFiles(new StaticFileOptions {
-                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "ClientApp", "dist", "assets")),
-                RequestPath = "/assets"
-            });
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseEndpoints(endpoints => {
