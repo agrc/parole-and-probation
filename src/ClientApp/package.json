@@ -20,6 +20,7 @@
     "dev": "vite",
     "format": "prettier --write src --ignore-path ./.gitignore",
     "lint": "eslint ./src --ext .jsx,.js --ignore-path ./.gitignore",
+    "preview": "vite preview",
     "release": "standard-version",
     "start:all": "env-cmd --environments development dotnet run --project ../parole.csproj",
     "start": "vite",
