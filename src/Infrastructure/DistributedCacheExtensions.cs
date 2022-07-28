@@ -13,6 +13,7 @@ public class RedisOptions {
 }
 public static class DistributedCacheExtensions {
     public static IServiceCollection AddDistributedAuthentication(this IServiceCollection services, RedisOptions redisOptions) {
+        ConnectionMultiplexer.SetFeatureFlag("preventthreadtheft", true);
         var redis = ConnectionMultiplexer.Connect(redisOptions.Configuration);
 
         services.AddStackExchangeRedisCache(options => options.Configuration = redisOptions.Configuration);
