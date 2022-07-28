@@ -23,7 +23,7 @@ namespace parole {
                 .UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration))
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                     .UseStartup<Startup>()
-                    .UseWebRoot("ClientApp/dist")
+                    .UseWebRoot("ClientApp/wwwroot")
                 );
     }
 }
