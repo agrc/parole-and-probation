@@ -10,7 +10,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globDirectory: './dist',
-        globPatterns: ['assets/esri/core/workers/**/*.js', '*.{html,ico}'],
+        globPatterns: ['assets/esri/core/workers/**/*.js', '*.{ico}'],
         globIgnores: ['*.LICENSE.txt', '*.map', 'CalciteWebCoreIcons*.svg'],
       },
       manifest: {
