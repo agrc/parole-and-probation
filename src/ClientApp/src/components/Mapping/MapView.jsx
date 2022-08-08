@@ -1,26 +1,19 @@
-import Basemap from '@arcgis/core/Basemap';
 import config from '@arcgis/core/config';
 import { when, whenOnce } from '@arcgis/core/core/reactiveUtils';
 import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
-import LOD from '@arcgis/core/layers/support/LOD';
-import TileInfo from '@arcgis/core/layers/support/TileInfo';
-import WebTileLayer from '@arcgis/core/layers/WebTileLayer';
 import EsriMap from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import clsx from 'clsx';
+import { BootstrapDartboard } from '@ugrc/dart-board';
+import LayerSelector from '@ugrc/layer-selector';
+import '@ugrc/layer-selector/src/LayerSelector.css';
 import { saveAs } from 'file-saver';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigatorStatus } from 'react-navigator-status';
 import { fields } from '../../config';
 import Console from '../../Console';
-// import useViewUiPosition from '../../useViewUiPosition';
-import { BootstrapDartboard } from '@ugrc/dart-board';
-import LayerSelector from '@ugrc/layer-selector';
-import '@ugrc/layer-selector/src/LayerSelector.css';
 import CsvDownload from '../CsvDownload/CsvDownload';
 import HomeButton from '../DefaultExtent/DefaultExtent';
 import Geolocation from '../Geolocation/Geolocation';
@@ -110,7 +103,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     const filter = where.join(' AND ');
 
     if (isFilter) {
-      Console(`MapView:updating layerview filter ${filter}`);
+      Console(`MapView:updating layerView filter ${filter}`);
 
       layerView.current.filter = {
         where: filter,
@@ -118,6 +111,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
       setAppliedFilter(filter);
     } else {
+      layerView.current.filter = null; // does this need to be reset?
       offenders.current.definitionExpression = filter;
 
       Console(`MapView:updating feature layer definition expression ${filter}`);
@@ -315,7 +309,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       quadWord: import.meta.env.VITE_DISCOVER,
       baseLayers: ['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR'],
       overlays: [regions],
-      modules: { LOD, TileInfo, Basemap, WebTileLayer, FeatureLayer },
       position: 'top-right',
     });
 
@@ -356,9 +349,9 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     view.current.whenLayerView(offenders.current).then((lv) => {
       loadingEvent.current?.remove();
       loadingEvent.current = when(
-        () => !layerView.current.updating,
+        () => !layerView.current.updating, // I wonder if this should be lv since layerView.current could be the online or offline layer
         async () => {
-          const featureSet = await layerView.current?.queryFeatures();
+          const featureSet = await layerView.current?.queryFeatures(); // same as above
 
           mapDispatcher({
             type: 'SET_FEATURE_SET',
