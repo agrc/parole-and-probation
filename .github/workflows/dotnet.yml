@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
+    if: github.ref == 'refs/heads/dev'
 
     steps:
       - name: ⬇️ Set up code
@@ -101,6 +102,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: prod
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: ⬇️ Set up code
