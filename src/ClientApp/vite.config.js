@@ -18,7 +18,7 @@ export default defineConfig({
         short_name: 'FieldMap',
         description: 'The AP&P Field Map for keeping track of probation parolees',
         theme_color: '#000000',
-        start_url: 'https://fieldmap.dev.utah.gov',
+        start_url: 'https://fieldmap.udc.utah.gov',
         background_color: '#000000',
         id: '/',
         icons: [
