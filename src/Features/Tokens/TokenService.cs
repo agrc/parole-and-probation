@@ -29,7 +29,7 @@ namespace parole.Features {
 
             FormData[0] = new KeyValuePair<string?, string?>("username", credentials.Username);
             FormData[1] = new KeyValuePair<string?, string?>("password", credentials.Password);
-            FormData[2] = new KeyValuePair<string?, string?>("referer", "https://fieldmap.dev.utah.gov");
+            FormData[2] = new KeyValuePair<string?, string?>("referer", "https://fieldmap.udc.utah.gov");
             FormData[3] = new KeyValuePair<string?, string?>("expiration", "60");
             FormData[4] = new KeyValuePair<string?, string?>("f", "json");
 
