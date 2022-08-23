@@ -51,7 +51,7 @@ jobs:
 
       - name: 🏷️ Extract tags from GitHub
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: gcr.io/${{ secrets.PROJECT_ID }}/app
           tags: |
@@ -130,7 +130,7 @@ jobs:
 
       - name: 🏷️ Extract tags from GitHub
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: gcr.io/${{ secrets.PROJECT_ID }}/app
           tags: |
