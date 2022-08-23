@@ -96,35 +96,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
 
 _This website uses standard version and conventional commits. The changelog and versions are managed by conventional commit messages and semantic versioning._
 
-#### releases
-
-1. Change directories to the react App
-
-- `cd src/ClientApp`
-
-1. Create a release
-
-- `npm run release`
-
-1. Create a prerelease
-
-- `npm run release -- --preprelease`
-
-1. Push the version bump, changelog, and tag to GitHub
-
-- `git push --follow-tags origin main`
-
-#### deploying
-
-Rename and update `secrets.sample.json` to `secrets.json`
-
-1. Add and set an `ASPNETCORE_ENVIRONMENT` environment variable on server to `Staging` or `Production`
-1. Add and set an `PAROLE_CLIENT_ID_STAGING` and `PAROLE_CLIENT_SECRET_STAGING` environment variable and set the OAuth app credentials
-1. Place the stack driver logging service account credentials on the deployment server
-1. Add and set a `GOOGLE_APPLICATION_CREDENTIALS` environment variable with the path to the service account file
-1. Publish to staging
-
-- `npm run wonkavise`
+GitHub action pipelines will deploy this application to the cloud.
 
 ### forklift deployment
 
