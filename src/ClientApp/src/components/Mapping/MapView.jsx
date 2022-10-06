@@ -71,32 +71,26 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     // zoom to filtered data
     if (layerView?.current) {
-      whenOnce(
-        () => layerView.current.updating,
-        () => {
-          whenOnce(
-            () => !layerView.current.updating,
-            async () => {
-              const result = await layerView.current.queryExtent();
-              Console(`MapView:setting map extent containing ${result.count} graphics`);
+      whenOnce(() => layerView.current.updating === true).then(() =>
+        whenOnce(() => layerView.current.updating === false).then(async () => {
+          const result = await layerView.current.queryExtent();
+          Console(`MapView:setting map extent containing ${result.count} graphics`);
 
-              // this is in case there is a point outside of the state...
-              if (result.count === 0 || result.extent.contains(defaultExtent)) {
-                return view.current.goTo(defaultExtent);
-              }
+          // this is in case there is a point outside of the state...
+          if (result.count === 0 || result.extent.contains(defaultExtent)) {
+            return view.current.goTo(defaultExtent);
+          }
 
-              let extent = result.extent;
-              if (result.count === 1) {
-                extent = {
-                  target: result.extent,
-                  scale: 16000,
-                };
-              }
+          let extent = result.extent;
+          if (result.count === 1) {
+            extent = {
+              target: result.extent,
+              scale: 16000,
+            };
+          }
 
-              view.current.goTo(extent);
-            }
-          );
-        }
+          view.current.goTo(extent);
+        })
       );
     }
 
