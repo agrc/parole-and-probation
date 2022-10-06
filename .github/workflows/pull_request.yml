@@ -15,9 +15,8 @@ jobs:
   test-unit:
     name: Unit tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: src/ClientApp
+    env:
+      working-directory: src/ClientApp
 
     steps:
       - name: ⬇️ Set up code
@@ -32,11 +31,14 @@ jobs:
 
       - name: 📥 Download dependencies
         run: npm ci
+        working-directory: ${{env.working-directory}}
 
       - name: 🏗 Run build script
         run: npm run build:test --if-present
+        working-directory: ${{env.working-directory}}
         env:
           CI: false
 
       - name: 🧪 Run tests
         run: npm run test
+        working-directory: ${{env.working-directory}}

@@ -20,9 +20,6 @@ jobs:
   release:
     name: Create release
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: src/ClientApp
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
 
