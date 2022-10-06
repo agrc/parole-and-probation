@@ -399,7 +399,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
 
   useEffect(() => {
     if (status === 'success') {
-      if (data?.length > 0) {
+      if ((data?.length ?? 0) > 0) {
         setAgents(data);
 
         const ids = new Set([]);
