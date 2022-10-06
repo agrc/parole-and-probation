@@ -178,7 +178,6 @@ jobs:
 
       - name: 🔔 Publish deployment worknote
         uses: agrc/service-now-worknote-action@v1
-        if: ${{ secrets.SN_SYS_ID != '' }}
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           username: ${{ secrets.SN_USERNAME }}
