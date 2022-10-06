@@ -20,15 +20,16 @@ jobs:
   release:
     name: Create release
     runs-on: ubuntu-latest
-    env:
-      path: src/ClientApp
+    defaults:
+      run:
+        working-directory: src/ClientApp
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
 
     steps:
       - name: 🚀 Create Release
         id: release
-        uses: agrc/release-composite-action@feat/working-directory
+        uses: agrc/release-composite-action@v1
         with:
           prerelease: ${{ github.ref_name == 'dev' }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,7 +37,6 @@ jobs:
           github-app-key: ${{ secrets.UGRC_RELEASE_BOT_APP_KEY }}
           github-app-name: ${{ secrets.UGRC_RELEASE_BOT_NAME }}
           github-app-email: ${{ secrets.UGRC_RELEASE_BOT_EMAIL }}
-          path: ${{ env.working-directory }}
 
   deploy-dev:
     name: Deploy to staging
