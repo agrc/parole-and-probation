@@ -1,26 +1,21 @@
-name: Pull Request Events
+name: Front End Workflow
 
-on: pull_request
-
-permissions:
-  contents: write
-  id-token: write
-  pull-requests: write
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
-  cancel-in-progress: true
+on:
+  push:
+    paths:
+      - 'src/ClientApp/**'
+      - '.github/workflows/node.yml'
 
 jobs:
-  test-unit:
-    name: Unit tests
+  test:
+    name: Unit Testing Job
     runs-on: ubuntu-latest
     env:
       working-directory: src/ClientApp
 
     steps:
       - name: ⬇️ Set up code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: ⎔ Setup Node.js
         uses: actions/setup-node@v3
