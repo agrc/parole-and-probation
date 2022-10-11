@@ -157,6 +157,7 @@ class CorrectionOffenderPallet(CorrectionsBase):
             frame = frame[frame['web_x'].notna()]
 
             frame['county'].fillna(value='', inplace=True)
+            frame['employer_address'] = frame['employer_address'].str.slice(0, 59)
 
             cwd = Path(__file__).parent
 
