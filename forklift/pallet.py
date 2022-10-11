@@ -8,6 +8,7 @@ A module that handles the forklifting for the project
 from pathlib import Path
 from typing import List
 
+import numpy as np
 import pandas as pd
 import pyproj
 import requests
@@ -151,6 +152,9 @@ class CorrectionOffenderPallet(CorrectionsBase):
             frame[['web_x',
                    'web_y']] = frame[['x',
                                       'y']].apply(lambda df: pd.Series(transformer.transform(df[0], df[1])), axis=1)
+
+            frame.replace([np.inf, -np.inf], np.nan, inplace=True)
+            frame = frame[frame['web_x'].notna()]
 
             frame['county'].fillna(value='', inplace=True)
 
@@ -355,3 +359,11 @@ if __name__ == '__main__':
 
     if pallet.requires_processing():
         pallet.process()
+
+    pallet2 = CorrectionSupplementaryPallet()
+    pallet2.log = logging
+
+    pallet2.build()
+
+    if pallet2.requires_processing():
+        pallet2.process()
