@@ -80,45 +80,38 @@ export function MultiSelect({
     return items;
   };
 
-  const {
-    isOpen,
-    getMenuProps,
-    getInputProps,
-    getComboboxProps,
-    highlightedIndex,
-    getItemProps,
-    selectItem,
-    selectedItem,
-  } = useCombobox({
-    inputValue,
-    items: getFilteredItems(items),
-    itemToString: itemToString,
-    defaultHighlightedIndex: 0,
-    onStateChange: ({ inputValue, type, selectedItem }) => {
-      switch (type) {
-        case useCombobox.stateChangeTypes.InputChange:
-          setInputValue(inputValue);
-          break;
-        case useCombobox.stateChangeTypes.ItemClick:
-        case useCombobox.stateChangeTypes.InputBlur:
-          if (selectedItem) {
-            setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
-          }
+  const { isOpen, getMenuProps, getInputProps, highlightedIndex, getItemProps, selectItem, selectedItem } = useCombobox(
+    {
+      inputValue,
+      items: getFilteredItems(items),
+      itemToString: itemToString,
+      defaultHighlightedIndex: 0,
+      onStateChange: ({ inputValue, type, selectedItem }) => {
+        switch (type) {
+          case useCombobox.stateChangeTypes.InputChange:
+            setInputValue(inputValue);
+            break;
+          case useCombobox.stateChangeTypes.ItemClick:
+          case useCombobox.stateChangeTypes.InputBlur:
+            if (selectedItem) {
+              setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
+            }
 
-          break;
-        case useCombobox.stateChangeTypes.InputKeyDownEnter:
-          if (selectedItem) {
-            setInputValue('');
-            onSelectItem(selectedItem);
-            selectItem(null);
-          }
+            break;
+          case useCombobox.stateChangeTypes.InputKeyDownEnter:
+            if (selectedItem) {
+              setInputValue('');
+              onSelectItem(selectedItem);
+              selectItem(null);
+            }
 
-          break;
-        default:
-          break;
-      }
-    },
-  });
+            break;
+          default:
+            break;
+        }
+      },
+    }
+  );
 
   const addItem = () => {
     if (selectedItem) {
@@ -129,7 +122,7 @@ export function MultiSelect({
   };
 
   return (
-    <div {...getComboboxProps()}>
+    <div>
       <InputGroup>
         <Input
           {...getInputProps({
@@ -241,40 +234,39 @@ export function InputTypeAhead({
     setInputValue(currentValue);
   }, [currentValue]);
 
-  const { isOpen, getMenuProps, getInputProps, getComboboxProps, highlightedIndex, getItemProps, selectItem } =
-    useCombobox({
-      inputValue,
-      items: getFilteredItems(sortedItems),
-      itemToString: itemToString,
-      defaultHighlightedIndex: 0,
-      onStateChange: ({ inputValue: newInputValue, type, selectedItem }) => {
-        switch (type) {
-          case useCombobox.stateChangeTypes.InputChange:
-            setInputValue(newInputValue);
-            if (newInputValue.trim().length === 0) {
-              onSelectItem(null);
-              selectItem(null);
-            }
+  const { isOpen, getMenuProps, getInputProps, highlightedIndex, getItemProps, selectItem } = useCombobox({
+    inputValue,
+    items: getFilteredItems(sortedItems),
+    itemToString: itemToString,
+    defaultHighlightedIndex: 0,
+    onStateChange: ({ inputValue: newInputValue, type, selectedItem }) => {
+      switch (type) {
+        case useCombobox.stateChangeTypes.InputChange:
+          setInputValue(newInputValue);
+          if (newInputValue.trim().length === 0) {
+            onSelectItem(null);
+            selectItem(null);
+          }
 
-            break;
-          case useCombobox.stateChangeTypes.InputBlur:
-          case useCombobox.stateChangeTypes.ItemClick:
-          case useCombobox.stateChangeTypes.InputKeyDownEnter:
-            if (selectedItem) {
-              setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
-              onSelectItem(selectedItem);
-              selectItem(null);
-            }
+          break;
+        case useCombobox.stateChangeTypes.InputBlur:
+        case useCombobox.stateChangeTypes.ItemClick:
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
+          if (selectedItem) {
+            setInputValue(defaultItemToString(selectedItem, titleCaseItem, itemToString));
+            onSelectItem(selectedItem);
+            selectItem(null);
+          }
 
-            break;
-          default:
-            break;
-        }
-      },
-    });
+          break;
+        default:
+          break;
+      }
+    },
+  });
 
   return (
-    <div {...getComboboxProps()}>
+    <div>
       <Input autoComplete="none" {...getInputProps()} />
 
       <div className="downshift__match-dropdown" {...getMenuProps()}>
