@@ -29,7 +29,7 @@
     <PackageReference Include="Google.Cloud.Firestore" Version="3.0.0" />
     <PackageReference Include="MailKit" Version="3.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="7.0.2" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.0" />
