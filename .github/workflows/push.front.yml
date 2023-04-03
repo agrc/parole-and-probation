@@ -6,6 +6,10 @@ on:
       - 'src/ClientApp/**'
       - '.github/workflows/node.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Unit Testing Job
