@@ -1,13 +1,16 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AppRoutes from './Routes';
 import { AuthProvider } from './UserContext';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <QueryClientProvider
       client={
@@ -24,8 +27,7 @@ ReactDOM.render(
         <AppRoutes />
       </AuthProvider>
     </QueryClientProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 reportWebVitals(console.log);
