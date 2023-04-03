@@ -61,7 +61,7 @@ jobs:
             latest
 
       - name: 📦 Build and push image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           builder: ${{ steps.builder.outputs.name }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -74,6 +74,7 @@ jobs:
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          provenance: false
 
       - name: 🚀 Deploy to Cloud Run
         id: deploy
