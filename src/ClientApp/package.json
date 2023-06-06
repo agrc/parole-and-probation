@@ -133,7 +133,7 @@
     "query-string": "^8.1.0",
     "standard-version": "^9.5.0",
     "storybook": "^7.0.2",
-    "vite": "^4.2.1",
+    "vite": "^4.2.3",
     "vite-plugin-pwa": "^0.14.7",
     "vitest": "^0.29.8",
     "workbox-build": "^6.5.4"
