@@ -1,8 +1,6 @@
-import React from 'react';
 import '../Sidebar/Sidebar.css';
 import { OffenderContactInfo } from './Identify';
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Identify/Contact Information',
   component: OffenderContactInfo,

@@ -8,6 +8,8 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useImmerReducer } from 'use-immer';
 import './App.css';
+import Console from './Console';
+import UserContext from './UserContext';
 import { FallbackComponent } from './components/ErrorBoundary/ErrorBoundary';
 import { Filters } from './components/Filters/Filters';
 import Header from './components/Header/Header';
@@ -16,8 +18,6 @@ import MapLens from './components/MapLens/MapLens';
 import MapView from './components/Mapping/MapView';
 import Sidebar from './components/Sidebar/Sidebar';
 import { mappingConfig } from './config';
-import Console from './Console';
-import UserContext from './UserContext';
 
 const reducer = (draft, action) => {
   Console(`App:reducing state ${action.type}`, action);
@@ -145,7 +145,7 @@ export default function App() {
           limit: 0,
         },
       })
-      .json()
+      .json(),
   );
 
   useEffect(() => {

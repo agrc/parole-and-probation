@@ -1,9 +1,7 @@
-import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
 import FilterLocation from './FilterLocation';
 import './FilterLocation.css';
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Filters/Location Filter',
   component: FilterLocation,
@@ -49,7 +47,7 @@ export const Normal = (args) => {
             draft.location[action.meta] = addOrRemove(
               draft.location[action.meta],
               action.payload.item,
-              action.payload.add
+              action.payload.add,
             );
             break;
           }

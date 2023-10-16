@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Alert, Button, Container } from 'reactstrap';
-import { fields } from '../../config';
 import Console from '../../Console';
+import { fields } from '../../config';
 import CloseButton from '../CloseButton/CloseButton';
 import { FallbackComponent } from '../ErrorBoundary/ErrorBoundary';
 import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks/FancyLinks';
@@ -41,7 +41,7 @@ const IdentifyInformation = (props) => {
 
         setExtra(result);
       },
-      () => setOffline(true)
+      () => setOffline(true),
     );
   }, [props.offender, props.index]);
 
@@ -484,14 +484,14 @@ const OtherInformation = (props) => {
 };
 
 export {
-  IdentifyInformation,
-  IdentifyContainer,
-  OffenderQuickLook,
-  OffenderAlerts,
-  RecentVisitation,
-  OffenderContactInfo,
-  SpecialSupervision,
-  PrimaryOffense,
   GangInformation,
+  IdentifyContainer,
+  IdentifyInformation,
+  OffenderAlerts,
+  OffenderContactInfo,
+  OffenderQuickLook,
   OtherInformation,
+  PrimaryOffense,
+  RecentVisitation,
+  SpecialSupervision,
 };

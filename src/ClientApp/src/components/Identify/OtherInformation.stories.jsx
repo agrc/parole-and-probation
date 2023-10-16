@@ -1,8 +1,6 @@
-import React from 'react';
 import '../Sidebar/Sidebar.css';
 import { OtherInformation } from './Identify';
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Identify/Other Information',
   component: OtherInformation,

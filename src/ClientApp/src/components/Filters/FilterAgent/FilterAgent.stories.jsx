@@ -1,9 +1,7 @@
-import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
 import { agentLookup, supervisorLookup } from '../lookupData';
 import FilterAgent from './FilterAgent';
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Filters/Agent Filter',
   component: FilterAgent,
@@ -42,7 +40,7 @@ export const Empty = (args) => {
             if (action.payload.add) {
               if (
                 draft.agent.agentList.some(
-                  (item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase()
+                  (item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase(),
                 )
               ) {
                 return;
@@ -52,13 +50,13 @@ export const Empty = (args) => {
             } else {
               draft.agent.supervisorList = [];
               draft.agent.agentList = draft.agent.agentList.filter(
-                (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
+                (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase(),
               );
             }
           } else if (action.meta === 'supervisor') {
             if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
               draft.agent.agentList = agentLookup.some(
-                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase(),
               );
             }
 
@@ -67,7 +65,7 @@ export const Empty = (args) => {
 
               if (draft.agent.vanity) {
                 draft.agent.agentList = agentLookup.some(
-                  (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                  (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase(),
                 );
               }
             } else {
@@ -79,7 +77,7 @@ export const Empty = (args) => {
               }
 
               const agentsForSupervisor = agentLookup.filter(
-                (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
+                (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase(),
               );
 
               draft.agent.supervisor = [action.payload.supervisor];
@@ -100,7 +98,7 @@ export const Empty = (args) => {
         ...defaultAgent,
         vanity: false,
       },
-    }
+    },
   );
 
   return (
@@ -126,7 +124,7 @@ export const Vanity = (args) => {
             if (action.payload.add) {
               if (
                 draft.agent.agentList.some(
-                  (item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase()
+                  (item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase(),
                 )
               ) {
                 return;
@@ -136,13 +134,13 @@ export const Vanity = (args) => {
             } else {
               draft.agent.supervisorList = [];
               draft.agent.agentList = draft.agent.agentList.filter(
-                (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
+                (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase(),
               );
             }
           } else if (action.meta === 'supervisor') {
             if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
               draft.agent.agentList = agentLookup.some(
-                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase(),
               );
             }
 
@@ -151,7 +149,7 @@ export const Vanity = (args) => {
 
               if (draft.agent.vanity) {
                 draft.agent.agentList = agentLookup.some(
-                  (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                  (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase(),
                 );
               }
             } else {
@@ -163,7 +161,7 @@ export const Vanity = (args) => {
               }
 
               const agentsForSupervisor = agentLookup.filter(
-                (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
+                (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase(),
               );
 
               draft.agent.supervisor = [action.payload.supervisor];
@@ -184,7 +182,7 @@ export const Vanity = (args) => {
         ...defaultAgent,
         agentList: [vanityUser],
       },
-    }
+    },
   );
 
   return (
@@ -210,7 +208,7 @@ export const AgentsSelected = (args) => {
             if (action.payload.add) {
               if (
                 draft.agent.agentList.some(
-                  (item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase()
+                  (item) => item.value.toLowerCase() === action.payload.item.value.toLowerCase(),
                 )
               ) {
                 return;
@@ -220,13 +218,13 @@ export const AgentsSelected = (args) => {
             } else {
               draft.agent.supervisorList = [];
               draft.agent.agentList = draft.agent.agentList.filter(
-                (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
+                (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase(),
               );
             }
           } else if (action.meta === 'supervisor') {
             if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
               draft.agent.agentList = agentLookup.some(
-                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase(),
               );
             }
 
@@ -235,7 +233,7 @@ export const AgentsSelected = (args) => {
 
               if (draft.agent.vanity) {
                 draft.agent.agentList = agentLookup.some(
-                  (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                  (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase(),
                 );
               }
             } else {
@@ -247,7 +245,7 @@ export const AgentsSelected = (args) => {
               }
 
               const agentsForSupervisor = agentLookup.filter(
-                (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
+                (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase(),
               );
 
               draft.agent.supervisor = [action.payload.supervisor];
@@ -275,7 +273,7 @@ export const AgentsSelected = (args) => {
           },
         ],
       },
-    }
+    },
   );
 
   return (

@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
           limit: 0,
         },
       })
-      .json()
+      .json(),
   );
   const [authInfo, setAuthInfo] = useState({
     id: null,

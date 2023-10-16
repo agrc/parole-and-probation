@@ -1,8 +1,6 @@
-import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
 import FilterOffender from './FilterOffender';
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Filters/Offender Filter',
   component: FilterOffender,
@@ -153,7 +151,7 @@ export const Normal = (args) => {
         tel: '',
         employer: '',
       },
-    }
+    },
   );
 
   return (

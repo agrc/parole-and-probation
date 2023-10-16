@@ -69,7 +69,7 @@ const IdentifyAddon = (props) => {
     border ? 'border-bottom border-info' : false,
     'd-flex',
     'identify__addon-item',
-    'pl-1'
+    'pl-1',
   );
 
   return <div className={classes}>{value}</div>;
@@ -88,4 +88,4 @@ const GridLabelGroup = (props) => {
   );
 };
 
-export { LabelGroup, IdentifyAddon, GridLabelGroup };
+export { GridLabelGroup, IdentifyAddon, LabelGroup };

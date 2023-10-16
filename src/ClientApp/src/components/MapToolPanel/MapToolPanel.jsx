@@ -15,7 +15,7 @@ export default function MapToolPanel(props) {
     'esri-widget--button',
     'esri-widget',
     'esri-component',
-    expanded ? 'map-tool-panel--open' : false
+    expanded ? 'map-tool-panel--open' : false,
   );
 
   const popOutClasses = classNames(expanded ? false : 'd-none', 'map-tool-panel');
@@ -26,7 +26,7 @@ export default function MapToolPanel(props) {
     <div
       ref={me}
       className={classes}
-      role="button"
+      role="dialog"
       aria-label="Zoom to address"
       title="Geocode"
       onMouseOver={() => setExpanded(true)}

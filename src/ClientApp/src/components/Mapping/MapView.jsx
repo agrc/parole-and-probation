@@ -1,9 +1,9 @@
+import EsriMap from '@arcgis/core/Map';
 import config from '@arcgis/core/config';
 import { when, whenOnce } from '@arcgis/core/core/reactiveUtils';
 import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
-import EsriMap from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import { BootstrapDartboard } from '@ugrc/dart-board';
@@ -12,8 +12,8 @@ import '@ugrc/layer-selector/src/LayerSelector.css';
 import { saveAs } from 'file-saver';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigatorStatus } from 'react-navigator-status';
-import { fields } from '../../config';
 import Console from '../../Console';
+import { fields } from '../../config';
 import CsvDownload from '../CsvDownload/CsvDownload';
 import HomeButton from '../DefaultExtent/DefaultExtent';
 import Geolocation from '../Geolocation/Geolocation';
@@ -90,7 +90,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
           }
 
           view.current.goTo(extent);
-        })
+        }),
       );
     }
 
@@ -192,7 +192,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         queryFeatures(where);
       }
     },
-    [appliedFilter, withService]
+    [appliedFilter, mapDispatcher, withService],
   );
 
   const download = useCallback(async () => {
@@ -336,11 +336,11 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
       map.add(mirror.current);
     });
-  }, []);
+  }, [mapDispatcher]);
 
   // synchronize feature layers
   useEffect(() => {
-    view.current.whenLayerView(offenders.current).then((lv) => {
+    view.current.whenLayerView(offenders.current).then(() => {
       loadingEvent.current?.remove();
       loadingEvent.current = when(
         () => !layerView.current.updating, // I wonder if this should be lv since layerView.current could be the online or offline layer
@@ -368,10 +368,10 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
               mirror.current.applyEdits(edits);
             }
           }
-        }
+        },
       );
     });
-  }, [withService]);
+  }, [mapDispatcher, withService]);
 
   // apply filters to map view effect
   useEffect(() => {
@@ -431,7 +431,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         () => view.current.stationary,
         () => {
           timeout = setTimeout(() => view.current.graphics.removeAll(), 1500);
-        }
+        },
       );
     });
 

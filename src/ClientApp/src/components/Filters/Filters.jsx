@@ -271,13 +271,13 @@ const Filters = ({ mapDispatcher, ...props }) => {
           } else {
             draft.agent.supervisorList = [];
             draft.agent.agentList = draft.agent.agentList.filter(
-              (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase()
+              (item) => item.value.toLowerCase() !== action.payload.item.value.toLowerCase(),
             );
           }
         } else if (action.meta === 'supervisor') {
           if (draft.agent.vanity && !vanityCheck(draft.agent.agentList, draft.agent.loggedInUser)) {
             draft.agent.agentList = agents.some(
-              (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+              (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase(),
             );
           }
 
@@ -286,7 +286,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
 
             if (draft.agent.vanity) {
               draft.agent.agentList = agents.some(
-                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase()
+                (item) => item.value.toLowerCase() === draft.agent.loggedInUser.value.toLowerCase(),
               );
             }
           } else {
@@ -298,7 +298,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
             }
 
             const agentsForSupervisor = agents.filter(
-              (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase()
+              (agent) => agent.supervisor_Id.toLowerCase() === action.payload.supervisor.id.toLowerCase(),
             );
 
             draft.agent.supervisor = [action.payload.supervisor];
@@ -352,7 +352,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
             draft.location[action.meta] = addOrRemove(
               draft.location[action.meta],
               action.payload.item,
-              action.payload.add
+              action.payload.add,
             );
             break;
           }
@@ -381,7 +381,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
   };
 
   const [criteria, dispatcher] = useImmerReducer(filterReducer, initialState);
-  const { status, error, data } = useQuery(['lookups'], () =>
+  const { status, data } = useQuery(['lookups'], () =>
     ky
       .get('/api/lookups', {
         timeout: 5000,
@@ -391,7 +391,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
           limit: 0,
         },
       })
-      .json()
+      .json(),
   );
 
   const payload = sqlMapper(criteria);
@@ -434,7 +434,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
     });
     // React guarantees that dispatch function identity is stable and won’t change on re-renders.
     // This is why it’s safe to omit from the useEffect or useCallback dependency list.
-  }, [payload, criteria]);
+  }, [mapDispatcher, payload, criteria]);
 
   return (
     <section className={classes}>

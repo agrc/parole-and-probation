@@ -1,8 +1,6 @@
-import * as React from 'react';
 import { useImmerReducer } from 'use-immer';
 import FilterOther from './FilterOther';
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Filters/Other Filter',
   component: FilterOther,
@@ -43,7 +41,7 @@ export const Empty = (args) => {
               draft.other[action.meta] = addOrRemove(
                 draft.other[action.meta],
                 action.payload.value,
-                action.payload.add
+                action.payload.add,
               );
 
               break;
@@ -78,7 +76,7 @@ export const Empty = (args) => {
         sos: [],
         status: '',
       },
-    }
+    },
   );
 
   return (

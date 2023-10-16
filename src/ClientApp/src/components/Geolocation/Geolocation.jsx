@@ -33,7 +33,7 @@ const getCurrentPosition = () => {
       (error) => {
         reject(error);
       },
-      options
+      options,
     );
   });
 };
@@ -102,7 +102,7 @@ export default function Geolocation(props) {
     'esri-widget',
     'esri-component',
     spin ? 'esri-button--disabled' : false,
-    status === undefined ? false : status ? 'text-primary' : 'text-danger'
+    status === undefined ? false : status ? 'text-primary' : 'text-danger',
   );
 
   return supportsGeolocation() ? (
@@ -113,6 +113,8 @@ export default function Geolocation(props) {
       aria-label="Zoom to current location"
       title="Geolocate"
       onClick={() => geolocate({ setProgress, setStatus, dispatch: props.dispatcher })}
+      onKeyUp={() => geolocate({ setProgress, setStatus, dispatch: props.dispatcher })}
+      tabIndex={0}
     >
       <FontAwesomeIcon spin={spin} icon={faCrosshairs} className="esri-icon" />
     </div>

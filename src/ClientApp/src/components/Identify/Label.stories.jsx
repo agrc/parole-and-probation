@@ -1,7 +1,5 @@
-import * as React from 'react';
 import { IdentifyAddon } from './Labels';
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Labels/IdentifyAddon',
   component: IdentifyAddon,

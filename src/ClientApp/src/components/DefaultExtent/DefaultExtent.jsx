@@ -20,6 +20,8 @@ export default function DefaultExtent(props) {
       aria-label="Default map view"
       title="Default map view"
       onClick={() => goHome(props.view, props.extent)}
+      onKeyUp={() => goHome(props.view, props.extent)}
+      tabIndex={0}
     >
       <FontAwesomeIcon icon={faGlobeAmericas} className="esri-icon esri-icon-home" />
     </div>

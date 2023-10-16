@@ -35,7 +35,9 @@ body,
     visibility: hidden;
     transform: translateX(-110vw);
     will-change: transform;
-    transition: transform var(--duration) var(--easeOutExpo), visibility 0s linear var(--duration);
+    transition:
+      transform var(--duration) var(--easeOutExpo),
+      visibility 0s linear var(--duration);
   }
 }
 

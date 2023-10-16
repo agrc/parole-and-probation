@@ -18,8 +18,8 @@
     "build": "vite build",
     "copy:arcgis": "cpy \"./node_modules/@arcgis/core/assets/**\" ./public/assets",
     "dev": "vite",
-    "format": "prettier --write src --ignore-path ./.gitignore",
-    "lint": "eslint ./src --ext .jsx,.js --ignore-path ./.gitignore",
+    "format": "prettier --write src --ignore-path ../.gitignore",
+    "lint": "eslint ./src --ext .jsx,.js --ignore-path ../.gitignore",
     "preview": "vite preview",
     "release": "standard-version",
     "start:all": "env-cmd --environments development dotnet run --project ../parole.csproj",
@@ -30,7 +30,7 @@
   },
   "eslintConfig": {
     "parserOptions": {
-      "ecmaVersion": 2021,
+      "ecmaVersion": "latest",
       "sourceType": "module",
       "ecmaFeatures": {
         "jsx": true
@@ -42,7 +42,9 @@
       }
     },
     "env": {
+      "es6": true,
       "browser": true,
+      "node": true,
       "jest": true
     },
     "rules": {
@@ -74,7 +76,11 @@
   },
   "prettier": {
     "singleQuote": true,
-    "printWidth": 120
+    "printWidth": 120,
+    "plugins": [
+      "prettier-plugin-organize-imports",
+      "prettier-plugin-packagejson"
+    ]
   },
   "dependencies": {
     "@arcgis/core": "^4.27.6",
@@ -126,10 +132,16 @@
     "cz-conventional-changelog": "^3.3.0",
     "env-cmd": "^10.1.0",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "fetch-mock": "^9.11.0",
     "happy-dom": "^12.9.1",
     "html-webpack-plugin": "^5.5.3",
     "prettier": "^3.0.3",
+    "prettier-plugin-organize-imports": "^3.2.3",
+    "prettier-plugin-packagejson": "^2.4.6",
     "query-string": "^8.1.0",
     "standard-version": "^9.5.0",
     "storybook": "^7.4.6",

@@ -13,7 +13,7 @@ export default function MapLens(props) {
     { 'map-lens__toggle--mobile-open': props.showSidebar },
     'map-lens__toggle',
     'btn',
-    'btn-default'
+    'btn-default',
   );
 
   return (

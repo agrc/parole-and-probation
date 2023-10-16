@@ -110,7 +110,7 @@ export function MultiSelect({
             break;
         }
       },
-    }
+    },
   );
 
   const addItem = () => {
@@ -140,6 +140,7 @@ export function MultiSelect({
         <ul className="downshift__matches">
           {isOpen &&
             getFilteredItems(items).map((item, index) => (
+              // eslint-disable-next-line react/jsx-key
               <li
                 {...getItemProps({
                   item,
@@ -219,7 +220,7 @@ export function InputTypeAhead({
 
       return 0;
     },
-    [itemToSortValue]
+    [itemToSortValue],
   );
 
   useEffect(() => {
@@ -273,6 +274,7 @@ export function InputTypeAhead({
         <ul className="downshift__matches">
           {isOpen &&
             getFilteredItems(sortedItems).map((item, index) => (
+              // eslint-disable-next-line react/jsx-key
               <li
                 {...getItemProps({
                   item,

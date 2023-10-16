@@ -197,7 +197,6 @@ fetchMock.mock({
   },
 });
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'Identify/Integration',
   component: IdentifyInformation,

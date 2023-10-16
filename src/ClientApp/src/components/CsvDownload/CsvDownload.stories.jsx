@@ -1,7 +1,5 @@
-import * as React from 'react';
 import Item from './CsvDownload';
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'MapTools/CsvDownload',
   component: Item,

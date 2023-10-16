@@ -1331,4 +1331,4 @@ const counties = [
   'WEBER',
 ];
 
-export { supervisionItems, mainGangs, offenseTypes, agentLookup, supervisorLookup, supervisionContactDays, counties };
+export { agentLookup, counties, mainGangs, offenseTypes, supervisionContactDays, supervisionItems, supervisorLookup };

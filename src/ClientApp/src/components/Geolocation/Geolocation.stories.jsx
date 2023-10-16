@@ -1,7 +1,5 @@
-import * as React from 'react';
 import Geolocation from './Geolocation';
 
-/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'MapTools/Geolocation',
   component: Geolocation,
