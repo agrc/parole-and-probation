@@ -24,7 +24,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
 
 ### asp.net core mvc
 
-1. Install the [dotnet 7.0.\* SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
+1. Install the [dotnet 8.0.\* SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 1. Create an `appsettings.Development.json` file to overwrite and add properties to the `appsettings.json` file for development
 1. Add an `ArcGIS` property in `appsettings.Development.json` with the following properties filled out
 
