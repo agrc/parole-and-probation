@@ -381,18 +381,20 @@ const Filters = ({ mapDispatcher, ...props }) => {
   };
 
   const [criteria, dispatcher] = useImmerReducer(filterReducer, initialState);
-  const { status, data } = useQuery(['lookups'], () =>
-    ky
-      .get('/api/lookups', {
-        timeout: 5000,
-        redirect: 'error',
-        throwHttpErrors: false,
-        retry: {
-          limit: 0,
-        },
-      })
-      .json(),
-  );
+  const { status, data } = useQuery({
+    queryKey: ['lookups'],
+    queryFn: () =>
+      ky
+        .get('/api/lookups', {
+          timeout: 5000,
+          redirect: 'error',
+          throwHttpErrors: false,
+          retry: {
+            limit: 0,
+          },
+        })
+        .json(),
+  });
 
   const payload = sqlMapper(criteria);
   const classes = clsx({ 'd-none': !props.visible });

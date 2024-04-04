@@ -135,18 +135,20 @@ const reducer = (draft, action) => {
 export default function App() {
   const [user, setUser] = useState(null);
   const [userState, setUserState] = useState('empty');
-  const { status, error, data } = useQuery(['auth'], () =>
-    ky
-      .get('/api/configuration', {
-        timeout: 5000,
-        redirect: 'error',
-        throwHttpErrors: false,
-        retry: {
-          limit: 0,
-        },
-      })
-      .json(),
-  );
+  const { status, error, data } = useQuery({
+    queryKey: ['auth'],
+    queryFn: () =>
+      ky
+        .get('/api/configuration', {
+          timeout: 5000,
+          redirect: 'error',
+          throwHttpErrors: false,
+          retry: {
+            limit: 0,
+          },
+        })
+        .json(),
+  });
 
   useEffect(() => {
     setUserState(status);
