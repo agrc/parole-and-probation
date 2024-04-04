@@ -280,17 +280,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       ui: {
         components: ['zoom'],
       },
-      popup: {
-        actions: null,
-        spinnerEnabled: false,
-        collapseEnabled: false,
-        highlightEnabled: false,
-        dockOptions: {
-          breakpoint: false,
-          buttonEnabled: false,
-          position: 'top-right',
-        },
-      },
+      popup: null,
     });
 
     mapDispatcher({
