@@ -7,7 +7,7 @@ on:
       - dev
     paths:
       - "src/**"
-      - ".github/workflows/dotnet.yml"
+      - ".github/workflows/push.back.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
