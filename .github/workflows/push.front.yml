@@ -3,8 +3,8 @@ name: Front End Workflow
 on:
   push:
     paths:
-      - 'src/ClientApp/**'
-      - '.github/workflows/node.yml'
+      - "src/ClientApp/**"
+      - ".github/workflows/push.front.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
