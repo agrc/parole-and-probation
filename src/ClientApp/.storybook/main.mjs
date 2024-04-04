@@ -1,9 +1,6 @@
-module.exports = {
+export default  {
   addons: ['@storybook/addon-essentials'],
   stories: ['../src/**/*/*.stories.{js,jsx}'],
-  features: {
-    storyStoreV7: true
-  },
   framework: {
     name: '@storybook/react-vite',
     options: {}
