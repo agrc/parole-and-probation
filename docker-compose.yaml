@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   api:
     image: parole/api
@@ -11,3 +9,5 @@ services:
 
   cache:
     image: redis:6
+    ports:
+     - 6379:6379
