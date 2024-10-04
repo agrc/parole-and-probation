@@ -1,5 +1,5 @@
 {
-  "name": "adult-parole-and-probation",
+  "name": "@ugrc/udc-field-map",
   "version": "1.21.2",
   "bugs": "https://github.com/agrc/parole-and-probation/issues",
   "author": {
@@ -21,7 +21,6 @@
     "format": "prettier --write src --ignore-path ../.gitignore",
     "lint": "eslint ./src --ext .jsx,.js --ignore-path ../.gitignore",
     "preview": "vite preview",
-    "release": "standard-version",
     "start:all": "dotnet run --project ../app.csproj",
     "start": "vite",
     "storybook": "storybook dev -p 9009 --disable-telemetry",
@@ -143,7 +142,6 @@
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-packagejson": "^2.5.2",
     "query-string": "^9.1.0",
-    "standard-version": "^9.5.0",
     "storybook": "^8.3.4",
     "vite": "^5.4.8",
     "vite-plugin-pwa": "^0.20.5",
@@ -154,8 +152,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "standard-version": {
-    "infile": "../../CHANGELOG.md"
   }
 }
