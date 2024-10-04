@@ -1,29 +1,27 @@
-name: Back End Workflow
+name: Release Events
 
 on:
-  push:
-    branches:
-      - main
-      - dev
-    paths:
-      - "src/**"
-      - ".github/workflows/push.back.yml"
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
-  cancel-in-progress: true
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
 
 permissions:
   id-token: write
-  contents: read
+  deployments: write
 
 jobs:
-  deploy-gcp-dev:
-    name: Deploy dev GCP infrastructure
+  deploy-dev:
+    name: Deploy to staging
     runs-on: ubuntu-latest
     environment:
       name: dev
-    if: github.ref == 'refs/heads/dev'
+      url: https://fieldmap.dev.utah.gov
+    if: github.event.release.prerelease == true || inputs.environment == 'dev'
 
     steps:
       - name: ⬇️ Set up code
@@ -105,12 +103,13 @@ jobs:
           secrets: |
             /secrets/dotnet/appsettings.Production.json=dotnet-appsettings:latest
 
-  deploy-gcp-prod:
-    name: Deploy prod GCP infrastructure
+  deploy-prod:
+    name: Deploy to production
     runs-on: ubuntu-latest
     environment:
       name: prod
-    if: github.ref == 'refs/heads/main'
+      url: https://atlas.utah.gov
+    if: github.event.release.prerelease == false || inputs.environment == 'prod'
 
     steps:
       - name: ⬇️ Set up code
@@ -201,3 +200,17 @@ jobs:
           instance-name: ${{ secrets.SN_INSTANCE }}
           table-name: ${{ secrets.SN_TABLE }}
           system-id: ${{ secrets.SN_SYS_ID }}
+
+  notify:
+    name: Notifications
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: 💬 Comment on issues in release
+        uses: agrc/release-issue-notifications-action@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

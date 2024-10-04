@@ -1,22 +1,20 @@
-name: Front End Workflow
+name: Pull Request Events
 
-on:
-  push:
-    paths:
-      - "src/ClientApp/**"
-      - ".github/workflows/push.front.yml"
+on: pull_request
+
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  test:
-    name: Unit Testing Job
+  test-unit:
+    name: Unit tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: src/ClientApp
 
     steps:
       - name: ⬇️ Set up code
@@ -29,15 +27,9 @@ jobs:
         with:
           node-version: lts/*
           cache: npm
-          cache-dependency-path: src/ClientApp/package-lock.json
 
       - name: 📥 Download dependencies
         run: npm ci
 
-      - name: 🏗 Run build script
-        run: npm run build:test --if-present
-        env:
-          CI: false
-
       - name: 🧪 Run tests
-        run: npm run test
+        run: npm test
