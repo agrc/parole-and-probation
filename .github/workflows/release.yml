@@ -108,7 +108,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: prod
-      url: https://atlas.utah.gov
+      url: https://fieldmap.udc.utah.gov
     if: github.event.release.prerelease == false || inputs.environment == 'prod'
 
     steps:
