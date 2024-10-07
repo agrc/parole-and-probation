@@ -10,11 +10,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    shell: bash
-    working-directory: ./src/ClientApp
-
 jobs:
   release-please:
     name: Create release
@@ -34,3 +29,5 @@ jobs:
           github-app-key: ${{ secrets.UGRC_RELEASE_BOT_APP_KEY }}
           github-app-name: ${{ secrets.UGRC_RELEASE_BOT_NAME }}
           github-app-email: ${{ secrets.UGRC_RELEASE_BOT_EMAIL }}
+          release-type: simple
+          extra-files: /src/ClientApp/package.json,/src/ClientApp/package-lock.json
