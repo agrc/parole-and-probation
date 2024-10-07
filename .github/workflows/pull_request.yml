@@ -11,6 +11,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
+defaults:
+  run:
+    shell: bash
+    working-directory: src/ClientApp
+
 jobs:
   test-unit:
     name: Unit tests
@@ -27,6 +32,7 @@ jobs:
         with:
           node-version: lts/*
           cache: npm
+          cache-dependency-path: src/ClientApp/package.json
 
       - name: 📥 Download dependencies
         run: npm ci
