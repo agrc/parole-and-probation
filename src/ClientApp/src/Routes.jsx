@@ -1,5 +1,5 @@
 import { lazy, Suspense, useContext } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router';
 import { AuthContext } from './UserContext';
 
 function AppRoutes() {
@@ -23,6 +23,7 @@ function AuthenticatedRoutes() {
         }
       />
       <Route
+        path="*"
         element={
           <Suspense fallback={<div />}>
             <NotFound />
