@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.3-0](https://github.com/agrc/parole-and-probation/compare/v1.21.2...v1.21.3-0) (2025-01-02)
+
+
+### Features
+
+* **api:** update to dotnet 9 ([7bb4826](https://github.com/agrc/parole-and-probation/commit/7bb4826b6704b95874b97246a4ec5466da91477f))
+
+
+### Dependencies
+
+* **api:** fy25 q3 package updates ([5dbafb2](https://github.com/agrc/parole-and-probation/commit/5dbafb2d36beb3d1789ffaebb2e13ac2be8f79d3))
+* **app:** fy25 q3 package updates ([dd2b71c](https://github.com/agrc/parole-and-probation/commit/dd2b71c14250533b8927835430ae9bd6c09b6331))
+
 ## [1.21.2](https://github.com/agrc/parole-and-probation/compare/v1.21.1...v1.21.2) (2024-10-07)
 
 
