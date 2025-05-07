@@ -174,10 +174,10 @@ class CorrectionOffenderPallet(CorrectionsBase):
                 self.log.info('inserting offender data')
                 frame.to_sql(
                     'offenders',
-                    engine,
+                    connection,
                     if_exists='replace',
                     index=False,
-                    chunksize=5000,
+                    chunksize=1,
                     dtype=schema.SQL_TYPES,
                 )
 
