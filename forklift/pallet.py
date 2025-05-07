@@ -181,14 +181,15 @@ class CorrectionOffenderPallet(CorrectionsBase):
                     dtype=schema.SQL_TYPES,
                 )
 
-                self.log.debug('adding primary key')
-                connection.execution_options(autocommit=True).execute(add_pk)
-                self.log.debug('creating shape field')
-                connection.execution_options(autocommit=True).execute(add_shape)
-                self.log.debug('populating shape field')
-                connection.execution_options(autocommit=True).execute(create_shapes)
-                self.log.debug('adding indexes')
-                connection.execution_options(autocommit=True).execute(add_indexes)
+                with connection.begin():
+                    self.log.debug('adding primary key')
+                    connection.execute(sqlalchemy.text(add_pk))
+                    self.log.debug('creating shape field')
+                    connection.execute(sqlalchemy.text(add_shape))
+                    self.log.debug('populating shape field')
+                    connection.execute(sqlalchemy.text(create_shapes))
+                    self.log.debug('adding indexes')
+                    connection.execute(sqlalchemy.text(add_indexes))
         except Exception as error:
             self.log.fatal(error)
             self.success = (False, 'unable to read api and write data to sql')
