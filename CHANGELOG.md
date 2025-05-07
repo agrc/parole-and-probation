@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.4](https://github.com/agrc/parole-and-probation/compare/v1.21.3...v1.21.4) (2025-05-07)
+
+
+### Bug Fixes
+
+* **pallet:** chunk size of 1 completes successfully ([72806db](https://github.com/agrc/parole-and-probation/commit/72806dbd0bdbf5e9eb03bba781170862d77fe2f8))
+* **pallet:** migrations for sqlalchemy 2 ([660a3cc](https://github.com/agrc/parole-and-probation/commit/660a3cc9a67722fda5cb561577833bec14122a42))
+
 ## [1.21.3](https://github.com/agrc/parole-and-probation/compare/v1.21.2...v1.21.3) (2025-01-03)
 
 
