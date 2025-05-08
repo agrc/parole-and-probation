@@ -1,7 +1,8 @@
+import { Button, Tag, TagGroup, TextField } from '@ugrc/utah-design-system';
 import { useCombobox } from 'downshift';
 import { capitalize } from 'lodash/string';
+import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from 'react';
-import { Button, Card, CardBody, Input, InputGroup } from 'reactstrap';
 
 const defaultItemToString = (item, titleCaseItem, itemToString) => {
   if (!item) {
@@ -23,28 +24,32 @@ export function SelectedItems({
   itemToString = returnItem,
   itemToKey = returnItem,
   clickHandler,
+  label,
   titleCaseItem = true,
 }) {
   return (
-    <Card className="mb-3 p-3">
-      <CardBody className="filter-other__items-container p-0">
-        {items.map((item) => (
-          <Button
-            className="mb-1"
-            color="secondary"
-            size="sm"
-            outline
-            id={itemToKey(item)}
-            key={itemToKey(item)}
-            onClick={clickHandler}
-          >
-            {defaultItemToString(item, titleCaseItem, itemToString)}
-          </Button>
-        ))}
-      </CardBody>
-    </Card>
+    <TagGroup
+      label={label}
+      selectionMode="none"
+      onRemove={clickHandler}
+      className="flex flex-wrap justify-between my-3 p-3 border rounded-lg bg-white"
+    >
+      {items.map((item) => (
+        <Tag className="mb-1" color="primary" id={itemToKey(item)} key={itemToKey(item)} onClick={clickHandler}>
+          {defaultItemToString(item, titleCaseItem, itemToString)}
+        </Tag>
+      ))}
+    </TagGroup>
   );
 }
+SelectedItems.propTypes = {
+  items: PropTypes.array.isRequired,
+  itemToString: PropTypes.func,
+  itemToKey: PropTypes.func,
+  clickHandler: PropTypes.func,
+  label: PropTypes.string,
+  titleCaseItem: PropTypes.bool,
+};
 
 export function MultiSelect({
   items,
@@ -53,6 +58,7 @@ export function MultiSelect({
   itemToString = returnItem,
   itemToKey = returnItem,
   onSelectItem,
+  label,
 }) {
   const [inputValue, setInputValue] = useState('');
   const getFilteredItems = (filterItems) => {
@@ -123,29 +129,33 @@ export function MultiSelect({
 
   return (
     <div>
-      <InputGroup>
-        <Input
-          {...getInputProps({
-            onKeyUp: (event) => {
-              if (event.key === 'Enter') {
-                addItem();
-              }
-            },
-          })}
+      <div className="flex gap-1">
+        <TextField
+          className="basis-3/4"
+          label={label}
+          inputProps={{
+            ...getInputProps({
+              onKeyUp: (event) => {
+                if (event.key === 'Enter') {
+                  addItem();
+                }
+              },
+            }),
+          }}
         />
-        <Button onClick={addItem}>Add</Button>
-      </InputGroup>
-
+        <Button variant="secondary" className="basis-1/4 px-3 self-end" onClick={addItem}>
+          Add
+        </Button>
+      </div>
       <div className="downshift__match-dropdown" {...getMenuProps()}>
         <ul className="downshift__matches">
           {isOpen &&
             getFilteredItems(items).map((item, index) => (
-              // eslint-disable-next-line react/jsx-key
               <li
+                key={itemToKey(item)}
                 {...getItemProps({
                   item,
                   index,
-                  key: itemToKey(item),
                   className:
                     'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
                 })}
@@ -158,6 +168,15 @@ export function MultiSelect({
     </div>
   );
 }
+MultiSelect.propTypes = {
+  items: PropTypes.array.isRequired,
+  currentSelectedItems: PropTypes.array,
+  titleCaseItem: PropTypes.bool,
+  itemToString: PropTypes.func,
+  itemToKey: PropTypes.func,
+  onSelectItem: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+};
 
 export function InputTypeAhead({
   featureSet,
@@ -168,6 +187,7 @@ export function InputTypeAhead({
   itemToKey = returnItem,
   reducerDescriptor,
   dispatch,
+  label,
 }) {
   const [inputValue, setInputValue] = useState(currentValue);
   const [sortedItems, setSortedItems] = useState(featureSet?.features);
@@ -268,18 +288,17 @@ export function InputTypeAhead({
 
   return (
     <div>
-      <Input autoComplete="none" {...getInputProps()} />
+      <TextField label={label} autoComplete="none" inputProps={{ ...getInputProps() }} />
 
       <div className="downshift__match-dropdown" {...getMenuProps()}>
         <ul className="downshift__matches">
           {isOpen &&
             getFilteredItems(sortedItems).map((item, index) => (
-              // eslint-disable-next-line react/jsx-key
               <li
+                key={itemToKey(item)}
                 {...getItemProps({
                   item,
                   index,
-                  key: itemToKey(item),
                   className:
                     'downshift__match-item' + (highlightedIndex === index ? ' downshift__match-item--selected' : ''),
                 })}
@@ -292,3 +311,19 @@ export function InputTypeAhead({
     </div>
   );
 }
+InputTypeAhead.propTypes = {
+  featureSet: PropTypes.shape({
+    features: PropTypes.array,
+  }),
+  currentValue: PropTypes.string,
+  titleCaseItem: PropTypes.bool,
+  itemToString: PropTypes.func,
+  itemToSortValue: PropTypes.func,
+  itemToKey: PropTypes.func,
+  reducerDescriptor: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    field: PropTypes.string.isRequired,
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+};

@@ -1,4 +1,3 @@
-import '../Sidebar/Sidebar.css';
 import { PrimaryOffense } from './Identify';
 
 export default {

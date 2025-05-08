@@ -1,8 +1,0 @@
-@media screen and (max-width: 624px) {
-  .accordion-pane:first-child {
-    margin-top: 0.25rem;
-  }
-  .accordion-pane {
-    margin: 0 0.25rem;
-  }
-}
