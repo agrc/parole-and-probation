@@ -1,22 +1,39 @@
 import '@arcgis/core/assets/esri/themes/light/main.css';
 import { useQuery } from '@tanstack/react-query';
+import { BusyBar, Drawer, Header } from '@ugrc/utah-design-system';
+import { useViewLoading } from '@ugrc/utilities/hooks';
 import ky from 'ky';
 import isEqual from 'lodash.isequal';
 import { useEffect, useState } from 'react';
+import { useOverlayTrigger } from 'react-aria';
 import { ErrorBoundary } from 'react-error-boundary';
-import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useImmerReducer } from 'use-immer';
 import Console from './Console';
 import UserContext from './UserContext';
-import { FallbackComponent } from './components/ErrorBoundary/ErrorBoundary';
-import { Filters } from './components/Filters/Filters';
-import Header from './components/Header/Header';
-import { IdentifyContainer, IdentifyInformation } from './components/Identify/Identify';
-import MapLens from './components/MapLens/MapLens';
-import MapView from './components/Mapping/MapView';
-import Sidebar from './components/Sidebar/Sidebar';
+import logo from './assets/udc-logo.webp';
+import { FallbackComponent } from './components/ErrorBoundary';
+import MapView from './components/MapView';
+import { SideBarStatus } from './components/SidebarStatus';
+import StaticLegend from './components/StaticLegend';
 import { mappingConfig } from './config';
+
+const version = import.meta.env.PACKAGE_VERSION;
+
+const links = [
+  {
+    key: 'Corrections Homepage',
+    action: { url: 'https://corrections.utah.gov/' },
+  },
+  {
+    key: 'GitHub Repository',
+    action: { url: 'https://github.com/agrc/parole-and-probation' },
+  },
+  {
+    key: `Version ${version} changelog`,
+    action: { url: `https://github.com/agrc/parole-and-probation/releases/v${version}` },
+  },
+];
 
 const reducer = (draft, action) => {
   Console(`App:reducing state ${action.type}`, action);
@@ -31,7 +48,7 @@ const reducer = (draft, action) => {
     case 'MAP_CLICK': {
       draft.identify.show = true;
       draft.identify.status = 'visible';
-      draft.showSidebar = true;
+      draft.sideBarState.isOpen = true;
 
       draft.mapPoint = action.payload.point;
 
@@ -54,23 +71,25 @@ const reducer = (draft, action) => {
     }
     case 'TOGGLE_SIDEBAR': {
       if (action.payload === undefined) {
-        action.payload = draft.showSidebar;
+        action.payload = !draft.sideBarState.isOpen;
       }
 
-      draft.showSidebar = !action.payload;
+      console.log('debug');
 
-      if (!draft.showSidebar && draft.identify.show) {
+      draft.sideBarState.isOpen = action.payload;
+
+      if (!draft.sideBarState.isOpen && draft.identify.show) {
         draft.identify.show = false;
       }
 
-      if (draft.showSidebar && draft.identify.status === 'visible') {
+      if (draft.sideBarState.isOpen && draft.identify.status === 'visible') {
         draft.identify.show = true;
       }
 
       return draft;
     }
     case 'TOGGLE_IDENTIFY': {
-      draft.showSidebar = action.payload ? true : draft.showSidebar;
+      draft.sideBarState.isOpen = action.payload ? true : draft.sideBarState.isOpen;
       draft.identify.show = action.payload;
 
       if (!action.payload) {
@@ -148,19 +167,6 @@ export default function App() {
         })
         .json(),
   });
-
-  useEffect(() => {
-    setUserState(status);
-
-    if (status === 'error') {
-      throw new Error('Could not load settings');
-    }
-
-    if (status === 'success') {
-      setUser(data);
-    }
-  }, [data, status, error, setUserState, setUser]);
-
   const [app, dispatcher] = useImmerReducer(reducer, {
     zoomToGraphic: {
       graphic: null,
@@ -174,13 +180,42 @@ export default function App() {
       offender: {},
       index: 0,
     },
-    showSidebar: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
+    sideBarState: {
+      isOpen: window.innerWidth >= mappingConfig.MIN_DESKTOP_WIDTH,
+    },
     filter: [],
     filterCriteria: {},
     appliedFilter: `agent_id in (${user?.id})`,
     definitionExpression: [`agent_id in (${user?.id})`],
     featureSet: null,
   });
+  const busy = useViewLoading(app.mapView);
+
+  const sidebarState = {
+    ...app.sideBarState,
+    setOpen: (isOpen) => dispatcher({ type: 'TOGGLE_SIDEBAR', payload: isOpen }),
+    open: () => dispatcher({ type: 'TOGGLE_SIDEBAR', payload: true }),
+    close: () => dispatcher({ type: 'TOGGLE_SIDEBAR', payload: false }),
+    toggle: () => dispatcher({ type: 'TOGGLE_SIDEBAR', payload: undefined }),
+  };
+  const sideBarTriggerProps = useOverlayTrigger(
+    {
+      type: 'dialog',
+    },
+    sidebarState,
+  );
+
+  useEffect(() => {
+    setUserState(status);
+
+    if (status === 'error') {
+      throw new Error('Could not load settings');
+    }
+
+    if (status === 'success') {
+      setUser(data);
+    }
+  }, [data, status, error, setUserState, setUser]);
 
   const mapOptions = {
     discoverKey: import.meta.env.VITE_DISCOVER,
@@ -189,11 +224,6 @@ export default function App() {
     definitionExpression: app.definitionExpression,
     filter: app.filter,
     filterCriteria: app.filterCriteria,
-  };
-
-  const sidebarOptions = {
-    showSidebar: app.showSidebar,
-    toggleSidebar: () => dispatcher({ type: 'TOGGLE_SIDEBAR' }),
   };
 
   const identifyOptions = {
@@ -207,55 +237,58 @@ export default function App() {
 
   return (
     <UserContext.Provider value={user}>
-      <main className="app">
-        <Header title="AP&P Field Map" version={import.meta.env.VITE_APP_VERSION} />
-        <Sidebar {...sidebarOptions}>
-          <SideBarStatus
-            status={userState}
-            app={app}
-            user={user}
-            identifyOptions={identifyOptions}
-            dispatcher={dispatcher}
-          />
-        </Sidebar>
-        <MapLens {...sidebarOptions} mapView={app.mapView}>
-          <MapView {...mapOptions} />
-        </MapLens>
+      <main className="flex h-screen flex-col md:gap-2">
+        <div className="hidden md:block">
+          <Header links={links}>
+            <div className="flex h-14 grow items-center gap-3">
+              <img src={logo} className="h-full w-auto" alt="corrections logo" />
+              <h2 className="font-heading text-xl md:text-2xl font-light text-primary-900 lg:text-4xl dark:text-zinc-100">
+                AP&P field map
+              </h2>
+            </div>
+          </Header>
+        </div>
+        <section className="relative flex min-h-0 flex-1 overflow-x-hidden md:mr-2 pt-2 md:pt-0">
+          <Drawer main state={sidebarState} {...sideBarTriggerProps}>
+            <div className="mx-2 mb-2 grid grid-cols-1 gap-2">
+              <SideBarStatus
+                status={userState}
+                app={app}
+                user={user}
+                identifyOptions={identifyOptions}
+                dispatcher={dispatcher}
+              />
+            </div>
+          </Drawer>
+          <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
+            <div className="relative flex-1 overflow-hidden dark:rounded">
+              <ErrorBoundary FallbackComponent={FallbackComponent}>
+                <StaticLegend
+                  legend={[
+                    {
+                      label: 'probation',
+                      color: '#53C3F9',
+                      invert: true,
+                    },
+                    {
+                      label: 'parole',
+                      color: '#DAFC86',
+                      invert: true,
+                    },
+                    {
+                      label: 'fugitive',
+                      color: '#F08683',
+                      invert: true,
+                    },
+                  ]}
+                />
+                <BusyBar busy={busy} />
+                <MapView {...mapOptions} />
+              </ErrorBoundary>
+            </div>
+          </div>
+        </section>
       </main>
     </UserContext.Provider>
   );
 }
-
-const SideBarStatus = ({ status, dispatcher, app, user, identifyOptions }) => {
-  if (status === 'loading' || status === 'empty') {
-    return (
-      <Skeleton count={15} containerClassName="container-fluid accordion-pane mb-1 card" style={{ height: '50px' }} />
-    );
-  }
-
-  if (status === 'error') {
-    return <div className="text-center">Error</div>;
-  }
-
-  if (status === 'success') {
-    return (
-      <ErrorBoundary FallbackComponent={FallbackComponent}>
-        <IdentifyContainer visible={app.identify.show} show={identifyOptions.show}>
-          <IdentifyInformation {...identifyOptions} />
-        </IdentifyContainer>
-        <Filters
-          mapDispatcher={dispatcher}
-          loggedInUser={{
-            value: user.name,
-            id: parseInt(user.id),
-          }}
-          visible={!app.identify.show}
-          appliedFilter={app.appliedFilter}
-          featureSet={app.featureSet}
-        />
-      </ErrorBoundary>
-    );
-  }
-
-  return null;
-};

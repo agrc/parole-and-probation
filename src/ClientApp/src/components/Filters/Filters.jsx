@@ -1,18 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
+import { Disclosure, DisclosureGroup, DisclosureHeader, DisclosurePanel } from '@ugrc/utah-design-system';
 import clsx from 'clsx';
 import ky from 'ky';
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useImmerReducer } from 'use-immer';
 import Console from '../../Console';
-import AccordionPane from '../AccordionPane/AccordionPane';
-import { FallbackComponent } from '../ErrorBoundary/ErrorBoundary';
-import FilterActions from './FilterActions/FilterActions';
-import FilterAgent from './FilterAgent/FilterAgent';
-import FilterDate from './FilterDate/FilterDate';
-import FilterLocation from './FilterLocation/FilterLocation';
-import FilterOffender from './FilterOffender/FilterOffender';
-import FilterOther from './FilterOther/FilterOther';
+import { FallbackComponent } from '../ErrorBoundary';
+import FilterActions from './FilterActions';
+import FilterAgent from './FilterAgent';
+import FilterDate from './FilterDate';
+import FilterLocation from './FilterLocation';
+import FilterOffender from './FilterOffender';
+import FilterOther from './FilterOther';
 import './Filters.css';
 import { agentLookup, supervisorLookup } from './lookupData';
 
@@ -397,7 +398,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
   });
 
   const payload = sqlMapper(criteria);
-  const classes = clsx({ 'd-none': !props.visible });
+  const classes = clsx({ hidden: !props.visible });
 
   useEffect(() => {
     if (status === 'success') {
@@ -440,37 +441,62 @@ const Filters = ({ mapDispatcher, ...props }) => {
 
   return (
     <section className={classes}>
-      <AccordionPane title={countActiveFilters('Agent', criteria.agent)} open className="mb-1">
-        <ErrorBoundary FallbackComponent={FallbackComponent}>
-          <FilterAgent data={{ agents, supervisors }} criteria={criteria.agent} update={dispatcher} />
-        </ErrorBoundary>
-      </AccordionPane>
-      <AccordionPane title={countActiveFilters('Offender', criteria.offender)} className="mb-1">
-        <ErrorBoundary FallbackComponent={FallbackComponent}>
-          <FilterOffender featureSet={props.featureSet} criteria={criteria.offender} update={dispatcher} />
-        </ErrorBoundary>
-      </AccordionPane>
-      <AccordionPane title={countActiveFilters('Location', criteria.location)} className="mb-1">
-        <ErrorBoundary FallbackComponent={FallbackComponent}>
-          <FilterLocation criteria={criteria.location} update={dispatcher} featureSet={props.featureSet} />
-        </ErrorBoundary>
-      </AccordionPane>
-      <AccordionPane title={countActiveFilters('Supervision Contact', criteria.date)} className="mb-1">
-        <ErrorBoundary FallbackComponent={FallbackComponent}>
-          <FilterDate criteria={criteria.date} update={dispatcher} />
-        </ErrorBoundary>
-      </AccordionPane>
-      <AccordionPane title={countActiveFilters('Other', criteria.other)}>
-        <ErrorBoundary FallbackComponent={FallbackComponent}>
-          <FilterOther criteria={criteria.other} update={dispatcher} />
-        </ErrorBoundary>
-      </AccordionPane>
-      <FilterActions
-        reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })}
-        show={() => mapDispatcher({ type: 'TOGGLE_SIDEBAR', payload: true })}
-      />
+      <DisclosureGroup allowsMultipleExpanded={true}>
+        <Disclosure defaultExpanded={true}>
+          <DisclosureHeader>{countActiveFilters('Agent', criteria.agent)}</DisclosureHeader>
+          <DisclosurePanel>
+            <ErrorBoundary FallbackComponent={FallbackComponent}>
+              <FilterAgent data={{ agents, supervisors }} criteria={criteria.agent} update={dispatcher} />
+            </ErrorBoundary>
+          </DisclosurePanel>
+        </Disclosure>
+        <Disclosure>
+          <DisclosureHeader>{countActiveFilters('Offender', criteria.offender)}</DisclosureHeader>
+          <DisclosurePanel>
+            <ErrorBoundary FallbackComponent={FallbackComponent}>
+              <FilterOffender featureSet={props.featureSet} criteria={criteria.offender} update={dispatcher} />
+            </ErrorBoundary>
+          </DisclosurePanel>
+        </Disclosure>
+        <Disclosure>
+          <DisclosureHeader>{countActiveFilters('Location', criteria.location)}</DisclosureHeader>
+          <DisclosurePanel>
+            <ErrorBoundary FallbackComponent={FallbackComponent}>
+              <FilterLocation criteria={criteria.location} update={dispatcher} featureSet={props.featureSet} />
+            </ErrorBoundary>
+          </DisclosurePanel>
+        </Disclosure>
+        <Disclosure>
+          <DisclosureHeader>{countActiveFilters('Supervision Contact', criteria.date)}</DisclosureHeader>
+          <DisclosurePanel>
+            <ErrorBoundary FallbackComponent={FallbackComponent}>
+              <FilterDate criteria={criteria.date} update={dispatcher} />
+            </ErrorBoundary>
+          </DisclosurePanel>
+        </Disclosure>
+        <Disclosure>
+          <DisclosureHeader>{countActiveFilters('Other', criteria.other)}</DisclosureHeader>
+          <DisclosurePanel>
+            <ErrorBoundary FallbackComponent={FallbackComponent}>
+              <FilterOther criteria={criteria.other} update={dispatcher} />
+            </ErrorBoundary>
+          </DisclosurePanel>
+        </Disclosure>
+        <FilterActions
+          reset={() => dispatcher({ type: 'RESET', payload: props.loggedInUser })}
+          show={() => mapDispatcher({ type: 'TOGGLE_SIDEBAR', payload: true })}
+        />
+      </DisclosureGroup>
     </section>
   );
+};
+Filters.propTypes = {
+  mapDispatcher: PropTypes.func.isRequired,
+  loggedInUser: PropTypes.object.isRequired,
+  visible: PropTypes.bool.isRequired,
+  appliedFilter: PropTypes.string.isRequired,
+  featureSet: PropTypes.object.isRequired,
+  initialState: PropTypes.object,
 };
 
 export { Filters, sqlMap, sqlMapper };

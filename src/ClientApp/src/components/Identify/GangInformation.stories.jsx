@@ -1,4 +1,3 @@
-import '../Sidebar/Sidebar.css';
 import { GangInformation } from './Identify';
 
 export default {

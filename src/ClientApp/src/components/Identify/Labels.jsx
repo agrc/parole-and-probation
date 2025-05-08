@@ -1,4 +1,5 @@
 import classNames from 'clsx';
+import PropTypes from 'prop-types';
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
 
@@ -52,10 +53,18 @@ const LabelGroup = (props) => {
 
   return (
     <>
-      <label className="form-label fw-bolder">{props.label}</label>
-      <label className="form-label d-block">{value}</label>
+      <label className="font-bold">{props.label}</label>
+      <label className="block">{value}</label>
     </>
   );
+};
+LabelGroup.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  age: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  lower: PropTypes.bool,
+  defaultValue: PropTypes.string,
 };
 
 const IdentifyAddon = (props) => {
@@ -65,14 +74,19 @@ const IdentifyAddon = (props) => {
 
   const classes = classNames(
     className,
-    danger === 1 ? 'identify__addon-item--danger' : false,
-    border ? 'border-bottom border-info' : false,
-    'd-flex',
-    'identify__addon-item',
+    danger === 1 ? 'px-2 text-warning-900 rounded-none mb-0 w-full bg-warning-100 border border-rose-800' : false,
+    border ? 'border-b border-blue-300' : false,
+    'flex',
+    'items-center',
     'pl-1',
   );
 
   return <div className={classes}>{value}</div>;
+};
+IdentifyAddon.propTypes = {
+  danger: PropTypes.number,
+  className: PropTypes.string,
+  border: PropTypes.bool,
 };
 
 const GridLabelGroup = (props) => {
@@ -82,10 +96,18 @@ const GridLabelGroup = (props) => {
 
   return (
     <>
-      <label className="form-label identify-grid--label-text__label fw-bolder text-end">{label}</label>
-      <label className="form-label identify-grid--label-text__text">{value}</label>
+      <label className="identify-grid--label-text__label font-bold text-end">{label}</label>
+      <label className="identify-grid--label-text__text">{value}</label>
     </>
   );
+};
+GridLabelGroup.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  age: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  lower: PropTypes.bool,
+  defaultValue: PropTypes.string,
 };
 
 export { GridLabelGroup, IdentifyAddon, LabelGroup };

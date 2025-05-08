@@ -1,13 +1,13 @@
+import { Button, Spinner } from '@ugrc/utah-design-system';
 import clsx from 'clsx';
+import ky from 'ky';
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Alert, Button, Container } from 'reactstrap';
 import Console from '../../Console';
 import { fields } from '../../config';
-import CloseButton from '../CloseButton/CloseButton';
-import { FallbackComponent } from '../ErrorBoundary/ErrorBoundary';
-import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks/FancyLinks';
-import './Identify.css';
+import { FallbackComponent } from '../ErrorBoundary';
+import { GoogleDirectionsLink, TelephoneLink } from '../FancyLinks';
 import { GridLabelGroup, IdentifyAddon, LabelGroup } from './Labels';
 import Pager from './Pager';
 
@@ -20,7 +20,7 @@ const IdentifyInformation = (props) => {
   const [offline, setOffline] = useState(false);
 
   useEffect(() => {
-    if (!props.offender.offender_id) {
+    if (!props.offender?.offender_id) {
       return;
     }
 
@@ -54,7 +54,7 @@ const IdentifyInformation = (props) => {
   };
 
   return props.offender && Object.keys(props.offender).length > 0 ? (
-    <Container className="identify pt-4">
+    <div className="mx-auto w-full px-2 identify pt-4">
       <Pager features={props.features} index={props.index} update={props.update}></Pager>
       {offline ? <p>You do not appear to have internet connectivity. The results displayed are incomplete.</p> : null}
       <ErrorBoundary FallbackComponent={FallbackComponent}>
@@ -113,26 +113,47 @@ const IdentifyInformation = (props) => {
           ecc={wrapWithOffline(extra.earned_compliance_credit)}
         />
       </ErrorBoundary>
-      <div className="identify__row text-center pt-5 pb-3">
+      <div className="flex justify-center pt-5 pb-3">
         <Button color="primary" onClick={() => props.show(false)}>
           Close
         </Button>
       </div>
-    </Container>
+    </div>
   ) : (
-    <Container className="identify pt-4">No offenders at click location</Container>
+    <div className="mx-auto px-2 w-full identify py-4">No offenders at click location</div>
   );
+};
+IdentifyInformation.propTypes = {
+  features: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
+  offender: PropTypes.object,
+  show: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
 };
 
 const IdentifyContainer = (props) => {
-  const classes = clsx('identify__container', { 'd-none': !props.visible });
+  const classes = clsx('identify__container', { hidden: !props.visible });
 
   return (
     <div className={classes}>
-      <CloseButton onClick={() => props.show(false)} />
+      <Button
+        aria-label="Close"
+        className="rounded-full absolute -right-2 -top-2 px-3 min-h-0 text-black dark:text-white"
+        variant="icon"
+        onPress={() => props.show(false)}
+      >
+        <span aria-hidden="true" className="text-secondary-950 text-2xl">
+          &times;
+        </span>
+      </Button>
       {props.children}
     </div>
   );
+};
+IdentifyContainer.propTypes = {
+  children: PropTypes.node,
+  visible: PropTypes.bool.isRequired,
+  show: PropTypes.func.isRequired,
 };
 
 const identifyFetch = async (offender, cancellationToken) => {
@@ -158,11 +179,9 @@ const identifyFetch = async (offender, cancellationToken) => {
 
   Console(`identifyFetch:querying extra offender data ${offender.offender_id}`);
 
-  const response = await fetch(url, {
+  const response = await ky.get(url, {
     signal: cancellationToken,
-    method: 'GET',
     credentials: 'include',
-    mode: 'cors',
   });
 
   if (!response.ok) {
@@ -196,7 +215,7 @@ const OffenderImage = ({ offenderId }) => {
   useEffect(() => {
     const getImage = async () => {
       try {
-        const response = await fetch(`/mugshot/${offenderId}`);
+        const response = await Spinner.minDelay(ky(`/mugshot/${offenderId}`));
 
         if (!response.ok) {
           setShowError(true);
@@ -222,14 +241,27 @@ const OffenderImage = ({ offenderId }) => {
   }, [offenderId]);
 
   if (showError) {
-    return <span>offline</span>;
+    return (
+      <span className="max-w-full h-48 aspect-[3/4] border flex items-center justify-center bg-gray-200 border-primary-900">
+        offline
+      </span>
+    );
   }
 
   if (!image) {
-    return <span>loading image...</span>;
+    return (
+      <span className="max-w-full h-48 aspect-[3/4] border flex items-center justify-center bg-gray-200 border-primary-900">
+        <div className="size-8">
+          <Spinner />
+        </div>
+      </span>
+    );
   }
 
-  return <img src={image} alt="offender" />;
+  return <img src={image} alt="" className="max-w-full max-h-48 border border-primary-900" />;
+};
+OffenderImage.propTypes = {
+  offenderId: PropTypes.string.isRequired,
 };
 
 const OffenderQuickLook = (props) => {
@@ -243,11 +275,7 @@ const OffenderQuickLook = (props) => {
   }
 
   if (race) {
-    race = (
-      <small className="text-muted d-block" style={{ fontSize: '1rem' }}>
-        {race}
-      </small>
-    );
+    race = <small className="text-gray-500 block text-base font-normal">{race}</small>;
   }
 
   return (
@@ -256,15 +284,15 @@ const OffenderQuickLook = (props) => {
         {props.offender}
         {race}
       </h4>
-      <div className="d-flex justify-content-center identify__row mb-2">
+      <div className="flex justify-center mb-2">
         <OffenderImage offenderId={props.id} />
       </div>
-      <div className="border-bottom mb-2 pb-2 identify__row">
-        <div className="d-grid gap-2 identify-grid--label-text">
+      <div className="border-b mb-2 pb-2">
+        <div className="grid gap-x-2 gap-y-1 grid-cols-[1fr_2.5fr]">
           <GridLabelGroup label="Number">{props.id}</GridLabelGroup>
           <GridLabelGroup label="Agent">{props.agent}</GridLabelGroup>
         </div>
-        <div className="d-grid gap-2 identify-addon__subgrid px-3">
+        <div className="grid gap-x-2 gap-y-1 grid-rows-2 grid-cols-2 mt-2">
           <IdentifyAddon age={props.age}>{props.gender}</IdentifyAddon>
           <IdentifyAddon defaultValue="No STD">{props.standard_of_supervision}</IdentifyAddon>
           <IdentifyAddon defaultValue="unknown" lower>
@@ -278,6 +306,17 @@ const OffenderQuickLook = (props) => {
     </>
   );
 };
+OffenderQuickLook.propTypes = {
+  age: PropTypes.string,
+  agent: PropTypes.string,
+  gender: PropTypes.string,
+  standard_of_supervision: PropTypes.string,
+  legal_status: PropTypes.string,
+  active_warrant: PropTypes.bool,
+  offender: PropTypes.string,
+  race: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  id: PropTypes.string.isRequired,
+};
 
 const OffenderAlerts = (props) => {
   return (
@@ -285,25 +324,25 @@ const OffenderAlerts = (props) => {
       {props.cautions ? (
         <>
           <h5 className="mt-2">Cautions</h5>
-          <div className="identify__row">
-            <Alert className="rounded-0 mb-0 w-100" color="danger">
-              {props.cautions}
-            </Alert>
+          <div className="p-2 text-warning-900 rounded-none mb-0 w-full bg-warning-100 border border-rose-800">
+            {props.cautions}
           </div>
         </>
       ) : null}
       {props.alerts ? (
         <>
           <h5 className="mt-2">Alerts</h5>
-          <div className="identify__row">
-            <Alert className="rounded-0 mb-0 w-100" color="danger">
-              {props.alerts}
-            </Alert>
+          <div className="p-2 text-warning-900 rounded-none mb-0 w-full bg-warning-100 border border-rose-800">
+            {props.alerts}
           </div>
         </>
       ) : null}
     </>
   );
+};
+OffenderAlerts.propTypes = {
+  cautions: PropTypes.string,
+  alerts: PropTypes.string,
 };
 
 const RecentVisitation = (props) => {
@@ -311,12 +350,9 @@ const RecentVisitation = (props) => {
     <>
       <h5 className="mt-2">
         Recent Contact
-        <small className="text-muted" style={{ fontSize: '1rem' }}>
-          {' '}
-          (days since)
-        </small>
+        <small className="text-gray-500 font-normal text-base"> (days since)</small>
       </h5>
-      <div className="d-grid identify-grid--contacts identify__row border-bottom">
+      <div className="grid gap-4 border-b grid-cols-3 flex-auto">
         <div>
           <LabelGroup label="Successful">{props.successful}</LabelGroup>
         </div>
@@ -329,6 +365,11 @@ const RecentVisitation = (props) => {
       </div>
     </>
   );
+};
+RecentVisitation.propTypes = {
+  successful: PropTypes.string,
+  attempted: PropTypes.string,
+  office: PropTypes.string,
 };
 
 const OffenderContactInfo = (props) => {
@@ -361,28 +402,28 @@ const OffenderContactInfo = (props) => {
     <>
       <h5 className="mt-2">Contact Information</h5>
       {props.phone ? (
-        <div className="d-grid gap-2 identify-grid--label-text identify__row">
+        <div className="grid gap-2 grid-cols-[1fr_2.5fr]">
           <GridLabelGroup label={<TelephoneLink phone={props.phone}>Phone</TelephoneLink>}>
             {props.phone}
           </GridLabelGroup>
         </div>
       ) : null}
-      <div className="d-grid gap-2 identify-grid--label-text identify__row">
+      <div className="grid gap-2 grid-cols-[1fr_2.5fr]">
         <GridLabelGroup label={<GoogleDirectionsLink address={fullAddress}>Address</GoogleDirectionsLink>}>
           {fullAddress}
         </GridLabelGroup>
       </div>
       {props.type ? (
-        <div className="d-grid gap-2 identify-grid--label-text identify__row">
+        <div className="grid gap-2 grid-cols-[1fr_2.5fr]">
           <GridLabelGroup label="Type">{props.type}</GridLabelGroup>
         </div>
       ) : null}
-      <div className="d-grid gap-2 identify-grid--label-text identify__row">
+      <div className="grid gap-2 grid-cols-[1fr_2.5fr]">
         <GridLabelGroup date label="Since" defaultValue="unknown">
           {props.since}
         </GridLabelGroup>
       </div>
-      <div className="d-grid gap-2 identify-grid--label-text identify__row border-bottom">
+      <div className="grid gap-2 grid-cols-[1fr_2.5fr] border-b">
         <GridLabelGroup label="Employer" defaultValue="unemployed or unknown">
           {props.employer}
         </GridLabelGroup>
@@ -399,6 +440,18 @@ const OffenderContactInfo = (props) => {
       </div>
     </>
   );
+};
+OffenderContactInfo.propTypes = {
+  phone: PropTypes.string,
+  address: PropTypes.string,
+  unit: PropTypes.string,
+  city: PropTypes.string,
+  zip: PropTypes.string,
+  type: PropTypes.string,
+  since: PropTypes.string,
+  employer: PropTypes.string,
+  employer_address: PropTypes.string,
+  employer_phone: PropTypes.string,
 };
 
 const SpecialSupervision = (props) => {
@@ -418,15 +471,18 @@ const SpecialSupervision = (props) => {
   return (
     <>
       <h5 className="mt-2">Special Supervisions</h5>
-      <div className="identify-grid--contacts identify__row identify__items-container border-bottom">
+      <div className="grid grid-cols-3 flex-auto gap-4 relative shadow-sm border-b">
         {actives.map((item, i) => (
-          <label className="form-label" key={item + i}>
+          <label className="" key={item + i}>
             {item.toLocaleUpperCase()}
           </label>
         ))}
       </div>
     </>
   );
+};
+SpecialSupervision.propTypes = {
+  children: PropTypes.object,
 };
 
 const PrimaryOffense = (props) => {
@@ -442,12 +498,17 @@ const PrimaryOffense = (props) => {
   return (
     <>
       <h5 className="mt-2">Primary Offense</h5>
-      <div className="identify__row border-bottom">
-        {value ? <label className="form-label">{value}</label> : null}
+      <div className="border-b">
+        {value ? <label className="">{value}</label> : null}
         {props.description ? <p className="pl-3">{props.description}</p> : null}
       </div>
     </>
   );
+};
+PrimaryOffense.propTypes = {
+  primary_offense: PropTypes.string,
+  degree: PropTypes.string,
+  description: PropTypes.string,
 };
 
 const GangInformation = (props) => {
@@ -458,17 +519,21 @@ const GangInformation = (props) => {
   return (
     <>
       <h5 className="mt-2">STG</h5>
-      <div className="d-grid gap-2 identify-grid--label-text identify__row border-bottom">
+      <div className="grid gap-2 grid-cols-[1fr_2.5fr] border-b">
         <GridLabelGroup label="Gang">{props.gang}</GridLabelGroup>
         <GridLabelGroup label="Set">{props.set}</GridLabelGroup>
       </div>
     </>
   );
 };
+GangInformation.propTypes = {
+  gang: PropTypes.string,
+  set: PropTypes.string,
+};
 
 const OtherInformation = (props) => {
   return (
-    <div className="identify-grid--contacts identify__row identify__items-container mt-3">
+    <div className="flex flex-wrap justify-between mt-3">
       <div>
         <LabelGroup date label="Supervision Start">
           {props.supervision_start_date}
@@ -481,6 +546,10 @@ const OtherInformation = (props) => {
       </div>
     </div>
   );
+};
+OtherInformation.propTypes = {
+  supervision_start_date: PropTypes.string,
+  ecc: PropTypes.string,
 };
 
 export {

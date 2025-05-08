@@ -1,4 +1,3 @@
-import '../Sidebar/Sidebar.css';
 import { RecentVisitation } from './Identify';
 
 export default {
