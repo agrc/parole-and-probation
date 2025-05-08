@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.4-0](https://github.com/agrc/parole-and-probation/compare/v1.21.3...v1.21.4-0) (2025-05-08)
+
+
+### Dependencies
+
+* **app:** remove unused package and update the rest ([9d5c132](https://github.com/agrc/parole-and-probation/commit/9d5c132543be4ee929b7401fff5b7bac5d5c27a7))
+
+
+### Documentation
+
+* **app:** update readme for development ([821ea0f](https://github.com/agrc/parole-and-probation/commit/821ea0ffbbef5650542a275909e94200e060d75a))
+
+
+### Styles
+
+* **app:** migrate to utah design system ([829c912](https://github.com/agrc/parole-and-probation/commit/829c912ae2ab5dca86c16ec6c61dce040c054ed6))
+
 ## [1.21.3](https://github.com/agrc/parole-and-probation/compare/v1.21.2...v1.21.3) (2025-01-03)
 
 
