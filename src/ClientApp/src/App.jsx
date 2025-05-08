@@ -7,7 +7,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useImmerReducer } from 'use-immer';
-import './App.css';
 import Console from './Console';
 import UserContext from './UserContext';
 import { FallbackComponent } from './components/ErrorBoundary/ErrorBoundary';
