@@ -5,40 +5,46 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace api.Infrastructure {
-    public static class UtahIdExtensions {
-        public static AuthenticationBuilder AddUtahIdAuthentication(this IServiceCollection services, OAuthOptions utahId, IEnumerable<string> claims) =>
-        services.AddAuthentication(options => {
-            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-        })
-        .AddCookie(options => {
-            options.Cookie.SameSite = SameSiteMode.Lax;
-            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        })
-        .AddOpenIdConnect(options => {
-            options.NonceCookie.SecurePolicy = CookieSecurePolicy.Always;
-            options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
+namespace api.Infrastructure;
 
-            options.Authority = utahId.Authority;
-            options.GetClaimsFromUserInfoEndpoint = true;
-            options.RequireHttpsMetadata = true;
+public static class UtahIdExtensions
+{
+    public static AuthenticationBuilder AddUtahIdAuthentication(this IServiceCollection services, OAuthOptions utahId, IEnumerable<string> claims) =>
+    services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+    })
+    .AddCookie(options =>
+    {
+        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    })
+    .AddOpenIdConnect(options =>
+    {
+        options.NonceCookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
 
-            options.ClientId = utahId.ClientId;
-            options.ClientSecret = utahId.ClientSecret;
+        options.Authority = utahId.Authority;
+        options.GetClaimsFromUserInfoEndpoint = true;
+        options.RequireHttpsMetadata = true;
 
-            options.ResponseType = "code";
-            options.UsePkce = true;
+        options.ClientId = utahId.ClientId;
+        options.ClientSecret = utahId.ClientSecret;
 
-            options.Scope.Clear();
-            foreach (var claim in claims) {
-                options.Scope.Add(claim);
-            }
-        });
-    }
-    public class OAuthOptions {
-        public string ClientId { get; set; } = default!;
-        public string ClientSecret { get; set; } = default!;
-        public string Authority { get; set; } = default!;
-    }
+        options.ResponseType = "code";
+        options.UsePkce = true;
+
+        options.Scope.Clear();
+        foreach (var claim in claims)
+        {
+            options.Scope.Add(claim);
+        }
+    });
+}
+public class OAuthOptions
+{
+    public string ClientId { get; set; } = default!;
+    public string ClientSecret { get; set; } = default!;
+    public string Authority { get; set; } = default!;
 }

@@ -7,14 +7,13 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace parole.Infrastructure;
 
-public class RedisTicketStore : ITicketStore {
+public class RedisTicketStore(IDistributedCache cache) : ITicketStore
+{
     private const string _keyPrefix = "authentication-ticket-";
-    private readonly IDistributedCache _cache;
-    public RedisTicketStore(IDistributedCache cache) {
-        _cache = cache;
-    }
+    private readonly IDistributedCache _cache = cache;
 
-    public async Task<string> StoreAsync(AuthenticationTicket ticket) {
+    public async Task<string> StoreAsync(AuthenticationTicket ticket)
+    {
         var key = $"{_keyPrefix}{Guid.NewGuid()}";
 
         await RenewAsync(key, ticket);
@@ -22,15 +21,18 @@ public class RedisTicketStore : ITicketStore {
         return key;
     }
 
-    public Task RenewAsync(string key, AuthenticationTicket ticket) {
+    public Task RenewAsync(string key, AuthenticationTicket ticket)
+    {
         var options = new DistributedCacheEntryOptions();
         var expiresUtc = ticket.Properties.ExpiresUtc;
 
-        if (expiresUtc.HasValue) {
+        if (expiresUtc.HasValue)
+        {
             options.SetAbsoluteExpiration(expiresUtc.Value);
         }
 
-        if (!ticket.Properties.Items.ContainsKey("key")) {
+        if (!ticket.Properties.Items.ContainsKey("key"))
+        {
             ticket.Properties.Items.Add("key", key);
         }
 
@@ -40,14 +42,16 @@ public class RedisTicketStore : ITicketStore {
         return Task.FromResult(0);
     }
 
-    public Task<AuthenticationTicket> RetrieveAsync(string key) {
+    public Task<AuthenticationTicket> RetrieveAsync(string key)
+    {
         var bytes = _cache.Get(key);
         var ticket = DeserializeFromBytes(bytes);
 
         return Task.FromResult(ticket ?? default!);
     }
 
-    public Task RemoveAsync(string key) {
+    public Task RemoveAsync(string key)
+    {
         _cache.Remove(key);
 
         return Task.FromResult(0);
