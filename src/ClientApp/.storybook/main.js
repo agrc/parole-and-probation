@@ -1,11 +1,11 @@
-export default  {
+export default {
   addons: ['@storybook/addon-essentials'],
   stories: ['../src/**/*/*.stories.{js,jsx}'],
   framework: {
     name: '@storybook/react-vite',
-    options: {}
+    options: {},
   },
   docs: {
-    autodocs: true
-  }
+    autodocs: true,
+  },
 };
