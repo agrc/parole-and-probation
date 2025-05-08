@@ -7,88 +7,101 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Serilog;
 
-namespace parole.Features {
-    public class TokenService {
-        private readonly Uri TokenUri;
-        private readonly string _tokenUrl = "/tokens/generateToken";
-        private const int TenMinuteBufferInMilliSeconds = 600000;
-        private readonly HttpClient _client;
-        private readonly KeyValuePair<string?, string?>[] FormData = new KeyValuePair<string?, string?>[5];
-        private readonly ILogger _log;
-        private DateTime _expiresIn = DateTime.UtcNow;
-        private string _currentToken = default!;
+namespace parole.Features;
 
-        public TokenService(IHttpClientFactory httpClientFactory, IArcGISCredential credentials, ILogger log) {
-            _client = httpClientFactory.CreateClient("default");
-            _log = log;
+public class TokenService
+{
+    private readonly Uri TokenUri;
+    private readonly string _tokenUrl = "/tokens/generateToken";
+    private const int TenMinuteBufferInMilliSeconds = 600000;
+    private readonly HttpClient _client;
+    private readonly KeyValuePair<string?, string?>[] FormData = new KeyValuePair<string?, string?>[5];
+    private readonly ILogger _log;
+    private DateTime _expiresIn = DateTime.UtcNow;
+    private string _currentToken = default!;
 
-            TokenUri = new Uri(UriHelper.BuildAbsolute(credentials.Scheme,
-                new HostString(credentials.Host),
-                credentials.PathBase,
-                _tokenUrl));
+    public TokenService(IHttpClientFactory httpClientFactory, IArcGISCredential credentials, ILogger log)
+    {
+        _client = httpClientFactory.CreateClient("default");
+        _log = log;
 
-            FormData[0] = new KeyValuePair<string?, string?>("username", credentials.Username);
-            FormData[1] = new KeyValuePair<string?, string?>("password", credentials.Password);
-            FormData[2] = new KeyValuePair<string?, string?>("referer", "https://fieldmap.udc.utah.gov");
-            FormData[3] = new KeyValuePair<string?, string?>("expiration", "60");
-            FormData[4] = new KeyValuePair<string?, string?>("f", "json");
+        TokenUri = new Uri(UriHelper.BuildAbsolute(credentials.Scheme,
+            new HostString(credentials.Host),
+            credentials.PathBase,
+            _tokenUrl));
 
-            _log.ForContext("url", TokenUri)
-                .Information("TokenService created");
-        }
+        FormData[0] = new KeyValuePair<string?, string?>("username", credentials.Username);
+        FormData[1] = new KeyValuePair<string?, string?>("password", credentials.Password);
+        FormData[2] = new KeyValuePair<string?, string?>("referer", "https://fieldmap.udc.utah.gov");
+        FormData[3] = new KeyValuePair<string?, string?>("expiration", "60");
+        FormData[4] = new KeyValuePair<string?, string?>("f", "json");
 
-        public async Task<string> GetTokenAsync() {
-            _log.Verbose("GetToken");
+        _log.ForContext("url", TokenUri)
+            .Information("TokenService created");
+    }
 
-            if (!string.IsNullOrEmpty(_currentToken)) {
-                var utcNow = DateTime.UtcNow;
+    public async Task<string> GetTokenAsync()
+    {
+        _log.Verbose("GetToken");
 
-                _log.Verbose("The time is {Now} and the token expires at {Expires}", utcNow, _expiresIn);
+        if (!string.IsNullOrEmpty(_currentToken))
+        {
+            var utcNow = DateTime.UtcNow;
 
-                if (utcNow < _expiresIn) {
-                    _log.Verbose("The current token is still valid.");
+            _log.Verbose("The time is {Now} and the token expires at {Expires}", utcNow, _expiresIn);
 
-                    return _currentToken;
-                }
+            if (utcNow < _expiresIn)
+            {
+                _log.Verbose("The current token is still valid.");
 
-                _log.Verbose("Requesting a new token");
+                return _currentToken;
             }
 
-            _log.Debug("Requesting the first token");
+            _log.Verbose("Requesting a new token");
+        }
 
-            using var formContent = new FormUrlEncodedContent(FormData);
-            try {
-                var response = await _client.PostAsync(TokenUri, formContent);
-                if (!response.IsSuccessStatusCode) {
-                    return string.Empty;
-                }
+        _log.Debug("Requesting the first token");
 
-                TokenResponse? tokenResponse;
+        using var formContent = new FormUrlEncodedContent(FormData);
+        try
+        {
+            var response = await _client.PostAsync(TokenUri, formContent);
+            if (!response.IsSuccessStatusCode)
+            {
+                return string.Empty;
+            }
 
-                try {
-                    tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
-                } catch (Exception) {
-                    _log.ForContext("url", TokenUri)
-                        .Error("problem creating token response: {data}", response.Content.ReadAsStringAsync().Result);
+            TokenResponse? tokenResponse;
 
-                    return string.Empty;
-                }
-
-                _log.Verbose("Token service response {@Response}", tokenResponse);
-
-                if (tokenResponse is null) {
-                    return string.Empty;
-                }
-
-                var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                _expiresIn = epoch.AddMilliseconds(tokenResponse.Expires - TenMinuteBufferInMilliSeconds);
-
-                return _currentToken = tokenResponse.Token;
-            } catch (Exception ex) {
-                _log.Error(ex, "Getting a token from {Url}", TokenUri.AbsoluteUri);
+            try
+            {
+                tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
+            }
+            catch (Exception)
+            {
+                _log.ForContext("url", TokenUri)
+                    .Error("problem creating token response: {data}", response.Content.ReadAsStringAsync().Result);
 
                 return string.Empty;
             }
+
+            _log.Verbose("Token service response {@Response}", tokenResponse);
+
+            if (tokenResponse is null)
+            {
+                return string.Empty;
+            }
+
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            _expiresIn = epoch.AddMilliseconds(tokenResponse.Expires - TenMinuteBufferInMilliSeconds);
+
+            return _currentToken = tokenResponse.Token;
+        }
+        catch (Exception ex)
+        {
+            _log.Error(ex, "Getting a token from {Url}", TokenUri.AbsoluteUri);
+
+            return string.Empty;
         }
     }
 }

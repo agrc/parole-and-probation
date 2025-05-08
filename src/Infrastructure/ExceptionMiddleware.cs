@@ -4,28 +4,30 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Serilog;
 
-namespace parole.Infrastructure {
-    public class ExceptionHandlingMiddleware {
-        private readonly RequestDelegate next;
-        private readonly ILogger _log;
+namespace parole.Infrastructure;
 
-        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger log) {
-            this.next = next;
-            _log = log;
+public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger log)
+{
+    private readonly RequestDelegate next = next;
+    private readonly ILogger _log = log;
+
+    public async Task Invoke(HttpContext context)
+    {
+        try
+        {
+            await next(context);
         }
-
-        public async Task Invoke(HttpContext context) {
-            try {
-                await next(context);
-            } catch (Exception ex) {
-                _log.Error(ex, "Unhandled exception");
-            }
+        catch (Exception ex)
+        {
+            _log.Error(ex, "Unhandled exception");
         }
     }
+}
 
-    public static class ExceptionHandlingMiddlewareExtensions {
-        public static IApplicationBuilder UseApiExceptionHandler(this IApplicationBuilder builder) {
-            return builder.UseMiddleware<ExceptionHandlingMiddleware>();
-        }
+public static class ExceptionHandlingMiddlewareExtensions
+{
+    public static IApplicationBuilder UseApiExceptionHandler(this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<ExceptionHandlingMiddleware>();
     }
 }
