@@ -1,65 +1,37 @@
 {
   "name": "@ugrc/udc-field-map",
   "version": "1.21.3",
-  "bugs": "https://github.com/agrc/parole-and-probation/issues",
-  "author": {
-    "name": "Steve Gourley",
-    "email": "sgourley@utah.gov"
-  },
+  "private": true,
   "homepage": "https://fieldmap.udc.utah.gov/",
+  "bugs": "https://github.com/agrc/parole-and-probation/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/agrc/parole-and-probation.git"
   },
   "license": "MIT",
-  "private": true,
+  "author": {
+    "name": "Steve Gourley",
+    "email": "sgourley@utah.gov"
+  },
+  "type": "module",
   "scripts": {
-    "build-storybook": "storybook build",
     "build": "vite build",
+    "build-storybook": "storybook build",
     "copy:arcgis": "cpy \"./node_modules/@arcgis/core/assets/**\" ./public/assets",
     "dev": "vite",
-    "format": "prettier --write src --ignore-path ../.gitignore",
-    "lint": "eslint ./src --ext .jsx,.js --ignore-path ../.gitignore",
+    "format": "prettier . --write",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start:all": "dotnet run --project ../app.csproj",
     "start": "vite",
+    "start:all": "dotnet run --project ../app.csproj",
     "storybook": "storybook dev -p 9009 --disable-telemetry",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "env": {
-      "es6": true,
-      "browser": true,
-      "node": true,
-      "jest": true
-    },
-    "rules": {
-      "react/jsx-uses-react": "off",
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
-      "prettier/prettier": "off"
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:react-hooks/recommended",
-      "plugin:jsx-a11y/recommended",
-      "plugin:prettier/recommended",
-      "prettier"
-    ]
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "browserslist": {
     "production": [
@@ -74,38 +46,68 @@
     ]
   },
   "prettier": {
-    "singleQuote": true,
-    "printWidth": 120,
     "plugins": [
       "prettier-plugin-organize-imports",
       "prettier-plugin-packagejson"
-    ]
+    ],
+    "printWidth": 120,
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es6": true,
+      "jest": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:jsx-a11y/recommended",
+      "plugin:prettier/recommended",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "off",
+      "react/jsx-uses-react": "off",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off"
+    }
   },
   "dependencies": {
-    "@arcgis/core": "^4.31.6",
-    "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
-    "@tanstack/react-query": "^5.62.11",
-    "@ugrc/dart-board": "^5.0.20",
-    "@ugrc/layer-selector": "^6.2.11",
-    "@ugrc/utilities": "^2.4.3",
-    "bootstrap": "^5.3.3",
+    "@arcgis/core": "^4.32.10",
+    "@tanstack/react-query": "^5.75.5",
+    "@ugrc/utah-design-system": "^1.27.0",
+    "@ugrc/utilities": "^3.0.3",
     "clsx": "^2.1.1",
-    "downshift": "^9.0.8",
+    "downshift": "^9.0.9",
     "file-saver": "^2.0.5",
     "immer": "^10.1.1",
-    "ky": "^1.7.4",
+    "ky": "^1.8.1",
     "lodash.isequal": "^4.5.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-error-boundary": "^5.0.0",
+    "lucide-react": "^0.508.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-error-boundary": "^6.0.0",
     "react-loading-skeleton": "^3.5.0",
     "react-navigator-status": "^0.1.2",
-    "react-router": "^7.1.1",
-    "reactstrap": "^9.2.3",
+    "react-router": "^7.6.0",
     "use-immer": "^0.11.0",
-    "web-vitals": "^4.2.4",
+    "vite-plugin-package-version": "^1.1.0",
+    "web-vitals": "^5.0.0",
     "workbox-background-sync": "^7.3.0",
     "workbox-broadcast-update": "^7.3.0",
     "workbox-cacheable-response": "^7.3.0",
@@ -120,37 +122,34 @@
     "workbox-streams": "^7.3.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^8.4.7",
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/addon-links": "^8.4.7",
-    "@storybook/react": "^8.4.7",
-    "@storybook/react-vite": "^8.4.7",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@storybook/addon-actions": "^8.6.12",
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/addon-links": "^8.6.12",
+    "@storybook/react": "^8.6.12",
+    "@storybook/react-vite": "^8.6.12",
+    "@ugrc/eslint-config": "^1.2.2",
+    "@vitejs/plugin-react": "^4.4.1",
     "@vitejs/plugin-react-refresh": "^1.3.6",
+    "autoprefixer": "^10.4.21",
     "cpy-cli": "^5.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "env-cmd": "^10.1.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.3",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "fetch-mock": "^12.2.0",
-    "happy-dom": "^16.3.0",
+    "eslint": "^9.26.0",
+    "fetch-mock": "^12.5.2",
+    "happy-dom": "^17.4.6",
     "html-webpack-plugin": "^5.6.3",
-    "prettier": "^3.4.2",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
-    "prettier-plugin-packagejson": "^2.5.6",
-    "query-string": "^9.1.1",
-    "storybook": "^8.4.7",
-    "vite": "^6.0.7",
-    "vite-plugin-pwa": "^0.21.1",
-    "vitest": "^2.1.8",
+    "prettier-plugin-packagejson": "^2.5.11",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "query-string": "^9.1.2",
+    "storybook": "^8.6.12",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-react-aria-components": "^1.2.0",
+    "vite": "^6.3.5",
+    "vite-plugin-pwa": "^1.0.0",
+    "vitest": "^3.1.3",
     "workbox-build": "^7.3.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
