@@ -1,4 +1,3 @@
-import '../Sidebar/Sidebar.css';
 import { OffenderAlerts } from './Identify';
 
 export default {

@@ -1,4 +1,3 @@
-import '../Sidebar/Sidebar.css';
 import { OffenderQuickLook } from './Identify';
 
 export default {

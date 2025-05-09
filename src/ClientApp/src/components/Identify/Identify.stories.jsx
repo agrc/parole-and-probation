@@ -1,6 +1,5 @@
 import fetchMock from 'fetch-mock';
-import '../Sidebar/Sidebar.css';
-import { IdentifyInformation } from './Identify';
+import { IdentifyContainer, IdentifyInformation } from './Identify';
 
 const features = [
   {
@@ -138,7 +137,7 @@ const features = [
 ];
 
 fetchMock.config.overwriteRoutes = true;
-fetchMock.mock('path:/secure/0/query', {
+fetchMock.route('path:/secure/0/query', {
   features: [
     {
       attributes: {
@@ -187,7 +186,7 @@ fetchMock.mock('path:/secure/0/query', {
     },
   ],
 });
-fetchMock.mock({
+fetchMock.route({
   name: 'mugshot',
   matcher: 'express:/mugshot/:id',
   method: 'GET',
@@ -202,6 +201,7 @@ export default {
   component: IdentifyInformation,
 };
 
+export const Container = () => <IdentifyContainer visible={true} />;
 export const NoFeatures = () => (
   <IdentifyInformation update={() => {}} features={[]} offender={false} index={0}></IdentifyInformation>
 );

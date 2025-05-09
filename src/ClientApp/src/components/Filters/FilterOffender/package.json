@@ -1,6 +1,0 @@
-{
-  "name": "filter-offender",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./FilterOffender.jsx"
-}

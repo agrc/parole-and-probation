@@ -7,37 +7,40 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
-namespace parole.Features {
-    public class LookupService {
-        private readonly ILogger _log;
-        private readonly string connectionString;
+namespace parole.Features;
 
-        public LookupService(ILogger log, IConfiguration config) {
-            _log = log;
-            connectionString = config.GetConnectionString("DefaultConnection");
+public class LookupService(ILogger log, IConfiguration config)
+{
+    private readonly ILogger _log = log;
+    private readonly string connectionString = config.GetConnectionString("DefaultConnection");
+
+    public async Task<IEnumerable<AgentItem>> GetAgentsAsync()
+    {
+        using var session = new SqlConnection(connectionString);
+        try
+        {
+            session.Open();
+        }
+        catch (SqlException ex)
+        {
+            _log.Fatal(ex, "Sql Exception connecting to the database");
+
+            return Array.Empty<AgentItem>();
         }
 
-        public async Task<IEnumerable<AgentItem>> GetAgentsAsync() {
-            using var session = new SqlConnection(connectionString);
-            try {
-                session.Open();
-            } catch (SqlException ex) {
-                _log.Fatal(ex, "Sql Exception connecting to the database");
+        var records = Enumerable.Empty<AgentItem>();
 
-                return Array.Empty<AgentItem>();
-            }
-
-            var records = Enumerable.Empty<AgentItem>();
-
-            try {
-                records = await session.QueryAsync<AgentItem>("SELECT * FROM DOCOAdmin.agents");
-            } catch (Exception ex) {
-                _log.Fatal(ex, "query failure");
-            }
-
-            return records;
+        try
+        {
+            records = await session.QueryAsync<AgentItem>("SELECT * FROM DOCOAdmin.agents");
         }
+        catch (Exception ex)
+        {
+            _log.Fatal(ex, "query failure");
+        }
+
+        return records;
     }
-
-    public record AgentItem(int Id, string Value, string Agent_Id, string Supervisor_Id, string Supervisor);
 }
+
+public record AgentItem(int Id, string Value, string Agent_Id, string Supervisor_Id, string Supervisor);

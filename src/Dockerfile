@@ -2,7 +2,7 @@ FROM node:lts-alpine AS nodejs
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS dotnet
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS dotnet-sdk
 
-FROM nodejs as front-end-build
+FROM nodejs AS front-end-build
 WORKDIR /build
 
 RUN npm install --global npm
@@ -16,14 +16,14 @@ RUN npm clean-install
 RUN npm run copy:arcgis
 RUN npm run build
 
-FROM dotnet-sdk as back-end-build
+FROM dotnet-sdk AS back-end-build
 
 COPY . ./build
 WORKDIR /build/src
 
 RUN dotnet build -c Release -o /app
 
-FROM back-end-build as back-end-release-build
+FROM back-end-build AS back-end-release-build
 
 RUN dotnet publish -c Release -o /app -r linux-x64 -p:PublishSingleFile=true --no-self-contained -p:DebugType=embedded -p:PublishReadyToRun=true
 

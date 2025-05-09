@@ -67,12 +67,18 @@ _The offender feature service will not function since the reverse proxy dotnet s
    dotnet user-secrets set "Authentication:UtahId:ClientSecret" "<client-secret>"
    ```
 
-1. Start the application
+1. Start the redis database
 
-- You can debug with the `Debug` vscode launch profile or
-- `dotnet run`
+   - docker-compose up -d cache
+
+1. Start the api
+
+   - You can debug with the `Debug` vscode launch profile or execute
+   - `./scripts/watch.sh`
 
 1. optionally run both the dot net and client apps by running `npm run start:all` from `src/ClientApp`
+
+1. Navigate to `http://localhost:5001/development`
 
 ### forklift
 

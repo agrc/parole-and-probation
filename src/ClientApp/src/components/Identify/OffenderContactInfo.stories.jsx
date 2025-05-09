@@ -1,4 +1,3 @@
-import '../Sidebar/Sidebar.css';
 import { OffenderContactInfo } from './Identify';
 
 export default {

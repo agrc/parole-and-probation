@@ -1,6 +1,0 @@
-{
-  "name": "errorboundary",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./ErrorBoundary.jsx"
-}

@@ -1,6 +1,0 @@
-{
-  "name": "map-loading-indicator",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./MapLoadingIndicator.jsx"
-}

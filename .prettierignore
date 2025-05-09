@@ -1,6 +1,0 @@
-.env
-.storybook
-.vscode
-bin
-build
-node_modules

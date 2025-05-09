@@ -1,6 +1,0 @@
-{
-  "name": "csv-downlaod",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./CsvDownload.jsx"
-}

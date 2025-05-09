@@ -1,4 +1,3 @@
-import '../Sidebar/Sidebar.css';
 import { SpecialSupervision } from './Identify';
 
 export default {

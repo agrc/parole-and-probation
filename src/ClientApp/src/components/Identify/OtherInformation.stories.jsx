@@ -1,4 +1,3 @@
-import '../Sidebar/Sidebar.css';
 import { OtherInformation } from './Identify';
 
 export default {
