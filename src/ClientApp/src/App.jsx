@@ -241,7 +241,7 @@ export default function App() {
         <div className="hidden md:block">
           <Header links={links}>
             <div className="flex h-14 grow items-center gap-3">
-              <img src={logo} className="h-full w-auto" alt="corrections logo" />
+              <img src={logo} className="h-full w-auto dark:grayscale dark:invert" alt="corrections logo" />
               <h2 className="font-heading text-xl md:text-2xl font-light text-primary-900 lg:text-4xl dark:text-zinc-100">
                 AP&P field map
               </h2>

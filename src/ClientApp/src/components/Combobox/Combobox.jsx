@@ -32,7 +32,7 @@ export function SelectedItems({
       label={label}
       selectionMode="none"
       onRemove={clickHandler}
-      className="flex flex-wrap justify-between my-3 p-3 border rounded-lg bg-white"
+      className="flex flex-wrap justify-between my-3 p-3 border rounded-lg bg-white dark:bg-gray-900 dark:border-gray-700"
     >
       {items.map((item) => (
         <Tag className="mb-1" color="primary" id={itemToKey(item)} key={itemToKey(item)} onClick={clickHandler}>

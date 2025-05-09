@@ -242,7 +242,7 @@ const OffenderImage = ({ offenderId }) => {
 
   if (showError) {
     return (
-      <span className="max-w-full h-48 aspect-[3/4] border flex items-center justify-center bg-gray-200 border-primary-900">
+      <span className="max-w-full h-48 aspect-[3/4] border flex items-center justify-center bg-gray-200 dark:bg-gray-900 dark:border-gray-700 border-primary-900">
         offline
       </span>
     );
@@ -250,7 +250,7 @@ const OffenderImage = ({ offenderId }) => {
 
   if (!image) {
     return (
-      <span className="max-w-full h-48 aspect-[3/4] border flex items-center justify-center bg-gray-200 border-primary-900">
+      <span className="max-w-full h-48 aspect-[3/4] border flex items-center justify-center bg-gray-200 dark:bg-gray-900 dark:border-gray-700 border-primary-900">
         <div className="size-8">
           <Spinner />
         </div>
