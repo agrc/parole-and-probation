@@ -6,6 +6,7 @@ import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
 import MapView from '@arcgis/core/views/MapView';
 import Locate from '@arcgis/core/widgets/Locate';
+import initializeTheme from '@ugrc/esri-theme-toggle';
 import { Geocode, LayerSelector } from '@ugrc/utah-design-system';
 import { saveAs } from 'file-saver';
 import ky from 'ky';
@@ -19,6 +20,7 @@ import HomeButton from './DefaultExtent';
 import MapToolPanel from './MapToolPanel';
 
 config.assetsPath = `/assets`;
+initializeTheme();
 
 const defaultExtent = new Extent({
   xmax: -12612006,

@@ -14,7 +14,6 @@ import FilterDate from './FilterDate';
 import FilterLocation from './FilterLocation';
 import FilterOffender from './FilterOffender';
 import FilterOther from './FilterOther';
-import './Filters.css';
 import { agentLookup, supervisorLookup } from './lookupData';
 
 const vanityCheck = (agentList, loggedInUser) => {

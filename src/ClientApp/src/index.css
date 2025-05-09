@@ -53,3 +53,29 @@
     font-display: swap;
   }
 }
+
+@layer components {
+  .downshift__match-dropdown {
+    @apply w-48 bg-white dark:bg-black shadow-sm text-sm absolute z-10;
+  }
+  .downshift__matches {
+    @apply block w-full mb-0 ps-0;
+  }
+  .downshift__match-item {
+    @apply px-3 py-0.5 flex justify-between;
+  }
+  .downshift__match-item:hover,
+  .downshift__match-item--selected {
+    @apply bg-secondary-600 text-white;
+  }
+  .downshift__match-item[disabled],
+  .downshift__match-item[disabled]:hover {
+    @apply pointer-events-none justify-center;
+  }
+  .downshift__message {
+    @apply block px-4 py-2;
+  }
+  .dropdown-menu form .downshift {
+    @apply relative;
+  }
+}
