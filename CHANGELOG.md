@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.4-1](https://github.com/agrc/parole-and-probation/compare/v1.21.4-0...v1.21.4-1) (2025-05-09)
+
+
+### Styles
+
+* **app:** update dark styles ([13aea0f](https://github.com/agrc/parole-and-probation/commit/13aea0ff4a014c69b65dcdfddff140dd7f009627))
+
 ## [1.21.4-0](https://github.com/agrc/parole-and-probation/compare/v1.21.3...v1.21.4-0) (2025-05-08)
 
 
