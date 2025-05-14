@@ -45,40 +45,6 @@
       "last 1 safari version"
     ]
   },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "es6": true,
-      "jest": true,
-      "node": true
-    },
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "ecmaVersion": "latest",
-      "sourceType": "module"
-    },
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:react-hooks/recommended",
-      "plugin:jsx-a11y/recommended",
-      "plugin:prettier/recommended",
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": "off",
-      "react/jsx-uses-react": "off",
-      "react/prop-types": "off",
-      "react/react-in-jsx-scope": "off"
-    }
-  },
   "dependencies": {
     "@arcgis/core": "^4.32.10",
     "@tanstack/react-query": "^5.76.1",
