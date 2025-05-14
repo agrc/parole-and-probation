@@ -268,7 +268,7 @@ export const fields = {
   },
   agent_id: {
     identify: false,
-    filter: false,
+    filter: true,
   },
   last_attempted_field_contact: {
     identify: false,

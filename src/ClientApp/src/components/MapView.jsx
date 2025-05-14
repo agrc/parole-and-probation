@@ -47,7 +47,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   const withService = useNavigatorStatus();
 
   const setFilters = useCallback(async (where, isFilter) => {
-    if (!offenders.current || !view.current.ready) {
+    if (!offenders.current || !view.current) {
       Console('MapView:offenders or view are not ready');
 
       return;
@@ -55,27 +55,28 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
     // zoom to filtered data
     if (layerView?.current) {
-      whenOnce(() => layerView.current.updating === true).then(() =>
-        whenOnce(() => layerView.current.updating === false).then(async () => {
-          const result = await layerView.current.queryExtent();
-          Console(`MapView:setting map extent containing ${result.count} graphics`);
+      whenOnce(() => layerView.current.updating).then(() => {
+        whenOnce(() => !layerView.current.updating).then(() => {
+          layerView.current.queryExtent().then((result) => {
+            Console(`MapView:setting map extent containing ${result.count} graphics`);
 
-          // this is in case there is a point outside of the state...
-          if (result.count === 0 || result.extent.contains(defaultExtent)) {
-            return view.current.goTo(defaultExtent);
-          }
+            // this is in case there is a point outside of the state...
+            if (result.count === 0 || result.extent.contains(defaultExtent)) {
+              return view.current.goTo(defaultExtent);
+            }
 
-          let extent = result.extent;
-          if (result.count === 1) {
-            extent = {
-              target: result.extent,
-              scale: 16000,
-            };
-          }
+            let extent = result.extent;
+            if (result.count === 1) {
+              extent = {
+                target: result.extent,
+                scale: 16000,
+              };
+            }
 
-          view.current.goTo(extent);
-        }),
-      );
+            view.current.goTo(extent);
+          });
+        });
+      });
 
       const filter = where.join(' AND ');
 
@@ -337,38 +338,39 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
   // synchronize feature layers
   useEffect(() => {
-    view.current.whenLayerView(offenders.current).then(() => {
-      loadingEvent.current?.remove();
-      loadingEvent.current = when(
-        () => !layerView.current.updating, // I wonder if this should be lv since layerView.current could be the online or offline layer
-        async () => {
-          const featureSet = await layerView.current?.queryFeatures(); // same as above
+    offenders.current.when(() => {
+      view.current.whenLayerView(offenders.current).then((lv) => {
+        loadingEvent.current?.remove();
+        loadingEvent.current = when(
+          () => !lv.dataUpdating,
+          async () => {
+            const featureSet = await lv.queryFeatures();
 
-          mapDispatcher({
-            type: 'SET_FEATURE_SET',
-            payload: featureSet,
-          });
+            mapDispatcher({
+              type: 'SET_FEATURE_SET',
+              payload: featureSet,
+            });
 
-          if (withService) {
-            const edits = {};
-            if (featureSet.features?.length > 0) {
-              edits.addFeatures = featureSet.features;
+            if (withService) {
+              const edits = {};
+              if (featureSet.features?.length > 0) {
+                edits.addFeatures = featureSet.features;
+              }
+
+              const currentData = await mirror.current.queryObjectIds();
+              if (currentData?.length > 0) {
+                edits.deleteFeatures = currentData.map((id) => ({ objectId: id }));
+              }
+
+              if (Object.keys(edits).length > 0) {
+                mirror.current.applyEdits(edits);
+              }
             }
-
-            const currentData = await mirror.current.queryObjectIds();
-
-            if (currentData?.length > 0) {
-              edits.deleteFeatures = currentData.map((id) => ({ objectId: id }));
-            }
-
-            if (Object.keys(edits).length > 0) {
-              mirror.current.applyEdits(edits);
-            }
-          }
-        },
-      );
+          },
+        );
+      });
     });
-  }, [mapDispatcher, withService]);
+  }, [view, mapDispatcher, withService]);
 
   // apply filters to map view effect
   useEffect(() => {
