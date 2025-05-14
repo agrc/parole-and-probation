@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.4](https://github.com/agrc/parole-and-probation/compare/v1.21.3...v1.21.4) (2025-05-14)
+
+
+### Bug Fixes
+
+* correct default expanded filter ([c9206a2](https://github.com/agrc/parole-and-probation/commit/c9206a2d85e7af9a68607549fa7dbd3f7dfe6205))
+* fix initial map zoom filter ([cd94885](https://github.com/agrc/parole-and-probation/commit/cd94885c41718f7cb401865d7f094051c4f6086a))
+* **pallet:** chunk size of 1 completes successfully ([72806db](https://github.com/agrc/parole-and-probation/commit/72806dbd0bdbf5e9eb03bba781170862d77fe2f8))
+* **pallet:** migrations for sqlalchemy 2 ([660a3cc](https://github.com/agrc/parole-and-probation/commit/660a3cc9a67722fda5cb561577833bec14122a42))
+
+
+### Dependencies
+
+* **api:** second round of updates ([9a72f25](https://github.com/agrc/parole-and-probation/commit/9a72f2597c68cb8dcabf4dd55270927028d61e2b))
+* **app:** remove unused package and update the rest ([207d39b](https://github.com/agrc/parole-and-probation/commit/207d39b9c57478701535333fa7a2662b70949a7c))
+* second round of updates ([94f28f9](https://github.com/agrc/parole-and-probation/commit/94f28f95e25f290026cf6ad32fbf47791151e422))
+
+
+### Documentation
+
+* **app:** update readme for development ([8fedd72](https://github.com/agrc/parole-and-probation/commit/8fedd72f8b5891bb3b7283a9740bd0213f946582))
+
+
+### Styles
+
+* **app:** migrate to utah design system ([9dd42c0](https://github.com/agrc/parole-and-probation/commit/9dd42c01461701391aace6631e8c5bbb91fbe748))
+* **app:** update dark styles ([14924e4](https://github.com/agrc/parole-and-probation/commit/14924e4c09b0d431155a5337081deb5e7155b74e))
+
 ## [1.21.4-2](https://github.com/agrc/parole-and-probation/compare/v1.21.4-1...v1.21.4-2) (2025-05-14)
 
 
