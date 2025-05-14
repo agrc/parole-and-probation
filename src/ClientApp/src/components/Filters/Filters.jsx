@@ -440,8 +440,8 @@ const Filters = ({ mapDispatcher, ...props }) => {
 
   return (
     <section className={classes}>
-      <DisclosureGroup allowsMultipleExpanded={true}>
-        <Disclosure defaultExpanded={true}>
+      <DisclosureGroup defaultExpandedKeys={['agent']} allowsMultipleExpanded={true}>
+        <Disclosure id="agent">
           <DisclosureHeader>{countActiveFilters('Agent', criteria.agent)}</DisclosureHeader>
           <DisclosurePanel>
             <ErrorBoundary FallbackComponent={FallbackComponent}>
