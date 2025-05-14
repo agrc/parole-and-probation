@@ -45,14 +45,6 @@
       "last 1 safari version"
     ]
   },
-  "prettier": {
-    "plugins": [
-      "prettier-plugin-organize-imports",
-      "prettier-plugin-packagejson"
-    ],
-    "printWidth": 120,
-    "singleQuote": true
-  },
   "eslintConfig": {
     "env": {
       "browser": true,
