@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.4-2](https://github.com/agrc/parole-and-probation/compare/v1.21.4-1...v1.21.4-2) (2025-05-14)
+
+
+### Bug Fixes
+
+* correct default expanded filter ([5f7d0e8](https://github.com/agrc/parole-and-probation/commit/5f7d0e8c26b0c125c7b23414adf06fe3f7ce7484))
+* fix initial map zoom filter ([1fa9aee](https://github.com/agrc/parole-and-probation/commit/1fa9aee56a231534a1ae489eef280643fc519d0c))
+
+
+### Dependencies
+
+* **api:** second round of updates ([aef4940](https://github.com/agrc/parole-and-probation/commit/aef49406be28240dbf23246654051e46e8bbfbb8))
+* second round of updates ([59ee58a](https://github.com/agrc/parole-and-probation/commit/59ee58aa7352594a74090a1f1f4173c5674ecb2a))
+
 ## [1.21.4-1](https://github.com/agrc/parole-and-probation/compare/v1.21.4-0...v1.21.4-1) (2025-05-09)
 
 
