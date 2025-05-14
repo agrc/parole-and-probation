@@ -18,7 +18,6 @@ import Console from '../Console';
 import { fields } from '../config';
 import CsvDownload from './CsvDownload';
 import MapToolPanel from './MapToolPanel';
-
 config.assetsPath = `/assets`;
 initializeTheme();
 
@@ -350,28 +349,30 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         loadingEvent.current = when(
           () => !lv.dataUpdating,
           async () => {
-            const featureSet = await lv.queryFeatures();
+            whenOnce(() => view.current.stationary).then(async () => {
+              const featureSet = await lv.queryFeatures();
 
-            mapDispatcher({
-              type: 'SET_FEATURE_SET',
-              payload: featureSet,
+              mapDispatcher({
+                type: 'SET_FEATURE_SET',
+                payload: featureSet,
+              });
+
+              if (withService) {
+                const edits = {};
+                if (featureSet.features?.length > 0) {
+                  edits.addFeatures = featureSet.features;
+                }
+
+                const currentData = await mirror.current.queryObjectIds();
+                if (currentData?.length > 0) {
+                  edits.deleteFeatures = currentData.map((id) => ({ objectId: id }));
+                }
+
+                if (Object.keys(edits).length > 0) {
+                  mirror.current.applyEdits(edits);
+                }
+              }
             });
-
-            if (withService) {
-              const edits = {};
-              if (featureSet.features?.length > 0) {
-                edits.addFeatures = featureSet.features;
-              }
-
-              const currentData = await mirror.current.queryObjectIds();
-              if (currentData?.length > 0) {
-                edits.deleteFeatures = currentData.map((id) => ({ objectId: id }));
-              }
-
-              if (Object.keys(edits).length > 0) {
-                mirror.current.applyEdits(edits);
-              }
-            }
           },
         );
       });
