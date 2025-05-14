@@ -5,6 +5,7 @@ import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
 import MapView from '@arcgis/core/views/MapView';
+import Home from '@arcgis/core/widgets/Home';
 import Locate from '@arcgis/core/widgets/Locate';
 import initializeTheme from '@ugrc/esri-theme-toggle';
 import { Geocode, LayerSelector } from '@ugrc/utah-design-system';
@@ -16,7 +17,6 @@ import { useNavigatorStatus } from 'react-navigator-status';
 import Console from '../Console';
 import { fields } from '../config';
 import CsvDownload from './CsvDownload';
-import HomeButton from './DefaultExtent';
 import MapToolPanel from './MapToolPanel';
 
 config.assetsPath = `/assets`;
@@ -270,6 +270,12 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       payload: view.current,
     });
 
+    let homeWidget = new Home({
+      view: view.current,
+    });
+
+    view.current.ui.add(homeWidget, 'top-left');
+
     setSelectorOptions({
       options: {
         view: view.current,
@@ -449,7 +455,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
   return (
     <div ref={mapDiv} style={{ height: '100%', width: '100%' }}>
-      <HomeButton view={view.current} position="top-left" extent={defaultExtent} />
       <MapToolPanel view={view.current} position="top-left">
         <Geocode
           className="px-3 py-2"
