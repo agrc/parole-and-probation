@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.5](https://github.com/agrc/parole-and-probation/compare/v1.21.4...v1.21.5) (2025-06-30)
+
+
+### Dependencies
+
+* bump the safe-dependencies group in /src/ClientApp with 15 updates ([4d5e832](https://github.com/agrc/parole-and-probation/commit/4d5e83208633fb2c7de6e151861b721a4ee8b37a))
+
 ## [1.21.4](https://github.com/agrc/parole-and-probation/compare/v1.21.3...v1.21.4) (2025-05-14)
 
 
