@@ -49,8 +49,8 @@
     "@arcgis/core": "^4.32.10",
     "@tanstack/react-query": "^5.79.0",
     "@ugrc/esri-theme-toggle": "^1.1.1",
-    "@ugrc/utah-design-system": "^1.27.1",
-    "@ugrc/utilities": "^3.0.3",
+    "@ugrc/utah-design-system": "^1.27.2",
+    "@ugrc/utilities": "^3.0.4",
     "clsx": "^2.1.1",
     "downshift": "^9.0.9",
     "file-saver": "^2.0.5",
@@ -80,12 +80,10 @@
     "workbox-streams": "^7.3.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^8.6.12",
-    "@storybook/addon-essentials": "^8.6.14",
-    "@storybook/addon-links": "^8.6.12",
-    "@storybook/react": "^8.6.12",
-    "@storybook/react-vite": "^8.6.12",
-    "@ugrc/eslint-config": "^1.2.2",
+    "@chromatic-com/storybook": "^4.0.1",
+    "@storybook/addon-links": "9.0.18",
+    "@storybook/react-vite": "9.0.18",
+    "@ugrc/eslint-config": "^1.2.3",
     "@vitejs/plugin-react": "^4.5.0",
     "@vitejs/plugin-react-refresh": "^1.3.6",
     "autoprefixer": "^10.4.21",
@@ -102,12 +100,12 @@
     "prettier-plugin-packagejson": "^2.5.15",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "query-string": "^9.2.0",
-    "storybook": "^8.6.12",
     "tailwindcss": "^3.4.17",
     "tailwindcss-react-aria-components": "^1.2.0",
     "vite": "^6.3.5",
     "vite-plugin-pwa": "^1.0.0",
     "vitest": "^3.1.4",
-    "workbox-build": "^7.3.0"
+    "workbox-build": "^7.3.0",
+    "@storybook/addon-docs": "9.0.18"
   }
 }
