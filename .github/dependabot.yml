@@ -17,6 +17,7 @@ updates:
       semver-major-days: 60
       semver-minor-days: 14
       semver-patch-days: 7
+      exclude: []
   - package-ecosystem: npm
     directory: /src/ClientApp
     schedule:
@@ -37,6 +38,8 @@ updates:
       semver-major-days: 60
       semver-minor-days: 14
       semver-patch-days: 7
+      exclude:
+        - '@ugrc/*'
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -46,3 +49,5 @@ updates:
         dependency-type: production
     cooldown:
       default-days: 10
+      exclude:
+        - agrc/*
