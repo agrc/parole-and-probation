@@ -134,8 +134,6 @@ class CorrectionOffenderPallet(CorrectionsBase):
             return code.casefold().replace('-', '').replace(' ', '')
 
         try:
-            pd.options.mode.use_inf_as_na = True
-
             self.log.info('converting offender data')
             frame = pd.read_json(
                 self.offenders,
