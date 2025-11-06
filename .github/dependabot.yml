@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: nuget
     directory: /src
     schedule:
-      interval: monthly
+      interval: quarterly
     groups:
       safe-api-dependencies:
         update-types:
@@ -20,7 +20,7 @@ updates:
   - package-ecosystem: npm
     directory: /src/ClientApp
     schedule:
-      interval: monthly
+      interval: quarterly
     groups:
       safe-dependencies:
         update-types:
@@ -38,11 +38,11 @@ updates:
       semver-minor-days: 14
       semver-patch-days: 7
       exclude:
-        - '@ugrc/*'
+        - "@ugrc/*"
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
+      interval: quarterly
     groups:
       ci-dependencies:
         dependency-type: production
