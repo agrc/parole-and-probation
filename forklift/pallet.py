@@ -29,8 +29,13 @@ class CorrectionsBase(Pallet):
         writes the data to a json file named after the endpoint
         and returns the hashed value of the content or a 'Fail' constant on failure
         """
-        self.log.info(f'requesting api data for {endpoint}')
-        response = requests.get(f'{self.api}/{endpoint}', headers=api.AUTHORIZATION_HEADER, stream=True)
+        self.log.info(f"requesting api data for {endpoint}")
+        response = requests.get(
+            f"{self.api}/{endpoint}",
+            headers=api.AUTHORIZATION_HEADER,
+            stream=True,
+            timeout=300,
+        )
 
         try:
             response.raise_for_status()
