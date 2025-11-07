@@ -100,7 +100,7 @@ _The offender feature service will not function since the reverse proxy dotnet s
 
 ### website deployment
 
-_This website uses standard version and conventional commits. The changelog and versions are managed by conventional commit messages and semantic versioning._
+_This website uses release please and conventional commits. The changelog and versions are managed by conventional commit messages and semantic versioning._
 
 GitHub action pipelines will deploy this application to the cloud.
 
@@ -116,7 +116,6 @@ GitHub action pipelines will deploy this application to the cloud.
 - Remove `.template` from `vault\api.template.py`
 
 1. Create `corrections` database
-1. Run [schema.sql](/scripts/schema.sql) to create the `offenders` table
 
 ### logs
 
