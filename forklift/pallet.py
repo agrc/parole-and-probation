@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # * coding: utf8 *
-'''
+"""
 pallet.py
 A module that handles the forklifting for the project
-'''
+"""
 
 from pathlib import Path
 from typing import List
@@ -21,8 +21,7 @@ from models import schema
 
 
 class CorrectionsBase(Pallet):
-    """the base pallet for offender, agent, and supervisor pallets
-    """
+    """the base pallet for offender, agent, and supervisor pallets"""
 
     def get_data(self, endpoint: str) -> str:
         """makes a request to the endpoint
@@ -40,15 +39,15 @@ class CorrectionsBase(Pallet):
         try:
             response.raise_for_status()
         except Exception as error:
-            self.success = (False, f'DOC API {endpoint} endpoint failure')
+            self.success = (False, f"DOC API {endpoint} endpoint failure")
             self.log.fatal(error)
 
-            return 'Fail'
+            return "Fail"
 
-        self.log.debug('streaming data')
+        self.log.debug("streaming data")
 
         content_hash = xxh64()
-        with (self.corrections / f'{endpoint}.json').open(mode='wb') as cursor:
+        with (self.corrections / f"{endpoint}.json").open(mode="wb") as cursor:
             for chunk in response.iter_content(chunk_size=128):
                 cursor.write(chunk)
                 content_hash.update(chunk)
@@ -56,11 +55,10 @@ class CorrectionsBase(Pallet):
         return content_hash.hexdigest()
 
     def get_hash(self, filename: str) -> str:
-        """reads the text from the filename and returns the value stored
-        """
+        """reads the text from the filename and returns the value stored"""
         prior_hash_file = self.corrections / filename
 
-        prior_hash = ''
+        prior_hash = ""
 
         if prior_hash_file.exists():
             prior_hash = prior_hash_file.read_text()
@@ -68,37 +66,34 @@ class CorrectionsBase(Pallet):
         return prior_hash
 
     def update_hash(self, filename: str, hash_value: str):
-        """writes the hash_value to the filename
-        """
+        """writes the hash_value to the filename"""
         hash_file = self.corrections / filename
         hash_file.write_text(hash_value)
 
 
 class CorrectionOffenderPallet(CorrectionsBase):
-    """the forklift pallet for offenders
-    """
+    """the forklift pallet for offenders"""
 
     def __init__(self):
         super(CorrectionOffenderPallet, self).__init__()
 
-        self.corrections = Path(self.staging_rack) / 'corrections'
-        self.hash = self.corrections / 'offenders'
-        self.offenders = self.corrections / 'offenders.json'
+        self.corrections = Path(self.staging_rack) / "corrections"
+        self.hash = self.corrections / "offenders"
+        self.offenders = self.corrections / "offenders.json"
         self.dirty = None
-        self.hash_digest = ''
-        self.hash_name = 'offenders'
+        self.hash_digest = ""
+        self.hash_name = "offenders"
 
         self.api = api.ENDPOINT
         self.database = database.CONNECTION
 
-    def build(self, configuration='Production'):
-        """called when forklift builds the pallet
-        """
-        if configuration == 'Dev':
+    def build(self, configuration="Production"):
+        """called when forklift builds the pallet"""
+        if configuration == "Dev":
             self.api = api.ENDPOINT
             self.database = database.CONNECTION_LOCAL
 
-        if configuration == 'Staging':
+        if configuration == "Staging":
             self.api = api.ENDPOINT_AT
             self.database = database.CONNECTION_AT
 
@@ -116,7 +111,7 @@ class CorrectionOffenderPallet(CorrectionsBase):
         self.hash_digest = self.get_data(self.hash_name)
 
         self.dirty = current_hash != self.hash_digest
-        self.log.info(f'database refresh required: {self.dirty}')
+        self.log.info(f"database refresh required: {self.dirty}")
 
         if not self.dirty:
             try:
@@ -133,26 +128,29 @@ class CorrectionOffenderPallet(CorrectionsBase):
         success = True
         lat_long = pyproj.CRS.from_epsg(4326)
         web_mercator = pyproj.CRS.from_epsg(3857)
-        transformer = pyproj.Transformer.from_crs(lat_long, web_mercator, always_xy=True)
+        transformer = pyproj.Transformer.from_crs(
+            lat_long, web_mercator, always_xy=True
+        )
 
         def convert_special_supervision(code):
-            return code.casefold().replace('-', '').replace(' ', '')
+            return code.casefold().replace("-", "").replace(" ", "")
 
         try:
-            pd.options.mode.use_inf_as_na = True
-
-            self.log.info('converting offender data')
+            self.log.info("converting offender data")
             frame = pd.read_json(
                 self.offenders,
-                orient='records',
+                orient="records",
                 dtype=schema.DATA_TYPES,
                 convert_dates=True,
             )
             for special_supervision in schema.SPECIAL_SUPERVISION:
-                frame[convert_special_supervision(special_supervision)
-                     ] = frame.special_supervision.apply(lambda value: special_supervision in value)
+                frame[convert_special_supervision(special_supervision)] = (
+                    frame.special_supervision.apply(
+                        lambda value: special_supervision in value
+                    )
+                )
 
-            frame.drop(columns=['special_supervision'], inplace=True)
+            frame.drop(columns=["special_supervision"], inplace=True)
 
             frame[["web_x", "web_y"]] = frame[["x", "y"]].apply(
                 lambda df: pd.Series(transformer.transform(df.iloc[0], df.iloc[1])),
@@ -160,48 +158,51 @@ class CorrectionOffenderPallet(CorrectionsBase):
             )
 
             frame.replace([np.inf, -np.inf], np.nan, inplace=True)
-            frame = frame[frame['web_x'].notna()]
+            frame = frame[frame["web_x"].notna()]
 
             frame.fillna({"county": ""}, inplace=True)
-            frame['employer_address'] = frame['employer_address'].str.slice(0, 59)
-            frame['alerts'] = frame['alerts'].str.slice(0, 500)
+            frame["employer_address"] = frame["employer_address"].str.slice(0, 59)
+            frame["alerts"] = frame["alerts"].str.slice(0, 500)
 
             cwd = Path(__file__).parent
 
-            add_shape = (cwd / 'sql' / 'alter_shape.sql').read_text()
-            create_shapes = (cwd / 'sql' / 'create_shape.sql').read_text()
-            add_pk = (cwd / 'sql' / 'create_primary_key.sql').read_text()
-            add_indexes = (cwd / 'sql' / 'create_indexes.sql').read_text()
+            add_shape = (cwd / "sql" / "alter_shape.sql").read_text()
+            create_shapes = (cwd / "sql" / "create_shape.sql").read_text()
+            add_pk = (cwd / "sql" / "create_primary_key.sql").read_text()
+            add_indexes = (cwd / "sql" / "create_indexes.sql").read_text()
+
+            final_columns = list(schema.OUTPUT_SQL_TYPES.keys())
+            frame = frame[final_columns]
 
             #: load new data
             engine = sqlalchemy.create_engine(self.database)
 
             with engine.connect() as connection:
-                self.log.info('inserting offender data')
+                self.log.info("inserting offender data")
                 frame.to_sql(
-                    'offenders',
+                    "offenders",
                     connection,
-                    if_exists='replace',
+                    if_exists="replace",
                     index=False,
-                    chunksize=1,
-                    dtype=schema.SQL_TYPES,
+                    chunksize=5000,
+                    dtype=schema.OUTPUT_SQL_TYPES,
                 )
 
                 with connection.begin():
-                    self.log.debug('adding primary key')
+                    self.log.debug("adding primary key")
                     connection.execute(sqlalchemy.text(add_pk))
-                    self.log.debug('creating shape field')
+                    self.log.debug("creating shape field")
                     connection.execute(sqlalchemy.text(add_shape))
-                    self.log.debug('populating shape field')
+                    self.log.debug("populating shape field")
                     connection.execute(sqlalchemy.text(create_shapes))
-                    self.log.debug('adding indexes')
+                    self.log.debug("adding indexes")
                     connection.execute(sqlalchemy.text(add_indexes))
         except Exception as error:
             self.log.fatal(error)
-            self.success = (False, 'unable to read api and write data to sql')
+            self.success = (False, "unable to read api and write data to sql")
             success = False
         finally:
-            self.log.info('completed')
+            self.log.info("completed")
 
             try:
                 self.offenders.unlink()
@@ -209,35 +210,33 @@ class CorrectionOffenderPallet(CorrectionsBase):
                 pass
 
             if success:
-                self.log.debug('updating offender hash')
+                self.log.debug("updating offender hash")
                 self.update_hash(self.hash_name, self.hash_digest)
 
 
 class CorrectionSupplementaryPallet(CorrectionsBase):
-    """a forklift pallet to get agent and supervisor data
-    """
+    """a forklift pallet to get agent and supervisor data"""
 
     def __init__(self):
         super(CorrectionSupplementaryPallet, self).__init__()
 
-        self.corrections = Path(self.staging_rack) / 'corrections'
-        self.hash = ''
-        self.hash_name = 'combined_agent_supervisor'
+        self.corrections = Path(self.staging_rack) / "corrections"
+        self.hash = ""
+        self.hash_name = "combined_agent_supervisor"
 
-        self.agent_data = self.corrections / 'agents.json'
-        self.supervisor_data = self.corrections / 'supervisors.json'
+        self.agent_data = self.corrections / "agents.json"
+        self.supervisor_data = self.corrections / "supervisors.json"
 
         self.api = api.ENDPOINT
         self.database = database.CONNECTION
 
-    def build(self, configuration='Production'):
-        """called when forklift builds the pallet
-        """
-        if configuration == 'Dev':
+    def build(self, configuration="Production"):
+        """called when forklift builds the pallet"""
+        if configuration == "Dev":
             self.api = api.ENDPOINT
             self.database = database.CONNECTION_LOCAL
 
-        if configuration == 'Staging':
+        if configuration == "Staging":
             self.api = api.ENDPOINT_AT
             self.database = database.CONNECTION_AT
 
@@ -250,14 +249,14 @@ class CorrectionSupplementaryPallet(CorrectionsBase):
 
         self.hash = self.get_hash(self.hash_name)
 
-        new_agent_hash = self.get_data('agents')
-        new_supervisor_hash = self.get_data('supervisors')
+        new_agent_hash = self.get_data("agents")
+        new_supervisor_hash = self.get_data("supervisors")
 
         new_hash = self.combine_hash([new_agent_hash, new_supervisor_hash])
 
         dirty = new_hash != self.hash
 
-        self.log.info(f'agents or supervisors have changed: {dirty}')
+        self.log.info(f"agents or supervisors have changed: {dirty}")
 
         if dirty:
             self.hash = new_hash
@@ -275,65 +274,72 @@ class CorrectionSupplementaryPallet(CorrectionsBase):
         success = True
 
         if not self.agent_data.exists() or not self.supervisor_data.exists():
-            self.success = (False, 'agent and supervisor data is not available')
+            self.success = (False, "agent and supervisor data is not available")
             self.clean_up()
 
             return
 
         try:
-            self.log.info('reading agent data')
-            agent_frame = pd.read_json(self.agent_data, orient='records')
-            agent_frame.rename(columns={'agent_name': 'value', 'agent_st_id_num': 'id'}, inplace=True)
-            agent_frame.sort_values(by=['value'], inplace=True)
+            self.log.info("reading agent data")
+            agent_frame = pd.read_json(self.agent_data, orient="records")
+            agent_frame.rename(
+                columns={"agent_name": "value", "agent_st_id_num": "agent_ein"},
+                inplace=True,
+            )
 
-            self.log.info('reading supervisor data')
-            supervisor_frame = pd.read_json(self.supervisor_data, orient='records')
-            supervisor_frame.rename(columns={'supervisor_name': 'supervisor'}, inplace=True)
-            supervisor_frame.sort_values(by=['supervisor'], inplace=True)
+            agent_frame.sort_values(by=["value"], inplace=True)
+
+            self.log.info("reading supervisor data")
+            supervisor_frame = pd.read_json(self.supervisor_data, orient="records")
+            supervisor_frame.rename(
+                columns={"supervisor_name": "supervisor"}, inplace=True
+            )
+            supervisor_frame.sort_values(by=["supervisor"], inplace=True)
         except Exception as error:
             self.log.fatal(error)
-            self.success = (False, 'unable to read agent and supervisor data')
+            self.success = (False, "unable to read agent and supervisor data")
             success = False
         finally:
-            self.log.info('completed')
+            self.log.info("completed")
 
         if not success or agent_frame is None or supervisor_frame is None:
             self.clean_up()
 
             return
 
-        agents_and_supervisors = agent_frame.merge(supervisor_frame, left_on='supervisor_id', right_on='supervisor_id')
-        agents_and_supervisors.set_index('id', inplace=True)
+        agents_and_supervisors = agent_frame.merge(
+            supervisor_frame, left_on="supervisor_id", right_on="supervisor_id"
+        )
+        agents_and_supervisors.set_index("agent_ein", inplace=True)
 
         try:
             engine = sqlalchemy.create_engine(self.database)
 
             with engine.connect():
-                self.log.info('inserting combined data')
+                self.log.info("inserting combined data")
                 agents_and_supervisors.to_sql(
-                    'agents',
+                    "agents",
                     engine,
-                    if_exists='replace',
+                    if_exists="replace",
                     index=True,
                     chunksize=5000,
                     dtype=schema.AGENT_SQL_TYPES,
                 )
         except Exception as error:
             self.log.fatal(error)
-            self.success = (False, 'unable to read api and write data to sql')
+            self.success = (False, "unable to read api and write data to sql")
             success = False
         finally:
-            self.log.info('completed')
+            self.log.info("completed")
 
         self.clean_up()
 
         if success:
-            self.log.debug('updating combined hash')
+            self.log.debug("updating combined hash")
             self.update_hash(self.hash_name, self.hash)
 
     def combine_hash(self, items: List) -> str:
-        """hashes the values in the items array
-        """
+        """hashes the values in the items array"""
 
         content_hash = xxh64()
         _ = [content_hash.update(item) for item in items]
@@ -341,8 +347,7 @@ class CorrectionSupplementaryPallet(CorrectionsBase):
         return content_hash.hexdigest()
 
     def clean_up(self):
-        """remove sensitive data from disk
-        """
+        """remove sensitive data from disk"""
         try:
             self.agent_data.unlink()
         except FileNotFoundError:
@@ -354,17 +359,19 @@ class CorrectionSupplementaryPallet(CorrectionsBase):
             pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import logging
 
     pallet = CorrectionOffenderPallet()
 
     logging.basicConfig(
-        format='%(levelname)s %(asctime)s %(lineno)s %(message)s', datefmt='%H:%M:%S', level=logging.DEBUG
+        format="%(levelname)s %(asctime)s %(lineno)s %(message)s",
+        datefmt="%H:%M:%S",
+        level=logging.DEBUG,
     )
     pallet.log = logging
 
-    pallet.build()
+    pallet.build(configuration="Staging")
 
     if pallet.requires_processing():
         pallet.process()
@@ -372,7 +379,7 @@ if __name__ == '__main__':
     pallet2 = CorrectionSupplementaryPallet()
     pallet2.log = logging
 
-    pallet2.build()
+    pallet2.build(configuration="Staging")
 
     if pallet2.requires_processing():
         pallet2.process()
