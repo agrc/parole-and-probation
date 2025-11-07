@@ -2,7 +2,14 @@
     "recommendations": [
         "ms-dotnettools.csharp",
         "ms-python.python",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "editorconfig.editorconfig",
+        "njpwerner.autodocstring",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "donjayamanne.python-environment-manager",
+        "charliermarsh.ruff",
+        "tamasfe.even-better-toml"
     ],
     "unwantedRecommendations": []
 }
