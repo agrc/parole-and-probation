@@ -152,14 +152,15 @@ class CorrectionOffenderPallet(CorrectionsBase):
 
             frame.drop(columns=['special_supervision'], inplace=True)
 
-            frame[['web_x',
-                   'web_y']] = frame[['x',
-                                      'y']].apply(lambda df: pd.Series(transformer.transform(df[0], df[1])), axis=1)
+            frame[["web_x", "web_y"]] = frame[["x", "y"]].apply(
+                lambda df: pd.Series(transformer.transform(df.iloc[0], df.iloc[1])),
+                axis=1,
+            )
 
             frame.replace([np.inf, -np.inf], np.nan, inplace=True)
             frame = frame[frame['web_x'].notna()]
 
-            frame['county'].fillna(value='', inplace=True)
+            frame.fillna({"county": ""}, inplace=True)
             frame['employer_address'] = frame['employer_address'].str.slice(0, 59)
             frame['alerts'] = frame['alerts'].str.slice(0, 500)
 
