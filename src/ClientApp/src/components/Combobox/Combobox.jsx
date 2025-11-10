@@ -1,6 +1,6 @@
 import { Button, Tag, TagGroup, TextField } from '@ugrc/utah-design-system';
 import { useCombobox } from 'downshift';
-import { capitalize } from 'lodash/string';
+import capitalize from 'lodash.capitalize';
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from 'react';
 
