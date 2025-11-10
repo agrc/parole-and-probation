@@ -7,6 +7,8 @@ WORKDIR /build
 
 RUN npm install --global npm
 
+ENV NODE_OPTIONS=--max-old-space-size=4096
+
 ARG PNPM_VERSION=latest
 RUN if command -v corepack >/dev/null 2>&1; then \
       corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate; \
