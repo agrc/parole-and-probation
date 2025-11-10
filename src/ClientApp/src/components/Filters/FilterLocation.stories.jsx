@@ -1,6 +1,5 @@
 import { useImmerReducer } from 'use-immer';
 import FilterLocation from './FilterLocation';
-import './FilterLocation.css';
 
 export default {
   title: 'Filters/Location Filter',
