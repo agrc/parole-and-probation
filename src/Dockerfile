@@ -7,14 +7,21 @@ WORKDIR /build
 
 RUN npm install --global npm
 
+ARG PNPM_VERSION=latest
+RUN if command -v corepack >/dev/null 2>&1; then \
+      corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate; \
+    else \
+      npm install -g pnpm@${PNPM_VERSION}; \
+    fi
+
 COPY ./src/ClientApp .
 ARG VITE_DISCOVER $VITE_DISCOVER
 ARG VITE_WEB_API $VITE_WEB_API
 ARG VITE_PRINT_PROXY $VITE_PRINT_PROXY
 
-RUN npm clean-install
-RUN npm run copy:arcgis
-RUN npm run build
+RUN pnpm install
+RUN pnpm copy:arcgis
+RUN pnpm build
 
 FROM dotnet-sdk AS back-end-build
 
