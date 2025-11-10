@@ -11,8 +11,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globDirectory: './dist',
-        globPatterns: ['assets/esri/core/workers/**/*.js', '*.{ico}'],
-        globIgnores: ['*.LICENSE.txt', '*.map', 'CalciteWebCoreIcons*.svg'],
+        globPatterns: ['assets/esri/core/workers/**/*.js', '**/*.ico'],
+        globIgnores: ['*.LICENSE.txt', '*.map', 'CalciteWebCoreIcons*.svg', 'sw.js', 'workbox-*.js'],
       },
       manifest: {
         name: 'AP&P Field Map',
