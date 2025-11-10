@@ -1,5 +1,5 @@
 import { Button, Spinner } from '@ugrc/utah-design-system';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import ky from 'ky';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
@@ -562,5 +562,5 @@ export {
   OtherInformation,
   PrimaryOffense,
   RecentVisitation,
-  SpecialSupervision,
+  SpecialSupervision
 };
