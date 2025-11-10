@@ -16,7 +16,7 @@
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <SpaProxyServerUrl>http://localhost:5173</SpaProxyServerUrl>
-    <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
+    <SpaProxyLaunchCommand>pnpm start</SpaProxyLaunchCommand>
   </PropertyGroup>
 
   <PropertyGroup>

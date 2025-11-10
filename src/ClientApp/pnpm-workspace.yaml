@@ -1,0 +1,12 @@
+ignoredBuiltDependencies:
+  - '@vaadin/vaadin-usage-statistics'
+
+onlyBuiltDependencies:
+  - '@firebase/util'
+  - esbuild
+  - protobufjs
+
+overrides:
+  happy-dom@<20.0.0: '>=20.0.0'
+  happy-dom@<20.0.2: '>=20.0.2'
+  tmp@<=0.2.3: '>=0.2.4'
