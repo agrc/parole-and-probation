@@ -1,9 +1,10 @@
-const Console = (data) => {
+const Console = (...args) => {
   if (process.env.NODE_ENV === 'production') {
     return;
   }
 
-  console.log(data);
+  // Log all provided arguments so multiple objects are printed.
+  console.log(...args);
 };
 
 export default Console;

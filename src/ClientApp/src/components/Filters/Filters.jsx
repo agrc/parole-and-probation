@@ -414,7 +414,6 @@ const Filters = ({ mapDispatcher, ...props }) => {
           }
         });
 
-        Console(supers);
         setSupervisors(supers);
       }
     }
