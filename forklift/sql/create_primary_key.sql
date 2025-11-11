@@ -28,7 +28,7 @@ IF NOT EXISTS (
 ALTER TABLE
   [agents]
 ADD
-  [id] int NOT NULL IDENTITY (1, 1)
+  [id] int NOT NULL IDENTITY (1, 1);
 ALTER TABLE
   [agents]
 ADD
