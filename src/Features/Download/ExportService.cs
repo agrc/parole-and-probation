@@ -59,7 +59,7 @@ public class MapFilterState
     public LocationRecord? Location { get; set; }
     public OffenderRecord? Offender { get; set; }
     public OtherRecord? Other { get; set; }
-    public IEnumerable<int>? Agents { get; set; }
+    public IEnumerable<string>? Agents { get; set; }
 }
 public record DateRecord(string Compliant, int? Attempt, int? Office, int? Success);
 public record LocationRecord(IEnumerable<int> Region, string Zip, string City, IEnumerable<string> Counties);
@@ -110,7 +110,7 @@ public class Schema
     public string gang_name { get; set; } = default!;
     public int gang_type_id { get; set; }
     public string gang_type { get; set; } = default!;
-    public int agent_id { get; set; }
+    public string agent_id { get; set; } = string.Empty;
     public int last_attempted_field_contact { get; set; }
     public bool in_compliance { get; set; }
     public string alerts { get; set; } = default!;

@@ -27,7 +27,7 @@ export const SideBarStatus = ({ status, dispatcher, app, user, identifyOptions }
           mapDispatcher={dispatcher}
           loggedInUser={{
             value: user.name,
-            id: parseInt(user.id),
+            id: user.id,
           }}
           visible={!app.identify.show}
           appliedFilter={app.appliedFilter}

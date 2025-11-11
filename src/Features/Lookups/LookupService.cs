@@ -25,14 +25,14 @@ public class LookupService(ILogger log, IConfiguration config)
         {
             _log.Fatal(ex, "Sql Exception connecting to the database");
 
-            return Array.Empty<AgentItem>();
+            return [];
         }
 
         var records = Enumerable.Empty<AgentItem>();
 
         try
         {
-            records = await session.QueryAsync<AgentItem>("SELECT * FROM DOCOAdmin.agents");
+            records = await session.QueryAsync<AgentItem>("SELECT agent_ein as id, value, agent_id, supervisor_id, supervisor FROM DOCOAdmin.agents");
         }
         catch (Exception ex)
         {
@@ -43,4 +43,4 @@ public class LookupService(ILogger log, IConfiguration config)
     }
 }
 
-public record AgentItem(int Id, string Value, string Agent_Id, string Supervisor_Id, string Supervisor);
+public record AgentItem(string Id, string Value, string Agent_Id, string Supervisor_Id, string Supervisor);

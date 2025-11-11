@@ -20,7 +20,7 @@ describe('sqlMapper', () => {
         },
       });
 
-      expect(actual.definitionExpression[0]).toBe('agent_id in (-1)');
+      expect(actual.definitionExpression[0]).toBe(`agent_id in ('-1')`);
       expect(actual.definitionExpression.length).toBe(1);
       expect(actual.filter.length).toBe(0);
     });
