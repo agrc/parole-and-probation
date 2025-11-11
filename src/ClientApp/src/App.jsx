@@ -185,8 +185,8 @@ export default function App() {
     },
     filter: [],
     filterCriteria: {},
-    appliedFilter: `agent_id in (${user?.id})`,
-    definitionExpression: [`agent_id in (${user?.id})`],
+    appliedFilter: `agent_id in ('${user?.id}')`,
+    definitionExpression: [`agent_id in ('${user?.id}')`],
     featureSet: null,
   });
   const busy = useViewLoading(app.mapView);

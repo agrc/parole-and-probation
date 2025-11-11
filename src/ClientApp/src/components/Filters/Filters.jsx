@@ -87,7 +87,7 @@ const escapeQuotes = (value) => {
 
 const sqlMap = {
   agent: {
-    agentList: (data) => `agent_id in (${data.map((agent) => `${agent.id}`).join()})`,
+    agentList: (data) => `agent_id in (${data.map((agent) => `'${agent.id}'`).join()})`,
   },
   date: {
     compliant: (data) => `in_compliance=${data === 'in' ? 1 : 0}`,

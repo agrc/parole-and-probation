@@ -18,14 +18,14 @@ public static class SqlService
         return string.Join(" AND ", sqlParts);
     }
 
-    private static void AddAgent(ref List<string> sqlParts, IEnumerable<int>? data)
+    private static void AddAgent(ref List<string> sqlParts, IEnumerable<string>? data)
     {
         if (data?.Any() != true)
         {
             return;
         }
 
-        sqlParts.Add($"agent_id in ({string.Join(',', data)})");
+        sqlParts.Add($"agent_id in ({string.Join(',', data.Select(item => $"'{item}'"))})");
     }
     private static void AddDate(ref List<string> sqlParts, DateRecord? data)
     {

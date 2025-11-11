@@ -71,7 +71,7 @@ export default function FilterAgent(props) {
               itemToString={(item) => item.value}
               itemToKey={(item) => item.id}
               clickHandler={(keys) => {
-                const agent = getAgent(parseInt([...keys][0]), props.criteria.agentList);
+                const agent = getAgent([...keys][0], props.criteria.agentList);
                 updateAgents(agent, false);
               }}
             />

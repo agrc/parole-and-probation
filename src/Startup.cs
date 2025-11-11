@@ -243,6 +243,7 @@ public class Startup(IConfiguration configuration)
                 MapFilterState? model;
                 try
                 {
+
                     model = await context.Request.ReadFromJsonAsync<MapFilterState>(new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
