@@ -1,14 +1,14 @@
 import EsriMap from '@arcgis/core/Map';
 import config from '@arcgis/core/config';
 import { when, whenOnce } from '@arcgis/core/core/reactiveUtils';
-import Extent from '@arcgis/core/geometry/Extent';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
 import MapView from '@arcgis/core/views/MapView';
-import Home from '@arcgis/core/widgets/Home';
-import Locate from '@arcgis/core/widgets/Locate';
+import '@arcgis/map-components/components/arcgis-home';
+import '@arcgis/map-components/components/arcgis-locate';
 import initializeTheme from '@ugrc/esri-theme-toggle';
 import { Geocode, LayerSelector } from '@ugrc/utah-design-system';
+import { useMapReady, utahMercatorExtent } from '@ugrc/utilities/hooks';
 import { saveAs } from 'file-saver';
 import ky from 'ky';
 import PropTypes from 'prop-types';
@@ -18,16 +18,9 @@ import Console from '../Console';
 import { fields } from '../config';
 import CsvDownload from './CsvDownload';
 import MapToolPanel from './MapToolPanel';
+
 config.assetsPath = `/assets`;
 initializeTheme();
-
-const defaultExtent = new Extent({
-  xmax: -12612006,
-  xmin: -12246370,
-  ymax: 5125456,
-  ymin: 4473357,
-  spatialReference: 3857,
-});
 
 const controller = new AbortController();
 let signal = controller.signal;
@@ -40,10 +33,13 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
   const loadingEvent = useRef(null);
   const offenders = useRef(null);
   const mirror = useRef(null);
+  const locateComponent = useRef(null);
+  const homeComponent = useRef(null);
   const displayedZoomGraphic = useRef(null);
   const [selectorOptions, setSelectorOptions] = useState(null);
   const [appliedFilter, setAppliedFilter] = useState('');
   const withService = useNavigatorStatus();
+  const ready = useMapReady(view.current);
 
   const setFilters = useCallback(async (where, isFilter) => {
     if (!offenders.current || !view.current) {
@@ -60,8 +56,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
             Console(`MapView:setting map extent containing ${result.count} graphics`);
 
             // this is in case there is a point outside of the state...
-            if (result.count === 0 || result.extent.contains(defaultExtent)) {
-              return view.current.goTo(defaultExtent);
+            if (result.count === 0 || result.extent.contains(utahMercatorExtent)) {
+              return view.current.goTo(utahMercatorExtent);
             }
 
             let extent = result.extent;
@@ -257,7 +253,7 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     view.current = new MapView({
       map,
       container: mapDiv.current,
-      extent: defaultExtent,
+      extent: utahMercatorExtent,
       ui: {
         components: ['zoom'],
       },
@@ -268,12 +264,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
       type: 'SET_MAPVIEW',
       payload: view.current,
     });
-
-    let homeWidget = new Home({
-      view: view.current,
-    });
-
-    view.current.ui.add(homeWidget, 'top-left');
 
     setSelectorOptions({
       options: {
@@ -306,11 +296,6 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     });
 
     map.add(offenders.current);
-
-    const locate = new Locate({
-      view: view.current,
-    });
-    view.current.ui.add(locate, 'top-left');
 
     view.current.whenLayerView(offenders.current).then((lv) => {
       layerView.current = lv;
@@ -454,6 +439,16 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
     clickEvent.current = view.current?.on('click', (event) => identify(event));
   }, [identify]);
 
+  // position esri web components
+  useEffect(() => {
+    if (ready) {
+      homeComponent.current.view = view.current;
+      locateComponent.current.view = view.current;
+      view.current.ui.add(homeComponent.current, 'top-left');
+      view.current.ui.add(locateComponent.current, 'top-left');
+    }
+  }, [ready]);
+
   return (
     <div ref={mapDiv} style={{ height: '100%', width: '100%' }}>
       <MapToolPanel view={view.current} position="top-left">
@@ -473,6 +468,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         />
       </MapToolPanel>
       <CsvDownload download={download} view={view.current} position="top-left" />
+      <arcgis-locate ref={locateComponent} className="esri-widget" />
+      <arcgis-home ref={homeComponent} className="esri-widget" />
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
     </div>
   );
