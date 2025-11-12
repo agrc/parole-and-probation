@@ -38,21 +38,25 @@ public class Startup(IConfiguration configuration)
         services.AddCors();
 
         var redis = Configuration.GetSection("Redis").Get<RedisOptions>();
-        services.AddDistributedAuthentication(redis);
+        if (redis is not null)
+        {
+            services.AddDistributedAuthentication(redis);
+        }
 
         var utahId = Configuration.GetSection("UtahId").Get<OAuthOptions>();
-        services.AddUtahIdAuthentication(utahId, ["openid", "app:public", "app:DOCFieldMap",]);
-
-        services.AddAuthorization(options =>
+        if (utahId is not null)
         {
-            options.AddPolicy(CookieAuthenticationDefaults.AuthenticationScheme, policy =>
+            services.AddUtahIdAuthentication(utahId, ["openid", "app:public", "app:DOCFieldMap",]);
+        }
+
+        services.AddAuthorizationBuilder()
+          .AddPolicy(CookieAuthenticationDefaults.AuthenticationScheme, policy =>
             {
                 policy.RequireAuthenticatedUser();
                 policy.RequireClaim("DOCFieldMap:AccessGranted", "true");
-            });
-            options.AddPolicy(OpenIdConnectDefaults.AuthenticationScheme, policy =>
+            })
+          .AddPolicy(OpenIdConnectDefaults.AuthenticationScheme, policy =>
                 policy.RequireClaim("DOCFieldMap:AccessGranted", "true"));
-        });
 
         services.AddReverseProxy()
           .LoadFromConfig(Configuration.GetSection("ReverseProxy"));
@@ -63,7 +67,7 @@ public class Startup(IConfiguration configuration)
         var emailSection = Configuration.GetSection("Email");
         var emailValues = emailSection.Get<EmailConfig>();
 
-        services.AddSendGrid(options => options.ApiKey = emailValues.ApiKey);
+        services.AddSendGrid(options => options.ApiKey = emailValues?.ApiKey);
 
         var retryPolicy = HttpPolicyExtensions
           .HandleTransientHttpError()
@@ -91,8 +95,14 @@ public class Startup(IConfiguration configuration)
         services.AddSingleton<TokenService>();
         services.AddSingleton<ExportService>();
         services.AddSingleton<LookupService>();
-        services.AddSingleton<IArcGISCredential>(values);
-        services.AddSingleton(emailValues);
+        if (values is not null)
+        {
+            services.AddSingleton<IArcGISCredential>(values);
+        }
+        if (emailValues is not null)
+        {
+            services.AddSingleton(emailValues);
+        }
         services.AddSingleton(Configuration);
 
         services.AddSingleton<ILogger>(_ => new LoggerConfiguration()
@@ -288,8 +298,8 @@ public class Startup(IConfiguration configuration)
 
                 context.Response.Clear();
                 context.Response.StatusCode = 201;
-                context.Response.Headers["Content-Type"] = "application/csv";
-                context.Response.Headers["Content-Disposition"] = "attachment; filename=offenders.csv";
+                context.Response.Headers.ContentType = "application/csv";
+                context.Response.Headers.ContentDisposition = "attachment; filename=offenders.csv";
 
                 using var stream = new MemoryStream();
                 using var writer = new StreamWriter(stream);
