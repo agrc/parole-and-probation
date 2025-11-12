@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.7](https://github.com/agrc/parole-and-probation/compare/v1.21.6...v1.21.7) (2025-11-12)
+
+
+### Dependencies
+
+* **app:** add missing packages ([79581d9](https://github.com/agrc/parole-and-probation/commit/79581d9b3c7f0725157cc1b4eb85a5409faff19b))
+* **app:** FY26 Q2 package updates ([194a388](https://github.com/agrc/parole-and-probation/commit/194a3882c6eae0a24a3102d8a6dc9e59bf561ee5))
+* **app:** upgrade storybook ([e59c9dd](https://github.com/agrc/parole-and-probation/commit/e59c9dd2f3a7bbf1e856f34652dc7561cc9d495b))
+* bump lucide-react ([01fdf4e](https://github.com/agrc/parole-and-probation/commit/01fdf4ed6e475317e10ea74c65f5bed2a99ebf5f))
+* **dev:** bump vite ([2f520a3](https://github.com/agrc/parole-and-probation/commit/2f520a345524c5a5433b603d3a58b1efc94bd426))
+* **dev:** bump vite from 7.1.5 to 7.1.11 in /src/ClientApp ([47c196f](https://github.com/agrc/parole-and-probation/commit/47c196fa2ea0bc8afacf8872c8eabde6283efdf8))
+
+
+### Documentation
+
+* update deployment and db notes ([ff12a65](https://github.com/agrc/parole-and-probation/commit/ff12a655dac1ebae77fe7bd63d0b38fc06ad41c3))
+
 ## [1.21.7-rc.1](https://github.com/agrc/parole-and-probation/compare/v1.21.6...v1.21.7-rc.1) (2025-11-12)
 
 
