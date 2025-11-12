@@ -363,7 +363,7 @@ if __name__ == "__main__":
     )
     pallet.log = logging
 
-    pallet.build(configuration="Staging")
+    pallet.build()
 
     if pallet.requires_processing():
         pallet.process()
@@ -371,7 +371,7 @@ if __name__ == "__main__":
     pallet2 = CorrectionSupplementaryPallet()
     pallet2.log = logging
 
-    pallet2.build(configuration="Staging")
+    pallet2.build()
 
     if pallet2.requires_processing():
         pallet2.process()
