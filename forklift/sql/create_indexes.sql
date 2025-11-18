@@ -1,3 +1,20 @@
+-- =============================================================
+-- create_indexes.sql
+-- Purpose: Drop old indexes (if present) and create required indexes
+--          for `[offenders]`, including nonclustered and a spatial index.
+-- What it does (high level):
+--  - Drops existing index objects that would conflict with recreation.
+--  - Creates a unique index on `offender_id`, a non-unique index on
+--    `agent_id`, and a spatial index on `shape`.
+-- Why: Indexes speed lookups, joins, and spatial queries; dropping
+--      before creating avoids "already exists" errors.
+-- Caveats:
+--  - Do not create the primary key here; primary-key creation is handled
+--    by `create_primary_key.sql` to avoid duplicate-PK conflicts.
+--  - Ensure `shape` is populated and has the correct SRID before
+--    creating the spatial index. Large index operations can be costly.
+-- =============================================================
+
 IF EXISTS(
     SELECT
         *
@@ -17,8 +34,6 @@ IF EXISTS(
         object_id = object_id('[offenders]')
         AND NAME = 'PK_id'
 )
-ALTER TABLE
-    [offenders] DROP CONSTRAINT [PK_id];
 
 IF EXISTS(
     SELECT
@@ -40,12 +55,11 @@ IF EXISTS(
         AND NAME = 'IX_offender_agent_id'
 ) DROP INDEX [IX_offender_agent_id] ON [offenders];
 
-ALTER TABLE
-    [offenders]
-ADD
-    CONSTRAINT [PK_id] primary key(id);
+CREATE UNIQUE NONCLUSTERED INDEX [IX_offender_offender_id] ON [offenders] ([offender_id] ASC)
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_offender_offender_id] ON [offenders] ([offender_id] ASC) CREATE NONCLUSTERED INDEX [IX_offender_agent_id] ON [offenders] ([agent_id] ASC) CREATE SPATIAL INDEX [IX_offender_shape] ON [offenders] ([shape]) USING GEOMETRY_AUTO_GRID WITH (
+CREATE NONCLUSTERED INDEX [IX_offender_agent_id] ON [offenders] ([agent_id] ASC)
+
+CREATE SPATIAL INDEX [IX_offender_shape] ON [offenders] ([shape]) USING GEOMETRY_AUTO_GRID WITH (
     BOUNDING_BOX =(-12800000, 4400000, -12100000, 5200000),
     CELLS_PER_OBJECT = 16,
     PAD_INDEX = OFF,
