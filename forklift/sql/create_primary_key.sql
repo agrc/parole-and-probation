@@ -23,14 +23,21 @@ IF NOT EXISTS (
     object_id = OBJECT_ID('[offenders]')
     AND name = 'id'
 )
-ALTER TABLE
-  [offenders]
-ADD
-  [id] int NOT NULL IDENTITY (1, 1)
-ALTER TABLE
-  [offenders]
-ADD
-  CONSTRAINT [PK_offender_id] primary key(id);
+BEGIN
+    ALTER TABLE [offenders]
+    ADD [id] int NOT NULL IDENTITY (1, 1);
+END
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.key_constraints kc
+    WHERE kc.parent_object_id = OBJECT_ID('[offenders]')
+      AND kc.[type] = 'PK'
+)
+BEGIN
+    ALTER TABLE [offenders]
+    ADD CONSTRAINT [PK_offender_id] PRIMARY KEY (id);
+END
 
 IF NOT EXISTS (
   SELECT
@@ -41,11 +48,18 @@ IF NOT EXISTS (
     object_id = OBJECT_ID('[agents]')
     AND name = 'id'
 )
-ALTER TABLE
-  [agents]
-ADD
-  [id] int NOT NULL IDENTITY (1, 1);
-ALTER TABLE
-  [agents]
-ADD
-  CONSTRAINT [PK_agent_id] primary key(id);
+BEGIN
+    ALTER TABLE [agents]
+    ADD [id] int NOT NULL IDENTITY (1, 1);
+END
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.key_constraints kc
+    WHERE kc.parent_object_id = OBJECT_ID('[agents]')
+      AND kc.[type] = 'PK'
+)
+BEGIN
+    ALTER TABLE [agents]
+    ADD CONSTRAINT [PK_agent_id] PRIMARY KEY (id);
+END

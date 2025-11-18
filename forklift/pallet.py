@@ -162,9 +162,9 @@ class CorrectionOffenderPallet(CorrectionsBase):
 
             cwd = Path(__file__).parent
 
+            add_pk = (cwd / "sql" / "create_primary_key.sql").read_text()
             add_shape = (cwd / "sql" / "alter_shape.sql").read_text()
             create_shapes = (cwd / "sql" / "create_shape.sql").read_text()
-            add_pk = (cwd / "sql" / "create_primary_key.sql").read_text()
             add_indexes = (cwd / "sql" / "create_indexes.sql").read_text()
 
             final_columns = list(schema.OUTPUT_SQL_TYPES.keys())
