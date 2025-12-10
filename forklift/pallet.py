@@ -29,14 +29,15 @@ class CorrectionsBase(Pallet):
         and returns the hashed value of the content or a 'Fail' constant on failure
         """
         self.log.info(f"requesting api data for {endpoint}")
-        response = requests.get(
-            f"{self.api}/{endpoint}",
-            headers=api.AUTHORIZATION_HEADER,
-            stream=True,
-            timeout=300,
-        )
 
         try:
+            response = requests.get(
+                f"{self.api}/{endpoint}",
+                headers=api.AUTHORIZATION_HEADER,
+                stream=True,
+                timeout=300,
+            )
+
             response.raise_for_status()
         except Exception as error:
             self.success = (False, f"DOC API {endpoint} endpoint failure")
