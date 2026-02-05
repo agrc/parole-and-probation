@@ -76,9 +76,9 @@ _The offender feature service will not function since the reverse proxy dotnet s
    - You can debug with the `Debug` vscode launch profile or execute
    - `./scripts/watch.sh`
 
-1. optionally run both the dot net and client apps by running `npm run start:all` from `src/ClientApp`
+1. optionally run both the dot net and client apps by running `pnpm run start:all` from `src/ClientApp`
 
-1. Navigate to `http://localhost:5001/development`
+1. Navigate to `http://localhost:5173/development`
 
 ### forklift
 
@@ -120,3 +120,7 @@ GitHub action pipelines will deploy this application to the cloud.
 ### logs
 
 The logs for this project are sent to [Stackdriver](https://console.cloud.google.com/logs/viewer?project=ut-dts-agrc-parole-dev&resource=global&minLogLevel=0&expandAll=false&customFacets=&limitCustomFacetWidth=true&advancedFilter=resource.type%3D%22global%22%0AlogName%3D%22projects%2Fut-dts-agrc-parole-dev%2Flogs%2Fparole-api%22)
+
+## Attribution
+
+This project was developed with the assistance of [GitHub Copilot](https://github.com/features/copilot).
