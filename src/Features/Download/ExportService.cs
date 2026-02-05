@@ -12,7 +12,7 @@ namespace parole.Features;
 public class ExportService(ILogger log, IConfiguration config)
 {
     private readonly ILogger _log = log;
-    private readonly string connectionString = config.GetConnectionString("DefaultConnection");
+    private readonly string? connectionString = config.GetConnectionString("DefaultConnection");
 
     public async Task<IEnumerable<Schema>> GetRecordsAsync(MapFilterState? model)
     {
@@ -20,7 +20,7 @@ public class ExportService(ILogger log, IConfiguration config)
 
         if (model is null)
         {
-            return Array.Empty<Schema>();
+            return [];
         }
 
         var whereClause = SqlService.FormatSql(model);
@@ -34,7 +34,7 @@ public class ExportService(ILogger log, IConfiguration config)
         {
             _log.Fatal(ex, "Sql Exception connecting to the database");
 
-            return Array.Empty<Schema>();
+            return [];
         }
 
         var records = Enumerable.Empty<Schema>();
