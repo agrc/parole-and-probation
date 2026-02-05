@@ -12,7 +12,7 @@ namespace parole.Features;
 public class LookupService(ILogger log, IConfiguration config)
 {
     private readonly ILogger _log = log;
-    private readonly string connectionString = config.GetConnectionString("DefaultConnection");
+    private readonly string? connectionString = config.GetConnectionString("DefaultConnection");
 
     public async Task<IEnumerable<AgentItem>> GetAgentsAsync()
     {
