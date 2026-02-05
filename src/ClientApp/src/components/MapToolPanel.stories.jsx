@@ -20,7 +20,7 @@ export const Open = () => (
 export const WithComponentChild = () => (
   <MapToolPanel>
     <Geocode
-      className="pt-2 px-3"
+      className="px-3 pt-2"
       apiKey={import.meta.env.VITE_WEB_API}
       onFindAddress={(result) => console.log({ type: 'ZOOM_TO_GRAPHIC', payload: result })}
       pointSymbol={{

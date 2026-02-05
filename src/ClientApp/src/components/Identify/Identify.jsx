@@ -54,7 +54,7 @@ const IdentifyInformation = (props) => {
   };
 
   return props.offender && Object.keys(props.offender).length > 0 ? (
-    <div className="mx-auto w-full px-2 identify pt-4">
+    <div className="identify mx-auto w-full px-2 pt-4">
       <Pager features={props.features} index={props.index} update={props.update}></Pager>
       {offline ? <p>You do not appear to have internet connectivity. The results displayed are incomplete.</p> : null}
       <ErrorBoundary FallbackComponent={FallbackComponent}>
@@ -113,14 +113,14 @@ const IdentifyInformation = (props) => {
           ecc={wrapWithOffline(extra.earned_compliance_credit)}
         />
       </ErrorBoundary>
-      <div className="flex justify-center pt-5 pb-3">
+      <div className="flex justify-center pb-3 pt-5">
         <Button color="primary" onClick={() => props.show(false)}>
           Close
         </Button>
       </div>
     </div>
   ) : (
-    <div className="mx-auto px-2 w-full identify py-4">No offenders at click location</div>
+    <div className="identify mx-auto w-full px-2 py-4">No offenders at click location</div>
   );
 };
 IdentifyInformation.propTypes = {
@@ -138,11 +138,11 @@ const IdentifyContainer = (props) => {
     <div className={classes}>
       <Button
         aria-label="Close"
-        className="rounded-full absolute -right-2 -top-2 px-3 min-h-0 text-black dark:text-white"
+        className="absolute -right-2 -top-2 min-h-0 rounded-full px-3 text-black dark:text-white"
         variant="icon"
         onPress={() => props.show(false)}
       >
-        <span aria-hidden="true" className="text-secondary-950 text-2xl">
+        <span aria-hidden="true" className="text-2xl text-secondary-950">
           &times;
         </span>
       </Button>
@@ -242,7 +242,7 @@ const OffenderImage = ({ offenderId }) => {
 
   if (showError) {
     return (
-      <span className="max-w-full h-48 aspect-[3/4] border flex items-center justify-center bg-gray-200 dark:bg-gray-900 dark:border-gray-700 border-primary-900">
+      <span className="flex aspect-[3/4] h-48 max-w-full items-center justify-center border border-primary-900 bg-gray-200 dark:border-gray-700 dark:bg-gray-900">
         offline
       </span>
     );
@@ -250,7 +250,7 @@ const OffenderImage = ({ offenderId }) => {
 
   if (!image) {
     return (
-      <span className="max-w-full h-48 aspect-[3/4] border flex items-center justify-center bg-gray-200 dark:bg-gray-900 dark:border-gray-700 border-primary-900">
+      <span className="flex aspect-[3/4] h-48 max-w-full items-center justify-center border border-primary-900 bg-gray-200 dark:border-gray-700 dark:bg-gray-900">
         <div className="size-8">
           <Spinner />
         </div>
@@ -258,7 +258,7 @@ const OffenderImage = ({ offenderId }) => {
     );
   }
 
-  return <img src={image} alt="" className="max-w-full max-h-48 border border-primary-900" />;
+  return <img src={image} alt="" className="max-h-48 max-w-full border border-primary-900" />;
 };
 OffenderImage.propTypes = {
   offenderId: PropTypes.string.isRequired,
@@ -275,24 +275,24 @@ const OffenderQuickLook = (props) => {
   }
 
   if (race) {
-    race = <small className="text-gray-500 dark:text-gray-300 block text-base font-normal">{race}</small>;
+    race = <small className="block text-base font-normal text-gray-500 dark:text-gray-300">{race}</small>;
   }
 
   return (
     <>
-      <h2 className="text-xl font-semibold mb-4">
+      <h2 className="mb-4 text-xl font-semibold">
         {props.offender}
         {race}
       </h2>
-      <div className="flex justify-center mb-2">
+      <div className="mb-2 flex justify-center">
         <OffenderImage offenderId={props.id} />
       </div>
-      <div className="border-b mb-2 pb-2">
-        <div className="grid gap-x-2 gap-y-1 grid-cols-[1fr_2.5fr]">
+      <div className="mb-2 border-b pb-2">
+        <div className="grid grid-cols-[1fr_2.5fr] gap-x-2 gap-y-1">
           <GridLabelGroup label="Number">{props.id}</GridLabelGroup>
           <GridLabelGroup label="Agent">{props.agent}</GridLabelGroup>
         </div>
-        <div className="grid gap-x-2 gap-y-1 grid-rows-2 grid-cols-2 mt-2">
+        <div className="mt-2 grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-1">
           <IdentifyAddon age={props.age}>{props.gender}</IdentifyAddon>
           <IdentifyAddon defaultValue="No STD">{props.standard_of_supervision}</IdentifyAddon>
           <IdentifyAddon defaultValue="unknown" lower>
@@ -323,16 +323,16 @@ const OffenderAlerts = (props) => {
     <>
       {props.cautions ? (
         <>
-          <h3 className="text-base font-bold md:text-lg mt-2">Cautions</h3>
-          <div className="p-2 text-warning-900 rounded-none mb-0 w-full bg-warning-100 border border-rose-800">
+          <h3 className="mt-2 text-base font-bold md:text-lg">Cautions</h3>
+          <div className="mb-0 w-full rounded-none border border-rose-800 bg-warning-100 p-2 text-warning-900">
             {props.cautions}
           </div>
         </>
       ) : null}
       {props.alerts ? (
         <>
-          <h3 className="text-base font-bold md:text-lg mt-2">Alerts</h3>
-          <div className="p-2 text-warning-900 rounded-none mb-0 w-full bg-warning-100 border border-rose-800">
+          <h3 className="mt-2 text-base font-bold md:text-lg">Alerts</h3>
+          <div className="mb-0 w-full rounded-none border border-rose-800 bg-warning-100 p-2 text-warning-900">
             {props.alerts}
           </div>
         </>
@@ -348,11 +348,11 @@ OffenderAlerts.propTypes = {
 const RecentVisitation = (props) => {
   return (
     <>
-      <h3 className="text-base font-bold md:text-lg mt-2">
+      <h3 className="mt-2 text-base font-bold md:text-lg">
         Recent Contact
-        <small className="text-gray-500 dark:text-gray-300 font-normal text-base"> (days since)</small>
+        <small className="text-base font-normal text-gray-500 dark:text-gray-300"> (days since)</small>
       </h3>
-      <div className="grid gap-4 border-b grid-cols-3 flex-auto">
+      <div className="grid flex-auto grid-cols-3 gap-4 border-b">
         <div>
           <LabelGroup label="Successful">{props.successful}</LabelGroup>
         </div>
@@ -400,30 +400,30 @@ const OffenderContactInfo = (props) => {
 
   return (
     <>
-      <h3 className="text-base font-bold md:text-lg mt-2">Contact Information</h3>
+      <h3 className="mt-2 text-base font-bold md:text-lg">Contact Information</h3>
       {props.phone ? (
-        <div className="grid gap-2 grid-cols-[1fr_2.5fr]">
+        <div className="grid grid-cols-[1fr_2.5fr] gap-2">
           <GridLabelGroup label={<TelephoneLink phone={props.phone}>Phone</TelephoneLink>}>
             {props.phone}
           </GridLabelGroup>
         </div>
       ) : null}
-      <div className="grid gap-2 grid-cols-[1fr_2.5fr]">
+      <div className="grid grid-cols-[1fr_2.5fr] gap-2">
         <GridLabelGroup label={<GoogleDirectionsLink address={fullAddress}>Address</GoogleDirectionsLink>}>
           {fullAddress}
         </GridLabelGroup>
       </div>
       {props.type ? (
-        <div className="grid gap-2 grid-cols-[1fr_2.5fr]">
+        <div className="grid grid-cols-[1fr_2.5fr] gap-2">
           <GridLabelGroup label="Type">{props.type}</GridLabelGroup>
         </div>
       ) : null}
-      <div className="grid gap-2 grid-cols-[1fr_2.5fr]">
+      <div className="grid grid-cols-[1fr_2.5fr] gap-2">
         <GridLabelGroup date label="Since" defaultValue="unknown">
           {props.since}
         </GridLabelGroup>
       </div>
-      <div className="grid gap-2 grid-cols-[1fr_2.5fr] border-b">
+      <div className="grid grid-cols-[1fr_2.5fr] gap-2 border-b">
         <GridLabelGroup label="Employer" defaultValue="unemployed or unknown">
           {props.employer}
         </GridLabelGroup>
@@ -470,8 +470,8 @@ const SpecialSupervision = (props) => {
 
   return (
     <>
-      <h3 className="text-base font-bold md:text-lg mt-2">Special Supervisions</h3>
-      <div className="grid grid-cols-3 flex-auto gap-4 relative shadow-sm border-b">
+      <h3 className="mt-2 text-base font-bold md:text-lg">Special Supervisions</h3>
+      <div className="relative grid flex-auto grid-cols-3 gap-4 border-b shadow-sm">
         {actives.map((item, i) => (
           <div className="" key={item + i}>
             {item.toLocaleUpperCase()}
@@ -497,7 +497,7 @@ const PrimaryOffense = (props) => {
 
   return (
     <>
-      <h3 className="text-base font-bold md:text-lg mt-2">Primary Offense</h3>
+      <h3 className="mt-2 text-base font-bold md:text-lg">Primary Offense</h3>
       <div className="border-b">
         {value ? <span>{value}</span> : null}
         {props.description ? <p className="pl-3">{props.description}</p> : null}
@@ -518,8 +518,8 @@ const GangInformation = (props) => {
 
   return (
     <>
-      <h3 className="text-base font-bold md:text-lg mt-2">STG</h3>
-      <div className="grid gap-2 grid-cols-[1fr_2.5fr] border-b">
+      <h3 className="mt-2 text-base font-bold md:text-lg">STG</h3>
+      <div className="grid grid-cols-[1fr_2.5fr] gap-2 border-b">
         <GridLabelGroup label="Gang">{props.gang}</GridLabelGroup>
         <GridLabelGroup label="Set">{props.set}</GridLabelGroup>
       </div>
@@ -533,7 +533,7 @@ GangInformation.propTypes = {
 
 const OtherInformation = (props) => {
   return (
-    <div className="flex flex-wrap justify-between mt-3">
+    <div className="mt-3 flex flex-wrap justify-between">
       <div>
         <LabelGroup date label="Supervision Start">
           {props.supervision_start_date}
@@ -562,5 +562,5 @@ export {
   OtherInformation,
   PrimaryOffense,
   RecentVisitation,
-  SpecialSupervision
+  SpecialSupervision,
 };

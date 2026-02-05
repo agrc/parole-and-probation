@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function FilterActions(props) {
   return (
-    <div className="pt-5 flex justify-evenly pb-3">
+    <div className="flex justify-evenly pb-3 pt-5">
       <Button size="extraLarge" variant="destructive" onPress={props.reset}>
         Reset
       </Button>

@@ -56,15 +56,15 @@
 
 @layer components {
   .downshift__match-dropdown {
-    @apply w-48 bg-white dark:bg-black shadow-sm text-sm absolute z-10;
+    @apply absolute z-10 w-48 bg-white text-sm shadow-sm dark:bg-black;
   }
 
   .downshift__matches {
-    @apply block w-full mb-0 ps-0;
+    @apply mb-0 block w-full ps-0;
   }
 
   .downshift__match-item {
-    @apply px-3 py-0.5 flex justify-between;
+    @apply flex justify-between px-3 py-0.5;
   }
 
   .downshift__match-item:hover,

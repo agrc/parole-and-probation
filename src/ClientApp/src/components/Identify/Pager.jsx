@@ -148,7 +148,7 @@ export function determinePaginationLinks(currentPageIndex, numberOfPages) {
 export default function Pager(props) {
   return props.features.length > 1 ? (
     <nav aria-label="pagination">
-      <ul className="justify-center flex">
+      <ul className="flex justify-center">
         <li disabled={props.index - 1 < 0}>
           <Button
             variant="icon"
@@ -163,7 +163,7 @@ export default function Pager(props) {
           <li key={item.pageIndex} className="content-center">
             <Button
               variant="icon"
-              className={`rounded-full px-3 min-h-0 ${props.index === item.pageIndex ? 'disabled:bg-primary-800 text-white' : 'text-primary-500'}`}
+              className={`min-h-0 rounded-full px-3 ${props.index === item.pageIndex ? 'text-white disabled:bg-primary-800' : 'text-primary-500'}`}
               isDisabled={props.index === item.pageIndex}
               onPress={() => props.update({ type: 'IDENTIFY_PAGINATE', payload: item.pageIndex })}
             >

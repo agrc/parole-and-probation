@@ -21,7 +21,7 @@ export function GoogleDirectionsLink(props) {
 
   return (
     <a
-      className="text-secondary-900 decoration-secondary-900/50 hover:decoration-secondary-900 dark:text-secondary-500 dark:decoration-secondary-500/60 dark:hover:decoration-secondary-500 rounded underline transition disabled:cursor-default disabled:no-underline"
+      className="rounded text-secondary-900 underline decoration-secondary-900/50 transition hover:decoration-secondary-900 disabled:cursor-default disabled:no-underline dark:text-secondary-500 dark:decoration-secondary-500/60 dark:hover:decoration-secondary-500"
       href={generateDirectionsUrl(props.address)}
       rel="noopener noreferrer"
       target="_blank"
@@ -42,7 +42,7 @@ export function TelephoneLink(props) {
 
   return (
     <a
-      className="text-secondary-900 decoration-secondary-900/50 hover:decoration-secondary-900 dark:text-secondary-500 dark:decoration-secondary-500/60 dark:hover:decoration-secondary-500 rounded underline transition disabled:cursor-default disabled:no-underline"
+      className="rounded text-secondary-900 underline decoration-secondary-900/50 transition hover:decoration-secondary-900 disabled:cursor-default disabled:no-underline dark:text-secondary-500 dark:decoration-secondary-500/60 dark:hover:decoration-secondary-500"
       href={`tel: ${props.phone}`}
     >
       {props.children}

@@ -32,9 +32,9 @@ export default function FilterOffender(props) {
           />
         </div>
         <div>
-          <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Gender</div>
-          <div className="flex gap-x-2 justify-center" role="group" aria-label="Gender">
-            <div className="flex gap-x-2 justify-center">
+          <div className="mb-1 w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300">Gender</div>
+          <div className="flex justify-center gap-x-2" role="group" aria-label="Gender">
+            <div className="flex justify-center gap-x-2">
               {['Male', 'Female'].map((payload, index) => (
                 <ToggleButton
                   key={index}
