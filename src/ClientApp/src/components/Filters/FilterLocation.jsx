@@ -1,4 +1,4 @@
-import { Label, ToggleButton } from '@ugrc/utah-design-system';
+import { ToggleButton } from '@ugrc/utah-design-system';
 import PropTypes from 'prop-types';
 import { InputTypeAhead, MultiSelect, SelectedItems } from '../Combobox/Combobox';
 import { counties } from './lookupData';
@@ -24,8 +24,8 @@ export default function FilterLocation(props) {
     <div className="w-full">
       <form autoComplete="off" className="grid gap-2">
         <div>
-          <Label>City</Label>
           <InputTypeAhead
+            label="City"
             featureSet={props.featureSet}
             currentValue={props.criteria.city}
             itemToString={(item) => item?.attributes?.city || ''}
@@ -35,8 +35,8 @@ export default function FilterLocation(props) {
           />
         </div>
         <div>
-          <Label>Zip</Label>
           <InputTypeAhead
+            label="Zip"
             featureSet={props.featureSet}
             currentValue={props.criteria.zip}
             itemToString={(item) => item?.attributes?.zip.toString() || ''}
@@ -46,8 +46,8 @@ export default function FilterLocation(props) {
           />
         </div>
         <div>
-          <Label>County</Label>
           <MultiSelect
+            label="County"
             items={counties}
             currentSelectedItems={props.criteria.counties}
             onSelectItem={(item) => updateCounties(item, true)}
@@ -62,8 +62,8 @@ export default function FilterLocation(props) {
           ) : null}
         </div>
         <div>
-          <Label>Region</Label>
-          <div className="flex gap-x-1 justify-center">
+          <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Region</div>
+          <div className="flex gap-x-1 justify-center" role="group" aria-label="Region">
             {[1, 3, 4, 5, 6].map((region) => (
               <ToggleButton
                 key={region}

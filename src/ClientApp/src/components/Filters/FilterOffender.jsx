@@ -1,4 +1,4 @@
-import { Label, ToggleButton } from '@ugrc/utah-design-system';
+import { ToggleButton } from '@ugrc/utah-design-system';
 import PropTypes from 'prop-types';
 import { InputTypeAhead } from '../Combobox/Combobox';
 
@@ -32,8 +32,8 @@ export default function FilterOffender(props) {
           />
         </div>
         <div>
-          <Label>Gender</Label>
-          <div className="flex gap-x-2 justify-center">
+          <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Gender</div>
+          <div className="flex gap-x-2 justify-center" role="group" aria-label="Gender">
             <div className="flex gap-x-2 justify-center">
               {['Male', 'Female'].map((payload, index) => (
                 <ToggleButton

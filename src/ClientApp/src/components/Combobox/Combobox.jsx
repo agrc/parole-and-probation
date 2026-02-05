@@ -29,7 +29,7 @@ export function SelectedItems({
 }) {
   return (
     <TagGroup
-      label={label}
+      aria-label={label}
       selectionMode="none"
       onRemove={clickHandler}
       className="flex flex-wrap justify-between my-3 p-3 border rounded-lg bg-white dark:bg-gray-900 dark:border-gray-700"
@@ -135,6 +135,7 @@ export function MultiSelect({
           label={label}
           inputProps={{
             ...getInputProps({
+              'aria-label': label,
               onKeyUp: (event) => {
                 if (event.key === 'Enter') {
                   addItem();
@@ -147,7 +148,7 @@ export function MultiSelect({
           Add
         </Button>
       </div>
-      <div className="downshift__match-dropdown" {...getMenuProps()}>
+      <div className="downshift__match-dropdown" {...getMenuProps({ 'aria-label': label })}>
         <ul className="downshift__matches">
           {isOpen &&
             getFilteredItems(items).map((item, index) => (
@@ -288,9 +289,9 @@ export function InputTypeAhead({
 
   return (
     <div>
-      <TextField label={label} autoComplete="none" inputProps={{ ...getInputProps() }} />
+      <TextField label={label} autoComplete="none" inputProps={{ ...getInputProps({ 'aria-label': label }) }} />
 
-      <div className="downshift__match-dropdown" {...getMenuProps()}>
+      <div className="downshift__match-dropdown" {...getMenuProps({ 'aria-label': label })}>
         <ul className="downshift__matches">
           {isOpen &&
             getFilteredItems(sortedItems).map((item, index) => (
