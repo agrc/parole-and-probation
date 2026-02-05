@@ -53,8 +53,8 @@ const LabelGroup = (props) => {
 
   return (
     <>
-      <label className="font-bold">{props.label}</label>
-      <label className="block">{value}</label>
+      <div className="font-bold">{props.label}</div>
+      <div className="block">{value}</div>
     </>
   );
 };
@@ -96,8 +96,8 @@ const GridLabelGroup = (props) => {
 
   return (
     <>
-      <label className="identify-grid--label-text__label font-bold text-end">{label}</label>
-      <label className="identify-grid--label-text__text">{value}</label>
+      <div className="identify-grid--label-text__label font-bold text-end">{label}</div>
+      <div className="identify-grid--label-text__text">{value}</div>
     </>
   );
 };

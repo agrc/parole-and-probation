@@ -1,4 +1,4 @@
-import { Label, ToggleButton } from '@ugrc/utah-design-system';
+import { ToggleButton } from '@ugrc/utah-design-system';
 import PropTypes from 'prop-types';
 import { MultiSelect, SelectedItems } from '../Combobox/Combobox';
 import { mainGangs, offenseTypes, supervisionItems } from './lookupData';
@@ -27,8 +27,8 @@ export default function FilterOther(props) {
   return (
     <div className="w-full grid gap-2">
       <div>
-        <Label>Legal Status</Label>
-        <div className="flex gap-x-2 justify-center">
+        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Legal Status</div>
+        <div className="flex gap-x-2 justify-center" role="group" aria-label="Legal Status">
           {['probation', 'parole'].map((payload, index) => (
             <ToggleButton
               key={index}
@@ -47,8 +47,8 @@ export default function FilterOther(props) {
         </div>
       </div>
       <div>
-        <Label>Standard of Supervision</Label>
-        <div className="flex gap-x-1 justify-center">
+        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Standard of Supervision</div>
+        <div className="flex gap-x-1 justify-center" role="group" aria-label="Standard of Supervision">
           {['no std', 'low', 'mod', 'hi', 'int'].map((sos, index) => (
             <ToggleButton
               className="p-2 min-w-10 rounded-full min-h-0"
@@ -62,8 +62,8 @@ export default function FilterOther(props) {
         </div>
       </div>
       <div>
-        <Label>Special Supervision</Label>
         <MultiSelect
+          label="Special Supervision"
           items={supervisionItems}
           currentSelectedItems={props.criteria.supervision}
           itemToString={itemToString}
@@ -82,8 +82,8 @@ export default function FilterOther(props) {
         ) : null}
       </div>
       <div>
-        <Label>Gang Name</Label>
         <MultiSelect
+          label="Gang Name"
           items={mainGangs}
           currentSelectedItems={props.criteria.gang}
           itemToString={itemToString}
@@ -100,8 +100,8 @@ export default function FilterOther(props) {
         ) : null}
       </div>
       <div>
-        <Label>Offense Type</Label>
         <MultiSelect
+          label="Offense Type"
           items={offenseTypes}
           currentSelectedItems={props.criteria.offense}
           itemToString={itemToString}
@@ -120,8 +120,8 @@ export default function FilterOther(props) {
         ) : null}
       </div>
       <div>
-        <Label>Active Warrant</Label>
-        <div className="flex gap-x-2 justify-center">
+        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Active Warrant</div>
+        <div className="flex gap-x-2 justify-center" role="group" aria-label="Active Warrant">
           {['Yes', 'No'].map((payload, index) => (
             <ToggleButton
               key={index}

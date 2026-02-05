@@ -275,15 +275,15 @@ const OffenderQuickLook = (props) => {
   }
 
   if (race) {
-    race = <small className="text-gray-500 block text-base font-normal">{race}</small>;
+    race = <small className="text-gray-500 dark:text-gray-300 block text-base font-normal">{race}</small>;
   }
 
   return (
     <>
-      <h4>
+      <h2 className="text-xl font-semibold mb-4">
         {props.offender}
         {race}
-      </h4>
+      </h2>
       <div className="flex justify-center mb-2">
         <OffenderImage offenderId={props.id} />
       </div>
@@ -323,7 +323,7 @@ const OffenderAlerts = (props) => {
     <>
       {props.cautions ? (
         <>
-          <h5 className="mt-2">Cautions</h5>
+          <h3 className="text-base font-bold md:text-lg mt-2">Cautions</h3>
           <div className="p-2 text-warning-900 rounded-none mb-0 w-full bg-warning-100 border border-rose-800">
             {props.cautions}
           </div>
@@ -331,7 +331,7 @@ const OffenderAlerts = (props) => {
       ) : null}
       {props.alerts ? (
         <>
-          <h5 className="mt-2">Alerts</h5>
+          <h3 className="text-base font-bold md:text-lg mt-2">Alerts</h3>
           <div className="p-2 text-warning-900 rounded-none mb-0 w-full bg-warning-100 border border-rose-800">
             {props.alerts}
           </div>
@@ -348,10 +348,10 @@ OffenderAlerts.propTypes = {
 const RecentVisitation = (props) => {
   return (
     <>
-      <h5 className="mt-2">
+      <h3 className="text-base font-bold md:text-lg mt-2">
         Recent Contact
-        <small className="text-gray-500 font-normal text-base"> (days since)</small>
-      </h5>
+        <small className="text-gray-500 dark:text-gray-300 font-normal text-base"> (days since)</small>
+      </h3>
       <div className="grid gap-4 border-b grid-cols-3 flex-auto">
         <div>
           <LabelGroup label="Successful">{props.successful}</LabelGroup>
@@ -400,7 +400,7 @@ const OffenderContactInfo = (props) => {
 
   return (
     <>
-      <h5 className="mt-2">Contact Information</h5>
+      <h3 className="text-base font-bold md:text-lg mt-2">Contact Information</h3>
       {props.phone ? (
         <div className="grid gap-2 grid-cols-[1fr_2.5fr]">
           <GridLabelGroup label={<TelephoneLink phone={props.phone}>Phone</TelephoneLink>}>
@@ -470,12 +470,12 @@ const SpecialSupervision = (props) => {
 
   return (
     <>
-      <h5 className="mt-2">Special Supervisions</h5>
+      <h3 className="text-base font-bold md:text-lg mt-2">Special Supervisions</h3>
       <div className="grid grid-cols-3 flex-auto gap-4 relative shadow-sm border-b">
         {actives.map((item, i) => (
-          <label className="" key={item + i}>
+          <div className="" key={item + i}>
             {item.toLocaleUpperCase()}
-          </label>
+          </div>
         ))}
       </div>
     </>
@@ -497,9 +497,9 @@ const PrimaryOffense = (props) => {
 
   return (
     <>
-      <h5 className="mt-2">Primary Offense</h5>
+      <h3 className="text-base font-bold md:text-lg mt-2">Primary Offense</h3>
       <div className="border-b">
-        {value ? <label className="">{value}</label> : null}
+        {value ? <span>{value}</span> : null}
         {props.description ? <p className="pl-3">{props.description}</p> : null}
       </div>
     </>
@@ -518,7 +518,7 @@ const GangInformation = (props) => {
 
   return (
     <>
-      <h5 className="mt-2">STG</h5>
+      <h3 className="text-base font-bold md:text-lg mt-2">STG</h3>
       <div className="grid gap-2 grid-cols-[1fr_2.5fr] border-b">
         <GridLabelGroup label="Gang">{props.gang}</GridLabelGroup>
         <GridLabelGroup label="Set">{props.set}</GridLabelGroup>
