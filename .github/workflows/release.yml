@@ -29,6 +29,11 @@ jobs:
         with:
           show-progress: false
 
+      - name: 📃 Configure 3rd party notice
+        uses: agrc/third-party-notice-composite-action@v1
+        with:
+          working-directory: src/ClientApp
+
       - name: 🗝️ Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v3
