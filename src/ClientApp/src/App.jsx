@@ -246,9 +246,9 @@ export default function App() {
           <Header links={links}>
             <div className="flex h-14 grow items-center gap-3">
               <img src={logo} className="h-full w-auto dark:grayscale dark:invert" alt="corrections logo" />
-              <h2 className="font-heading text-xl font-light text-primary-900 md:text-2xl lg:text-4xl dark:text-zinc-100">
+              <div className="font-heading text-xl font-light text-primary-900 md:text-2xl lg:text-4xl dark:text-zinc-100">
                 AP&P field map
-              </h2>
+              </div>
             </div>
           </Header>
         </div>

@@ -12,7 +12,8 @@ namespace parole.Features;
 public class LookupService(ILogger log, IConfiguration config)
 {
     private readonly ILogger _log = log;
-    private readonly string? connectionString = config.GetConnectionString("DefaultConnection");
+    private readonly string connectionString = config.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
 
     public async Task<IEnumerable<AgentItem>> GetAgentsAsync()
     {

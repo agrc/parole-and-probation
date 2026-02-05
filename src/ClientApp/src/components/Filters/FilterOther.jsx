@@ -73,6 +73,7 @@ export default function FilterOther(props) {
         />
         {props.criteria.supervision.length > 0 ? (
           <SelectedItems
+            label="Special Supervision"
             titleCaseItem={false}
             itemToKey={itemToKey}
             itemToString={itemToString}
@@ -92,6 +93,7 @@ export default function FilterOther(props) {
         />
         {props.criteria.gang.length > 0 ? (
           <SelectedItems
+            label="Gang Name"
             items={props.criteria.gang}
             itemToKey={itemToKey}
             itemToString={itemToString}
@@ -111,6 +113,7 @@ export default function FilterOther(props) {
         />
         {props.criteria.offense.length > 0 ? (
           <SelectedItems
+            label="Offense Type"
             items={props.criteria.offense}
             titleCaseItem={false}
             itemToKey={itemToKey}
