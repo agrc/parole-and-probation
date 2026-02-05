@@ -11,7 +11,7 @@ export default function StaticLegend(props) {
   const width = 100 / breaks;
 
   return (
-    <div className="flex absolute w-full bottom-0 border-0 opacity-60 z-10">
+    <div className="absolute bottom-0 z-10 flex w-full border-0 opacity-60">
       {props.legend.map((item, index) => {
         const classes = classNames('text-center font-bold white-space-nowrap overflow-hidden px-1', {
           'text-black': item.invert === true,

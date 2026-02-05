@@ -25,10 +25,10 @@ export default function FilterOther(props) {
   };
 
   return (
-    <div className="w-full grid gap-2">
+    <div className="grid w-full gap-2">
       <div>
-        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Legal Status</div>
-        <div className="flex gap-x-2 justify-center" role="group" aria-label="Legal Status">
+        <div className="mb-1 w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300">Legal Status</div>
+        <div className="flex justify-center gap-x-2" role="group" aria-label="Legal Status">
           {['probation', 'parole'].map((payload, index) => (
             <ToggleButton
               key={index}
@@ -47,11 +47,11 @@ export default function FilterOther(props) {
         </div>
       </div>
       <div>
-        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Standard of Supervision</div>
-        <div className="flex gap-x-1 justify-center" role="group" aria-label="Standard of Supervision">
+        <div className="mb-1 w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300">Standard of Supervision</div>
+        <div className="flex justify-center gap-x-1" role="group" aria-label="Standard of Supervision">
           {['no std', 'low', 'mod', 'hi', 'int'].map((sos, index) => (
             <ToggleButton
-              className="p-2 min-w-10 rounded-full min-h-0"
+              className="min-h-0 min-w-10 rounded-full p-2"
               key={index}
               isSelected={props.criteria.sos.indexOf(sos) > -1}
               onPress={() => props.update({ type, payload: sos, meta: 'sos' })}
@@ -120,8 +120,8 @@ export default function FilterOther(props) {
         ) : null}
       </div>
       <div>
-        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Active Warrant</div>
-        <div className="flex gap-x-2 justify-center" role="group" aria-label="Active Warrant">
+        <div className="mb-1 w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300">Active Warrant</div>
+        <div className="flex justify-center gap-x-2" role="group" aria-label="Active Warrant">
           {['Yes', 'No'].map((payload, index) => (
             <ToggleButton
               key={index}

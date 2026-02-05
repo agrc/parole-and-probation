@@ -6,13 +6,13 @@ const type = 'UPDATE_DATE';
 
 export default function FilterDate(props) {
   return (
-    <div className="w-full grid gap-2">
+    <div className="grid w-full gap-2">
       <div>
-        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Compliance</div>
-        <div className="flex gap-x-2 justify-center" role="group" aria-label="Compliance">
+        <div className="mb-1 w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300">Compliance</div>
+        <div className="flex justify-center gap-x-2" role="group" aria-label="Compliance">
           {['in', 'out'].map((payload, index) => (
             <ToggleButton
-              className="p-2 min-w-10 rounded-full min-h-0"
+              className="min-h-0 min-w-10 rounded-full p-2"
               key={index}
               isSelected={props.criteria.compliant === payload}
               onPress={() => {
@@ -29,11 +29,13 @@ export default function FilterDate(props) {
         </div>
       </div>
       <div>
-        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">No attempted field contact within</div>
-        <div className="flex gap-x-2 justify-center" role="group" aria-label="No attempted field contact within">
+        <div className="mb-1 w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          No attempted field contact within
+        </div>
+        <div className="flex justify-center gap-x-2" role="group" aria-label="No attempted field contact within">
           {supervisionContactDays.map((payload, index) => (
             <ToggleButton
-              className="p-2 min-w-10 rounded-full min-h-0"
+              className="min-h-0 min-w-10 rounded-full p-2"
               key={index}
               isSelected={props.criteria.attempt === payload}
               onPress={() => {
@@ -50,11 +52,13 @@ export default function FilterDate(props) {
         </div>
       </div>
       <div>
-        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">No successful field contact within</div>
-        <div className="flex gap-x-2 justify-center" role="group" aria-label="No successful field contact within">
+        <div className="mb-1 w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          No successful field contact within
+        </div>
+        <div className="flex justify-center gap-x-2" role="group" aria-label="No successful field contact within">
           {supervisionContactDays.map((payload, index) => (
             <ToggleButton
-              className="p-2 min-w-10 rounded-full min-h-0"
+              className="min-h-0 min-w-10 rounded-full p-2"
               key={index}
               isSelected={props.criteria.success === payload}
               onPress={() => {
@@ -71,11 +75,11 @@ export default function FilterDate(props) {
         </div>
       </div>
       <div>
-        <div className="w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">No office contact within</div>
-        <div className="flex gap-x-2 justify-center" role="group" aria-label="No office contact within">
+        <div className="mb-1 w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300">No office contact within</div>
+        <div className="flex justify-center gap-x-2" role="group" aria-label="No office contact within">
           {supervisionContactDays.map((payload, index) => (
             <ToggleButton
-              className="p-2 min-w-10 rounded-full min-h-0"
+              className="min-h-0 min-w-10 rounded-full p-2"
               key={index}
               isSelected={props.criteria.office === payload}
               onPress={() => {

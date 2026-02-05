@@ -439,7 +439,7 @@ const Filters = ({ mapDispatcher, ...props }) => {
 
   return (
     <section className={classes}>
-    <h1 className="text-lg font-semibold mb-2 sr-only">Filters</h1>
+      <h1 className="sr-only mb-2 text-lg font-semibold">Filters</h1>
       <DisclosureGroup defaultExpandedKeys={['agent']} allowsMultipleExpanded={true}>
         <Disclosure id="agent">
           <DisclosureHeader>{countActiveFilters('Agent', criteria.agent)}</DisclosureHeader>

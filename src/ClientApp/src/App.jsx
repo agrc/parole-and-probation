@@ -246,13 +246,13 @@ export default function App() {
           <Header links={links}>
             <div className="flex h-14 grow items-center gap-3">
               <img src={logo} className="h-full w-auto dark:grayscale dark:invert" alt="corrections logo" />
-              <h2 className="font-heading text-xl md:text-2xl font-light text-primary-900 lg:text-4xl dark:text-zinc-100">
+              <h2 className="font-heading text-xl font-light text-primary-900 md:text-2xl lg:text-4xl dark:text-zinc-100">
                 AP&P field map
               </h2>
             </div>
           </Header>
         </div>
-        <section className="relative flex min-h-0 flex-1 overflow-x-hidden md:mr-2 pt-2 md:pt-0">
+        <section className="relative flex min-h-0 flex-1 overflow-x-hidden pt-2 md:mr-2 md:pt-0">
           <Drawer main state={sidebarState} {...sideBarTriggerProps}>
             <div className="mx-2 mb-2 grid grid-cols-1 gap-2">
               <SideBarStatus

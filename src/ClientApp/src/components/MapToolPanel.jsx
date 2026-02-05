@@ -16,8 +16,8 @@ export default function MapToolPanel(props) {
       ref={me}
       className={classNames(
         props.className,
-        'bg-white point-events-auto min-w-8 min-h-8 esri-widget--button esri-widget esri-component',
-        expanded ? '!w-auto !h-auto !size-auto' : false,
+        'point-events-auto esri-widget--button esri-widget esri-component min-h-8 min-w-8 bg-white',
+        expanded ? '!size-auto !h-auto !w-auto' : false,
       )}
       role="dialog"
       aria-label="Zoom to address"

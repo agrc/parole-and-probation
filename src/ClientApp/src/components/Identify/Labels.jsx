@@ -96,7 +96,7 @@ const GridLabelGroup = (props) => {
 
   return (
     <>
-      <div className="identify-grid--label-text__label font-bold text-end">{label}</div>
+      <div className="identify-grid--label-text__label text-end font-bold">{label}</div>
       <div className="identify-grid--label-text__text">{value}</div>
     </>
   );

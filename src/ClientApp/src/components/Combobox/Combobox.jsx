@@ -32,7 +32,7 @@ export function SelectedItems({
       aria-label={label}
       selectionMode="none"
       onRemove={clickHandler}
-      className="flex flex-wrap justify-between my-3 p-3 border rounded-lg bg-white dark:bg-gray-900 dark:border-gray-700"
+      className="my-3 flex flex-wrap justify-between rounded-lg border bg-white p-3 dark:border-gray-700 dark:bg-gray-900"
     >
       {items.map((item) => (
         <Tag className="mb-1" color="primary" id={itemToKey(item)} key={itemToKey(item)} onClick={clickHandler}>
@@ -144,7 +144,7 @@ export function MultiSelect({
             }),
           }}
         />
-        <Button variant="secondary" className="basis-1/4 px-3 self-end" onClick={addItem}>
+        <Button variant="secondary" className="basis-1/4 self-end px-3" onClick={addItem}>
           Add
         </Button>
       </div>
