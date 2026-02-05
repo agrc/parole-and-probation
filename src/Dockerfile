@@ -1,6 +1,6 @@
 FROM node:lts-alpine AS nodejs
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS dotnet
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS dotnet-sdk
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble-chiseled AS dotnet
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS dotnet-sdk
 
 FROM nodejs AS front-end-build
 WORKDIR /build
