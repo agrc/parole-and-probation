@@ -54,6 +54,7 @@ export default function FilterLocation(props) {
           />
           {props.criteria.counties.length > 0 ? (
             <SelectedItems
+              label="County"
               items={props.criteria.counties}
               clickHandler={(event) => {
                 updateCounties(event.target.id, false);
