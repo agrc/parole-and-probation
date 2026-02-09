@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.8](https://github.com/agrc/parole-and-probation/compare/v1.21.7...v1.21.8) (2026-02-09)
+
+
+### Bug Fixes
+
+* **api:** migrate to dotnet 10 ([a22a065](https://github.com/agrc/parole-and-probation/commit/a22a0655cbcd9ed1496eb48682f92506fc5f0a98))
+* **app:** add 3rd party notices ([9f1e771](https://github.com/agrc/parole-and-probation/commit/9f1e77121e912b19ba918962f5f3e955cb23a6c9))
+* **app:** correct a11y issues ([b1a401a](https://github.com/agrc/parole-and-probation/commit/b1a401aee4f704188ec6d15a8c928af91ad261fe))
+
+
+### Dependencies
+
+* **app:** fy26 q3 dependency updates ([c8b6cf0](https://github.com/agrc/parole-and-probation/commit/c8b6cf01aa8ad5e571061138d5d810888b86c9be))
+* **app:** fy26 q3 dependency updates ([56f9b4c](https://github.com/agrc/parole-and-probation/commit/56f9b4c9c6edb09dc32c9ef4c40270cec046a29e))
+* bump the safe-dependencies group across 1 directory with 10 updates ([022a3f6](https://github.com/agrc/parole-and-probation/commit/022a3f6512c4582acc00f233a2cfc00dc4d2265b))
+
+
+### Documentation
+
+* fix readme errors ([794807d](https://github.com/agrc/parole-and-probation/commit/794807df0e6922f07a7218478705d226ee6d88ba))
+
 ## [1.21.7](https://github.com/agrc/parole-and-probation/compare/v1.21.6...v1.21.7) (2025-11-12)
 
 
