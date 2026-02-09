@@ -76,7 +76,7 @@ export default defineConfig({
     environment: 'happy-dom',
     server: {
       deps: {
-        inline: ['@esri/calcite-components', '@arcgis/core'],
+        inline: ['@esri/calcite-components', '@arcgis/core', '@arcgis/map-components'],
       },
     },
   },
