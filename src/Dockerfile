@@ -5,8 +5,6 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS dotnet-sdk
 FROM nodejs AS front-end-build
 WORKDIR /build
 
-RUN npm install --global npm
-
 ENV NODE_OPTIONS=--max-old-space-size=4096
 
 ARG PNPM_VERSION=latest
