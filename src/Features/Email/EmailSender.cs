@@ -17,7 +17,7 @@ public class EmailSender(ISendGridClient client, EmailConfig config, ILogger? lo
 
     public async Task SendAsync(IReadOnlyCollection<string> recipients, Stream stream)
     {
-        _log?.Information("Sending email to {people}", recipients);
+        _log?.Information("Sending email to {RecipientCount} recipients", recipients.Count);
 
         var to = recipients.Select(x => new EmailAddress(string.Empty, x)).ToList();
 
