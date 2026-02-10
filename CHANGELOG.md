@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.9](https://github.com/agrc/parole-and-probation/compare/v1.21.8...v1.21.9) (2026-02-10)
+
+
+### Bug Fixes
+
+* **app:** fix layer selector version ([b6ec767](https://github.com/agrc/parole-and-probation/commit/b6ec7674c91718a4a8142e8f86d550b082e444ef))
+
 ## [1.21.8](https://github.com/agrc/parole-and-probation/compare/v1.21.7...v1.21.8) (2026-02-09)
 
 
