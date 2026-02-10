@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.10](https://github.com/agrc/parole-and-probation/compare/v1.21.9...v1.21.10) (2026-02-10)
+
+
+### Bug Fixes
+
+* **app:** generate 3rd party on prod release ([622feae](https://github.com/agrc/parole-and-probation/commit/622feae37e1c07ca18afb32b11fe3d8b47c4748e))
+
 ## [1.21.9](https://github.com/agrc/parole-and-probation/compare/v1.21.8...v1.21.9) (2026-02-10)
 
 
