@@ -70,13 +70,15 @@ _The offender feature service will not function since the reverse proxy dotnet s
 1. Start the redis database
    - docker-compose up -d cache
 
+1. Connect to VPN if you are not on the network so that the api can access the test database.
+
 1. Start the api
    - You can debug with the `Debug` vscode launch profile or execute
    - `./scripts/watch.sh`
 
 1. optionally run both the dot net and client apps by running `pnpm run start:all` from `src/ClientApp`
 
-1. Navigate to `http://localhost:5173/development`
+1. Navigate to `http://localhost:5173/development` (note the /development is required to complete the auth flow)
 
 ### forklift
 
