@@ -15,10 +15,10 @@ _If you are using vscode, download the recommended extensions from this workspac
 1. Change directories to the react App
    - `cd src/ClientApp`
 1. Using node lts get all of the project dependencies
-   - `npm install`
+   - `pnpm install`
 1. Duplicate `src/ClientApp/.env` to `src/ClientApp/.env.local` and add the correct values
 1. Start the development server
-   - `npm start`
+   - `pnpm start`
 
 _The offender feature service will not function since the reverse proxy dotnet service is not running._
 
@@ -68,11 +68,9 @@ _The offender feature service will not function since the reverse proxy dotnet s
    ```
 
 1. Start the redis database
-
    - docker-compose up -d cache
 
 1. Start the api
-
    - You can debug with the `Debug` vscode launch profile or execute
    - `./scripts/watch.sh`
 
