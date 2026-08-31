@@ -1,10 +1,8 @@
-ignoredBuiltDependencies:
-  - '@vaadin/vaadin-usage-statistics'
-
-onlyBuiltDependencies:
-  - '@firebase/util'
-  - esbuild
-  - protobufjs
+allowBuilds:
+  '@firebase/util': true
+  '@vaadin/vaadin-usage-statistics': true
+  esbuild: true
+  protobufjs: true
 
 overrides:
   glob@>=10.2.0 <10.5.0: '>=10.5.0'
