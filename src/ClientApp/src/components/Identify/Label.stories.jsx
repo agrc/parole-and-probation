@@ -12,10 +12,10 @@ export const Basic = () => <IdentifyAddon>Basic</IdentifyAddon>;
 export const Danger = () => <IdentifyAddon danger={1}>Danger</IdentifyAddon>;
 export const Border = () => <IdentifyAddon border>Border</IdentifyAddon>;
 export const Lower = () => <IdentifyAddon lower>LOWER</IdentifyAddon>;
-export const Age = () => <IdentifyAddon age="648949400000">years old</IdentifyAddon>;
-export const Date = () => <IdentifyAddon date>648949400000</IdentifyAddon>;
+export const Age = () => <IdentifyAddon age="2025-04-01">years old</IdentifyAddon>;
+export const Date = () => <IdentifyAddon date>2025-04-01</IdentifyAddon>;
 export const All = () => (
-  <IdentifyAddon age="648949400000" defaultValue="error" danger="1" border lower>
+  <IdentifyAddon age="2025-04-01" defaultValue="error" danger="1" border lower>
     YEARS old
   </IdentifyAddon>
 );
