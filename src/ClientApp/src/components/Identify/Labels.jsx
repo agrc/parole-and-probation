@@ -1,7 +1,12 @@
 import classNames from 'clsx';
 import PropTypes from 'prop-types';
 
-const dateFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
 
 const calculateAge = (dob) => {
   if (dob === 'offline') {
@@ -35,7 +40,7 @@ const getValue = (props) => {
   }
 
   if (props.date && props.date !== 'offline' && value) {
-    value = dateFormatter.format(value);
+    value = dateFormatter.format(new Date(value));
   }
 
   if (!value) {
