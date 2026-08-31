@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.11](https://github.com/agrc/parole-and-probation/compare/v1.21.10...v1.21.11) (2026-08-31)
+
+
+### Bug Fixes
+
+* handle new date format from ArcGIS Server ([91754d7](https://github.com/agrc/parole-and-probation/commit/91754d77865db494a30f7e18047a2a83aa2f4bc8))
+
 ## [1.21.10](https://github.com/agrc/parole-and-probation/compare/v1.21.9...v1.21.10) (2026-02-10)
 
 
