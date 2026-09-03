@@ -1,12 +1,16 @@
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import loadVersion from 'vite-plugin-package-version';
 import { VitePWA } from 'vite-plugin-pwa';
 
+const arcgisCorePath = new URL('./node_modules/@arcgis/core', import.meta.url).pathname;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
@@ -33,6 +37,22 @@ export default defineConfig({
     }),
     loadVersion(),
   ],
+  resolve: {
+    alias: [
+      {
+        find: /^@arcgis\/core\/(.*)$/,
+        replacement: `${arcgisCorePath}/$1`,
+      },
+      {
+        find: '@arcgis/core',
+        replacement: arcgisCorePath,
+      },
+      {
+        find: 'use-sync-external-store/shim/index.js',
+        replacement: 'react',
+      },
+    ],
+  },
   server: {
     proxy: {
       '/secure': {

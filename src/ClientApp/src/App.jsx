@@ -1,6 +1,8 @@
 import '@arcgis/core/assets/esri/themes/light/main.css';
 import { useQuery } from '@tanstack/react-query';
-import { BusyBar, Drawer, Header } from '@ugrc/utah-design-system';
+import { Drawer } from '@ugrc/utah-design-system/components/Drawer';
+import { Header } from '@ugrc/utah-design-system/components/Header';
+import { BusyBar } from '@ugrc/utah-design-system/components/Spinner';
 import { useViewLoading } from '@ugrc/utilities/hooks';
 import ky from 'ky';
 import isEqual from 'lodash.isequal';

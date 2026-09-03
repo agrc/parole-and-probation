@@ -1,4 +1,4 @@
-import { Geocode } from '@ugrc/utah-design-system';
+import { Geocode } from '@ugrc/utah-design-system/components/Geocode';
 import MapToolPanel from './MapToolPanel';
 
 export default {

@@ -1,4 +1,5 @@
-import { Button, Spinner } from '@ugrc/utah-design-system';
+import { Button } from '@ugrc/utah-design-system/components/Button';
+import { Spinner } from '@ugrc/utah-design-system/components/Spinner';
 import { clsx } from 'clsx';
 import ky from 'ky';
 import PropTypes from 'prop-types';

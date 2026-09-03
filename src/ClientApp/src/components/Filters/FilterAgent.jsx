@@ -1,4 +1,4 @@
-import { ToggleButton } from '@ugrc/utah-design-system';
+import { ToggleButton } from '@ugrc/utah-design-system/components/ToggleButton';
 import PropTypes from 'prop-types';
 import Console from '../../Console';
 import { MultiSelect, SelectedItems } from '../Combobox/Combobox';
