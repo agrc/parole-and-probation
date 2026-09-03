@@ -1,5 +1,6 @@
 FROM node:lts-alpine AS nodejs
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble-chiseled AS dotnet
+# WARNING: using the chiseled version of the .NET runtime breaks the api
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble AS dotnet
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS dotnet-sdk
 
 FROM nodejs AS front-end-build
@@ -9,10 +10,10 @@ ENV NODE_OPTIONS=--max-old-space-size=4096
 
 ARG PNPM_VERSION=latest
 RUN if command -v corepack >/dev/null 2>&1; then \
-      corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate; \
-    else \
-      npm install -g pnpm@${PNPM_VERSION}; \
-    fi
+  corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate; \
+  else \
+  npm install -g pnpm@${PNPM_VERSION}; \
+  fi
 
 COPY ./src/ClientApp .
 ARG VITE_DISCOVER $VITE_DISCOVER
