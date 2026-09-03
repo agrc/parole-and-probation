@@ -26,11 +26,12 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger log)
                 throw;
             }
 
+            context.Response.Clear();
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                message = "Internal server error"
-            });
+            await context.Response.WriteAsJsonAsync(
+                new { message = "Internal server error" },
+                cancellationToken: context.RequestAborted
+            );
         }
     }
 }
