@@ -20,6 +20,17 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger log)
         catch (Exception ex)
         {
             _log.Error(ex, "Unhandled exception");
+
+            if (context.Response.HasStarted)
+            {
+                throw;
+            }
+
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                message = "Internal server error"
+            });
         }
     }
 }
