@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.12](https://github.com/agrc/parole-and-probation/compare/v1.21.11...v1.21.12) (2026-09-03)
+
+
+### Bug Fixes
+
+* **api:** use non-chiseled dotnet docker image ([ce2b5ca](https://github.com/agrc/parole-and-probation/commit/ce2b5cab0fb31a308584aa5dd8ed23f3d58bafb4))
+
 ## [1.21.11](https://github.com/agrc/parole-and-probation/compare/v1.21.10...v1.21.11) (2026-08-31)
 
 
