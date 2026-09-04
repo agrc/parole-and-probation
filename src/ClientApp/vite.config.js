@@ -1,10 +1,25 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vite';
 import loadVersion from 'vite-plugin-package-version';
 import { VitePWA } from 'vite-plugin-pwa';
 
 const arcgisCorePath = new URL('./node_modules/@arcgis/core', import.meta.url).pathname;
+const revisionArcGISAssets = (entries) => ({
+  manifest: entries.map((entry) => {
+    if (!entry.url.startsWith('assets/esri/core/workers/')) {
+      return entry;
+    }
+
+    const contents = readFileSync(new URL(`./public/${entry.url}`, import.meta.url));
+    const revision = createHash('sha256').update(contents).digest('hex');
+
+    return { ...entry, revision };
+  }),
+  warnings: [],
+});
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,9 +29,13 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         globDirectory: './dist',
         globPatterns: ['assets/esri/core/workers/**/*.js', '**/*.ico'],
         globIgnores: ['*.LICENSE.txt', '*.map', 'CalciteWebCoreIcons*.svg', 'sw.js', 'workbox-*.js'],
+        manifestTransforms: [revisionArcGISAssets],
+        skipWaiting: true,
       },
       manifest: {
         name: 'AP&P Field Map',
