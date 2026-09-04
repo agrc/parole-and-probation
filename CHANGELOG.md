@@ -2,255 +2,253 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [1.21.12](https://github.com/agrc/parole-and-probation/compare/v1.21.11...v1.21.12) (2026-09-03)
+## [1.21.13-rc.3](https://github.com/agrc/parole-and-probation/compare/v1.21.12...v1.21.13-rc.3) (2026-09-04)
 
 
 ### Bug Fixes
 
-* **api:** use non-chiseled dotnet docker image ([ce2b5ca](https://github.com/agrc/parole-and-probation/commit/ce2b5cab0fb31a308584aa5dd8ed23f3d58bafb4))
+* migrate to official utah header and footer ([e97a66d](https://github.com/agrc/parole-and-probation/commit/e97a66dc3825185a4bd8c362fb2ea453b49bec45))
+* prevent caching of old arcgis assets by service worker ([dae0daa](https://github.com/agrc/parole-and-probation/commit/dae0daa237046bfbbdfbbc9444016fbee934114a))
+
+
+### Dependencies
+
+* **app:** major upgrade Tailwind and ArcGIS dependencies ([988ba3b](https://github.com/agrc/parole-and-probation/commit/988ba3bfc1bc2324222808887505ab6d0b9c07b8))
+* bump NPM dependencies 🌲 ([42cfc19](https://github.com/agrc/parole-and-probation/commit/42cfc19ea92c14c5b54eb20928f4bb16430646c3))
+* other major NPM dependency bumps ([9663fde](https://github.com/agrc/parole-and-probation/commit/9663fde2c38971f023f1bfd2ad76b74ca82298c3))
+
+## [1.21.13-rc.1](https://github.com/agrc/parole-and-probation/compare/v1.21.11...v1.21.13-rc.1) (2026-09-04)
+
+### Bug Fixes
+
+- **api:** use non-chiseled dotnet docker image ([ce2b5ca](https://github.com/agrc/parole-and-probation/commit/ce2b5cab0fb31a308584aa5dd8ed23f3d58bafb4))
+- migrate to official utah header and footer ([d87c570](https://github.com/agrc/parole-and-probation/commit/d87c570a7217bbf71158751e279ee3748221dff8))
+
+### Dependencies
+
+- **app:** major upgrade Tailwind and ArcGIS dependencies ([f4a8740](https://github.com/agrc/parole-and-probation/commit/f4a87404893b5461b26dcf426b5c9325b44d9a03))
+- bump NPM dependencies 🌲 ([dee9c6f](https://github.com/agrc/parole-and-probation/commit/dee9c6f172ae42cc4749b77d945d67ec16b8674a))
+- other major NPM dependency bumps ([64705b0](https://github.com/agrc/parole-and-probation/commit/64705b0fdecda4927e4693541dea22b19d77ad70))
+
+## [1.21.12](https://github.com/agrc/parole-and-probation/compare/v1.21.11...v1.21.12) (2026-09-03)
+
+### Bug Fixes
+
+- **api:** use non-chiseled dotnet docker image ([ce2b5ca](https://github.com/agrc/parole-and-probation/commit/ce2b5cab0fb31a308584aa5dd8ed23f3d58bafb4))
 
 ## [1.21.11](https://github.com/agrc/parole-and-probation/compare/v1.21.10...v1.21.11) (2026-08-31)
 
-
 ### Bug Fixes
 
-* handle new date format from ArcGIS Server ([91754d7](https://github.com/agrc/parole-and-probation/commit/91754d77865db494a30f7e18047a2a83aa2f4bc8))
+- handle new date format from ArcGIS Server ([91754d7](https://github.com/agrc/parole-and-probation/commit/91754d77865db494a30f7e18047a2a83aa2f4bc8))
 
 ## [1.21.10](https://github.com/agrc/parole-and-probation/compare/v1.21.9...v1.21.10) (2026-02-10)
 
-
 ### Bug Fixes
 
-* **app:** generate 3rd party on prod release ([622feae](https://github.com/agrc/parole-and-probation/commit/622feae37e1c07ca18afb32b11fe3d8b47c4748e))
+- **app:** generate 3rd party on prod release ([622feae](https://github.com/agrc/parole-and-probation/commit/622feae37e1c07ca18afb32b11fe3d8b47c4748e))
 
 ## [1.21.9](https://github.com/agrc/parole-and-probation/compare/v1.21.8...v1.21.9) (2026-02-10)
 
-
 ### Bug Fixes
 
-* **app:** fix layer selector version ([b6ec767](https://github.com/agrc/parole-and-probation/commit/b6ec7674c91718a4a8142e8f86d550b082e444ef))
+- **app:** fix layer selector version ([b6ec767](https://github.com/agrc/parole-and-probation/commit/b6ec7674c91718a4a8142e8f86d550b082e444ef))
 
 ## [1.21.8](https://github.com/agrc/parole-and-probation/compare/v1.21.7...v1.21.8) (2026-02-09)
 
-
 ### Bug Fixes
 
-* **api:** migrate to dotnet 10 ([a22a065](https://github.com/agrc/parole-and-probation/commit/a22a0655cbcd9ed1496eb48682f92506fc5f0a98))
-* **app:** add 3rd party notices ([9f1e771](https://github.com/agrc/parole-and-probation/commit/9f1e77121e912b19ba918962f5f3e955cb23a6c9))
-* **app:** correct a11y issues ([b1a401a](https://github.com/agrc/parole-and-probation/commit/b1a401aee4f704188ec6d15a8c928af91ad261fe))
-
+- **api:** migrate to dotnet 10 ([a22a065](https://github.com/agrc/parole-and-probation/commit/a22a0655cbcd9ed1496eb48682f92506fc5f0a98))
+- **app:** add 3rd party notices ([9f1e771](https://github.com/agrc/parole-and-probation/commit/9f1e77121e912b19ba918962f5f3e955cb23a6c9))
+- **app:** correct a11y issues ([b1a401a](https://github.com/agrc/parole-and-probation/commit/b1a401aee4f704188ec6d15a8c928af91ad261fe))
 
 ### Dependencies
 
-* **app:** fy26 q3 dependency updates ([c8b6cf0](https://github.com/agrc/parole-and-probation/commit/c8b6cf01aa8ad5e571061138d5d810888b86c9be))
-* **app:** fy26 q3 dependency updates ([56f9b4c](https://github.com/agrc/parole-and-probation/commit/56f9b4c9c6edb09dc32c9ef4c40270cec046a29e))
-* bump the safe-dependencies group across 1 directory with 10 updates ([022a3f6](https://github.com/agrc/parole-and-probation/commit/022a3f6512c4582acc00f233a2cfc00dc4d2265b))
-
+- **app:** fy26 q3 dependency updates ([c8b6cf0](https://github.com/agrc/parole-and-probation/commit/c8b6cf01aa8ad5e571061138d5d810888b86c9be))
+- **app:** fy26 q3 dependency updates ([56f9b4c](https://github.com/agrc/parole-and-probation/commit/56f9b4c9c6edb09dc32c9ef4c40270cec046a29e))
+- bump the safe-dependencies group across 1 directory with 10 updates ([022a3f6](https://github.com/agrc/parole-and-probation/commit/022a3f6512c4582acc00f233a2cfc00dc4d2265b))
 
 ### Documentation
 
-* fix readme errors ([794807d](https://github.com/agrc/parole-and-probation/commit/794807df0e6922f07a7218478705d226ee6d88ba))
+- fix readme errors ([794807d](https://github.com/agrc/parole-and-probation/commit/794807df0e6922f07a7218478705d226ee6d88ba))
 
 ## [1.21.7](https://github.com/agrc/parole-and-probation/compare/v1.21.6...v1.21.7) (2025-11-12)
 
-
 ### Dependencies
 
-* **app:** add missing packages ([79581d9](https://github.com/agrc/parole-and-probation/commit/79581d9b3c7f0725157cc1b4eb85a5409faff19b))
-* **app:** FY26 Q2 package updates ([194a388](https://github.com/agrc/parole-and-probation/commit/194a3882c6eae0a24a3102d8a6dc9e59bf561ee5))
-* **app:** upgrade storybook ([e59c9dd](https://github.com/agrc/parole-and-probation/commit/e59c9dd2f3a7bbf1e856f34652dc7561cc9d495b))
-* bump lucide-react ([01fdf4e](https://github.com/agrc/parole-and-probation/commit/01fdf4ed6e475317e10ea74c65f5bed2a99ebf5f))
-* **dev:** bump vite ([2f520a3](https://github.com/agrc/parole-and-probation/commit/2f520a345524c5a5433b603d3a58b1efc94bd426))
-* **dev:** bump vite from 7.1.5 to 7.1.11 in /src/ClientApp ([47c196f](https://github.com/agrc/parole-and-probation/commit/47c196fa2ea0bc8afacf8872c8eabde6283efdf8))
-
+- **app:** add missing packages ([79581d9](https://github.com/agrc/parole-and-probation/commit/79581d9b3c7f0725157cc1b4eb85a5409faff19b))
+- **app:** FY26 Q2 package updates ([194a388](https://github.com/agrc/parole-and-probation/commit/194a3882c6eae0a24a3102d8a6dc9e59bf561ee5))
+- **app:** upgrade storybook ([e59c9dd](https://github.com/agrc/parole-and-probation/commit/e59c9dd2f3a7bbf1e856f34652dc7561cc9d495b))
+- bump lucide-react ([01fdf4e](https://github.com/agrc/parole-and-probation/commit/01fdf4ed6e475317e10ea74c65f5bed2a99ebf5f))
+- **dev:** bump vite ([2f520a3](https://github.com/agrc/parole-and-probation/commit/2f520a345524c5a5433b603d3a58b1efc94bd426))
+- **dev:** bump vite from 7.1.5 to 7.1.11 in /src/ClientApp ([47c196f](https://github.com/agrc/parole-and-probation/commit/47c196fa2ea0bc8afacf8872c8eabde6283efdf8))
 
 ### Documentation
 
-* update deployment and db notes ([ff12a65](https://github.com/agrc/parole-and-probation/commit/ff12a655dac1ebae77fe7bd63d0b38fc06ad41c3))
+- update deployment and db notes ([ff12a65](https://github.com/agrc/parole-and-probation/commit/ff12a655dac1ebae77fe7bd63d0b38fc06ad41c3))
 
 ## [1.21.7-rc.1](https://github.com/agrc/parole-and-probation/compare/v1.21.6...v1.21.7-rc.1) (2025-11-12)
 
-
 ### Dependencies
 
-* **app:** add missing packages ([79581d9](https://github.com/agrc/parole-and-probation/commit/79581d9b3c7f0725157cc1b4eb85a5409faff19b))
-* **app:** FY26 Q2 package updates ([194a388](https://github.com/agrc/parole-and-probation/commit/194a3882c6eae0a24a3102d8a6dc9e59bf561ee5))
-* **app:** upgrade storybook ([e59c9dd](https://github.com/agrc/parole-and-probation/commit/e59c9dd2f3a7bbf1e856f34652dc7561cc9d495b))
-* bump lucide-react ([01fdf4e](https://github.com/agrc/parole-and-probation/commit/01fdf4ed6e475317e10ea74c65f5bed2a99ebf5f))
-
+- **app:** add missing packages ([79581d9](https://github.com/agrc/parole-and-probation/commit/79581d9b3c7f0725157cc1b4eb85a5409faff19b))
+- **app:** FY26 Q2 package updates ([194a388](https://github.com/agrc/parole-and-probation/commit/194a3882c6eae0a24a3102d8a6dc9e59bf561ee5))
+- **app:** upgrade storybook ([e59c9dd](https://github.com/agrc/parole-and-probation/commit/e59c9dd2f3a7bbf1e856f34652dc7561cc9d495b))
+- bump lucide-react ([01fdf4e](https://github.com/agrc/parole-and-probation/commit/01fdf4ed6e475317e10ea74c65f5bed2a99ebf5f))
 
 ### Documentation
 
-* update deployment and db notes ([c1a4dbc](https://github.com/agrc/parole-and-probation/commit/c1a4dbc7c5504babc3480bc83739d4be179c2a88))
+- update deployment and db notes ([c1a4dbc](https://github.com/agrc/parole-and-probation/commit/c1a4dbc7c5504babc3480bc83739d4be179c2a88))
 
 ## [1.21.6](https://github.com/agrc/parole-and-probation/compare/v1.21.5...v1.21.6) (2025-07-30)
 
-
 ### Dependencies
 
-* bump the safe-dependencies group in /src/ClientApp with 2 updates ([dc1b856](https://github.com/agrc/parole-and-probation/commit/dc1b856c5945d53da5bc22e895c2c7f08c3f4fc8))
-* upgrade storybook ([87f72b9](https://github.com/agrc/parole-and-probation/commit/87f72b908b310907acbb7f51f5c22c6ad8fd9bb9))
+- bump the safe-dependencies group in /src/ClientApp with 2 updates ([dc1b856](https://github.com/agrc/parole-and-probation/commit/dc1b856c5945d53da5bc22e895c2c7f08c3f4fc8))
+- upgrade storybook ([87f72b9](https://github.com/agrc/parole-and-probation/commit/87f72b908b310907acbb7f51f5c22c6ad8fd9bb9))
 
 ## [1.21.5](https://github.com/agrc/parole-and-probation/compare/v1.21.4...v1.21.5) (2025-06-30)
 
-
 ### Dependencies
 
-* bump the safe-dependencies group in /src/ClientApp with 15 updates ([4d5e832](https://github.com/agrc/parole-and-probation/commit/4d5e83208633fb2c7de6e151861b721a4ee8b37a))
+- bump the safe-dependencies group in /src/ClientApp with 15 updates ([4d5e832](https://github.com/agrc/parole-and-probation/commit/4d5e83208633fb2c7de6e151861b721a4ee8b37a))
 
 ## [1.21.4](https://github.com/agrc/parole-and-probation/compare/v1.21.3...v1.21.4) (2025-05-14)
 
-
 ### Bug Fixes
 
-* correct default expanded filter ([c9206a2](https://github.com/agrc/parole-and-probation/commit/c9206a2d85e7af9a68607549fa7dbd3f7dfe6205))
-* fix initial map zoom filter ([cd94885](https://github.com/agrc/parole-and-probation/commit/cd94885c41718f7cb401865d7f094051c4f6086a))
-* **pallet:** chunk size of 1 completes successfully ([72806db](https://github.com/agrc/parole-and-probation/commit/72806dbd0bdbf5e9eb03bba781170862d77fe2f8))
-* **pallet:** migrations for sqlalchemy 2 ([660a3cc](https://github.com/agrc/parole-and-probation/commit/660a3cc9a67722fda5cb561577833bec14122a42))
-
+- correct default expanded filter ([c9206a2](https://github.com/agrc/parole-and-probation/commit/c9206a2d85e7af9a68607549fa7dbd3f7dfe6205))
+- fix initial map zoom filter ([cd94885](https://github.com/agrc/parole-and-probation/commit/cd94885c41718f7cb401865d7f094051c4f6086a))
+- **pallet:** chunk size of 1 completes successfully ([72806db](https://github.com/agrc/parole-and-probation/commit/72806dbd0bdbf5e9eb03bba781170862d77fe2f8))
+- **pallet:** migrations for sqlalchemy 2 ([660a3cc](https://github.com/agrc/parole-and-probation/commit/660a3cc9a67722fda5cb561577833bec14122a42))
 
 ### Dependencies
 
-* **api:** second round of updates ([9a72f25](https://github.com/agrc/parole-and-probation/commit/9a72f2597c68cb8dcabf4dd55270927028d61e2b))
-* **app:** remove unused package and update the rest ([207d39b](https://github.com/agrc/parole-and-probation/commit/207d39b9c57478701535333fa7a2662b70949a7c))
-* second round of updates ([94f28f9](https://github.com/agrc/parole-and-probation/commit/94f28f95e25f290026cf6ad32fbf47791151e422))
-
+- **api:** second round of updates ([9a72f25](https://github.com/agrc/parole-and-probation/commit/9a72f2597c68cb8dcabf4dd55270927028d61e2b))
+- **app:** remove unused package and update the rest ([207d39b](https://github.com/agrc/parole-and-probation/commit/207d39b9c57478701535333fa7a2662b70949a7c))
+- second round of updates ([94f28f9](https://github.com/agrc/parole-and-probation/commit/94f28f95e25f290026cf6ad32fbf47791151e422))
 
 ### Documentation
 
-* **app:** update readme for development ([8fedd72](https://github.com/agrc/parole-and-probation/commit/8fedd72f8b5891bb3b7283a9740bd0213f946582))
-
+- **app:** update readme for development ([8fedd72](https://github.com/agrc/parole-and-probation/commit/8fedd72f8b5891bb3b7283a9740bd0213f946582))
 
 ### Styles
 
-* **app:** migrate to utah design system ([9dd42c0](https://github.com/agrc/parole-and-probation/commit/9dd42c01461701391aace6631e8c5bbb91fbe748))
-* **app:** update dark styles ([14924e4](https://github.com/agrc/parole-and-probation/commit/14924e4c09b0d431155a5337081deb5e7155b74e))
+- **app:** migrate to utah design system ([9dd42c0](https://github.com/agrc/parole-and-probation/commit/9dd42c01461701391aace6631e8c5bbb91fbe748))
+- **app:** update dark styles ([14924e4](https://github.com/agrc/parole-and-probation/commit/14924e4c09b0d431155a5337081deb5e7155b74e))
 
 ## [1.21.4-2](https://github.com/agrc/parole-and-probation/compare/v1.21.4-1...v1.21.4-2) (2025-05-14)
 
-
 ### Bug Fixes
 
-* correct default expanded filter ([5f7d0e8](https://github.com/agrc/parole-and-probation/commit/5f7d0e8c26b0c125c7b23414adf06fe3f7ce7484))
-* fix initial map zoom filter ([1fa9aee](https://github.com/agrc/parole-and-probation/commit/1fa9aee56a231534a1ae489eef280643fc519d0c))
-
+- correct default expanded filter ([5f7d0e8](https://github.com/agrc/parole-and-probation/commit/5f7d0e8c26b0c125c7b23414adf06fe3f7ce7484))
+- fix initial map zoom filter ([1fa9aee](https://github.com/agrc/parole-and-probation/commit/1fa9aee56a231534a1ae489eef280643fc519d0c))
 
 ### Dependencies
 
-* **api:** second round of updates ([aef4940](https://github.com/agrc/parole-and-probation/commit/aef49406be28240dbf23246654051e46e8bbfbb8))
-* second round of updates ([59ee58a](https://github.com/agrc/parole-and-probation/commit/59ee58aa7352594a74090a1f1f4173c5674ecb2a))
+- **api:** second round of updates ([aef4940](https://github.com/agrc/parole-and-probation/commit/aef49406be28240dbf23246654051e46e8bbfbb8))
+- second round of updates ([59ee58a](https://github.com/agrc/parole-and-probation/commit/59ee58aa7352594a74090a1f1f4173c5674ecb2a))
 
 ## [1.21.4-1](https://github.com/agrc/parole-and-probation/compare/v1.21.4-0...v1.21.4-1) (2025-05-09)
 
-
 ### Styles
 
-* **app:** update dark styles ([13aea0f](https://github.com/agrc/parole-and-probation/commit/13aea0ff4a014c69b65dcdfddff140dd7f009627))
+- **app:** update dark styles ([13aea0f](https://github.com/agrc/parole-and-probation/commit/13aea0ff4a014c69b65dcdfddff140dd7f009627))
 
 ## [1.21.4-0](https://github.com/agrc/parole-and-probation/compare/v1.21.3...v1.21.4-0) (2025-05-08)
 
-
 ### Dependencies
 
-* **app:** remove unused package and update the rest ([9d5c132](https://github.com/agrc/parole-and-probation/commit/9d5c132543be4ee929b7401fff5b7bac5d5c27a7))
-
+- **app:** remove unused package and update the rest ([9d5c132](https://github.com/agrc/parole-and-probation/commit/9d5c132543be4ee929b7401fff5b7bac5d5c27a7))
 
 ### Documentation
 
-* **app:** update readme for development ([821ea0f](https://github.com/agrc/parole-and-probation/commit/821ea0ffbbef5650542a275909e94200e060d75a))
-
+- **app:** update readme for development ([821ea0f](https://github.com/agrc/parole-and-probation/commit/821ea0ffbbef5650542a275909e94200e060d75a))
 
 ### Styles
 
-* **app:** migrate to utah design system ([829c912](https://github.com/agrc/parole-and-probation/commit/829c912ae2ab5dca86c16ec6c61dce040c054ed6))
+- **app:** migrate to utah design system ([829c912](https://github.com/agrc/parole-and-probation/commit/829c912ae2ab5dca86c16ec6c61dce040c054ed6))
 
 ## [1.21.3](https://github.com/agrc/parole-and-probation/compare/v1.21.2...v1.21.3) (2025-01-03)
 
-
 ### Features
 
-* **api:** update to dotnet 9 ([2e257f0](https://github.com/agrc/parole-and-probation/commit/2e257f02847fbb2fe2e182e651b631241a6b4f5b))
-
+- **api:** update to dotnet 9 ([2e257f0](https://github.com/agrc/parole-and-probation/commit/2e257f02847fbb2fe2e182e651b631241a6b4f5b))
 
 ### Dependencies
 
-* **api:** fy25 q3 package updates ([9df5706](https://github.com/agrc/parole-and-probation/commit/9df57065f6dd5552eaaec741f1067f6c33a0e6ca))
-* **app:** fy25 q3 package updates ([1b2c449](https://github.com/agrc/parole-and-probation/commit/1b2c44966d8447ec0cc5177386a98c49cc572260))
+- **api:** fy25 q3 package updates ([9df5706](https://github.com/agrc/parole-and-probation/commit/9df57065f6dd5552eaaec741f1067f6c33a0e6ca))
+- **app:** fy25 q3 package updates ([1b2c449](https://github.com/agrc/parole-and-probation/commit/1b2c44966d8447ec0cc5177386a98c49cc572260))
 
 ## [1.21.2](https://github.com/agrc/parole-and-probation/compare/v1.21.1...v1.21.2) (2024-10-07)
 
-
 ### Features
 
-* **api:** persist login to redis ([73247b7](https://github.com/agrc/parole-and-probation/commit/73247b7ba4a93b0245bd89e46678b34416077e5a))
-* **app:** use skeleton to improve filter wait time ([f4a1920](https://github.com/agrc/parole-and-probation/commit/f4a1920843d844e2a9a4ea82da081f49cfa92654))
-* dotnet 7 ([69333b8](https://github.com/agrc/parole-and-probation/commit/69333b852830a69c8e79efd88dbc00fc2b26e604))
-* standardize release ([f21dc16](https://github.com/agrc/parole-and-probation/commit/f21dc163d4dce4d56e76ef5799bd776ae1080e2b))
-* update release pipeline ([b6ebe6c](https://github.com/agrc/parole-and-probation/commit/b6ebe6ca6a3e4fb523b096696fa61745a34b3c99))
-
+- **api:** persist login to redis ([73247b7](https://github.com/agrc/parole-and-probation/commit/73247b7ba4a93b0245bd89e46678b34416077e5a))
+- **app:** use skeleton to improve filter wait time ([f4a1920](https://github.com/agrc/parole-and-probation/commit/f4a1920843d844e2a9a4ea82da081f49cfa92654))
+- dotnet 7 ([69333b8](https://github.com/agrc/parole-and-probation/commit/69333b852830a69c8e79efd88dbc00fc2b26e604))
+- standardize release ([f21dc16](https://github.com/agrc/parole-and-probation/commit/f21dc163d4dce4d56e76ef5799bd776ae1080e2b))
+- update release pipeline ([b6ebe6c](https://github.com/agrc/parole-and-probation/commit/b6ebe6ca6a3e4fb523b096696fa61745a34b3c99))
 
 ### Bug Fixes
 
-* **api:** allow manifest unauthenticated ([1308d49](https://github.com/agrc/parole-and-probation/commit/1308d493963a39ff7ea4f5ff325f10af823d82d0))
-* **api:** correct spa proxy settings ([d840854](https://github.com/agrc/parole-and-probation/commit/d8408540b6fdede15a0afba4435350f16a7cdd31))
-* **api:** try preventing thread theft ([9647dbc](https://github.com/agrc/parole-and-probation/commit/9647dbc08688a89e8a019371d23c61bb9b779676))
-* **app:** build service worker ([8b05dee](https://github.com/agrc/parole-and-probation/commit/8b05deedd191d4bd751ccf7e5e1e333a20023135))
-* **app:** correct syntax for fetch request ([ad9c3f5](https://github.com/agrc/parole-and-probation/commit/ad9c3f574659c1412d2f25238983cd72a13de7f6))
-* **app:** do not cache the index.html. It may be the error page ([6727e72](https://github.com/agrc/parole-and-probation/commit/6727e72dd36637af6b96b6824e8986f0fb54df96))
-* **app:** fix zooming to filtered data ([729e37a](https://github.com/agrc/parole-and-probation/commit/729e37af2e6a027802651fdde50ae5943f9063fd))
-* **app:** point to feature layer id ([c6b64a6](https://github.com/agrc/parole-and-probation/commit/c6b64a61b447e6454d2476d81f12cdd1af7b0964))
-* **app:** replace static with assets ([f6f4165](https://github.com/agrc/parole-and-probation/commit/f6f4165976bc3bc87ff4b485aebf566b5f699a06))
-* **app:** update google analytics ([595709c](https://github.com/agrc/parole-and-probation/commit/595709cc430a9234bbc91ae8e34614fe25a0891d))
-* **app:** use public folder for static assets ([9d74a82](https://github.com/agrc/parole-and-probation/commit/9d74a821a42018070cdb1c8315a27ee775ab3c19))
-* **app:** use referer ([76fe496](https://github.com/agrc/parole-and-probation/commit/76fe49602470afabdb674ef5096a9ece70c7b7e5))
-* **app:** use request ip for tokens ([451b16f](https://github.com/agrc/parole-and-probation/commit/451b16f58a9be63a88c62cbbf8142708f3480512))
-* correct all linting and accessibility errors ([4f86509](https://github.com/agrc/parole-and-probation/commit/4f86509d040cb7716212eefa1f2168ec073c51b2))
-* correct usage for downshift 7 ([ed3fa3b](https://github.com/agrc/parole-and-probation/commit/ed3fa3b24772d488c9c3358932cf0017a0ee61d3))
-* enable analytics debug mode in dev ([57a7233](https://github.com/agrc/parole-and-probation/commit/57a7233b193f16dc324dc465c5835fbf8ba7e059))
-* february api package updates ([05c6260](https://github.com/agrc/parole-and-probation/commit/05c6260e008967753239704d156492e4e20a573e))
-* february app package updates ([01a1b39](https://github.com/agrc/parole-and-probation/commit/01a1b399c630fc5149bd14f5bdb4da1c2695ae51))
-* **pallet:** truncate alerts to 500 characters ([849c3ce](https://github.com/agrc/parole-and-probation/commit/849c3ce20c28793693484e9197655a2dbc38e731))
-* refresh data and schema from api data snapshot ([535f3b9](https://github.com/agrc/parole-and-probation/commit/535f3b9dc9b723c552fa4b701eab8930bdee5def)), closes [#195](https://github.com/agrc/parole-and-probation/issues/195)
-* remove records with no geometry ([4c4b33d](https://github.com/agrc/parole-and-probation/commit/4c4b33df0df4549c3b69eaf056e99b3fbcd3ff1b))
-* send path to the composite action ([c193e94](https://github.com/agrc/parole-and-probation/commit/c193e94d7616ec00c4507336cb3b33dcd2bed4d9))
-* truncate employer address data ([2fc4597](https://github.com/agrc/parole-and-probation/commit/2fc45974a9f38284d0b1c2e33642af5dad733adb))
-* use run defaults ([65dade3](https://github.com/agrc/parole-and-probation/commit/65dade3ffc22fbdef56912e2946d1bc8113ad5ae))
-
+- **api:** allow manifest unauthenticated ([1308d49](https://github.com/agrc/parole-and-probation/commit/1308d493963a39ff7ea4f5ff325f10af823d82d0))
+- **api:** correct spa proxy settings ([d840854](https://github.com/agrc/parole-and-probation/commit/d8408540b6fdede15a0afba4435350f16a7cdd31))
+- **api:** try preventing thread theft ([9647dbc](https://github.com/agrc/parole-and-probation/commit/9647dbc08688a89e8a019371d23c61bb9b779676))
+- **app:** build service worker ([8b05dee](https://github.com/agrc/parole-and-probation/commit/8b05deedd191d4bd751ccf7e5e1e333a20023135))
+- **app:** correct syntax for fetch request ([ad9c3f5](https://github.com/agrc/parole-and-probation/commit/ad9c3f574659c1412d2f25238983cd72a13de7f6))
+- **app:** do not cache the index.html. It may be the error page ([6727e72](https://github.com/agrc/parole-and-probation/commit/6727e72dd36637af6b96b6824e8986f0fb54df96))
+- **app:** fix zooming to filtered data ([729e37a](https://github.com/agrc/parole-and-probation/commit/729e37af2e6a027802651fdde50ae5943f9063fd))
+- **app:** point to feature layer id ([c6b64a6](https://github.com/agrc/parole-and-probation/commit/c6b64a61b447e6454d2476d81f12cdd1af7b0964))
+- **app:** replace static with assets ([f6f4165](https://github.com/agrc/parole-and-probation/commit/f6f4165976bc3bc87ff4b485aebf566b5f699a06))
+- **app:** update google analytics ([595709c](https://github.com/agrc/parole-and-probation/commit/595709cc430a9234bbc91ae8e34614fe25a0891d))
+- **app:** use public folder for static assets ([9d74a82](https://github.com/agrc/parole-and-probation/commit/9d74a821a42018070cdb1c8315a27ee775ab3c19))
+- **app:** use referer ([76fe496](https://github.com/agrc/parole-and-probation/commit/76fe49602470afabdb674ef5096a9ece70c7b7e5))
+- **app:** use request ip for tokens ([451b16f](https://github.com/agrc/parole-and-probation/commit/451b16f58a9be63a88c62cbbf8142708f3480512))
+- correct all linting and accessibility errors ([4f86509](https://github.com/agrc/parole-and-probation/commit/4f86509d040cb7716212eefa1f2168ec073c51b2))
+- correct usage for downshift 7 ([ed3fa3b](https://github.com/agrc/parole-and-probation/commit/ed3fa3b24772d488c9c3358932cf0017a0ee61d3))
+- enable analytics debug mode in dev ([57a7233](https://github.com/agrc/parole-and-probation/commit/57a7233b193f16dc324dc465c5835fbf8ba7e059))
+- february api package updates ([05c6260](https://github.com/agrc/parole-and-probation/commit/05c6260e008967753239704d156492e4e20a573e))
+- february app package updates ([01a1b39](https://github.com/agrc/parole-and-probation/commit/01a1b399c630fc5149bd14f5bdb4da1c2695ae51))
+- **pallet:** truncate alerts to 500 characters ([849c3ce](https://github.com/agrc/parole-and-probation/commit/849c3ce20c28793693484e9197655a2dbc38e731))
+- refresh data and schema from api data snapshot ([535f3b9](https://github.com/agrc/parole-and-probation/commit/535f3b9dc9b723c552fa4b701eab8930bdee5def)), closes [#195](https://github.com/agrc/parole-and-probation/issues/195)
+- remove records with no geometry ([4c4b33d](https://github.com/agrc/parole-and-probation/commit/4c4b33df0df4549c3b69eaf056e99b3fbcd3ff1b))
+- send path to the composite action ([c193e94](https://github.com/agrc/parole-and-probation/commit/c193e94d7616ec00c4507336cb3b33dcd2bed4d9))
+- truncate employer address data ([2fc4597](https://github.com/agrc/parole-and-probation/commit/2fc45974a9f38284d0b1c2e33642af5dad733adb))
+- use run defaults ([65dade3](https://github.com/agrc/parole-and-probation/commit/65dade3ffc22fbdef56912e2946d1bc8113ad5ae))
 
 ### Dependencies
 
-* :evergreen_tree: ([bdf3993](https://github.com/agrc/parole-and-probation/commit/bdf3993413ca3d98ef7c4e20b54cd68d03b402c7))
-* **api:** Q1 package updates ([e163d91](https://github.com/agrc/parole-and-probation/commit/e163d91c2095c475196ba7f39241eaf6e2681ffa))
-* **api:** q2 backend package updates ([09915f3](https://github.com/agrc/parole-and-probation/commit/09915f392a3664cb82f15a94542394cd8e8e6955))
-* **api:** q4 package updates ([7b5b4fa](https://github.com/agrc/parole-and-probation/commit/7b5b4fa0439d659b6cffc4a14e16d3e7beb4c033))
-* **api:** q4 updates ([dff8fcc](https://github.com/agrc/parole-and-probation/commit/dff8fcc46506add96a9b67af4808feb4b5bf7f32))
-* **api:** update packages ([9827166](https://github.com/agrc/parole-and-probation/commit/98271663b785ba93dcae145106ea21506a2a9546))
-* **app:** FY25 Q2 dependency updates 🌲 ([a173a9a](https://github.com/agrc/parole-and-probation/commit/a173a9a3871ff146732dda4ee9c7cc1468851986))
-* **app:** Q1 package updates ([1eb9a4d](https://github.com/agrc/parole-and-probation/commit/1eb9a4d24bb43664ef4de65c8e040fdee76a7fb8))
-* **app:** q2 backend package updates ([7d3f235](https://github.com/agrc/parole-and-probation/commit/7d3f2353387d4d8e6890e0309f61e7dd657b856b))
-* **app:** q4 package updates ([2129fd3](https://github.com/agrc/parole-and-probation/commit/2129fd33190878abccfbb6b045264080bc513bb7))
-* **app:** q4 updates ([acd74b9](https://github.com/agrc/parole-and-probation/commit/acd74b96e767104d5e144d77eb08c1b71491ed70))
-* **app:** update packages ([6edc241](https://github.com/agrc/parole-and-probation/commit/6edc241800dd3f234840122d7faf8f57cd7f75bb))
-* bump the safe-dependencies group across 1 directory with 30 updates ([b07ce25](https://github.com/agrc/parole-and-probation/commit/b07ce25b5f9e6443342ab686bc4b98cc0fe0a15a))
-* bump the safe-dependencies group across 1 directory with 40 updates ([6002521](https://github.com/agrc/parole-and-probation/commit/6002521676939eee484709252c58f38efa269c12))
-* update front end and backend packages ([db87f00](https://github.com/agrc/parole-and-probation/commit/db87f006c0019a980606032edddac9d9f612d723))
-
+- :evergreen_tree: ([bdf3993](https://github.com/agrc/parole-and-probation/commit/bdf3993413ca3d98ef7c4e20b54cd68d03b402c7))
+- **api:** Q1 package updates ([e163d91](https://github.com/agrc/parole-and-probation/commit/e163d91c2095c475196ba7f39241eaf6e2681ffa))
+- **api:** q2 backend package updates ([09915f3](https://github.com/agrc/parole-and-probation/commit/09915f392a3664cb82f15a94542394cd8e8e6955))
+- **api:** q4 package updates ([7b5b4fa](https://github.com/agrc/parole-and-probation/commit/7b5b4fa0439d659b6cffc4a14e16d3e7beb4c033))
+- **api:** q4 updates ([dff8fcc](https://github.com/agrc/parole-and-probation/commit/dff8fcc46506add96a9b67af4808feb4b5bf7f32))
+- **api:** update packages ([9827166](https://github.com/agrc/parole-and-probation/commit/98271663b785ba93dcae145106ea21506a2a9546))
+- **app:** FY25 Q2 dependency updates 🌲 ([a173a9a](https://github.com/agrc/parole-and-probation/commit/a173a9a3871ff146732dda4ee9c7cc1468851986))
+- **app:** Q1 package updates ([1eb9a4d](https://github.com/agrc/parole-and-probation/commit/1eb9a4d24bb43664ef4de65c8e040fdee76a7fb8))
+- **app:** q2 backend package updates ([7d3f235](https://github.com/agrc/parole-and-probation/commit/7d3f2353387d4d8e6890e0309f61e7dd657b856b))
+- **app:** q4 package updates ([2129fd3](https://github.com/agrc/parole-and-probation/commit/2129fd33190878abccfbb6b045264080bc513bb7))
+- **app:** q4 updates ([acd74b9](https://github.com/agrc/parole-and-probation/commit/acd74b96e767104d5e144d77eb08c1b71491ed70))
+- **app:** update packages ([6edc241](https://github.com/agrc/parole-and-probation/commit/6edc241800dd3f234840122d7faf8f57cd7f75bb))
+- bump the safe-dependencies group across 1 directory with 30 updates ([b07ce25](https://github.com/agrc/parole-and-probation/commit/b07ce25b5f9e6443342ab686bc4b98cc0fe0a15a))
+- bump the safe-dependencies group across 1 directory with 40 updates ([6002521](https://github.com/agrc/parole-and-probation/commit/6002521676939eee484709252c58f38efa269c12))
+- update front end and backend packages ([db87f00](https://github.com/agrc/parole-and-probation/commit/db87f006c0019a980606032edddac9d9f612d723))
 
 ### Documentation
 
-* :open_book: ([de0866c](https://github.com/agrc/parole-and-probation/commit/de0866c29905554cee959b8f0994d6cb652cf08d))
-* add encrypt suggestion ([e6b1dab](https://github.com/agrc/parole-and-probation/commit/e6b1daba0798ded1eccb31d73fbe15c8d7b40547))
-* remove outdated docs ([7976875](https://github.com/agrc/parole-and-probation/commit/797687592887534e70d577583456ea62fb2541f3))
-* update for dotnet 6 ([d8f20a8](https://github.com/agrc/parole-and-probation/commit/d8f20a842021979e729dca258a77d53e1037db13))
-* update instructions ([277d9c0](https://github.com/agrc/parole-and-probation/commit/277d9c03698ba274f4f7a6e1173941964015075c))
-
+- :open_book: ([de0866c](https://github.com/agrc/parole-and-probation/commit/de0866c29905554cee959b8f0994d6cb652cf08d))
+- add encrypt suggestion ([e6b1dab](https://github.com/agrc/parole-and-probation/commit/e6b1daba0798ded1eccb31d73fbe15c8d7b40547))
+- remove outdated docs ([7976875](https://github.com/agrc/parole-and-probation/commit/797687592887534e70d577583456ea62fb2541f3))
+- update for dotnet 6 ([d8f20a8](https://github.com/agrc/parole-and-probation/commit/d8f20a842021979e729dca258a77d53e1037db13))
+- update instructions ([277d9c0](https://github.com/agrc/parole-and-probation/commit/277d9c03698ba274f4f7a6e1173941964015075c))
 
 ### Styles
 
-* **app:** correct header alt tag ([88c69fd](https://github.com/agrc/parole-and-probation/commit/88c69fd8383434ee6f79db88e604cfd3616886a0))
-* **app:** update styles for bootstrap 5 ([8c02209](https://github.com/agrc/parole-and-probation/commit/8c0220945af701752b8db5ba6cdf4f3946200b09))
-* prettier again ([f7ea37c](https://github.com/agrc/parole-and-probation/commit/f7ea37c3cac8c51ee4a198ae0f61a8b9cf74f757))
-* prettier everything ([0fe5a8c](https://github.com/agrc/parole-and-probation/commit/0fe5a8c5c89d79fb76bd714c12aea60cf11a88e4))
+- **app:** correct header alt tag ([88c69fd](https://github.com/agrc/parole-and-probation/commit/88c69fd8383434ee6f79db88e604cfd3616886a0))
+- **app:** update styles for bootstrap 5 ([8c02209](https://github.com/agrc/parole-and-probation/commit/8c0220945af701752b8db5ba6cdf4f3946200b09))
+- prettier again ([f7ea37c](https://github.com/agrc/parole-and-probation/commit/f7ea37c3cac8c51ee4a198ae0f61a8b9cf74f757))
+- prettier everything ([0fe5a8c](https://github.com/agrc/parole-and-probation/commit/0fe5a8c5c89d79fb76bd714c12aea60cf11a88e4))
 
 ### [1.21.2](https://github.com/agrc/parole-and-probation/compare/v1.21.1...v1.21.2) (2021-06-28)
 

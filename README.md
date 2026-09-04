@@ -22,6 +22,14 @@ _If you are using vscode, download the recommended extensions from this workspac
 
 _The offender feature service will not function since the reverse proxy dotnet service is not running._
 
+### Offline use
+
+The map supports a limited offline mode. Users must first load the application while online and allow the map data to finish loading. After disconnecting, the application can display and identify the offender points that were loaded before disconnecting and can filter the data available in the local map layer.
+
+Offline results are intentionally incomplete. Details that require the API, including enriched offender information and photos, will not be available. CSV export and other backend-dependent operations also require a connection. The basemap is not guaranteed to be available offline.
+
+The service worker precaches the ArcGIS worker assets needed by the offline map. Those assets are assigned content-based revisions during the production build so changed ArcGIS files are downloaded instead of being served from an older browser cache.
+
 ### asp.net core mvc
 
 1. Install the [dotnet 10.0.\* SDK](https://dotnet.microsoft.com/download/dotnet/10.0)

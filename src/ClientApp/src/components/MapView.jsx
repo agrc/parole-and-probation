@@ -3,12 +3,14 @@ import config from '@arcgis/core/config';
 import { when, whenOnce } from '@arcgis/core/core/reactiveUtils';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import LabelClass from '@arcgis/core/layers/support/LabelClass';
-import MapView from '@arcgis/core/views/MapView';
 import '@arcgis/map-components/components/arcgis-home';
 import '@arcgis/map-components/components/arcgis-locate';
+import '@arcgis/map-components/components/arcgis-map';
+import '@arcgis/map-components/components/arcgis-zoom';
 import initializeTheme from '@ugrc/esri-theme-toggle';
-import { Geocode, LayerSelector } from '@ugrc/utah-design-system';
-import { useMapReady, utahMercatorExtent } from '@ugrc/utilities/hooks';
+import { Geocode } from '@ugrc/utah-design-system/components/Geocode';
+import { LayerSelector } from '@ugrc/utah-design-system/components/LayerSelector';
+import { utahMercatorExtent } from '@ugrc/utilities/hooks/useDefaultExtent';
 import { saveAs } from 'file-saver';
 import ky from 'ky';
 import PropTypes from 'prop-types';
@@ -26,20 +28,17 @@ const controller = new AbortController();
 let signal = controller.signal;
 
 const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpression, filterCriteria }) => {
-  const mapDiv = useRef(null);
+  const mapComponent = useRef(null);
   const view = useRef(null);
   const layerView = useRef(null);
   const clickEvent = useRef(null);
   const loadingEvent = useRef(null);
   const offenders = useRef(null);
   const mirror = useRef(null);
-  const locateComponent = useRef(null);
-  const homeComponent = useRef(null);
   const displayedZoomGraphic = useRef(null);
-  const [selectorOptions, setSelectorOptions] = useState(null);
+  const [mapView, setMapView] = useState(null);
   const [appliedFilter, setAppliedFilter] = useState('');
   const withService = useNavigatorStatus();
-  const ready = useMapReady(view.current);
 
   const setFilters = useCallback(async (where, isFilter) => {
     if (!offenders.current || !view.current) {
@@ -239,95 +238,82 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
 
   // set up map effect
   useEffect(() => {
-    if (!mapDiv.current) {
+    if (!mapComponent.current) {
       return;
     }
 
-    offenders.current = new FeatureLayer({
-      url: `/secure/0`,
-      outFields: Object.keys(fields).filter((key) => fields[key].filter === true),
-      definitionExpression: '1=2',
-    });
-
+    let cancelled = false;
     const map = new EsriMap();
-    view.current = new MapView({
-      map,
-      container: mapDiv.current,
-      extent: utahMercatorExtent,
-      ui: {
-        components: ['zoom'],
-      },
-      popup: null,
-    });
+    mapComponent.current.map = map;
+    mapComponent.current.extent = utahMercatorExtent;
 
-    mapDispatcher({
-      type: 'SET_MAPVIEW',
-      payload: view.current,
-    });
+    const initializeMap = async () => {
+      await mapComponent.current.viewOnReady();
+      const mapView = mapComponent.current.view;
+      if (cancelled || !mapView) {
+        return;
+      }
 
-    setSelectorOptions({
-      options: {
-        view: view.current,
-        quadWord: import.meta.env.VITE_DISCOVER,
-        baseLayers: ['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR'],
-        operationalLayers: [
-          {
-            label: 'Correction Regions',
-            function: () =>
-              new FeatureLayer({
-                opacity: 0.25,
-                labelingInfo: [
-                  new LabelClass({
-                    labelExpressionInfo: { expression: '$feature.REGION' },
-                    symbol: {
-                      type: 'text',
-                      color: 'black',
-                      haloSize: 1,
-                      haloColor: 'white',
-                    },
-                  }),
-                ],
-                url: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/Corrections_Regions/FeatureServer/0',
-                id: 'Regions',
-              }),
-          },
-        ],
-      },
-    });
+      view.current = mapView;
+      setMapView(mapView);
 
-    map.add(offenders.current);
-
-    view.current.whenLayerView(offenders.current).then((lv) => {
-      layerView.current = lv;
-
-      mirror.current = new FeatureLayer({
-        source: [],
-        renderer: {
-          type: 'simple',
-          symbol: {
-            type: 'simple-marker',
-            size: 6,
-            color: 'black',
-            outline: {
-              width: 0.5,
-              color: 'white',
-            },
-          },
-        },
-        title: 'mirror',
-        fields: offenders.current.fields.map((field) => field.clone()),
-        outFields: lv.availableFields,
-        geometryType: offenders.current.geometryType,
-        spatialReference: offenders.current.spatialReference.clone(),
-        visible: false,
+      offenders.current = new FeatureLayer({
+        url: `/secure/0`,
+        outFields: Object.keys(fields).filter((key) => fields[key].filter === true),
+        definitionExpression: '1=2',
       });
 
-      map.add(mirror.current);
-    });
+      mapView.popup = null;
+
+      mapDispatcher({
+        type: 'SET_MAPVIEW',
+        payload: mapView,
+      });
+
+      map.add(offenders.current);
+
+      mapView.whenLayerView(offenders.current).then((lv) => {
+        layerView.current = lv;
+
+        mirror.current = new FeatureLayer({
+          source: [],
+          renderer: {
+            type: 'simple',
+            symbol: {
+              type: 'simple-marker',
+              size: 6,
+              color: 'black',
+              outline: {
+                width: 0.5,
+                color: 'white',
+              },
+            },
+          },
+          title: 'mirror',
+          fields: offenders.current.fields.map((field) => field.clone()),
+          outFields: lv.availableFields,
+          geometryType: offenders.current.geometryType,
+          spatialReference: offenders.current.spatialReference.clone(),
+          visible: false,
+        });
+
+        map.add(mirror.current);
+      });
+    };
+
+    void initializeMap();
+
+    return () => {
+      cancelled = true;
+    };
   }, [mapDispatcher]);
 
   // synchronize feature layers
   useEffect(() => {
+    if (!offenders.current || !mapView) {
+      return;
+    }
+
     offenders.current.when(() => {
       view.current.whenLayerView(offenders.current).then((lv) => {
         loadingEvent.current?.remove();
@@ -362,21 +348,21 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         );
       });
     });
-  }, [view, mapDispatcher, withService]);
+  }, [mapDispatcher, mapView, withService]);
 
   // apply filters to map view effect
   useEffect(() => {
     if (Array.isArray(filter)) {
       setFilters(filter, true);
     }
-  }, [filter, setFilters]);
+  }, [filter, mapView, setFilters]);
 
   // update definition expression effect
   useEffect(() => {
     if (Array.isArray(definitionExpression)) {
       setFilters(definitionExpression, false);
     }
-  }, [definitionExpression, setFilters]);
+  }, [definitionExpression, mapView, setFilters]);
 
   // zooming effect
   useEffect(() => {
@@ -431,27 +417,18 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         clearTimeout(timeout);
       }
     };
-  }, [zoomToGraphic]);
+  }, [mapView, zoomToGraphic]);
 
   // set up view click events
   useEffect(() => {
     clickEvent.current?.remove();
     clickEvent.current = view.current?.on('click', (event) => identify(event));
-  }, [identify]);
-
-  // position esri web components
-  useEffect(() => {
-    if (ready) {
-      homeComponent.current.view = view.current;
-      locateComponent.current.view = view.current;
-      view.current.ui.add(homeComponent.current, 'top-left');
-      view.current.ui.add(locateComponent.current, 'top-left');
-    }
-  }, [ready]);
+  }, [identify, mapView]);
 
   return (
-    <div ref={mapDiv} style={{ height: '100%', width: '100%' }}>
-      <MapToolPanel view={view.current} position="top-left">
+    <arcgis-map ref={mapComponent} style={{ height: '100%', width: '100%' }}>
+      <arcgis-zoom slot="top-left" />
+      <MapToolPanel slot="top-left" group="top-left">
         <Geocode
           className="px-3 py-2"
           apiKey={import.meta.env.VITE_WEB_API}
@@ -467,11 +444,36 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
           }}
         />
       </MapToolPanel>
-      <CsvDownload download={download} view={view.current} position="top-left" />
-      <arcgis-locate ref={locateComponent} className="esri-widget" />
-      <arcgis-home ref={homeComponent} className="esri-widget" />
-      {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
-    </div>
+      <CsvDownload slot="top-left" download={download} />
+      <arcgis-home slot="top-left" />
+      <arcgis-locate slot="top-left" />
+      <LayerSelector
+        quadWord={import.meta.env.VITE_DISCOVER}
+        baseLayers={['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR']}
+        operationalLayers={[
+          {
+            label: 'Correction Regions',
+            function: () =>
+              new FeatureLayer({
+                opacity: 0.25,
+                labelingInfo: [
+                  new LabelClass({
+                    labelExpressionInfo: { expression: '$feature.REGION' },
+                    symbol: {
+                      type: 'text',
+                      color: 'black',
+                      haloSize: 1,
+                      haloColor: 'white',
+                    },
+                  }),
+                ],
+                url: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/Corrections_Regions/FeatureServer/0',
+                id: 'Regions',
+              }),
+          },
+        ]}
+      />
+    </arcgis-map>
   );
 };
 ReactMapView.propTypes = {
