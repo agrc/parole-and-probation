@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import '@utahdts/utah-design-system-header/css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import AppRoutes from './Routes';
