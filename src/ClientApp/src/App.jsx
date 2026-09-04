@@ -1,7 +1,6 @@
 import '@arcgis/core/assets/esri/themes/light/main.css';
 import { useQuery } from '@tanstack/react-query';
 import { Drawer } from '@ugrc/utah-design-system/components/Drawer';
-import { Header } from '@ugrc/utah-design-system/components/Header';
 import { BusyBar } from '@ugrc/utah-design-system/components/Spinner';
 import useViewLoading from '@ugrc/utilities/hooks/useViewLoading';
 import ky from 'ky';
@@ -13,33 +12,14 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { useImmerReducer } from 'use-immer';
 import Console from './Console';
 import UserContext from './UserContext';
-import logo from './assets/udc-logo.webp';
 import { FallbackComponent } from './components/ErrorBoundary';
 import MapView from './components/MapView';
 import { SideBarStatus } from './components/SidebarStatus';
 import StaticLegend from './components/StaticLegend';
+import UtahChrome from './components/UtahChrome';
 import { mappingConfig } from './config';
 
 const version = import.meta.env.PACKAGE_VERSION;
-
-const links = [
-  {
-    key: 'Corrections Homepage',
-    action: { url: 'https://corrections.utah.gov/' },
-  },
-  {
-    key: 'GitHub Repository',
-    action: { url: 'https://github.com/agrc/parole-and-probation' },
-  },
-  {
-    key: `Version ${version} changelog`,
-    action: { url: `https://github.com/agrc/parole-and-probation/releases/v${version}` },
-  },
-  {
-    key: 'Third-party notices',
-    action: { url: '/ThirdPartyNotices.txt' },
-  },
-];
 
 const reducer = (draft, action) => {
   Console(`App:reducing state ${action.type}`, action);
@@ -243,58 +223,53 @@ export default function App() {
 
   return (
     <UserContext.Provider value={user}>
-      <main className="flex h-screen flex-col md:gap-2">
-        <div className="hidden md:block">
-          <Header links={links}>
-            <div className="flex h-14 grow items-center gap-3">
-              <img src={logo} className="h-full w-auto dark:grayscale dark:invert" alt="corrections logo" />
-              <div className="font-heading text-primary-900 text-xl font-light md:text-2xl lg:text-4xl dark:text-zinc-100">
-                AP&P field map
+      <div className="flex h-screen flex-col">
+        <div id="utah-header-target" className="mb-2" />
+        <main id="main-content" className="flex min-h-0 flex-1 flex-col md:gap-2">
+          <section className="relative flex min-h-0 flex-1 overflow-x-hidden pt-2 md:mr-2 md:pt-0">
+            <Drawer main state={sidebarState} {...sideBarTriggerProps}>
+              <div className="mx-2 mb-2 grid grid-cols-1 gap-2">
+                <SideBarStatus
+                  status={userState}
+                  app={app}
+                  user={user}
+                  identifyOptions={identifyOptions}
+                  dispatcher={dispatcher}
+                />
+              </div>
+            </Drawer>
+            <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
+              <div className="relative flex-1 overflow-hidden pb-6 dark:rounded">
+                <ErrorBoundary FallbackComponent={FallbackComponent}>
+                  <StaticLegend
+                    legend={[
+                      {
+                        label: 'probation',
+                        color: '#53C3F9',
+                        invert: true,
+                      },
+                      {
+                        label: 'parole',
+                        color: '#DAFC86',
+                        invert: true,
+                      },
+                      {
+                        label: 'fugitive',
+                        color: '#F08683',
+                        invert: true,
+                      },
+                    ]}
+                  />
+                  <BusyBar busy={busy} />
+                  <MapView {...mapOptions} />
+                </ErrorBoundary>
               </div>
             </div>
-          </Header>
-        </div>
-        <section className="relative flex min-h-0 flex-1 overflow-x-hidden pt-2 md:mr-2 md:pt-0">
-          <Drawer main state={sidebarState} {...sideBarTriggerProps}>
-            <div className="mx-2 mb-2 grid grid-cols-1 gap-2">
-              <SideBarStatus
-                status={userState}
-                app={app}
-                user={user}
-                identifyOptions={identifyOptions}
-                dispatcher={dispatcher}
-              />
-            </div>
-          </Drawer>
-          <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
-            <div className="relative flex-1 overflow-hidden dark:rounded">
-              <ErrorBoundary FallbackComponent={FallbackComponent}>
-                <StaticLegend
-                  legend={[
-                    {
-                      label: 'probation',
-                      color: '#53C3F9',
-                      invert: true,
-                    },
-                    {
-                      label: 'parole',
-                      color: '#DAFC86',
-                      invert: true,
-                    },
-                    {
-                      label: 'fugitive',
-                      color: '#F08683',
-                      invert: true,
-                    },
-                  ]}
-                />
-                <BusyBar busy={busy} />
-                <MapView {...mapOptions} />
-              </ErrorBoundary>
-            </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
+      </div>
+      <div id="utah-footer-target" />
+      <UtahChrome version={version} />
     </UserContext.Provider>
   );
 }
