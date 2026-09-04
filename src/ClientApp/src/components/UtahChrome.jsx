@@ -44,7 +44,7 @@ export default function UtahChrome({ version }) {
         {
           title: 'Links',
           showTitle: false,
-          icon: '<span class="utds-icon-before-waffle" aria-hidden="true" />',
+          icon: '<span class="utds-icon-before-waffle" aria-hidden="true"></span>',
           actionPopupMenu: {
             title: 'AP&P field map links',
             menuItems: links(version),
