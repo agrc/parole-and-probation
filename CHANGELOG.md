@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.13-rc.3](https://github.com/agrc/parole-and-probation/compare/v1.21.12...v1.21.13-rc.3) (2026-09-04)
+
+
+### Bug Fixes
+
+* migrate to official utah header and footer ([e97a66d](https://github.com/agrc/parole-and-probation/commit/e97a66dc3825185a4bd8c362fb2ea453b49bec45))
+* prevent caching of old arcgis assets by service worker ([dae0daa](https://github.com/agrc/parole-and-probation/commit/dae0daa237046bfbbdfbbc9444016fbee934114a))
+
+
+### Dependencies
+
+* **app:** major upgrade Tailwind and ArcGIS dependencies ([988ba3b](https://github.com/agrc/parole-and-probation/commit/988ba3bfc1bc2324222808887505ab6d0b9c07b8))
+* bump NPM dependencies 🌲 ([42cfc19](https://github.com/agrc/parole-and-probation/commit/42cfc19ea92c14c5b54eb20928f4bb16430646c3))
+* other major NPM dependency bumps ([9663fde](https://github.com/agrc/parole-and-probation/commit/9663fde2c38971f023f1bfd2ad76b74ca82298c3))
+
 ## [1.21.13-rc.1](https://github.com/agrc/parole-and-probation/compare/v1.21.11...v1.21.13-rc.1) (2026-09-04)
 
 ### Bug Fixes
