@@ -10,7 +10,7 @@ import '@arcgis/map-components/components/arcgis-zoom';
 import initializeTheme from '@ugrc/esri-theme-toggle';
 import { Geocode } from '@ugrc/utah-design-system/components/Geocode';
 import { LayerSelector } from '@ugrc/utah-design-system/components/LayerSelector';
-import { utahMercatorExtent } from '@ugrc/utilities/hooks';
+import { utahMercatorExtent } from '@ugrc/utilities/hooks/useDefaultExtent';
 import { saveAs } from 'file-saver';
 import ky from 'ky';
 import PropTypes from 'prop-types';

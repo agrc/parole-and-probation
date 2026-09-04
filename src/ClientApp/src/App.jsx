@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Drawer } from '@ugrc/utah-design-system/components/Drawer';
 import { Header } from '@ugrc/utah-design-system/components/Header';
 import { BusyBar } from '@ugrc/utah-design-system/components/Spinner';
-import { useViewLoading } from '@ugrc/utilities/hooks';
+import useViewLoading from '@ugrc/utilities/hooks/useViewLoading';
 import ky from 'ky';
 import isEqual from 'lodash.isequal';
 import { useEffect, useState } from 'react';
@@ -248,7 +248,7 @@ export default function App() {
           <Header links={links}>
             <div className="flex h-14 grow items-center gap-3">
               <img src={logo} className="h-full w-auto dark:grayscale dark:invert" alt="corrections logo" />
-              <div className="font-heading text-xl font-light text-primary-900 md:text-2xl lg:text-4xl dark:text-zinc-100">
+              <div className="font-heading text-primary-900 text-xl font-light md:text-2xl lg:text-4xl dark:text-zinc-100">
                 AP&P field map
               </div>
             </div>
