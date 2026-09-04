@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.13-rc.1](https://github.com/agrc/parole-and-probation/compare/v1.21.11...v1.21.13-rc.1) (2026-09-04)
+
+
+### Bug Fixes
+
+* **api:** use non-chiseled dotnet docker image ([ce2b5ca](https://github.com/agrc/parole-and-probation/commit/ce2b5cab0fb31a308584aa5dd8ed23f3d58bafb4))
+* migrate to official utah header and footer ([d87c570](https://github.com/agrc/parole-and-probation/commit/d87c570a7217bbf71158751e279ee3748221dff8))
+
+
+### Dependencies
+
+* **app:** major upgrade Tailwind and ArcGIS dependencies ([f4a8740](https://github.com/agrc/parole-and-probation/commit/f4a87404893b5461b26dcf426b5c9325b44d9a03))
+* bump NPM dependencies 🌲 ([dee9c6f](https://github.com/agrc/parole-and-probation/commit/dee9c6f172ae42cc4749b77d945d67ec16b8674a))
+* other major NPM dependency bumps ([64705b0](https://github.com/agrc/parole-and-probation/commit/64705b0fdecda4927e4693541dea22b19d77ad70))
+
 ## [1.21.11](https://github.com/agrc/parole-and-probation/compare/v1.21.10...v1.21.11) (2026-08-31)
 
 
