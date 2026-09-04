@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.13-rc.2](https://github.com/agrc/parole-and-probation/compare/v1.21.13-rc.1...v1.21.13-rc.2) (2026-09-04)
+
+
+### Bug Fixes
+
+* prevent caching of old arcgis assets by service worker ([919f0d4](https://github.com/agrc/parole-and-probation/commit/919f0d4523d6a9b29c1ef57e851354662f12f2c2))
+
 ## [1.21.13-rc.1](https://github.com/agrc/parole-and-probation/compare/v1.21.11...v1.21.13-rc.1) (2026-09-04)
 
 
