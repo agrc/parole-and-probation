@@ -445,8 +445,8 @@ const ReactMapView = ({ filter, mapDispatcher, zoomToGraphic, definitionExpressi
         />
       </MapToolPanel>
       <CsvDownload slot="top-left" download={download} />
-      <arcgis-locate slot="top-left" />
       <arcgis-home slot="top-left" />
+      <arcgis-locate slot="top-left" />
       <LayerSelector
         quadWord={import.meta.env.VITE_DISCOVER}
         baseLayers={['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR']}
