@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.13-rc.4](https://github.com/agrc/parole-and-probation/compare/v1.21.13-rc.3...v1.21.13-rc.4) (2026-10-01)
+
+
+### Bug Fixes
+
+* change region filter 1 -&gt; 2 ([66c98fe](https://github.com/agrc/parole-and-probation/commit/66c98fe0bacc96be0f1970ef4e05f2e04223a742)), refs [#481](https://github.com/agrc/parole-and-probation/issues/481)
+
 ## [1.21.13-rc.3](https://github.com/agrc/parole-and-probation/compare/v1.21.12...v1.21.13-rc.3) (2026-09-04)
 
 
