@@ -65,7 +65,7 @@ export default function FilterLocation(props) {
         <div>
           <div className="mb-1 w-fit text-sm font-medium text-zinc-700 dark:text-zinc-300">Region</div>
           <div className="flex justify-center gap-x-1" role="group" aria-label="Region">
-            {[1, 3, 4, 5, 6].map((region) => (
+            {[2, 3, 4, 5, 6].map((region) => (
               <ToggleButton
                 key={region}
                 className="min-h-0 min-w-6 px-2"

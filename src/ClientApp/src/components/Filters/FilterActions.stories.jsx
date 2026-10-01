@@ -26,7 +26,7 @@ export const Reset = () => (
         success: 60,
       },
       location: {
-        region: [1, 3],
+        region: [2, 3],
         zip: '88888',
         city: 'City',
         counties: ['County', 'County2'],
