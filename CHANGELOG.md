@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.22.0-rc.1](https://github.com/agrc/parole-and-probation/compare/v1.21.13-rc.5...v1.22.0-rc.1) (2026-10-02)
+
+
+### Features
+
+* add offender location to side panel ([688a83b](https://github.com/agrc/parole-and-probation/commit/688a83b4f9887ac35a0f88fdfc41f5c10cdc0f13)), refs [#484](https://github.com/agrc/parole-and-probation/issues/484)
+
 ## [1.21.13-rc.5](https://github.com/agrc/parole-and-probation/compare/v1.21.13-rc.3...v1.21.13-rc.5) (2026-10-01)
 
 
