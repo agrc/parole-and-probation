@@ -15,6 +15,7 @@ export const Normal = () => (
     offender="Last name, middle first"
     race={'WHITE'}
     id={999999}
+    location="Tooele AP&P"
     agent="Agent Orange"
   />
 );
@@ -27,6 +28,7 @@ export const NoSos = () => (
     offender="Last name, middle first"
     race={null}
     id={999999}
+    location="Tooele AP&P"
     agent="Agent Orange"
   />
 );
@@ -39,6 +41,7 @@ export const ActiveWarrant = () => (
     offender="Last name, middle first"
     race={null}
     id={999999}
+    location="Fugitive LEB"
     agent="Agent Orange"
   />
 );
