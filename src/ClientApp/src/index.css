@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config '../tailwind.config.js';
+@import 'tailwindcss';
 
 @layer base {
   body {
@@ -83,5 +82,11 @@
 
   .dropdown-menu form .downshift {
     @apply relative;
+  }
+}
+
+@layer base {
+  arcgis-map > [slot] {
+    margin-bottom: var(--calcite-spacing-sm-plus);
   }
 }

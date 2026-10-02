@@ -1,6 +1,4 @@
-import { useViewUiPosition } from '@ugrc/utilities/hooks';
-import classNames from 'clsx';
-import { CloudDownloadIcon, SendIcon } from 'lucide-react';
+import '@esri/calcite-components/components/calcite-action';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import Console from '../Console';
@@ -8,7 +6,6 @@ import Console from '../Console';
 export default function CsvDownload(props) {
   const [disabled, setDisabled] = useState(props.disabled || false);
   const [status, setStatus] = useState(props.status);
-  const me = useViewUiPosition(props.view, props.position);
 
   useEffect(() => {
     if (status === undefined) {
@@ -24,14 +21,6 @@ export default function CsvDownload(props) {
       clearTimeout(timeout);
     };
   }, [status, setStatus]);
-
-  const classes = classNames(
-    'esri-widget--button',
-    'esri-widget',
-    'esri-component',
-    disabled ? 'esri-button--disabled' : false,
-    status === undefined ? false : status ? 'text-primary' : 'text-danger',
-  );
 
   const exportToCsv = async () => {
     if (disabled) {
@@ -51,23 +40,19 @@ export default function CsvDownload(props) {
   };
 
   return (
-    <div
-      ref={me}
-      className={classes}
-      role="button"
-      aria-label="Export features to CSV"
-      title="Export features to CSV"
-      onKeyUp={exportToCsv}
+    <calcite-action
+      className="rounded-none bg-(--calcite-color-foreground-1) shadow-(--arcgis-internal-box-shadow)"
+      slot={props.slot}
+      disabled={disabled}
+      icon={status === undefined ? 'download-to' : status ? 'check-circle' : 'exclamation-mark-triangle'}
+      label="Export features to CSV"
+      loading={disabled}
       onClick={exportToCsv}
-      tabIndex={0}
-    >
-      {status ? <SendIcon className="esri-icon" /> : <CloudDownloadIcon className="esri-icon p-1" />}
-    </div>
+    ></calcite-action>
   );
 }
 CsvDownload.propTypes = {
-  view: PropTypes.object,
-  position: PropTypes.string,
+  slot: PropTypes.string,
   disabled: PropTypes.bool,
   status: PropTypes.bool,
   download: PropTypes.func.isRequired,

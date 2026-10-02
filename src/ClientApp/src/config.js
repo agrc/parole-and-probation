@@ -60,7 +60,7 @@ export const fields = {
     filter: false,
   },
   offender_location: {
-    identify: false,
+    identify: true,
     filter: false,
   },
   address_start_date: {

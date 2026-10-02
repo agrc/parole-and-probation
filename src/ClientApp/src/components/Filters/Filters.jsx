@@ -1,5 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { Disclosure, DisclosureGroup, DisclosureHeader, DisclosurePanel } from '@ugrc/utah-design-system';
+import {
+  Disclosure,
+  DisclosureGroup,
+  DisclosureHeader,
+  DisclosurePanel,
+} from '@ugrc/utah-design-system/components/Disclosure';
 import { clsx } from 'clsx';
 import ky from 'ky';
 import PropTypes from 'prop-types';

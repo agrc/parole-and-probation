@@ -8,7 +8,7 @@ WORKDIR /build
 
 ENV NODE_OPTIONS=--max-old-space-size=4096
 
-ARG PNPM_VERSION=latest
+ARG PNPM_VERSION=11
 RUN if command -v corepack >/dev/null 2>&1; then \
   corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate; \
   else \
