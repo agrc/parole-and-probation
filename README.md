@@ -4,6 +4,10 @@
 
 AP&amp;P web application
 
+Production: <https://fieldmap.udc.utah.gov/>
+
+Development: <https://fieldmap.dev.utah.gov/>
+
 ## Development
 
 _If you are using vscode, download the recommended extensions from this workspace._
@@ -76,7 +80,7 @@ The service worker precaches the ArcGIS worker assets needed by the offline map.
    ```
 
 1. Start the redis database
-   - docker-compose up -d cache
+   - docker compose up -d cache
 
 1. Connect to VPN if you are not on the network so that the api can access the test database.
 
