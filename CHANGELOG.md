@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.22.0-rc.2](https://github.com/agrc/parole-and-probation/compare/v1.22.0-rc.1...v1.22.0-rc.2) (2026-11-09)
+
+
+### Dependencies
+
+* bump npm dependencies 🌲 ([c1952c3](https://github.com/agrc/parole-and-probation/commit/c1952c34d2e282dbe94d30987e97b2941db65f2b))
+
 ## [1.22.0-rc.1](https://github.com/agrc/parole-and-probation/compare/v1.21.13-rc.5...v1.22.0-rc.1) (2026-10-02)
 
 
