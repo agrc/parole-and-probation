@@ -1,4 +1,5 @@
-import { Button, Spinner } from '@ugrc/utah-design-system';
+import { Button } from '@ugrc/utah-design-system/components/Button';
+import { Spinner } from '@ugrc/utah-design-system/components/Spinner';
 import { clsx } from 'clsx';
 import ky from 'ky';
 import PropTypes from 'prop-types';
@@ -67,6 +68,7 @@ const IdentifyInformation = (props) => {
           offender={props.offender.offender}
           race={wrapWithOffline(extra.race)}
           id={props.offender.offender_id}
+          location={wrapWithOffline(extra.offender_location)}
           agent={wrapWithOffline(extra.agent_name)}
         />
       </ErrorBoundary>
@@ -290,6 +292,7 @@ const OffenderQuickLook = (props) => {
       <div className="mb-2 border-b pb-2">
         <div className="grid grid-cols-[1fr_2.5fr] gap-x-2 gap-y-1">
           <GridLabelGroup label="Number">{props.id}</GridLabelGroup>
+          <GridLabelGroup label="Location">{props.location}</GridLabelGroup>
           <GridLabelGroup label="Agent">{props.agent}</GridLabelGroup>
         </div>
         <div className="mt-2 grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-1">
@@ -313,6 +316,7 @@ OffenderQuickLook.propTypes = {
   standard_of_supervision: PropTypes.string,
   legal_status: PropTypes.string,
   active_warrant: PropTypes.bool,
+  location: PropTypes.string,
   offender: PropTypes.string,
   race: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   id: PropTypes.string.isRequired,

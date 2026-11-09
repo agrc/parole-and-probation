@@ -4,6 +4,12 @@ allowBuilds:
   esbuild: true
   protobufjs: true
 
+minimumReleaseAge: 10080
+minimumReleaseAgeStrict: true
+
+minimumReleaseAgeExclude:
+  - '@ugrc/*'
+
 overrides:
   glob@>=10.2.0 <10.5.0: '>=10.5.0'
   happy-dom@<20.0.0: '>=20.0.0'

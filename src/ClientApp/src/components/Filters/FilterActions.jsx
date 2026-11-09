@@ -1,4 +1,4 @@
-import { Button } from '@ugrc/utah-design-system';
+import { Button } from '@ugrc/utah-design-system/components/Button';
 import PropTypes from 'prop-types';
 
 export default function FilterActions(props) {
